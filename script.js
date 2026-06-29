@@ -193,7 +193,7 @@ const ALL_SECTIONS = [
     type: 'Introduction To Basic Science 🧪',
     cards: [
       { title: '2017-2018 Year Exam', links: [
-        { label: 'Theory',   badge: '22 MCQs',    href: 'IBS_2017-2018.html' },
+        { label: 'Theory',   badge: '77 MCQs',    href: 'IBS_2017-2018.html' },
         { label: 'Practice', badge: '7 Questions', href: 'Anatomylabs.html' }
       ]},
       { title: '2018-2019 Year Exam', links: [
