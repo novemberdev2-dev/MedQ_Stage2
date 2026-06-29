@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBS_Theory_End-Block_2017-2018</title>
+
+    <style>
+       :root {
+            --bg-body: #121212;
+            --text-main: #f1f5f9;
+            --text-opts: #f1f5f9;
+            --header-bg: #1e293b;
+            --header-text: #38bdf8;
+            --border-color: #26292b;
+            --input-bg: #1a1c1e;
+            --input-border: #2a2f36;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --filter-bg: transparent;
+            
+        }
+
+        [data-theme="light"] {
+            --bg-body: #ffffff;
+            --text-main: #000000;
+            --text-opts: #333333;
+            --header-bg: #333333;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --input-bg: #ffffff;
+            --input-border: #cccccc;
+            --ans-bg: #eef6e4;
+            --ans-text: #2e7d32;
+            --filter-bg: transparent;
+            
+        }
+
+        .filter-btn.active {
+            background-color: #728fcf;
+            color: #fff;
+            border-color:  #728fcf;
+        }
+
+        body {
+            -webkit-user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1150px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 15px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 50px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 15px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 7px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .filter-container {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-wrap: nowrap;
+            max-width: 100%;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .filter-container::-webkit-scrollbar { display: none; }
+
+        /* Subject picker dropdown */
+        .subject-toggle-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .subject-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .subject-toggle svg {
+            stroke: none !important;
+            fill: var(--text-main);
+            pointer-events: none;
+        }
+
+        .subject-toggle.dropdown-open {
+            border-color: rgba(255,255,255,0.3);
+            background: rgba(40, 42, 45, 0.9);
+        }
+
+        .subject-toggle.dropdown-open svg { fill: var(--text-main); }
+
+        [data-theme="light"] .subject-toggle.dropdown-open {
+            border-color: #121212;
+            background: rgba(255,255,255,1);
+        }
+
+        .subject-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: #111111;
+            border: 1px solid rgba(255,255,255,0.13);
+            border-radius: 14px;
+            overflow: hidden;
+            min-width: 210px;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-6px) scale(0.97);
+            transition: opacity 0.22s ease, transform 0.22s ease;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.65);
+        }
+
+        .subject-dropdown.open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        [data-theme="light"] .subject-dropdown {
+            background: #ffffff;
+            border-color: rgba(0,0,0,0.13);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+        }
+
+        .subject-dropdown-header {
+            padding: 14px 16px 10px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #555;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        [data-theme="light"] .subject-dropdown-header {
+            border-bottom-color: rgba(0,0,0,0.08);
+            color: #999;
+        }
+
+        .subject-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 13px 16px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #aaa;
+            transition: background 0.15s ease, color 0.15s ease;
+            user-select: none;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        [data-theme="light"] .subject-dropdown-item { color: #666; }
+
+        .subject-dropdown-item:not(:last-child) {
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        [data-theme="light"] .subject-dropdown-item:not(:last-child) {
+            border-bottom-color: rgba(0,0,0,0.06);
+        }
+
+        .subject-dropdown-item:hover {
+            background: rgba(255,255,255,0.06);
+            color: #e2e8f0;
+        }
+
+        [data-theme="light"] .subject-dropdown-item:hover {
+            background: rgba(0,0,0,0.04);
+            color: #111;
+        }
+
+        .subject-dropdown-item.selected { color: #f1f5f9; }
+
+        [data-theme="light"] .subject-dropdown-item.selected { color: #111; }
+
+        .filter-option-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.25);
+            flex-shrink: 0;
+            transition: background 0.15s ease, border-color 0.15s ease;
+        }
+
+        [data-theme="light"] .filter-option-dot { border-color: rgba(0,0,0,0.2); }
+
+        .subject-dropdown-item.selected .filter-option-dot {
+            background: #f1f5f9;
+            border-color: #f1f5f9;
+        }
+
+        [data-theme="light"] .subject-dropdown-item.selected .filter-option-dot {
+            background: #111;
+            border-color: #111;
+        }
+
+        .controls-row { position: relative; }
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin-bottom: 10px;
+            margin-top: 6px;
+        }
+
+        .divider { border: none; margin-bottom: 12px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+
+        .ans-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ans-btn {
+            background-color: #728fcf;
+            color: #fff;
+            border: none;
+            padding: 7px 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-weight: 650;
+            font-size: 16px;
+            transition: background-color 0.2s, color 0.2s;
+
+        }
+
+        .q-block.revealed .ans-btn {
+            background-color: var(--ans-bg);
+            color: var(--ans-text);
+            font-weight: 700;
+            padding: 7px 12px;
+            font-size: 16px;
+        }
+
+        mark { background-color: #f0cf6a; color: #000; }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 14px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-opts);
+            font-size: 1.15rem;
+            font-weight: 500;
+            opacity: 0.6;
+            box-sizing: border-box;
+            width: 100%;
+            display: block; 
+        }
+
+        .section-heading-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .mcq-count-badge {
+            font-size: 0.70rem;
+            font-weight: 700;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            padding: 2px 5px;
+            border-radius: 3px;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+
+<body oncontextmenu="return false;">
+
+<div class="container">
+    <div class="header" style="padding: 9px 14px; margin-bottom: 15px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <a href="index.html" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                text-decoration: none;
+                font-size: 0.8rem;
+                font-weight: 600;
+                color: var(--header-text);
+                opacity: 0.7;
+                transition: opacity 0.2s;
+                white-space: nowrap;
+            " onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                Back
+            </a>
+            <span style="opacity: 0.3; font-size: 1rem; color: var(--header-text);">|</span>
+            <span style="font-size: 0.88rem; font-weight: 700; color: var(--header-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">End-Block &nbsp;·&nbsp; IBS 2017-2018</span>
+        </div>
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+        
+        <div class="subject-toggle-wrapper">
+            <div class="subject-toggle" id="subject-toggle-btn" onclick="toggleSubjectDropdown()" title="Filter by subject">
+                <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.90693 3.9999C9.93791 3.99996 9.96894 4.00001 10 4.00001C10.0311 4.00001 10.0621 3.99996 10.0931 3.9999C10.4618 3.99929 10.8242 3.99869 11.147 4.08519C12.0098 4.31636 12.6836 4.99023 12.9148 5.85296C13.0013 6.1758 13.0007 6.53821 13.0001 6.90693C13.0001 6.93792 13 6.96895 13 7.00001H21C21.5523 7.00001 22 7.44772 22 8.00001C22 8.55229 21.5523 9.00001 21 9.00001H13C13 9.03107 13.0001 9.0621 13.0001 9.09309C13.0007 9.46181 13.0013 9.82422 12.9148 10.1471C12.6836 11.0098 12.0098 11.6837 11.147 11.9148C10.8242 12.0013 10.4618 12.0007 10.0931 12.0001C10.0621 12.0001 10.0311 12 10 12C9.96894 12 9.93791 12.0001 9.90692 12.0001C9.5382 12.0007 9.17579 12.0013 8.85295 11.9148C7.99022 11.6837 7.31635 11.0098 7.08519 10.1471C6.99868 9.82421 6.99928 9.46181 6.9999 9.09308C6.99995 9.0621 7 9.03106 7 9.00001H5C4.44772 9.00001 4 8.55229 4 8.00001C4 7.44772 4.44772 7.00001 5 7.00001H7C7 6.96895 6.99995 6.93792 6.9999 6.90693C6.99928 6.53821 6.99868 6.1758 7.08519 5.85296C7.31635 4.99023 7.99022 4.31636 8.85295 4.08519C9.17579 3.99869 9.5382 3.99929 9.90693 3.9999ZM9.49861 6.00536C9.39195 6.01022 9.36685 6.01805 9.37059 6.01704C9.19804 6.06328 9.06327 6.19805 9.01704 6.3706C9.0162 6.37411 9.00963 6.40483 9.00535 6.49861C9.00024 6.61064 9 6.75845 9 7.00001V9.00001C9 9.24156 9.00024 9.38937 9.00535 9.5014C9.01021 9.60806 9.01804 9.63315 9.01704 9.62942C9.06327 9.80196 9.19804 9.93674 9.37059 9.98297C9.36685 9.98197 9.39195 9.98979 9.49861 9.99466C9.61063 9.99977 9.75844 10 10 10C10.2416 10 10.3894 9.99977 10.5014 9.99466C10.608 9.98979 10.6331 9.98197 10.6294 9.98297C10.802 9.93674 10.9367 9.80196 10.983 9.62942C10.982 9.63315 10.9898 9.60806 10.9946 9.5014C10.9998 9.38937 11 9.24156 11 9.00001V7.00001C11 6.75845 10.9998 6.61064 10.9946 6.49861C10.9898 6.39196 10.982 6.36686 10.983 6.3706M9.49861 6.00536C9.61063 6.00025 9.75844 6.00001 10 6.00001L9.49861 6.00536ZM10 6.00001C10.2416 6.00001 10.3894 6.00025 10.5014 6.00536L10 6.00001ZM10.5014 6.00536C10.5952 6.00963 10.6259 6.0162 10.6294 6.01704L10.5014 6.00536ZM10.6298 6.01713C10.6298 6.01713 10.6296 6.0171 10.6294 6.01704L10.6298 6.01713ZM15.9069 11.9999C15.9379 12 15.9689 12 16 12C16.0311 12 16.0621 12 16.0931 11.9999C16.4618 11.9993 16.8242 11.9987 17.147 12.0852C18.0098 12.3164 18.6836 12.9902 18.9148 13.853C19.0013 14.1758 19.0007 14.5382 19.0001 14.9069C19.0001 14.9379 19 14.9689 19 15H21C21.5523 15 22 15.4477 22 16C22 16.5523 21.5523 17 21 17H19C19 17.0311 19.0001 17.0621 19.0001 17.0931C19.0007 17.4618 19.0013 17.8242 18.9148 18.1471C18.6836 19.0098 18.0098 19.6837 17.147 19.9148C16.8242 20.0013 16.4618 20.0007 16.0931 20.0001C16.0621 20.0001 16.0311 20 16 20C15.9689 20 15.9379 20.0001 15.9069 20.0001C15.5382 20.0007 15.1758 20.0013 14.853 19.9148C13.9902 19.6837 13.3164 19.0098 13.0852 18.1471C12.9987 17.8242 12.9993 17.4618 12.9999 17.0931C12.9999 17.0621 13 17.0311 13 17H5C4.44772 17 4 16.5523 4 16C4 15.4477 4.44772 15 5 15H13C13 14.969 12.9999 14.9379 12.9999 14.9069C12.9993 14.5382 12.9987 14.1758 13.0852 13.853C13.3164 12.9902 13.9902 12.3164 14.853 12.0852C15.1758 11.9987 15.5382 11.9993 15.9069 11.9999ZM15.4986 14.0054C15.392 14.0102 15.3669 14.018 15.3706 14.017C15.198 14.0633 15.0633 14.1981 15.017 14.3706C15.018 14.3669 15.0102 14.392 15.0054 14.4986C15.0002 14.6106 15 14.7585 15 15V17C15 17.2416 15.0002 17.3894 15.0054 17.5014C15.0102 17.6081 15.018 17.6332 15.017 17.6294C15.0633 17.802 15.198 17.9367 15.3706 17.983C15.3669 17.982 15.392 17.9898 15.4986 17.9947C15.6106 17.9998 15.7584 18 16 18C16.2416 18 16.3894 17.9998 16.5014 17.9947C16.608 17.9898 16.6331 17.982 16.6294 17.983C16.802 17.9367 16.9367 17.802 16.983 17.6294C16.982 17.6332 16.9898 17.6081 16.9946 17.5014C16.9998 17.3894 17 17.2416 17 17V15C17 14.7585 16.9998 14.6106 16.9946 14.4986C16.9898 14.392 16.982 14.3669 16.983 14.3706C16.9367 14.1981 16.802 14.0633 16.6294 14.017C16.6331 14.018 16.608 14.0102 16.5014 14.0054C16.3894 14.0002 16.2416 14 16 14C15.7584 14 15.6106 14.0002 15.4986 14.0054Z"/></svg>
+            </div>
+            <div class="subject-dropdown" id="subject-dropdown">
+                <div class="subject-dropdown-header">Subject</div>
+              
+                <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
+            
+                
+              
+        
+        </div>
+        </div>
+
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="filter-container" id="filter-bar"></div>
+
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+<script>
+
+const allQuestions = [
+
+
+  { n: 1, s: "Biochemistry", l: 1, q: "Proteins contain all the following elements EXCEPT:", o: ["A. C", "B. H", "C. O", "D. N", "E. Se"], a: "E" },
+  { n: 2, s: "Biochemistry", l: 1, q: "Amino acids are bind together by:", o: ["A. Glycosidic bonds", "B. Hydrogen bonds", "C. Peptide bonds", "D. Amide bonds", "E. C&D are correct"], a: "E" },
+  { n: 3, s: "Biochemistry", l: 1, q: "Insulin is:", o: ["A. Monomer", "B. Dimmer", "C. Trimmer", "D. Tetramer", "E. Pentamer"], a: "B" },
+  { n: 4, s: "Biochemistry", l: 1, q: "Pick up the function of HCl in stomach:", o: ["A. Cause denature of dietary proteins", "B. Cause hydrolysis of dietary proteins to amino acids", "C. Cause hydrolysis of starch", "D. Cause hydrolysis of triglycerides", "E. Stimulate absorption of amino acids"], a: "A" },
+  { n: 5, s: "Biochemistry", l: 1, q: "All the following compounds can be transport from intestinal lumen to intestinal mucosa EXCEPT:", o: ["A. Amino acids", "B. Tripeptides", "C. Pentapeptides", "D. Hexapeptides", "E. Decapeptides"], a: "D" },
+  { n: 6, s: "Biochemistry", l: 1, q: "All the following are source of pool amino acids EXCEPT:", o: ["A. Dietary proteins", "B. Dietary amino acids", "C. Liver synthesis of non essential amino acids", "D. Tissue regeneration", "E. Atmospheric nitrogen"], a: "E" },
+  { n: 7, s: "Biochemistry", l: 1, q: "Negative nitrogen balance occurs in:", o: ["A. Pregnancy", "B. Adults", "C. Illness", "D. Advanced cancer", "E. Surgery"], a: "D" },
+  { n: 8, s: "Biochemistry", l: 1, q: "All the following are true about collagen EXCEPT:", o: ["A. Water soluble", "B. Structural protein", "C. Fibrous protein", "D. Water insoluble", "E. Found in skin"], a: "A" },
+  { n: 9, s: "Biochemistry", l: 1, q: "All the following are true about hemoglobin EXCEPT:", o: ["A. Oligomeric protein", "B. Transporter of oxygen", "C. Complex protein", "D. Globular protein", "E. Poly peptides bind with glucose"], a: "E" },
+  { n: 10, s: "Biochemistry", l: 1, q: "Ceruloplasmin is transporter of:", o: ["A. Iron", "B. Zing", "C. Copper", "D. Selenium", "E. Magnesium"], a: "C" },
+  { n: 11, s: "Biochemistry", l: 1, q: "All the following are true about casein EXCEPT:", o: ["A. Found in milk", "B. Complete protein", "C. Store nutrient in milk", "D. Contain all essential amino acids", "E. Is a protein deficient of tryptophan"], a: "E" },
+  { n: 12, s: "Biochemistry", l: 1, q: "Tyrosine is:", o: ["A. Essential, aromatic, polar amino acid", "B. Non essential, aromatic, polar amino acid", "C. Essential, aromatic, polar and charged amino acid", "D. Essential, aliphatic, polar amino acid", "E. Non essential, aliphatic, polar amino acid"], a: "B" },
+  { n: 13, s: "Biochemistry", l: 1, q: "Biological value of protein depends on:", o: ["A. State of digestion", "B. State of absorption", "C. Its content of essential amino acids", "D. Animal proteins higher biological value than plant proteins", "E. All the above"], a: "C" },
+  { n: 14, s: "Biochemistry", l: 1, q: "Cysteine is:", o: ["A. Non polar amino acid", "B. Donor of methyl group", "C. Essential amino acid", "D. Containing hydroxyl group", "E. Polar, noncharged amino acid"], a: "E" },
+  { n: 15, s: "Biochemistry", l: 1, q: "Aspartic acid is:", o: ["A. Essential amino acid", "B. Non polar amino acid", "C. Only polar amino acid", "D. Net charge +1", "E. Polar and charged amino acid"], a: "E" },
+  { n: 16, s: "Biochemistry", l: 1, q: "One of the following amino acid containing immino (-NH-) group:", o: ["A. Tryptophan", "B. Tyrosine", "C. Proline", "D. Alanine", "E. Histidine"], a: "C" },
+  { n: 17, s: "Biochemistry", l: 1, q: "Pick up non building amino acid:", o: ["A. Tryptophan", "B. Tyrosine", "C. Proline", "D. Alanine", "E. Histidine"], a: "C" },
+  { n: 18, s: "Biochemistry", l: 1, q: "Human body depends on one of the following substance as nitrogen source:", o: ["A. Atmospheric nitrogen", "B. No2", "C. No3", "D. No", "E. Ammonia"], a: "E" },
+  { n: 19, s: "Biochemistry", l: 1, q: "Tyrosine synthesize by:", o: ["A. Amination of phenyl alaninine", "B. Deamination of phenyl alaninine", "C. Carboxylation of phenyl alaninine", "D. Decarboxylation of phenyl alaninine", "E. Hydroxylation of phenyl alaninine"], a: "E" },
+  { n: 20, s: "Biochemistry", l: 1, q: "Hyperammonemia type 2 caused by deficient of the enzyme:", o: ["A. Carbamoyl phosphate synthetase", "B. Ornithine transcarbamoylase", "C. Argininosuccinate synthetase", "D. Arginino succinase", "E. Argininase"], a: "B" },
+  { n: 21, s: "Biochemistry", l: 1, q: "All the following required for synthesis of glutamic acid EXCEPT:", o: ["A. Ammonia", "B. A-ketoglutarate", "C. The enzyme glutamate dehydrogenase", "D. The enzyme glutamate synthetase", "E. Nadh"], a: "D" },
+  { n: 22, s: "Biochemistry", l: 1, q: "Conversion of aspartate to aspargin required:", o: ["A. Ammonia + atp + aspartate", "B. Ammonia + atp + a-ketoglutarate", "C. Ammonia + atp + oxaloacetate", "D. Ammonia + nad + aspartate", "E. Ammonia + nadh + aspartate"], a: "A" },
+  { n: 23, s: "Biochemistry", l: 1, q: "All the following are required for biosynthesis of tyrosine EXCEPT:", o: ["A. Phenyl alanine", "B. Atp", "C. Nadh", "D. Phenyl alanine", "E. Phenyl alanine mono-oxygenase"], a: "C" },
+  { n: 24, s: "Biochemistry", l: 1, q: "Benzoic acid is toxic substance convert to nontoxic by conjugating with:", o: ["A. Tryptophan", "B. Tyrosine", "C. Proline", "D. Glycine", "E. Histidine"], a: "D" },
+  { n: 25, s: "Biochemistry", l: 1, q: "Glutathione is:", o: ["A. Amino acid", "B. Protein", "C. Polypeptide", "D. Tripeptide", "E. Disaccharide"], a: "D" },
+  { n: 26, s: "Biochemistry", l: 1, q: "All the following are derivative of tyrosine EXCEPT:", o: ["A. Catecholamins", "B. Tr", "C. T.", "D. Milanin", "E. Choline"], a: "E" },
+  { n: 27, s: "Biochemistry", l: 1, q: "Amino acids can be catabolize by each of the following EXCEPT:", o: ["A. Oxidative deamination", "B. Oxidative amination", "C. Hydrolytic deamination", "D. Reductive deamination", "E. Transamination"], a: "B" },
+  { n: 28, s: "Biochemistry", l: 1, q: "Transamination is:", o: ["A. Catabolism reaction", "B. Anabolism reaction", "C. Required nadh", "D. Required fadh2", "E. Catabolism and anabolism reaction"], a: "E" },
+  { n: 29, s: "Biochemistry", l: 1, q: "Serotonin can be biosynthesis by:", o: ["A. Carboxylation of tryptophan", "B. Decarboxylation of tryptophan", "C. Hydroxylation of tryptophan", "D. Oxydation of tryptophan", "E. Hydroxylation and decarboxylation of tryptophan"], a: "E" },
+  { n: 30, s: "Biochemistry", l: 1, q: "Urea cycle:", o: ["A. Occur in kidney", "B. Occur in cytoplasm", "C. Occur in mitochondria", "D. Occur in cytoplasm and mitochondria", "E. Is a pathway to convert ammonia to uric acid"], a: "D" },
+  { n: 31, s: "Biochemistry", l: 1, q: "The first step urea cycle required all the following EXCEPT:", o: ["A. Ammonia", "B. Co2", "C. Co", "D. Atp", "E. Carbamoyl phosphate synthetase"], a: "C" },
+  { n: 32, s: "Biochemistry", l: 1, q: "Glycinuria caused by:", o: ["A. Deficient of the enzyme glycine oxidase", "B. Deficient of the enzyme glycine dehydrogenase", "C. Deficient of the enzyme glycine deaminase", "D. Defect of glomerular filtration", "E. Defect of tubular transport and reabsorption"], a: "E" },
+  { n: 33, s: "Biochemistry", l: 1, q: "Keto acids from amino acids may convert to each of the following EXCEPT:", o: ["A. Glucose", "B. Acyl coa", "C. Creatine", "D. Oxaloacetate", "E. Amino acid"], a: "C" },
+  { n: 34, s: "Biochemistry", l: 1, q: "Phenylketonuria (pku) is a genetic disease caused by deficiency of the enzyme:", o: ["A. Phenylalanine monooxygenase", "B. Phenylalanine dioxygenase", "C. Phenyl alanine dehydrogenase", "D. Phenylalanine deaminase", "E. Phenyl alanine decarboxylase"], a: "A" },
+  { n: 35, s: "Biochemistry", l: 1, q: "The disease caused by deficiency of homogentisate oxidase is:", o: ["A. Hartnup disease", "B. Alkaptanuria", "C. Citrullinemia", "D. Maple-syrup urine disease", "E. Homocysteinuria"], a: "B" },
+  { n: 36, s: "Biochemistry", l: 1, q: "All proteins contain the:", o: ["A. Same amino acids in different sequence and numbers", "B. Different amino acids", "C. 200 amino acids occurring in nature", "D. Only a few amino acids.", "E. Different monosaccharides"], a: "A" },
+  { n: 37, s: "Biochemistry", l: 1, q: "Sulpher containing amino acid is:", o: ["A. Methionine", "B. Leucine", "C. Valine", "D. Aspargine", "E. Threonine"], a: "A" },
+  { n: 38, s: "Biochemistry", l: 1, q: "An aromatic amino acid is:", o: ["A. Cysteine", "B. Arginine", "C. Tyrosine", "D. Taurine", "E. Isoleucine"], a: "C" },
+  { n: 39, s: "Biochemistry", l: 1, q: "Pepsinogen is converted to active pepsin by:", o: ["A. Hcl", "B. Ca ions", "C. Bile acids", "D. Entrokinase", "E. Bile salts"], a: "A" },
+  { n: 40, s: "Biochemistry", l: 1, q: "Marasmus is a disease characterized by:", o: ["A. Deficiency of protein only", "B. Edema", "C. Decrease plasma albumin", "D. Anemia", "E. Mental retardation"], a: "A" },
+  { n: 41, s: "Biochemistry", l: 1, q: "A positive nitrogen balance occurs:", o: ["A. In growing infant,", "B. Following surgery", "C. In advanced cancer", "D. In kwashiowkor", "E. In marasmus"], a: "A" },
+  { n: 42, s: "Biochemistry", l: 1, q: "Edemia is a major symptom of:", o: ["A. Kwashiowkor", "B. Marasmus", "C. Hartnup disease", "D. Alkaptanuria", "E. Hyperoxaluria"], a: "A" },
+  { n: 43, s: "Biochemistry", l: 1, q: "The site of urea synthesis is:", o: ["A. Liver", "B. Kidney", "C. Skin", "D. Intestine", "E. Spleen"], a: "A" },
+  { n: 44, s: "Biochemistry", l: 1, q: "The enzymes of urea synthesis are found in:", o: ["A. Mitochondria only", "B. Cytosol only", "C. Both mitochondria and cytosol", "D. Nucleus", "E. Ribosomes"], a: "C" },
+  { n: 45, s: "Biochemistry", l: 1, q: "A compound serving a link between citric acid cycle and urea cycle is:", o: ["A. Malate", "B. Citrate", "C. Fumarate", "D. Succinate", "E. Oxaloacetate"], a: "C" },
+  { n: 46, s: "Biochemistry", l: 1, q: "The nitrogen atoms in urea are contributed by:", o: ["A. Ammonia and glutamate", "B. Glutamate and glutamine", "C. Ammonia and aspartate", "D. Ammonia and alanine", "E. Ammonia and aspargin"], a: "C" },
+  { n: 47, s: "Biochemistry", l: 1, q: "Tryptophan could be considered as precursor of:", o: ["A. Serotonin", "B. Thyroid hormones", "C. Histamine", "D. Tyrosine", "E. Valine"], a: "A" },
+  { n: 48, s: "Biochemistry", l: 1, q: "The amino acid which detoxicated benzoic acid to form hippuric acid is:", o: ["A. Glycine", "B. Arginine", "C. Alanine", "D. Aspartic acid", "E. Aspargin"], a: "A" },
+  { n: 49, s: "Biochemistry", l: 1, q: "Two amino groups are present in:", o: ["A. Leucine", "B. Lycine", "C. Isoleucine", "D. Proline", "E. Aspartic acid"], a: "B" },
+  { n: 50, s: "Biochemistry", l: 1, q: "All the following are branched amino acids EXCEPT:", o: ["A. Valine", "B. Leucine", "C. Isoleucine", "D. Lycine"], a: "D" },
+  { n: 51, s: "Biochemistry", l: 1, q: "Alanine can be synthesized from:", o: ["A. Glutamate and a-ketogltarate", "B. Pyruvate and a-ketogltarate", "C. Pyruvate and glutamate", "D. Aspartate and a-ketogltarate", "E. Ammonia and oxaloacetate"], a: "C" },
+  { n: 52, s: "Biochemistry", l: 1, q: "All the following are required for synthesis of aspartate by transamination EXCEPT:", o: ["A. Oxalo acetate", "B. A-keto glutarate", "C. Glutamate", "D. Pyridoxal phosphate", "E. Aspartate transaminase"], a: "B" },
+  { n: 53, s: "Biochemistry", l: 1, q: "All the following are required for synthesis of glutamine EXCEPT:", o: ["A. Glutamate", "B. Ammonia", "C. Pyridoxal phosphate", "D. Atp", "E. Glutamine synthetase"], a: "C" },
+  { n: 54, s: "Biochemistry", l: 1, q: "All the following amino acids are non building proteins EXCEPT:", o: ["A. Ornithine", "B. Citrulline", "C. -hydroxyl tryptophan", "D. Histamine", "E. Lysine"], a: "E" },
+  { n: 55, s: "Biochemistry", l: 1, q: "Carbamoyl phosphate required for urea synthesis is formed in:", o: ["A. Cytosol", "B. Mitochondria", "C. Ribosome", "D. Nucleus", "E. Golgi apparatus"], a: "B" },
+  { n: 56, s: "Biochemistry", l: 1, q: "The following enzymes of urea cycle are present in cytosol:", o: ["A. Argenino succinic acid synthetase", "B. Argininosuccinase", "C. Carbamoyl phosphate synthetase", "D. Both a and b", "E. Neither a nor b"], a: "D" },
+  { n: 57, s: "Biochemistry", l: 1, q: "Atp is required in the following reactions of urea cycle:", o: ["A. Synthesis of carbamoyl phosphate and citrulline.", "B. Synthesis of citrullin and arginino succinate", "C. Synthesis of argininosuccinate and arginine", "D. Synthesis of and carbamoyl phosphate argininosuccinate.", "E. Synthesis of carbamoyl phosphate and urea"], a: "D" },
+  { n: 58, s: "Biochemistry", l: 1, q: "Histamine is formed from histidine by:", o: ["A. Deamination", "B. Dehydrogenation", "C. Decarboxylation", "D. Carboxylation", "E. Amination"], a: "C" },
+  { n: 59, s: "Biochemistry", l: 1, q: "Branched chain amino acids are:", o: ["A. Cysteine and cystine", "B. Tyrosine and tryptophan", "C. Glycine and serine", "D. Valine and leucine", "E. Valine and alanine"], a: "D" },
+  { n: 60, s: "Biochemistry", l: 1, q: "Alpha antitrypsin is:", o: ["A. Protease inhibitor", "B. Inhibit elastase", "C. Inactivate by cigarette smoking", "D. Positive acute phase protein", "E. All the above"], a: "E" },
+  { n: 61, s: "Biochemistry", l: 1, q: "The amino acid containing hydroxyl group is:", o: ["A. Proline", "B. Threonine", "C. Glycine", "D. Tryptophan", "E. Phenyl alanine"], a: "B" },
+  { n: 62, s: "Biochemistry", l: 1, q: "The basic amino acid is:", o: ["A. Glycine", "B. Histidine", "C. Leucine", "D. Proline", "E. Aspargin"], a: "B" },
+  { n: 63, s: "Biochemistry", l: 1, q: "In humans amino group is detoxified in liver as:", o: ["A. Urea", "B. Creatinine", "C. Uric acid", "D. Uronic acid", "E. Ammonia"], a: "A" },
+  { n: 64, s: "Biochemistry", l: 1, q: "Pyruvic acid can be obtained by transamination of alanine with:", o: ["A. A keto glutarate", "B. Aceto acetic acid", "C. Hydroxy butric acid", "D. Phosphoenol pyruvic acid", "E. Glutamate"], a: "A" },
+  { n: 65, s: "Biochemistry", l: 1, q: "Along with co2, nh3, and atp, the amino acid that is needed in urea cycle is:", o: ["A. Alanine", "B. Aspartate", "C. Isoleucine", "D. Glycine", "E. Glutamate"], a: "B" },
+  { n: 66, s: "Biochemistry", l: 1, q: "The transaminase activity needs the coenzyme:", o: ["A. Atp", "B. Fad", "C. Nad", "D. Plp", "E. Nadh"], a: "D" },
+  { n: 67, s: "Biochemistry", l: 1, q: "Oxaloacetate is converted to aspartate by:", o: ["A. Reductase", "B. Oxidase", "C. Transaminase", "D. Catalase", "E. Hydroxylase"], a: "C" },
+  { n: 68, s: "Biochemistry", l: 1, q: "Which bond is present in the primary structure of protein?:", o: ["A. Hydrogen bond", "B. Ester bond", "C. Peptide bond", "D. Sulfide bond", "E. Sulfur bond"], a: "C" },
+  { n: 69, s: "Biochemistry", l: 1, q: "All the following statements about oculocutaneous albinism are correct EXCEPT:", o: ["A. Tyrosine hydroxylase is absent or deficient in melanocytes.", "B. Skin is hypopigmented", "C. It results in mental retardation", "D. Eyes are hypopigmented", "E. Missing of melanin"], a: "C" },
+  { n: 70, s: "Biochemistry", l: 1, q: "Glycine is not required for the formation of:", o: ["A. Heme", "B. Creatine", "C. Purines", "D. Pyrimidines", "E. Glutathione"], a: "D" },
+  { n: 71, s: "Biochemistry", l: 1, q: "Serotonin is synthesized from:", o: ["A. Serine", "B. Phenylalanine", "C. Tyrosine", "D. Tryptophan", "E. Threonine"], a: "D" },
+  { n: 72, s: "Biochemistry", l: 1, q: "Synthesis of glutamine is accompanied by the hydrolysis of:", o: ["A. Atp", "B. Adp", "C. Tpp", "D. Creatinephosphate", "E. Nadph"], a: "A" },
+  { n: 73, s: "Biochemistry", l: 1, q: "Accumulation of tryptophan in blood is known as:", o: ["A. Pompes disease", "B. Wilsons disease", "C. Wolmans disease", "D. Hartnups disease", "E. Albinism"], a: "D" },
+  { n: 74, s: "Biochemistry", l: 1, q: "All the following are transport proteins EXCEPT:", o: ["A. Hemoglobin", "B. Myoglobin", "C. Transferring", "D. Ceruloplasmin", "E. Elastin"], a: "E" },
+  { n: 75, s: "Biochemistry", l: 1, q: "Number of atps consume ja urea cycle is:", o: ["A. 1", "B. 2", "C. 3", "D. 4", "E. 5"], a: "C" },
+  { n: 76, s: "Biochemistry", l: 1, q: "Urea has two nitrogen atoms from:", o: ["A. Ammonia + aspartic acid", "B. Ammonia + aspargin", "C. Ammonia + ornithine", "D. Ammonia + citrullin", "E. Ammonia + glutiamic acid"], a: "A" },
+  { n: 77, s: "Biochemistry", l: 1, q: "The side compound produce in urea cycle is:", o: ["A. Fumarate", "B. Malate", "C. Oxalate", "D. Citrate", "E. Acetate"], a: "A" },
+  { n: 78, s: "Biochemistry", l: 1, q: "Alpha antitrypsin is:", o: ["A. Protease inhibitor", "B. Inhibit elastase", "C. Inactivate by cigarette smoking", "D. Positive acute phase protein", "E. All the above"], a: "E" },
+  { n: 79, s: "Biochemistry", l: 1, q: "Marasmus is a disease characterized by:", o: ["A. Deficiency of protein only", "B. Edema", "C. Decrease plasma albumin", "D. Anemia", "E. Mental retardation"], a: "A" },
+  { n: 80, s: "Biochemistry", l: 1, q: "Glycinuria caused by:", o: ["A. Deficient of the enzyme glycine oxidase", "B. Deficient of the enzyme glycine dehydrogenase", "C. Deficient of the enzyme glycine deaminase", "D. Defect of glomerular filtration", "E. Defect of tubular transport and reabsorption"], a: "E" }
+
+  
+];
+
+
+const lectures = {
+   1:  "Protein metabolism 🥩",
+    
+  
+
+};
+  
+const lectureFilters = {
+    "All": [
+        { label: "All", val: "All" }
+    ],
+    "Biochemistry": [
+        { label: "All",                            val: "All" },
+        
+        { label: "Protein Metabolism 🥩",     val: 1 },
+        
+      
+      
+    ],
+    
+};
+
+let currentSubjectFilter = "Biochemistry";  // default
+let currentLecture = "All";
+
+const container = document.getElementById('quiz-content');
+const filterBar = document.getElementById('filter-bar');
+
+function renderFilterBar() {
+    const filters = lectureFilters[currentSubjectFilter] || lectureFilters["All"];
+    filterBar.innerHTML = filters.map(f =>
+        `<button class="filter-btn${f.val === currentLecture ? " active" : ""}" onclick="filterByLecture('${f.val}', this)">${f.label}</button>`
+    ).join('');
+}
+
+function getLectureLabel(val) {
+    if (val === "All" && currentSubjectFilter === "All") return "All";
+    if (val === "All") {
+        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pharmacology": "Pharmacology 💊", "Immunology": "Immunology 🛡️" };
+        return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
+    }
+    return lectures[val] || val;
+}
+
+function updateSectionHeading() {
+    const existing = document.getElementById('section-heading');
+    const visibleBlocks = [...document.querySelectorAll('.q-block')].filter(b => b.style.display !== "none");
+    const count = visibleBlocks.length;
+
+    let noResultsMsg = document.getElementById('no-results-msg');
+    if (count === 0) {
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.id = 'no-results-msg';
+            noResultsMsg.className = 'no-results';
+            noResultsMsg.textContent = "No questions found.";
+            container.appendChild(noResultsMsg);
+        }
+    } else if (noResultsMsg) {
+        noResultsMsg.remove();
+    }
+
+    const label = getLectureLabel(currentLecture);
+    const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
+
+    if (existing) {
+        existing.style.display = (count === 0) ? "none" : "flex";
+        existing.querySelector('.section-heading-title').textContent = label;
+        existing.querySelector('.mcq-count-badge').textContent = badgeText;
+    } else if (count > 0) {
+        const heading = document.createElement('div');
+        heading.id = 'section-heading';
+        heading.className = 'section-heading';
+        heading.innerHTML = `<span class="section-heading-title">${label}</span><span class="mcq-count-badge">${badgeText}</span>`;
+        container.insertBefore(heading, container.firstChild);
+    }
+}
+
+function renderQuiz() {
+    container.innerHTML = '';
+    allQuestions.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.subject = item.s;
+        div.dataset.lecture = item.l ?? "";
+        div.dataset.searchText = (item.q + " " + item.o.join(" ")).toLowerCase();
+
+        div.style.display = matchesFilters(item) ? "block" : "none";
+
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <button class="ans-btn" data-answer="Answer: ${item.a}" onclick="toggleAnswer(this)">Answer</button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+    updateSectionHeading();
+}
+
+function matchesFilters(item) {
+    const subjectOk = currentSubjectFilter === "All" || item.s === currentSubjectFilter;
+    const lectureOk = currentLecture === "All" || item.l === currentLecture;
+    return subjectOk && lectureOk;
+}
+
+function filterByLecture(val, btn) {
+    currentLecture = val;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    handleSearch();
+}
+
+// Subject dropdown logic
+function toggleSubjectDropdown() {
+    const dd = document.getElementById('subject-dropdown');
+    const btn = document.getElementById('subject-toggle-btn');
+    const isOpen = dd.classList.contains('open');
+    if (isOpen) {
+        dd.classList.remove('open');
+        btn.classList.remove('dropdown-open');
+    } else {
+        dd.classList.add('open');
+        btn.classList.add('dropdown-open');
+    }
+}
+
+function selectSubjectFilter(subject, el) {
+    currentSubjectFilter = subject;
+    currentLecture = "All";
+    localStorage.setItem('selectedSubject', subject);
+    // update selected state in dropdown
+    document.querySelectorAll('.subject-dropdown-item').forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+    // keep dropdown open — do NOT close it
+    // re-render filter bar and quiz
+    renderFilterBar();
+    handleSearch();
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+    const wrapper = document.querySelector('.subject-toggle-wrapper');
+    if (wrapper && !wrapper.contains(e.target)) {
+        document.getElementById('subject-dropdown').classList.remove('open');
+        document.getElementById('subject-toggle-btn').classList.remove('dropdown-open');
+    }
+});
+
+function handleSearch() {
+    const term = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+    blocks.forEach(block => {
+        resetBlock(block);
+        const subjectOk = currentSubjectFilter === "All" || block.dataset.subject === currentSubjectFilter;
+        const lectureOk = currentLecture === "All" || String(block.dataset.lecture) === String(currentLecture);
+        const matchesSearch = term === "" || block.dataset.searchText.includes(term);
+        if (subjectOk && lectureOk && matchesSearch) {
+            block.style.display = "block";
+            if (term !== "") highlight(block, term);
+        } else {
+            block.style.display = "none";
+        }
+    });
+    updateSectionHeading();
+}
+
+function resetBlock(block) {
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+    qText.innerHTML = qText.dataset.original;
+    opts.forEach(li => li.innerHTML = li.dataset.original);
+    block.classList.remove('revealed');
+    const btn = block.querySelector('.ans-btn');
+    if (btn && btn.dataset.answer) btn.textContent = 'Answer';
+}
+
+function highlight(block, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    block.querySelector('.q-text').innerHTML = block.querySelector('.q-text').innerHTML.replace(regex, '<mark>$1</mark>');
+    block.querySelectorAll('li').forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+}
+
+function toggleAnswer(btn) {
+    const block = btn.closest('.q-block');
+    const isRevealed = block.classList.toggle('revealed');
+    btn.textContent = isRevealed ? btn.dataset.answer : 'Answer';
+}
+
+function toggleTheme() {
+    const isLight = document.body.getAttribute('data-theme') === 'light';
+    const newTheme = isLight ? '' : 'light';
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.getElementById('theme-icon').innerHTML = isLight 
+        ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
+        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+}
+
+(function () {
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+        document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+    // Restore saved subject (default: Biochemistry)
+    const saved = localStorage.getItem('selectedSubject');
+    if (saved && lectureFilters[saved]) {
+        currentSubjectFilter = saved;
+    }
+    // Mark the correct dropdown item as selected
+    document.querySelectorAll('.subject-dropdown-item').forEach(item => {
+        if (item.dataset.subject === currentSubjectFilter) {
+            item.classList.add('selected');
+        } else {
+            item.classList.remove('selected');
+        }
+    });
+}());
+
+renderFilterBar();
+renderQuiz();
+</script>
+</body>
+</html>
