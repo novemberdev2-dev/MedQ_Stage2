@@ -67,6 +67,7 @@
             background-color: var(--header-bg);
             color: var(--header-text);
             padding: 50px;
+           min-height: 35px;
             border-radius: 8px;
             display: flex;
             justify-content: space-between;
@@ -381,18 +382,18 @@
                 align-items: center;
                 gap: 4px;
                 text-decoration: none;
-                font-size: 0.8rem;
+                font-size: 0.9rem;
                 font-weight: 600;
                 color: var(--header-text);
                 opacity: 0.7;
                 transition: opacity 0.2s;
                 white-space: nowrap;
             " onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 Back
             </a>
             <span style="opacity: 0.3; font-size: 1rem; color: var(--header-text);">|</span>
-            <span style="font-size: 0.88rem; font-weight: 700; color: var(--header-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">End-Block &nbsp;·&nbsp; IBS 2017-2018</span>
+            <span style="font-size: 0.90rem; font-weight: 800; color: var(--header-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">End-Block &nbsp;·&nbsp; IBS  &nbsp;·&nbsp; 2017-2018</span>
         </div>
     </div>
 
@@ -513,6 +514,36 @@ const allQuestions = [
   { n: 76, s: "Biochemistry", l: 1, q: "Urea has two nitrogen atoms from:", o: ["A. Ammonia + aspartic acid", "B. Ammonia + aspargin", "C. Ammonia + ornithine", "D. Ammonia + citrullin", "E. Ammonia + glutiamic acid"], a: "A" },
   { n: 77, s: "Biochemistry", l: 1, q: "The side compound produce in urea cycle is:", o: ["A. Fumarate", "B. Malate", "C. Oxalate", "D. Citrate", "E. Acetate"], a: "A" },
   
+{ n: 78, s: "Biochemistry", l: 1, q: "Deficiency of the enzyme alpha antitrypsin cause:", o: ["A. Hyperammonemia type 1", "B. Citrullinemia", "C. Alkaptonuria", "D. Tyrosinosis", "E. Tyrosinemia", "F. Albinism", "G. Hartnups disease", "H. Branched chain ketonuria", "I. Phenyl ketonuria", "J. Homocystinuria", "K. Kwashiorkor", "L. Marasmus", "M. Emphysema", "N. Nephritis", "O. Diabetes mellitus"], a: "M" },
+{ n: 79, s: "Biochemistry", l: 1, q: "Edema is the most important symptom of:", o: ["A. Hyperammonemia type 1", "B. Citrullinemia", "C. Alkaptonuria", "D. Tyrosinosis", "E. Tyrosinemia", "F. Albinism", "G. Hartnups disease", "H. Branched chain ketonuria", "I. Phenyl ketonuria", "J. Homocystinuria", "K. Kwashiorkor", "L. Marasmus", "M. Emphysema", "N. Nephritis", "O. Diabetes mellitus"], a: "K" },
+{ n: 80, s: "Biochemistry", l: 1, q: "Deficiency of the enzyme cystathione synthase cause:", o: ["A. Hyperammonemia type 1", "B. Citrullinemia", "C. Alkaptonuria", "D. Tyrosinosis", "E. Tyrosinemia", "F. Albinism", "G. Hartnups disease", "H. Branched chain ketonuria", "I. Phenyl ketonuria", "J. Homocystinuria", "K. Kwashiorkor", "L. Marasmus", "M. Emphysema", "N. Nephritis", "O. Diabetes mellitus"], a: "J" },
+{ n: 81, s: "Biochemistry", l: 1, q: "Burnt sugar is a symptom of:", o: ["A. Hyperammonemia type 1", "B. Citrullinemia", "C. Alkaptonuria", "D. Tyrosinosis", "E. Tyrosinemia", "F. Albinism", "G. Hartnups disease", "H. Branched chain ketonuria", "I. Phenyl ketonuria", "J. Homocystinuria", "K. Kwashiorkor", "L. Marasmus", "M. Emphysema", "N. Nephritis", "O. Diabetes mellitus"], a: "H" },
+{ n: 82, s: "Biochemistry", l: 1, q: "Deficiency of the enzyme tryptophan dioxygenase cause:", o: ["A. Hyperammonemia type 1", "B. Citrullinemia", "C. Alkaptonuria", "D. Tyrosinosis", "E. Tyrosinemia", "F. Albinism", "G. Hartnups disease", "H. Branched chain ketonuria", "I. Phenyl ketonuria", "J. Homocystinuria", "K. Kwashiorkor", "L. Marasmus", "M. Emphysema", "N. Nephritis", "O. Diabetes mellitus"], a: "G" },
+{ n: 83, s: "Biochemistry", l: 1, q: "Deficiency of the enzyme tyrosine hydroxylase cause:", o: ["A. Hyperammonemia type 1", "B. Citrullinemia", "C. Alkaptonuria", "D. Tyrosinosis", "E. Tyrosinemia", "F. Albinism", "G. Hartnups disease", "H. Branched chain ketonuria", "I. Phenyl ketonuria", "J. Homocystinuria", "K. Kwashiorkor", "L. Marasmus", "M. Emphysema", "N. Nephritis", "O. Diabetes mellitus"], a: "F" },
+{ n: 84, s: "Biochemistry", l: 1, q: "Deficiency of the enzyme homogentisate oxidase cause:", o: ["A. Hyperammonemia type 1", "B. Citrullinemia", "C. Alkaptonuria", "D. Tyrosinosis", "E. Tyrosinemia", "F. Albinism", "G. Hartnups disease", "H. Branched chain ketonuria", "I. Phenyl ketonuria", "J. Homocystinuria", "K. Kwashiorkor", "L. Marasmus", "M. Emphysema", "N. Nephritis", "O. Diabetes mellitus"], a: "C" },
+{ n: 85, s: "Biochemistry", l: 1, q: "Deficiency of the enzyme phenyl alanine monooxygenase cause:", o: ["A. Hyperammonemia type 1", "B. Citrullinemia", "C. Alkaptonuria", "D. Tyrosinosis", "E. Tyrosinemia", "F. Albinism", "G. Hartnups disease", "H. Branched chain ketonuria", "I. Phenyl ketonuria", "J. Homocystinuria", "K. Kwashiorkor", "L. Marasmus", "M. Emphysema", "N. Nephritis", "O. Diabetes mellitus"], a: "I" },
+{ n: 86, s: "Biochemistry", l: 1, q: "Deficiency of the enzyme arginosuccinate synthetase cause:", o: ["A. Hyperammonemia type 1", "B. Citrullinemia", "C. Alkaptonuria", "D. Tyrosinosis", "E. Tyrosinemia", "F. Albinism", "G. Hartnups disease", "H. Branched chain ketonuria", "I. Phenyl ketonuria", "J. Homocystinuria", "K. Kwashiorkor", "L. Marasmus", "M. Emphysema", "N. Nephritis", "O. Diabetes mellitus"], a: "B" },
+{ n: 87, s: "Biochemistry", l: 1, q: "Deficiency of the enzyme carbamoyl phosphate synthetase cause:", o: ["A. Hyperammonemia type 1", "B. Citrullinemia", "C. Alkaptonuria", "D. Tyrosinosis", "E. Tyrosinemia", "F. Albinism", "G. Hartnups disease", "H. Branched chain ketonuria", "I. Phenyl ketonuria", "J. Homocystinuria", "K. Kwashiorkor", "L. Marasmus", "M. Emphysema", "N. Nephritis", "O. Diabetes mellitus"], a: "A" },
+{ n: 88, s: "Biochemistry", l: 1, q: "____________ is required for biosynthesis of asparagine.", o: ["A. NADH", "B. ATP", "C. PLP", "D. O2", "E. Aspartate", "F. Glutamate", "G. Cysteine", "H. Methionine", "I. Tyrosine", "J. Lactate", "K. Glycine", "L. Serotonin", "M. Serine", "N. Tryptophan", "O. Proline"], a: "B" },
+{ n: 89, s: "Biochemistry", l: 1, q: "____________ is required for biosynthesis of glutamate.", o: ["A. NADH", "B. ATP", "C. PLP", "D. O2", "E. Aspartate", "F. Glutamate", "G. Cysteine", "H. Methionine", "I. Tyrosine", "J. Lactate", "K. Glycine", "L. Serotonin", "M. Serine", "N. Tryptophan", "O. Proline"], a: "A" },
+{ n: 90, s: "Biochemistry", l: 1, q: "____________ is required for biosynthesis of tyrosine.", o: ["A. NADH", "B. ATP", "C. PLP", "D. O2", "E. Aspartate", "F. Glutamate", "G. Cysteine", "H. Methionine", "I. Tyrosine", "J. Lactate", "K. Glycine", "L. Serotonin", "M. Serine", "N. Tryptophan", "O. Proline"], a: "A" },
+{ n: 91, s: "Biochemistry", l: 1, q: "____________ is required for biosynthesis of alanine by transamination.", o: ["A. NADH", "B. ATP", "C. PLP", "D. O2", "E. Aspartate", "F. Glutamate", "G. Cysteine", "H. Methionine", "I. Tyrosine", "J. Lactate", "K. Glycine", "L. Serotonin", "M. Serine", "N. Tryptophan", "O. Proline"], a: "C" },
+{ n: 92, s: "Biochemistry", l: 1, q: "____________ is universal amino group donor.", o: ["A. NADH", "B. ATP", "C. PLP", "D. O2", "E. Aspartate", "F. Glutamate", "G. Cysteine", "H. Methionine", "I. Tyrosine", "J. Lactate", "K. Glycine", "L. Serotonin", "M. Serine", "N. Tryptophan", "O. Proline"], a: "F" },
+{ n: 93, s: "Biochemistry", l: 1, q: "____________ conjugate with benzoic acid.", o: ["A. NADH", "B. ATP", "C. PLP", "D. O2", "E. Aspartate", "F. Glutamate", "G. Cysteine", "H. Methionine", "I. Tyrosine", "J. Lactate", "K. Glycine", "L. Serotonin", "M. Serine", "N. Tryptophan", "O. Proline"], a: "K" },
+{ n: 94, s: "Biochemistry", l: 1, q: "____________ use for biosynthesis of purine and pyrimidine bases.", o: ["A. NADH", "B. ATP", "C. PLP", "D. O2", "E. Aspartate", "F. Glutamate", "G. Cysteine", "H. Methionine", "I. Tyrosine", "J. Lactate", "K. Glycine", "L. Serotonin", "M. Serine", "N. Tryptophan", "O. Proline"], a: "M" },
+{ n: 95, s: "Biochemistry", l: 1, q: "____________ is most important component of glutathione.", o: ["A. NADH", "B. ATP", "C. PLP", "D. O2", "E. Aspartate", "F. Glutamate", "G. Cysteine", "H. Methionine", "I. Tyrosine", "J. Lactate", "K. Glycine", "L. Serotonin", "M. Serine", "N. Tryptophan", "O. Proline"], a: "K" },
+{ n: 96, s: "Biochemistry", l: 1, q: "____________ is precursor of thyroid hormones.", o: ["A. NADH", "B. ATP", "C. PLP", "D. O2", "E. Aspartate", "F. Glutamate", "G. Cysteine", "H. Methionine", "I. Tyrosine", "J. Lactate", "K. Glycine", "L. Serotonin", "M. Serine", "N. Tryptophan", "O. Proline"], a: "I" },
+{ n: 97, s: "Biochemistry", l: 1, q: "____________ is precursor of serotonin.", o: ["A. NADH", "B. ATP", "C. PLP", "D. O2", "E. Aspartate", "F. Glutamate", "G. Cysteine", "H. Methionine", "I. Tyrosine", "J. Lactate", "K. Glycine", "L. Serotonin", "M. Serine", "N. Tryptophan", "O. Proline"], a: "N" },
+{ n: 98, s: "Biochemistry", l: 1, q: "____________ is complex, globular, oligomeric, and water soluble protein.", o: ["A. Insulin", "B. Glucagon", "C. Myoglobin", "D. Collagen", "E. Phenyl-alanine", "F. Selenoprotein P", "G. Myosin", "H. Tyrosine", "I. Peptone", "J. Cysteine", "K. Methionine", "L. Pyruvate", "M. Lactate", "N. Oxaloacetate", "O. Citrulline", "P. Proline"], a: "C" },
+{ n: 99, s: "Biochemistry", l: 1, q: "____________ is nonessential, aromatic polar amino acid.", o: ["A. Insulin", "B. Glucagon", "C. Myoglobin", "D. Collagen", "E. Phenyl-alanine", "F. Selenoprotein P", "G. Myosin", "H. Tyrosine", "I. Peptone", "J. Cysteine", "K. Methionine", "L. Pyruvate", "M. Lactate", "N. Oxaloacetate", "O. Citrulline", "P. Proline"], a: "H" },
+{ n: 100, s: "Biochemistry", l: 1, q: "____________ is a derived protein.", o: ["A. Insulin", "B. Glucagon", "C. Myoglobin", "D. Collagen", "E. Phenyl-alanine", "F. Selenoprotein P", "G. Myosin", "H. Tyrosine", "I. Peptone", "J. Cysteine", "K. Methionine", "L. Pyruvate", "M. Lactate", "N. Oxaloacetate", "O. Citrulline", "P. Proline"], a: "F" },
+{ n: 101, s: "Biochemistry", l: 1, q: "____________ is polar, nonessential, containing sulfur amino acid.", o: ["A. Insulin", "B. Glucagon", "C. Myoglobin", "D. Collagen", "E. Phenyl-alanine", "F. Selenoprotein P", "G. Myosin", "H. Tyrosine", "I. Peptone", "J. Cysteine", "K. Methionine", "L. Pyruvate", "M. Lactate", "N. Oxaloacetate", "O. Citrulline", "P. Proline"], a: "J" },
+{ n: 102, s: "Biochemistry", l: 1, q: "____________ is a keto acid which corresponding of aspartate.", o: ["A. Insulin", "B. Glucagon", "C. Myoglobin", "D. Collagen", "E. Phenyl-alanine", "F. Selenoprotein P", "G. Myosin", "H. Tyrosine", "I. Peptone", "J. Cysteine", "K. Methionine", "L. Pyruvate", "M. Lactate", "N. Oxaloacetate", "O. Citrulline", "P. Proline"], a: "N" },
+{ n: 103, s: "Biochemistry", l: 1, q: "____________ is a complex protein act as antioxidant.", o: ["A. Insulin", "B. Glucagon", "C. Myoglobin", "D. Collagen", "E. Phenyl-alanine", "F. Selenoprotein P", "G. Myosin", "H. Tyrosine", "I. Peptone", "J. Cysteine", "K. Methionine", "L. Pyruvate", "M. Lactate", "N. Oxaloacetate", "O. Citrulline", "P. Proline"], a: "O" },
+{ n: 104, s: "Biochemistry", l: 1, q: "____________ is nonbuilding protein.", o: ["A. Insulin", "B. Glucagon", "C. Myoglobin", "D. Collagen", "E. Phenyl-alanine", "F. Selenoprotein P", "G. Myosin", "H. Tyrosine", "I. Peptone", "J. Cysteine", "K. Methionine", "L. Pyruvate", "M. Lactate", "N. Oxaloacetate", "O. Citrulline", "P. Proline"], a: "D" },
+{ n: 105, s: "Biochemistry", l: 1, q: "____________ is containing amino group.", o: ["A. Insulin", "B. Glucagon", "C. Myoglobin", "D. Collagen", "E. Phenyl-alanine", "F. Selenoprotein P", "G. Myosin", "H. Tyrosine", "I. Peptone", "J. Cysteine", "K. Methionine", "L. Pyruvate", "M. Lactate", "N. Oxaloacetate", "O. Citrulline", "P. Proline"], a: "P" },
+{ n: 106, s: "Biochemistry", l: 1, q: "____________ is a globular, oligomeric, and water soluble protein, and act as hormone.", o: ["A. Insulin", "B. Glucagon", "C. Myoglobin", "D. Collagen", "E. Phenyl-alanine", "F. Selenoprotein P", "G. Myosin", "H. Tyrosine", "I. Peptone", "J. Cysteine", "K. Methionine", "L. Pyruvate", "M. Lactate", "N. Oxaloacetate", "O. Citrulline", "P. Proline"], a: "B" },
+{ n: 107, s: "Biochemistry", l: 1, q: "____________ is a protein used for movement of muscles.", o: ["A. Insulin", "B. Glucagon", "C. Myoglobin", "D. Collagen", "E. Phenyl-alanine", "F. Selenoprotein P", "G. Myosin", "H. Tyrosine", "I. Peptone", "J. Cysteine", "K. Methionine", "L. Pyruvate", "M. Lactate", "N. Oxaloacetate", "O. Citrulline", "P. Proline"], a: "G" }
 
   
 ];
@@ -745,3 +776,4 @@ renderQuiz();
 </script>
 </body>
 </html>
+
