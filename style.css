@@ -22,6 +22,7 @@
   --settings-item-icon: #fff;
   --settings-item-sub: #A2A2A2;
   --border-theory-practical: rgba(255,255,255,0.03);
+    --category-text-color:  black;
 }
 
 body.light-mode,
@@ -42,6 +43,7 @@ html.light-mode-pre body {
   --settings-item-icon: #2D2D2D;
   --settings-item-sub: #999;
   --border-theory-practical: rgba(0,0,0,0.04);
+   --category-text-color:  #ffffff;
 }
 
 html.already-activated #activation-overlay { display: none !important; }
@@ -282,7 +284,7 @@ html.light-mode-pre body .top-bar-icon-btn:hover {
   border-radius: 6px;
   align-items: center;
   background: #D5D5D5;
-  color: #fff;
+  color: var(--category-text-color);
 }
 
 .subject-grid {
