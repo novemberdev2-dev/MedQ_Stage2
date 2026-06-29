@@ -1,6 +1,6 @@
 {
-  "name": "Med-Q",
-  "short_name": "Med-Q",
+  "name": "MedQ",
+  "short_name": "MedQ",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0c0d0e",
