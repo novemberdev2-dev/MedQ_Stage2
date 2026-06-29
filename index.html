@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0c0d0e">
+  <title>Stage2 | Med-Q</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+</head>
+<body class="locked">
+
+  <!-- Activation Overlay -->
+  <div id="activation-overlay">
+    <div class="activation-card">
+      <h2>Welcome to Med-Q</h2>
+      <p>Please enter your unique activation code to access the questions.</p>
+      <input type="text" id="activation-code" placeholder="Enter Code Here">
+      <button id="activate-btn">Activate App</button>
+      <p id="status-msg" style="margin-top:15px; min-height:1.2em; font-weight:600;"></p>
+      <div class="contact-support">
+        <span>Don't have a code?</span>
+        <a href="https://t.me/_NOVE1111" target="_blank" class="tg-link">Contact me to activate</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden file input for profile image -->
+  <input type="file" id="profile-file-input" accept="image/*">
+
+  <!-- Profile Edit Modal -->
+  <div id="profile-modal-backdrop">
+    <div id="profile-modal">
+      <p class="pm-title">Edit Profile</p>
+      <div class="pm-image-row">
+        <div class="pm-avatar-preview">
+          <img id="pm-preview-img" src="https://i.imgur.com/AXJmZwo.png" alt="Preview">
+        </div>
+        <div class="pm-pick-btn" onclick="document.getElementById('profile-file-input').click()">
+          Change Photo
+        </div>
+      </div>
+      <label class="pm-label" for="pm-name-input">Display Name</label>
+      <input class="pm-input" id="pm-name-input" type="text" placeholder="Your name" maxlength="24">
+      <div class="pm-actions">
+        <button class="pm-btn pm-btn-cancel" onclick="closeProfileModal()">Cancel</button>
+        <button class="pm-btn pm-btn-save" onclick="saveProfile()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <div class="profile-area" onclick="openProfileModal()" title="Edit profile">
+        <div class="app-icon" id="app-icon-el">
+          <img id="profile-img" src="https://i.imgur.com/AXJmZwo.png" alt="Med-Q">
+        </div>
+        <span class="app-name" id="app-name-el">Med-Q</span>
+      </div>
+    </div>
+
+    <div class="top-bar-right">
+
+      <!-- Filter Button -->
+      <div class="filter-dropdown-wrapper">
+        <div class="top-bar-icon-btn" id="filter-btn" title="Filter" onclick="toggleFilterDropdown()">
+          <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.90693 3.9999C9.93791 3.99996 9.96894 4.00001 10 4.00001C10.0311 4.00001 10.0621 3.99996 10.0931 3.9999C10.4618 3.99929 10.8242 3.99869 11.147 4.08519C12.0098 4.31636 12.6836 4.99023 12.9148 5.85296C13.0013 6.1758 13.0007 6.53821 13.0001 6.90693C13.0001 6.93792 13 6.96895 13 7.00001H21C21.5523 7.00001 22 7.44772 22 8.00001C22 8.55229 21.5523 9.00001 21 9.00001H13C13 9.03107 13.0001 9.0621 13.0001 9.09309C13.0007 9.46181 13.0013 9.82422 12.9148 10.1471C12.6836 11.0098 12.0098 11.6837 11.147 11.9148C10.8242 12.0013 10.4618 12.0007 10.0931 12.0001C10.0621 12.0001 10.0311 12 10 12C9.96894 12 9.93791 12.0001 9.90692 12.0001C9.5382 12.0007 9.17579 12.0013 8.85295 11.9148C7.99022 11.6837 7.31635 11.0098 7.08519 10.1471C6.99868 9.82421 6.99928 9.46181 6.9999 9.09308C6.99995 9.0621 7 9.03106 7 9.00001H5C4.44772 9.00001 4 8.55229 4 8.00001C4 7.44772 4.44772 7.00001 5 7.00001H7C7 6.96895 6.99995 6.93792 6.9999 6.90693C6.99928 6.53821 6.99868 6.1758 7.08519 5.85296C7.31635 4.99023 7.99022 4.31636 8.85295 4.08519C9.17579 3.99869 9.5382 3.99929 9.90693 3.9999ZM9.49861 6.00536C9.39195 6.01022 9.36685 6.01805 9.37059 6.01704C9.19804 6.06328 9.06327 6.19805 9.01704 6.3706C9.0162 6.37411 9.00963 6.40483 9.00535 6.49861C9.00024 6.61064 9 6.75845 9 7.00001V9.00001C9 9.24156 9.00024 9.38937 9.00535 9.5014C9.01021 9.60806 9.01804 9.63315 9.01704 9.62942C9.06327 9.80196 9.19804 9.93674 9.37059 9.98297C9.36685 9.98197 9.39195 9.98979 9.49861 9.99466C9.61063 9.99977 9.75844 10 10 10C10.2416 10 10.3894 9.99977 10.5014 9.99466C10.608 9.98979 10.6331 9.98197 10.6294 9.98297C10.802 9.93674 10.9367 9.80196 10.983 9.62942C10.982 9.63315 10.9898 9.60806 10.9946 9.5014C10.9998 9.38937 11 9.24156 11 9.00001V7.00001C11 6.75845 10.9998 6.61064 10.9946 6.49861C10.9898 6.39196 10.982 6.36686 10.983 6.3706M9.49861 6.00536C9.61063 6.00025 9.75844 6.00001 10 6.00001L9.49861 6.00536ZM10 6.00001C10.2416 6.00001 10.3894 6.00025 10.5014 6.00536L10 6.00001ZM10.5014 6.00536C10.5952 6.00963 10.6259 6.0162 10.6294 6.01704L10.5014 6.00536ZM10.6298 6.01713C10.6298 6.01713 10.6296 6.0171 10.6294 6.01704L10.6298 6.01713ZM15.9069 11.9999C15.9379 12 15.9689 12 16 12C16.0311 12 16.0621 12 16.0931 11.9999C16.4618 11.9993 16.8242 11.9987 17.147 12.0852C18.0098 12.3164 18.6836 12.9902 18.9148 13.853C19.0013 14.1758 19.0007 14.5382 19.0001 14.9069C19.0001 14.9379 19 14.9689 19 15H21C21.5523 15 22 15.4477 22 16C22 16.5523 21.5523 17 21 17H19C19 17.0311 19.0001 17.0621 19.0001 17.0931C19.0007 17.4618 19.0013 17.8242 18.9148 18.1471C18.6836 19.0098 18.0098 19.6837 17.147 19.9148C16.8242 20.0013 16.4618 20.0007 16.0931 20.0001C16.0621 20.0001 16.0311 20 16 20C15.9689 20 15.9379 20.0001 15.9069 20.0001C15.5382 20.0007 15.1758 20.0013 14.853 19.9148C13.9902 19.6837 13.3164 19.0098 13.0852 18.1471C12.9987 17.8242 12.9993 17.4618 12.9999 17.0931C12.9999 17.0621 13 17.0311 13 17H5C4.44772 17 4 16.5523 4 16C4 15.4477 4.44772 15 5 15H13C13 14.969 12.9999 14.9379 12.9999 14.9069C12.9993 14.5382 12.9987 14.1758 13.0852 13.853C13.3164 12.9902 13.9902 12.3164 14.853 12.0852C15.1758 11.9987 15.5382 11.9993 15.9069 11.9999ZM15.4986 14.0054C15.392 14.0102 15.3669 14.018 15.3706 14.017C15.198 14.0633 15.0633 14.1981 15.017 14.3706C15.018 14.3669 15.0102 14.392 15.0054 14.4986C15.0002 14.6106 15 14.7585 15 15V17C15 17.2416 15.0002 17.3894 15.0054 17.5014C15.0102 17.6081 15.018 17.6332 15.017 17.6294C15.0633 17.802 15.198 17.9367 15.3706 17.983C15.3669 17.982 15.392 17.9898 15.4986 17.9947C15.6106 17.9998 15.7584 18 16 18C16.2416 18 16.3894 17.9998 16.5014 17.9947C16.608 17.9898 16.6331 17.982 16.6294 17.983C16.802 17.9367 16.9367 17.802 16.983 17.6294C16.982 17.6332 16.9898 17.6081 16.9946 17.5014C16.9998 17.3894 17 17.2416 17 17V15C17 14.7585 16.9998 14.6106 16.9946 14.4986C16.9898 14.392 16.982 14.3669 16.983 14.3706C16.9367 14.1981 16.802 14.0633 16.6294 14.017C16.6331 14.018 16.608 14.0102 16.5014 14.0054C16.3894 14.0002 16.2416 14 16 14C15.7584 14 15.6106 14.0002 15.4986 14.0054Z"/>
+          </svg>
+        </div>
+        <div class="filter-dropdown" id="filter-dropdown">
+          <div class="filter-dropdown-header">Filter</div>
+          <div class="filter-options-list">
+            <div class="filter-option-pill" id="fpill-all" onclick="toggleFilterPill('all')">
+              <span class="filter-pill-check"></span> Show All
+            </div>
+            <div class="filter-option-pill" id="fpill-ibs" onclick="toggleFilterPill('ibs')">
+              <span class="filter-pill-check"></span> IBS
+            </div>
+            <div class="filter-option-pill" id="fpill-msd" onclick="toggleFilterPill('msd')">
+              <span class="filter-pill-check"></span> MSD
+            </div>
+            <div class="filter-option-pill" id="fpill-hp" onclick="toggleFilterPill('hp')">
+              <span class="filter-pill-check"></span> HP
+            </div>
+            <div class="filter-option-pill" id="fpill-cvs" onclick="toggleFilterPill('cvs')">
+              <span class="filter-pill-check"></span> CVS
+            </div>
+            <div class="filter-option-pill" id="fpill-rs" onclick="toggleFilterPill('rs')">
+              <span class="filter-pill-check"></span> RS
+            </div>
+          </div>
+          <div class="filter-actions">
+            <button class="filter-btn-cancel" onclick="cancelFilter()">Cancel</button>
+            <button class="filter-btn-save" onclick="saveFilter()">Save</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings Button -->
+      <div class="settings-dropdown-wrapper">
+        <div class="top-bar-icon-btn" id="settings-btn" title="Settings" onclick="toggleSettingsDropdown()">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </div>
+
+        <div class="settings-dropdown" id="settings-dropdown">
+          <div class="settings-dropdown-header">
+            Settings
+            <div class="settings-close-btn" onclick="closeSettingsDropdown()">
+              <svg viewBox="0 0 12 12">
+                <line x1="1" y1="1" x2="11" y2="11"/>
+                <line x1="11" y1="1" x2="1" y2="11"/>
+              </svg>
+            </div>
+          </div>
+          <div class="settings-item" onclick="toggleThemeFromSettings()">
+            <div class="settings-item-icon">
+              <svg id="settings-icon-moon" viewBox="0 0 24 24">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+              <svg id="settings-icon-sun" viewBox="0 0 24 24" style="display:none;">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+              </svg>
+            </div>
+            <div class="settings-item-text">
+              <span class="settings-item-label" id="settings-theme-label">Dark Mode</span>
+              <span class="settings-item-sub" id="settings-theme-sub">Switch to light</span>
+            </div>
+          </div>
+          <a class="settings-item" href="https://t.me/NOVE1111" target="_blank" onclick="closeSettingsDropdown()">
+            <div class="settings-item-icon">
+              <svg class="contact-icon" width="16px" height="16px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <path d="M38.0728,40.9023c-0.5522,0-1.0259-0.4478-1.0259-1s0.4219-1,0.9741-1h0.0518c0.5522,0,1,0.4478,1,1S38.625,40.9023,38.0728,40.9023z"/>
+                <path d="M45.3604,40.9023c-0.5522,0-1.0273-0.4478-1.0273-1s0.4199-1,0.9722-1h0.0552c0.5522,0,1,0.4478,1,1S45.9126,40.9023,45.3604,40.9023z"/>
+                <path d="M52.6445,40.9023c-0.5522,0-1.0273-0.4478-1.0273-1s0.4199-1,0.9722-1h0.0552c0.5522,0,1,0.4478,1,1S53.1968,40.9023,52.6445,40.9023z"/>
+                <path d="M12.584,25.186c-0.5522,0-1.0293-0.4478-1.0293-1s0.418-1,0.9702-1h0.0591c0.5522,0,1,0.4478,1,1S13.1362,25.186,12.584,25.186z"/>
+                <path d="M20.7529,25.186c-0.5522,0-1.0293-0.4478-1.0293-1s0.4185-1,0.9707-1h0.0586c0.5522,0,1,0.4478,1,1S21.3052,25.186,20.7529,25.186z"/>
+                <path d="M28.9219,25.186c-0.5522,0-1.0293-0.4478-1.0293-1s0.4185-1,0.9707-1h0.0586c0.5522,0,1,0.4478,1,1S29.4741,25.186,28.9219,25.186z"/>
+                <path d="M56.5327,26.0718h-0.0005c-3.6577-3.0059-8.2656-4.4053-12.9771-3.9463c-1.0573,0.1035-2.0867,0.3111-3.0887,0.5919c-0.2051-3.1539-1.169-6.2225-2.8205-8.9474c-2.7339-4.5127-7.0605-7.6904-12.1841-8.9478c-5.1226-1.2573-10.4302-0.4434-14.9414,2.2905c-9.3149,5.6431-12.3022,17.812-6.6592,27.1274c0.4487,0.7378,0.9443,1.4468,1.4785,2.1147l-2.1206,6.457c-0.1152,0.3521-0.0269,0.7388,0.23,1.0059c0.1914,0.1982,0.4526,0.3062,0.7202,0.3062c0.0923,0,0.1851-0.0127,0.2764-0.0391l7.8203-2.2476c4.9188,2.3405,10.487,2.549,15.5263,0.6185c0.6382,4.1645,2.7308,8.1203,6.233,10.9997c4.626,3.8027,10.7549,5.0024,16.4702,3.2461l6.5781,2.9609c0.1313,0.0591,0.2715,0.0879,0.4106,0.0879c0.2183,0,0.4351-0.0718,0.6138-0.2104c0.2925-0.2275,0.4351-0.5977,0.3711-0.9624l-1.0391-5.9121c0.5459-0.5166,1.062-1.0698,1.5391-1.6499C65.1724,43.4663,64.0791,32.2764,56.5327,26.0718z"/>
+              </svg>
+            </div>
+            <div class="settings-item-text">
+              <span class="settings-item-label">Contact</span>
+              <span class="settings-item-sub">NOVE1111</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Page Header -->
+  <header class="main-header">
+    <div class="header-info">
+      <h3>Final &amp; End-Block</h3>
+      <p>Stage 2</p>
+    </div>
+  </header>
+
+  <!-- Main Content (populated by JS) -->
+  <div id="filter-view"></div>
+
+  <footer class="site-footer">© Developed by<strong> Nove11</strong></footer>
+
+  <!-- Firebase (module script, must stay inline) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDK8QW-UOElfgmNbFYslD3krgkpizTuaWg",
+      authDomain: "med-test-8a03f.firebaseapp.com",
+      projectId: "med-test-8a03f",
+      storageBucket: "med-test-8a03f.firebasestorage.app",
+      messagingSenderId: "667021400985",
+      appId: "1:667021400985:web:53b688f554e78adddd5108",
+      measurementId: "G-QMFYTZX5TP"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db  = getFirestore(app);
+
+    const overlay = document.getElementById('activation-overlay');
+    const btn     = document.getElementById('activate-btn');
+    const status  = document.getElementById('status-msg');
+
+    if (localStorage.getItem('medq_active') === 'true') {
+      overlay.style.display = 'none';
+      document.body.classList.remove('locked');
+    }
+
+    btn.onclick = async () => {
+      const code = document.getElementById('activation-code').value.trim();
+      if (!code) return;
+      status.innerText = "Verifying code...";
+      status.style.color = "#38bdf8";
+      try {
+        const docRef  = doc(db, "activationCodes", code);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists() && docSnap.data().isUsed === false) {
+          await updateDoc(docRef, { isUsed: true });
+          localStorage.setItem('medq_active', 'true');
+          status.innerText = "Success! Unlocking...";
+          status.style.color = "#4ade80";
+          setTimeout(() => {
+            overlay.style.display = 'none';
+            document.body.classList.remove('locked');
+          }, 1000);
+        } else {
+          status.innerText = docSnap.exists() ? "Code already used." : "Invalid code.";
+          status.style.color = "#ff4444";
+        }
+      } catch (e) {
+        status.innerText = "Error. Check internet or rules.";
+        console.error(e);
+      }
+    };
+  </script>
+
+</body>
+</html>
