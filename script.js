@@ -193,12 +193,12 @@ const ALL_SECTIONS = [
     type: 'Introduction To Basic Science 🧪',
     cards: [
       { title: '2017-2018 Year Exam', links: [
-        { label: 'Theory',   badge: '77 MCQs',    href: 'IBS_2017-2018.html' },
+        { label: 'Theory',   badge: '107 MCQs',    href: 'IBS_2017-2018.html' },
         { label: 'Practice', badge: '7 Questions', href: 'Anatomylabs.html' }
       ]},
       { title: '2018-2019 Year Exam', links: [
         { label: 'Theory',   badge: '131 MCQs',    href: 'Microbiology.html' },
-        { label: 'Practice', badge: '32 Questions', href: 'Microbiology labs.html' }
+        { label: 'Practice', badge: '32 Questions', href: 'IBS_2017-2018.html' }
       ]},
       { title: '2020-2021 Year Exam', links: [
         { label: 'Theory',   badge: '82 MCQs',     href: 'Molecular biology.html' },
