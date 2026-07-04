@@ -216,7 +216,7 @@ const ALL_SECTIONS = [
 
       { title: '2023-2024 Year Exam',     links: [
         { label: 'End-Block _ Theory', badge: '30 MCQs',  href: 'IBS_End-Block_Theory_2023-2024.html' },
-        { label: 'End-Block _ Practice', badge: '10 Questions',  href: 'IBS_End-Block_Practice_2023-2024.html' },
+        { label: 'End-Block _ Practice', badge: '10 Questions',  href: 'IBS_Practical_exam_2023-2024.html' },
         { label: 'Final', badge: '100 MCQs',  href: 'IBS_Final_2023-2024.html' },
 
 
