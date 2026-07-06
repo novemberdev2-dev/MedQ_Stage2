@@ -553,10 +553,13 @@ html.light-mode-pre body .settings-item:hover .settings-item-icon { background: 
 body.light-mode .settings-item:hover .settings-item-icon svg,
 html.light-mode-pre body .settings-item:hover .settings-item-icon svg { stroke: #111; }
 
-.settings-item-icon svg.contact-icon { stroke: var(--settings-item-icon); fill: #aaa; transition: fill 0.15s ease; }
-.settings-item:hover .settings-item-icon svg.contact-icon { fill: #fff; }
+.settings-item-icon svg.contact-icon path {
+  stroke: var(--settings-item-icon) !important;
+}
+.settings-item-icon svg.contact-icon { stroke: var(--settings-item-icon); fill: none; transition: fill 0.15s ease; }
+.settings-item:hover .settings-item-icon svg.contact-icon { fill: none; }
 body.light-mode .settings-item:hover .settings-item-icon svg.contact-icon,
-html.light-mode-pre body .settings-item:hover .settings-item-icon svg.contact-icon { fill: #111; }
+html.light-mode-pre body .settings-item:hover .settings-item-icon svg.contact-icon { fill: none; }
 
 .settings-item-text { display: flex; flex-direction: column; gap: 2px; }
 
