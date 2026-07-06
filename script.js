@@ -23,8 +23,8 @@ if (localStorage.getItem('medq_active') === 'true') {
 })();
 
 // ===== CONSTANTS =====
-const DEFAULT_IMG  = 'https://i.imgur.com/AXJmZwo.png';
-const DEFAULT_NAME = 'Med-Q';
+const DEFAULT_IMG  = 'https://i.imgur.com/yR5Tpv8.png';
+const DEFAULT_NAME = 'MedQ';
 let pendingImageDataUrl = null;
 
 // ===== PROFILE MODAL =====
