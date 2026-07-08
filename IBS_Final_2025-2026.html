@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBS_Final_2025-2026</title>
+
+    <style>
+       :root {
+            --bg-body: #121212;
+            --text-main: #f1f5f9;
+            --text-opts: #f1f5f9;
+            --header-bg: #1e293b;
+            --header-text: #38bdf8;
+            --border-color: #26292b;
+            --input-bg: #1a1c1e;
+            --input-border: #2a2f36;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --filter-bg: transparent;
+            
+        }
+
+        [data-theme="light"] {
+            --bg-body: #ffffff;
+            --text-main: #000000;
+            --text-opts: #333333;
+            --header-bg: #333333;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --input-bg: #ffffff;
+            --input-border: #cccccc;
+            --ans-bg: #eef6e4;
+            --ans-text: #2e7d32;
+            --filter-bg: transparent;
+            
+        }
+
+        .filter-btn.active {
+            background-color: #728fcf;
+            color: #fff;
+            border-color:  #728fcf;
+        }
+
+        body {
+            -webkit-user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1150px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 15px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 50px;
+           min-height: 35px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 10px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 10px 10px 10px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 7px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .filter-container {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-wrap: nowrap;
+            max-width: 100%;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .filter-container::-webkit-scrollbar { display: none; }
+
+        /* Subject picker dropdown */
+        .subject-toggle-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .subject-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 42px;
+            height: 42px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .subject-toggle svg {
+            stroke: none !important;
+            fill: var(--text-main);
+            pointer-events: none;
+        }
+
+        .subject-toggle.dropdown-open {
+            border-color: rgba(255,255,255,0.3);
+            background: rgba(40, 42, 45, 0.9);
+        }
+
+        .subject-toggle.dropdown-open svg { fill: var(--text-main); }
+
+        [data-theme="light"] .subject-toggle.dropdown-open {
+            border-color: #121212;
+            background: rgba(255,255,255,1);
+        }
+
+        .subject-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: #111111;
+            border: 1px solid rgba(255,255,255,0.13);
+            border-radius: 14px;
+            overflow: hidden;
+            min-width: 210px;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-6px) scale(0.97);
+            transition: opacity 0.22s ease, transform 0.22s ease;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.65);
+        }
+
+        .subject-dropdown.open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        [data-theme="light"] .subject-dropdown {
+            background: #ffffff;
+            border-color: rgba(0,0,0,0.13);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+        }
+
+        .subject-dropdown-header {
+            padding: 14px 16px 10px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #555;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        [data-theme="light"] .subject-dropdown-header {
+            border-bottom-color: rgba(0,0,0,0.08);
+            color: #999;
+        }
+
+        .subject-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 13px 16px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #aaa;
+            transition: background 0.15s ease, color 0.15s ease;
+            user-select: none;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        [data-theme="light"] .subject-dropdown-item { color: #666; }
+
+        .subject-dropdown-item:not(:last-child) {
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        [data-theme="light"] .subject-dropdown-item:not(:last-child) {
+            border-bottom-color: rgba(0,0,0,0.06);
+        }
+
+        .subject-dropdown-item:hover {
+            background: rgba(255,255,255,0.06);
+            color: #e2e8f0;
+        }
+
+        [data-theme="light"] .subject-dropdown-item:hover {
+            background: rgba(0,0,0,0.04);
+            color: #111;
+        }
+
+        .subject-dropdown-item.selected { color: #f1f5f9; }
+
+        [data-theme="light"] .subject-dropdown-item.selected { color: #111; }
+
+        .filter-option-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.25);
+            flex-shrink: 0;
+            transition: background 0.15s ease, border-color 0.15s ease;
+        }
+
+        [data-theme="light"] .filter-option-dot { border-color: rgba(0,0,0,0.2); }
+
+        .subject-dropdown-item.selected .filter-option-dot {
+            background: #f1f5f9;
+            border-color: #f1f5f9;
+        }
+
+        [data-theme="light"] .subject-dropdown-item.selected .filter-option-dot {
+            background: #111;
+            border-color: #111;
+        }
+
+        .controls-row { position: relative; }
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin-bottom: 10px;
+            margin-top: 6px;
+        }
+
+        .divider { border: none; margin-bottom: 12px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+
+        .ans-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ans-btn {
+            background-color: #728fcf;
+            color: #fff;
+            border: none;
+            padding: 7px 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-weight: 650;
+            font-size: 16px;
+            transition: background-color 0.2s, color 0.2s;
+
+        }
+
+        .q-block.revealed .ans-btn {
+            background-color: var(--ans-bg);
+            color: var(--ans-text);
+            font-weight: 700;
+            padding: 7px 12px;
+            font-size: 16px;
+        }
+
+        mark { background-color: #f0cf6a; color: #000; }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 14px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-opts);
+            font-size: 1.15rem;
+            font-weight: 500;
+            opacity: 0.6;
+            box-sizing: border-box;
+            width: 100%;
+            display: block; 
+        }
+
+        .section-heading-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .mcq-count-badge {
+            font-size: 0.70rem;
+            font-weight: 700;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            padding: 2px 5px;
+            border-radius: 3px;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+
+<body oncontextmenu="return false;">
+
+<div class="container">
+    <div class="header" style="padding: 9px 14px; margin-bottom: 15px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+           
+            <span style="font-size: 0.90rem; font-weight: 800; color: var(--header-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">IBS 🧪 &nbsp;·&nbsp; Final &nbsp;·&nbsp; 2025-2026</span>
+        </div>
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+        
+        <div class="subject-toggle-wrapper">
+            <div class="subject-toggle" id="subject-toggle-btn" onclick="toggleSubjectDropdown()" title="Filter by subject">
+                <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.90693 3.9999C9.93791 3.99996 9.96894 4.00001 10 4.00001C10.0311 4.00001 10.0621 3.99996 10.0931 3.9999C10.4618 3.99929 10.8242 3.99869 11.147 4.08519C12.0098 4.31636 12.6836 4.99023 12.9148 5.85296C13.0013 6.1758 13.0007 6.53821 13.0001 6.90693C13.0001 6.93792 13 6.96895 13 7.00001H21C21.5523 7.00001 22 7.44772 22 8.00001C22 8.55229 21.5523 9.00001 21 9.00001H13C13 9.03107 13.0001 9.0621 13.0001 9.09309C13.0007 9.46181 13.0013 9.82422 12.9148 10.1471C12.6836 11.0098 12.0098 11.6837 11.147 11.9148C10.8242 12.0013 10.4618 12.0007 10.0931 12.0001C10.0621 12.0001 10.0311 12 10 12C9.96894 12 9.93791 12.0001 9.90692 12.0001C9.5382 12.0007 9.17579 12.0013 8.85295 11.9148C7.99022 11.6837 7.31635 11.0098 7.08519 10.1471C6.99868 9.82421 6.99928 9.46181 6.9999 9.09308C6.99995 9.0621 7 9.03106 7 9.00001H5C4.44772 9.00001 4 8.55229 4 8.00001C4 7.44772 4.44772 7.00001 5 7.00001H7C7 6.96895 6.99995 6.93792 6.9999 6.90693C6.99928 6.53821 6.99868 6.1758 7.08519 5.85296C7.31635 4.99023 7.99022 4.31636 8.85295 4.08519C9.17579 3.99869 9.5382 3.99929 9.90693 3.9999ZM9.49861 6.00536C9.39195 6.01022 9.36685 6.01805 9.37059 6.01704C9.19804 6.06328 9.06327 6.19805 9.01704 6.3706C9.0162 6.37411 9.00963 6.40483 9.00535 6.49861C9.00024 6.61064 9 6.75845 9 7.00001V9.00001C9 9.24156 9.00024 9.38937 9.00535 9.5014C9.01021 9.60806 9.01804 9.63315 9.01704 9.62942C9.06327 9.80196 9.19804 9.93674 9.37059 9.98297C9.36685 9.98197 9.39195 9.98979 9.49861 9.99466C9.61063 9.99977 9.75844 10 10 10C10.2416 10 10.3894 9.99977 10.5014 9.99466C10.608 9.98979 10.6331 9.98197 10.6294 9.98297C10.802 9.93674 10.9367 9.80196 10.983 9.62942C10.982 9.63315 10.9898 9.60806 10.9946 9.5014C10.9998 9.38937 11 9.24156 11 9.00001V7.00001C11 6.75845 10.9998 6.61064 10.9946 6.49861C10.9898 6.39196 10.982 6.36686 10.983 6.3706M9.49861 6.00536C9.61063 6.00025 9.75844 6.00001 10 6.00001L9.49861 6.00536ZM10 6.00001C10.2416 6.00001 10.3894 6.00025 10.5014 6.00536L10 6.00001ZM10.5014 6.00536C10.5952 6.00963 10.6259 6.0162 10.6294 6.01704L10.5014 6.00536ZM10.6298 6.01713C10.6298 6.01713 10.6296 6.0171 10.6294 6.01704L10.6298 6.01713ZM15.9069 11.9999C15.9379 12 15.9689 12 16 12C16.0311 12 16.0621 12 16.0931 11.9999C16.4618 11.9993 16.8242 11.9987 17.147 12.0852C18.0098 12.3164 18.6836 12.9902 18.9148 13.853C19.0013 14.1758 19.0007 14.5382 19.0001 14.9069C19.0001 14.9379 19 14.9689 19 15H21C21.5523 15 22 15.4477 22 16C22 16.5523 21.5523 17 21 17H19C19 17.0311 19.0001 17.0621 19.0001 17.0931C19.0007 17.4618 19.0013 17.8242 18.9148 18.1471C18.6836 19.0098 18.0098 19.6837 17.147 19.9148C16.8242 20.0013 16.4618 20.0007 16.0931 20.0001C16.0621 20.0001 16.0311 20 16 20C15.9689 20 15.9379 20.0001 15.9069 20.0001C15.5382 20.0007 15.1758 20.0013 14.853 19.9148C13.9902 19.6837 13.3164 19.0098 13.0852 18.1471C12.9987 17.8242 12.9993 17.4618 12.9999 17.0931C12.9999 17.0621 13 17.0311 13 17H5C4.44772 17 4 16.5523 4 16C4 15.4477 4.44772 15 5 15H13C13 14.969 12.9999 14.9379 12.9999 14.9069C12.9993 14.5382 12.9987 14.1758 13.0852 13.853C13.3164 12.9902 13.9902 12.3164 14.853 12.0852C15.1758 11.9987 15.5382 11.9993 15.9069 11.9999ZM15.4986 14.0054C15.392 14.0102 15.3669 14.018 15.3706 14.017C15.198 14.0633 15.0633 14.1981 15.017 14.3706C15.018 14.3669 15.0102 14.392 15.0054 14.4986C15.0002 14.6106 15 14.7585 15 15V17C15 17.2416 15.0002 17.3894 15.0054 17.5014C15.0102 17.6081 15.018 17.6332 15.017 17.6294C15.0633 17.802 15.198 17.9367 15.3706 17.983C15.3669 17.982 15.392 17.9898 15.4986 17.9947C15.6106 17.9998 15.7584 18 16 18C16.2416 18 16.3894 17.9998 16.5014 17.9947C16.608 17.9898 16.6331 17.982 16.6294 17.983C16.802 17.9367 16.9367 17.802 16.983 17.6294C16.982 17.6332 16.9898 17.6081 16.9946 17.5014C16.9998 17.3894 17 17.2416 17 17V15C17 14.7585 16.9998 14.6106 16.9946 14.4986C16.9898 14.392 16.982 14.3669 16.983 14.3706C16.9367 14.1981 16.802 14.0633 16.6294 14.017C16.6331 14.018 16.608 14.0102 16.5014 14.0054C16.3894 14.0002 16.2416 14 16 14C15.7584 14 15.6106 14.0002 15.4986 14.0054Z"/></svg>
+            </div>
+            <div class="subject-dropdown" id="subject-dropdown">
+                <div class="subject-dropdown-header">Subject</div>
+              
+                <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
+             
+                <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
+                <div class="subject-dropdown-item" data-subject="Immunology" onclick="selectSubjectFilter('Immunology', this)"><span class="filter-option-dot"></span>Immunology 🛡️</div>
+                <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🦠</div>
+                <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
+                <div class="subject-dropdown-item" data-subject="Medical education" onclick="selectSubjectFilter('Medical Education', this)"><span class="filter-option-dot"></span>Medical Education 📘</div>
+              
+        </div>
+        </div>
+
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="filter-container" id="filter-bar"></div>
+
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+<script>
+
+const allQuestions = [
+ 
+  
+  {
+    "n": 1,
+    "s": "Pathology",
+    "l": 1,
+    "q": "The following events occur during healing after myocardial infarction: <br> <br> 1. Collagen deposition and scar formation<br>2. Mitochondrial swelling and cell injury<br>3. Granulation tissue formation<br>4. Macrophage infiltration<br>5. Neutrophil infiltration",
+    "o": ["A. 2 → 4 → 5 → 3 → 1", "B. 5 → 2 → 4 → 3 → 1", "C. 2 → 5 → 3 → 4 → 1", "D. 5 → 4 → 3 → 2 → 1", "E. 2 → 5 → 4 → 3 → 1"],
+    "a": "E"
+  },
+  {
+    "n": 2,
+    "s": "Immunology",
+    "l": 1,
+    "q": "An immediate (Type I) hypersensitivity reaction is primarily mediated by the degranulation of mast cells and basophils bound to which antibody?",
+    "o": ["A. IgA", "B. IgM", "C. IgG", "D. IgE", "E. IgD"],
+    "a": "D"
+  },
+  {
+    "n": 3,
+    "s": "Immunology",
+    "l": 1,
+    "q": "A hereditary or acquired defect resulting in the absence or dysfunction of the C3b component of the complement cascade will directly impair which physiological process?",
+    "o": ["A. Opsonization and phagocytosis", "B. Alternative pathway activation", "C. Antibody-dependent cellular cytotoxicity", "D. Membrane attack complex formation", "E. Mast cell degranulation"],
+    "a": "A"
+  },
+  {
+    "n": 4,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "A pregnant patient with severe hypertension fails to respond adequately to first-line treatment with labetalol and methyldopa. Which of the following medications is the most appropriate next step in management?",
+    "o": ["A. Enalapril", "B. Hydralazine", "C. Losartan", "D. Nitroprusside", "E. Nifedipine"],
+    "a": "B"
+  },
+  {
+    "n": 5,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Drug A exhibits a volume of distribution (Vd) of 5 L and is 98% bound to plasma proteins. Drug B exhibits a Vd of 150 L and is 50% protein-bound. Which statement correctly describes the pharmacokinetic profile of Drug B compared to Drug A?",
+    "o": ["A. Drug B has a lower tissue half-life due to poor tissue binding kinetics.", "B. Drug B relies purely on zero-order elimination pathways due to low protein saturation.", "C. Drug B distributes into peripheral tissues, increasing the risk of delayed toxicity.", "D. Drug A is reserved in the vascular region.", "E. Drug B is strictly limited to the extracellular fluid compartment."],
+    "a": "C"
+  },
+  {
+    "n": 6,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which of the following beta-adrenergic receptor antagonists possesses unique vasodilatory properties mediated via the localized release of nitric oxide (NO)?",
+    "o": ["A. Metoprolol", "B. Carvedilol", "C. Nebivolol", "D. Propranolol", "E. Atenolol"],
+    "a": "C"
+  },
+  {
+    "n": 7,
+    "s": "Anatomy",
+    "l": 1,
+    "q": "Purkinje fibers are most abundantly isolated within which layer?",
+    "o": ["A. Subendocardium", "B. Epicardium", "C. Pericardium", "D. Subepicardium", "E. Myocardium"],
+    "a": "A"
+  },
+  {
+    "n": 8,
+    "s": "Biochemistry",
+    "l": 1,
+    "q": "What is the correct sequential order of enzymatic steps required to complete a single cycle of mitochondrial beta-oxidation of fatty acids?",
+    "o": ["A. Condensation - Reduction - Dehydration - Reduction", "B. Cleavage - Dehydrogenation - Hydration - Dehydrogenation", "C. Dehydrogenation - Hydration - Dehydrogenation - Cleavage", "D. Dehydrogenation - Dehydration - Dehydrogenation - Cleavage", "E. Hydration - Dehydrogenation - Hydration - Cleavage"],
+    "a": "C"
+  },
+  {
+    "n": 9,
+    "s": "Pathology",
+    "l": 1,
+    "q": "A pregnant female presents with a rapidly growing, painless, vascular red nodule on her gingival mucosa that bleeds easily with minor trauma. What is the most likely diagnosis?",
+    "o": ["A. Cavernous hemangioma", "B. Squamous papilloma", "C. Lobular capillary hemangioma", "D. Fibroma of pregnancy", "E. Peripheral giant cell granuloma"],
+    "a": "C"
+  },
+  {
+    "n": 10,
+    "s": "Immunology",
+    "l": 1,
+    "q": "The binding of an antigen-antibody complex triggers the activation of which complement cascade?",
+    "o": ["A. Classical pathway", "B. Alternative pathway", "C. Terminal membrane attack pathway", "D. Lectin pathway", "E. Properdin-mediated pathway"],
+    "a": "A"
+  },
+  {
+    "n": 11,
+    "s": "Radiology",
+    "l": 1,
+    "q": "Which diagnostic imaging modality is preferred to accurately evaluate the vascular anatomy of the renal artery in a living kidney donor prior to transplantation?",
+    "o": ["A. Duplex Ultrasonography", "B. Magnetic Resonance Angiography (MRA)", "C. Computed Tomography Angiography (CTA)", "D. Conventional Digital Subtraction Angiography", "E. Renal Scintigraphy"],
+    "a": "C"
+  },
+  {
+    "n": 12,
+    "s": "Histology",
+    "l": 1,
+    "q": "Histologically, which structural characteristic uniquely differentiates elastic arteries?",
+    "o": ["A. A single continuous layer of fenestrated endothelial cells", "B. A prominent and distinct internal elastic lamina", "C. An exceptionally thick tunica adventitia containing vasa vasorum", "D. Multiple continuous layers of tightly packed smooth muscle cells", "E. A tunica media composed predominantly of elastic fibers"],
+    "a": "E"
+  },
+  {
+    "n": 13,
+    "s": "Pathology",
+    "l": 1,
+    "q": "A patient presents with sharp, retrosternal chest pain that radiates down to the left shoulder. The intensity of the pain remains constant and is entirely unaffected by shifts in body position or respiration. This presentation is most characteristic of:",
+    "o": ["A. Acute Pericarditis", "B. Aortic Dissection", "C. Gastroesophageal Reflux Disease", "D. Pulmonary Embolism", "E. Acute Coronary Syndrome (ACS)"],
+    "a": "E"
+  },
+  {
+    "n": 14,
+    "s": "Pathology",
+    "l": 1,
+    "q": "A patient presents with retrosternal chest pain accompanied by severe dyspnea. The pain is noticeably exacerbated when lying flat. Which condition is most consistent with these clinical findings?",
+    "o": ["A. Costochondritis", "B. Myocarditis", "C. Acute Coronary Syndrome", "D. Pericarditis", "E. Pleuritis"],
+    "a": "D"
+  },
+  {
+    "n": 15,
+    "s": "Pathology",
+    "l": 1,
+    "q": "Globally, which of the following represents the most prevalent, modifiable clinical risk factor responsible for the development and progression of atherosclerosis?",
+    "o": ["A. Physical inactivity", "B. Obesity", "C. Diabetes mellitus", "D. Tobacco", "E. Hypertension"],
+    "a": "E"
+  },
+  {
+    "n": 16,
+    "s": "Biochemistry",
+    "l": 1,
+    "q": "During the complete beta-oxidation of one molecule of oleic acid (18:1, Delta 9), what is the net total yield of ATP generated via oxidative phosphorylation?",
+    "o": ["A. 129 ATP", "B. 146 ATP", "C. 148 ATP", "D. 106 ATP", "E. 144 ATP"],
+    "a": "E"
+  },
+  {
+    "n": 17,
+    "s": "Biochemistry",
+    "l": 1,
+    "q": "Which statement accurately defines the fundamental biochemical consequence of the metabolic pathway known as glycolysis?",
+    "o": ["A. The direct oxidative breakdown of glucose to generate NADPH", "B. The oxidative conversion of acetyl-CoA into carbon dioxide", "C. The polymerization of glucose molecules into storage glycogen", "D. The direct generation of glucose from non-carbohydrate substrates", "E. Conversion of glucose into pyruvate molecules"],
+    "a": "E"
+  },
+  {
+    "n": 18,
+    "s": "Biochemistry",
+    "l": 1,
+    "q": "In the metabolic biosynthesis of glutamate, which of the following enzymes is NOT required or involved?",
+    "o": ["A. NADH", "B. Glutamate dehydrogenase", "C. Glutamate synthetase", "D. Alpha-ketoglutarate", "E. Ammonia"],
+    "a": "C"
+  },
+  {
+    "n": 19,
+    "s": "Biochemistry",
+    "l": 1,
+    "q": "Which hormone actively lowers blood glucose concentration?",
+    "o": ["A. Glucagon", "B. Cortisol", "C. Insulin", "D. Adrenaline", "E. Thyroid hormone"],
+    "a": "C"
+  },
+  {
+    "n": 20,
+    "s": "Biochemistry",
+    "l": 1,
+    "q": "Which monounsaturated fatty acid is biochemically classified and widely recognized as an Omega-7 fatty acid?",
+    "o": ["A. Linoleic acid", "B. Oleic acid", "C. Alpha-linolenic acid", "D. Arachidonic acid", "E. Palmitoleic acid"],
+    "a": "E"
+  },
+  {
+    "n": 21,
+    "s": "Pathology",
+    "l": 1,
+    "q": "A histopathological tissue section reveals cellular atypia and dysplastic architectural changes extending through the full thickness of the epithelium, though the basement membrane remains entirely intact. How is this lesion classified?",
+    "o": ["A. Invasive adenocarcinoma", "B. Severe dysplasia", "C. Carcinoma in situ", "D. Dysplasia", "E. Metaplasia"],
+    "a": "C"
+  },
+  {
+    "n": 22,
+    "s": "Physiology",
+    "l": 1,
+    "q": "Following an acute mechanical injury to the hand, localized clinical signs of erythema (redness) and calor (warmth) develop rapidly. Which physiological mechanism directly accounts for these signs?",
+    "o": ["A. Reflex sympathetic stimulation and endothelial cell swelling", "B. Lymphatic obstruction and interstitial fluid stagnation", "C. Arteriolar vasodilation and increased microvascular permeability", "D. Decreased hydrostatic capillary pressure", "E. Localized vasoconstriction and platelet aggregation"],
+    "a": "C"
+  },
+  {
+    "n": 23,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "A patient stabilized on the antiplatelet medication clopidogrel experiences recurrent ischemic cardiac events shortly after initiating omeprazole therapy for acid reflux. What is the pharmacological basis of this drug-drug interaction?",
+    "o": ["A. Both synergistic to reduce efficacy.", "B. Omeprazole decreases the effect of clopidogrel.", "C. Omeprazole enhances the renal excretion of clopidogrel.", "D. Clopidogrel induces the metabolism of omeprazole.", "E. Both medications compete for the same receptor site."],
+    "a": "B"
+  },
+  {
+    "n": 24,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "An acute toxic overdose of a medication manifests clinically as severe hyperthermia and tachycardia. Which agent is most likely responsible?",
+    "o": ["A. Pilocarpine", "B. Naloxone", "C. Atropine", "D. Propranolol", "E. Physostigmine"],
+    "a": "C"
+  },
+  {
+    "n": 25,
+    "s": "Immunology",
+    "l": 1,
+    "q": "What is the core structural subunit configuration that constitutes a standard, monomeric antibody molecule?",
+    "o": ["A. Two heavy chains and one light chain", "B. Two heavy chains and two light chains", "C. One heavy chain and one light chain", "D. Four heavy chains", "E. Three heavy chains and one light chain"],
+    "a": "B"
+  },
+  {
+    "n": 26,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Atorvastatin exerts its primary therapeutic lipid-lowering effect by competitively inhibiting which key intracellular enzyme?",
+    "o": ["A. HMG-CoA reductase", "B. HMG-CoA dehydrogenase", "C. HMG-CoA synthetase", "D. HMG-CoA decarboxylase", "E. HMG-CoA lyase"],
+    "a": "A"
+  },
+  {
+    "n": 27,
+    "s": "Pathology",
+    "l": 1,
+    "q": "A routine histological evaluation of a renal allograft 20 days post-transplantation demonstrates extensive interstitial infiltration rich in both CD4+ and CD8+ T lymphocytes, alongside mild tubulitis. Which type of rejection is ongoing?",
+    "o": ["A. Chronic allograft nephropathy", "B. Hyperacute rejection", "C. Graft-versus-host disease", "D. Acute vascular rejection", "E. Acute cellular rejection"],
+    "a": "E"
+  },
+  {
+    "n": 28,
+    "s": "Pathology",
+    "l": 1,
+    "q": "An overriding aorta, ventricular septal defect (VSD), right ventricular hypertrophy, and pulmonary stenosis collectively define which congenital cardiac anomaly?",
+    "o": ["A. Truncus Arteriosus", "B. Tetralogy of Fallot", "C. ASD", "D. VSD", "E. Tricuspid Atresia"],
+    "a": "B"
+  },
+  {
+    "n": 29,
+    "s": "Pathology",
+    "l": 1,
+    "q": "What is the specific pathological term used to describe the characteristic, destructive thrombotic masses composed of fibrin, platelets, and microbes that adhere to cardiac valves in infective endocarditis?",
+    "o": ["A. Aschoff bodies", "B. Lambl's excrescences", "C. Vegetations", "D. MacCallum plaques", "E. Granulomas"],
+    "a": "C"
+  },
+  {
+    "n": 30,
+    "s": "Biochemistry",
+    "l": 1,
+    "q": "In which of the following physiological or clinical states would you expect a patient to maintain a positive nitrogen balance?",
+    "o": ["A. Protracted septic shock", "B. Major surgical trauma", "C. Pregnancy", "D. Severe thermal burns", "E. Advanced starvation"],
+    "a": "C"
+  },
+  {
+    "n": 31,
+    "s": "Anatomy",
+    "l": 1,
+    "q": "The cruciate anastomosis provides an important collateral route of blood flow when the femoral artery is occluded. Which arteries primarily form the cruciate anastomosis?",
+    "o": ["A. First perforating artery, inferior gluteal artery, medial and lateral circumflex femoral arteries", "B. Superior gluteal artery, obturator artery, deep femoral artery, and femoral artery", "C. Popliteal artery, anterior tibial artery, posterior tibial artery, and fibular artery", "D. Internal pudendal artery, obturator artery, superficial circumflex iliac artery, and deep femoral artery", "E. Descending genicular artery, superior medial genicular artery, and lateral circumflex femoral artery"],
+    "a": "A"
+  },
+  {
+    "n": 32,
+    "s": "Anatomy",
+    "l": 1,
+    "q": "Anatomically, which structural wall forms the immediate anterior boundary of the oblique pericardial sinus?",
+    "o": ["A. Left atrium", "B. Ascending aorta", "C. Posterior mediastinal pleura", "D. Right atrium", "E. Left ventricle"],
+    "a": "A"
+  },
+  {
+    "n": 33,
+    "s": "Anatomy",
+    "l": 1,
+    "q": "The lymphatic drainage from the anterior two-thirds (2/3) of the tongue primarily flows directly into which lymph node group first?",
+    "o": ["A. Mediastinal", "B. Submental", "C. Jugulodigastric", "D. Jugulomohyoid", "E. Submandibular"],
+    "a": "E"
+  },
+  {
+    "n": 34,
+    "s": "Anatomy",
+    "l": 1,
+    "q": "Which cranial nerve closely accompanies the superior thyroid artery along its anatomical course, making it highly susceptible to accidental surgical injury during a thyroidectomy?",
+    "o": ["A. External laryngeal nerve", "B. Glossopharyngeal nerve", "C. Ansa cervicalis", "D. Internal laryngeal nerve", "E. Recurrent laryngeal nerve"],
+    "a": "A"
+  },
+  {
+    "n": 35,
+    "s": "Immunology",
+    "l": 1,
+    "q": "During a classic helminthic parasite infection, which cytokine is preferentially released by Th2 helper T cells to stimulate eosinophil activation and recruitment?",
+    "o": ["A. IL-4", "B. IL-5", "C. IL-2R", "D. IL1Ra", "E. IL-10"],
+    "a": "B"
+  },
+  {
+    "n": 36,
+    "s": "Anatomy",
+    "l": 1,
+    "q": "The 7th right posterior intercostal vein drains its deoxygenated blood directly into which central venous channel?",
+    "o": ["A. Superior vena cava", "B. Accessory hemiazygos vein", "C. Right internal thoracic vein", "D. Azygos vein", "E. Hemiazygos vein"],
+    "a": "D"
+  },
+  {
+    "n": 37,
+    "s": "Anatomy",
+    "l": 1,
+    "q": "The superficial lymphatic drainage originating from the skin of the second (2nd) toe follows the course of the saphenous system to drain into which node cluster?",
+    "o": ["A. Popliteal lymph nodes", "B. Internal iliac lymph nodes", "C. External iliac lymph nodes", "D. Deep inguinal lymph nodes", "E. Superficial inguinal lymph nodes"],
+    "a": "E"
+  },
+  {
+    "n": 38,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which H2-receptor antagonist is most notorious for acting as a potent competitive inhibitor of multiple hepatic cytochrome P450 (CYP) microsomal enzyme systems?",
+    "o": ["A. Omeprazole", "B. Nizatidine", "C. Ranitidine", "D. Cimetidine", "E. Famotidine"],
+    "a": "D"
+  },
+  {
+    "n": 39,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which of the following antianginal drugs is strictly contraindicated in patients suffering from severe asthma due to the risk of bronchospasm?",
+    "o": ["A. Diltiazem", "B. Nitroglycerin", "C. Propranolol", "D. Verapamil", "E. Ivabradine"],
+    "a": "C"
+  },
+  {
+    "n": 40,
+    "s": "Pathology",
+    "l": 1,
+    "q": "Which of the following is NOT a feature of endothelial dysfunction in atherosclerosis?",
+    "o": ["A. Increased expression of adhesion molecules", "B. Increased permeability to lipoproteins", "C. Reduced nitric oxide bioavailability", "D. Enhanced leukocyte adhesion", "E. Endothelial cells release nitric oxide"],
+    "a": "E"
+  },
+  {
+    "n": 41,
+    "s": "Biochemistry",
+    "l": 1,
+    "q": "The enzyme maltase, which cleaves a disaccharide into two glucose monomers using a water molecule, is classified under which primary EC enzyme category?",
+    "o": ["A. Ligase", "B. Hydrolase", "C. Lyase", "D. Transferase", "E. Isomerase"],
+    "a": "B"
+  },
+  {
+    "n": 42,
+    "s": "Immunology",
+    "l": 1,
+    "q": "Which biological activity or characteristic is NOT attributable to Tumor Necrosis Factor-alpha (TNF-alpha)?",
+    "o": ["A. Activation of vascular endothelial cell adhesion molecule expression", "B. Activation of systemic apoptotic signaling pathways via death-domain receptors", "C. Induction of a direct respiratory oxidative burst within mature T-lymphocytes", "D. Promotion of systemic cachexia via adipocyte lipid suppression", "E. Induction of hepatic acute-phase reactant synthesis"],
+    "a": "C"
+  },
+  {
+    "n": 43,
+    "s": "Pathology",
+    "l": 1,
+    "q": "Which serum cardiac biomarker rises rapidly and clears quickly, making it uniquely suited to detect early myocardial re-infarction in a patient who suffered an ischemic event a few days prior?",
+    "o": ["A. Lactate Dehydrogenase (LDH)", "B. Troponin I", "C. Myoglobin", "D. Troponin T", "E. CK-MB"],
+    "a": "E"
+  },
+  {
+    "n": 44,
+    "s": "Pathology",
+    "l": 1,
+    "q": "Fat necrosis, characterized microscopically by shadowy outlines of dead adipocytes and basophilic calcium deposits, is most commonly secondary to acute disease in which organ?",
+    "o": ["A. Spleen", "B. Gallbladder", "C. Liver", "D. Pancreas", "E. Kidney"],
+    "a": "D"
+  },
+  {
+    "n": 45,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which major dose-limiting systemic toxicity requires careful monitoring and potential dose adjustment when administering the antifungal agent Amphotericin B?",
+    "o": ["A. Hepatotoxicity", "B. Pulmonary fibrosis", "C. Ototoxicity", "D. Cardiotoxicity", "E. Nephrotoxicity"],
+    "a": "E"
+  },
+  {
+    "n": 46,
+    "s": "Immunology",
+    "l": 1,
+    "q": "Which macromolecular class serves as the most potent, effective antigen capable of eliciting a robust adaptive immune response?",
+    "o": ["A. Haptens", "B. Lipids", "C. Polysaccharides", "D. Nucleic acids", "E. Proteins"],
+    "a": "E"
+  },
+  {
+    "n": 47,
+    "s": "Physiology",
+    "l": 1,
+    "q": "What mechanism explains why the cardiac myocardium cannot be tetanized by high-frequency electrical stimulation?",
+    "o": ["A. The presence of abundant continuous gap junctions within intercalated discs", "B. The presence of a prolonged refractory period", "C. Spontaneous diastolic depolarization driven by hyperpolarization-activated HCN currents", "D. Rapid intracellular calcium reuptake", "E. The absolute absence of voltage-gated sodium channels"],
+    "a": "B"
+  },
+  {
+    "n": 48,
+    "s": "Pathology",
+    "l": 1,
+    "q": "What is the most common manifestation of acute rheumatic fever?",
+    "o": ["A. Aortic valve regurgitation", "B. Mitral valve regurgitation", "C. Pericarditis", "D. Myocarditis", "E. Tricuspid valve stenosis"],
+    "a": "B"
+  },
+  {
+    "n": 49,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "What cellular adaptation occurs at the target receptor level following the long-term systemic administration of a pharmacological antagonist?",
+    "o": ["A. Receptor desensitization", "B. Internalization via clathrin-coated pits", "C. Downregulation of receptor", "D. Tachyphylaxis", "E. Upregulation of receptor"],
+    "a": "E"
+  },
+  {
+    "n": 50,
+    "s": "Physiology",
+    "l": 1,
+    "q": "The arterial baroreceptor reflex serves primarily to execute which physiological function?",
+    "o": ["A. Immediate, short-term stabilization of acute blood pressure fluctuations", "B. Modulation of basal metabolic rate through thyroid axes", "C. Direct hormonal regulation of red blood cell production", "D. Continuous regulation of arterial blood pH and oxygen tension", "E. Long-term regulation of systemic blood volume via sodium excretion"],
+    "a": "A"
+  },
+  {
+    "n": 51,
+    "s": "Pathology",
+    "l": 1,
+    "q": "A histological specimen of a brain abscess reveals dense clusters of viable and necrotic neutrophils mixed with liquefying tissue debris. This sample is best categorized as:",
+    "o": ["A. Fibrinous exudate", "B. Caseous necrosis", "C. Granulomatous inflammation", "D. Serous exudate", "E. Purulent (suppurative) exudate"],
+    "a": "E"
+  },
+  {
+    "n": 52,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "What pharmacological property explains why aminoglycosides like gentamicin can be safely and effectively administered as a single, large daily dose?",
+    "o": ["A. Rapid hepatic conversion into active long-lived secondary metabolites", "B. Concentration-dependent killing", "C. Post-antibiotic effects only", "D. High degree of plasma protein binding", "E. Zero-order elimination kinetics"],
+    "a": "B"
+  },
+  {
+    "n": 53,
+    "s": "Immunology",
+    "l": 1,
+    "q": "Which specific activation fragment of the complement system binds covalently to microbial surfaces to act as a highly effective opsonin for phagocytes?",
+    "o": ["A. C4a", "B. C3b", "C. C5a", "D. C7", "E. C9"],
+    "a": "B"
+  },
+  {
+    "n": 54,
+    "s": "Biochemistry",
+    "l": 1,
+    "q": "What is the primary physiological function of carnitine within the intracellular metabolism of long-chain fatty acids?",
+    "o": ["A. Transport of extracellular fatty acids", "B. Transport of intracellular fatty acids into the mitochondrial matrix", "C. Activation of fatty acids into fatty acyl-CoA", "D. Hydrolysis of triacylglycerols in adipose tissue", "E. Condensation of acetyl-CoA subunits during synthesis"],
+    "a": "B"
+  },
+  {
+    "n": 55,
+    "s": "Physiology",
+    "l": 1,
+    "q": "Which segment of the systemic vasculature provides the greatest contribution to total peripheral resistance (TPR)?",
+    "o": ["A. Venules", "B. Venae cavae", "C. Large muscular arteries", "D. Capillaries", "E. Arterioles"],
+    "a": "E"
+  },
+  {
+    "n": 56,
+    "s": "Physiology",
+    "l": 1,
+    "q": "During intense skeletal muscle exercise, localized metabolic accumulation causes the most significant vasodilation in which vessels?",
+    "o": ["A. IVC", "B. Skeletal muscle arterioles", "C. Large conducting elastic arteries", "D. Coronary arteries", "E. Pulmonary veins"],
+    "a": "B"
+  },
+  {
+    "n": 57,
+    "s": "Pathology",
+    "l": 1,
+    "q": "A woman is diagnosed with ovarian cancer that has metastasized to the peritoneum. What is the most likely route of spread?",
+    "o": ["A. Seeding within body cavities", "B. Hematological spread", "C. Lymphatic spread", "D. Retrograde perineural invasion", "E. Iatrogenic direct inoculation"],
+    "a": "A"
+  },
+  {
+    "n": 58,
+    "s": "Pathology",
+    "l": 1,
+    "q": "A patient with a central lung mass presents with hypercortisolism (Cushing syndrome) as a paraneoplastic manifestation. Which histological subtype of lung cancer and paraneoplastic hormone are responsible?",
+    "o": ["A. Large cell neuroendocrine carcinoma secreting TSH ", "B. Squamous cell lung carcinoma secreting PTHrP", "C. Adenocarcinoma secreting calcitonin", "D. Small cell lung carcinoma secreting ectopic ACTH", "E. Carcinoid tumor secreting erythropoietin"],
+    "a": "D"
+  },
+  {
+    "n": 59,
+    "s": "Biochemistry",
+    "l": 1,
+    "q": "Which oncofetal serum tumor marker is standardly monitored to screen for recurrence or monitor response to treatment in a patient with advanced cecal/colorectal adenocarcinoma?",
+    "o": ["A. Alpha-fetoprotein (AFP)", "B. Human chorionic gonadotropin (hCG)", "C. Carcinoembryonic antigen (CEA)", "D. Cancer antigen 125 (CA 125)", "E. Cancer antigen 19-9 (CA 19-9)"],
+    "a": "C"
+  },
+  {
+    "n": 60,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Why does the potassium-sparing diuretic spironolactone demonstrate a noticeably delayed onset of action (requiring several days) to achieve its full therapeutic effect?",
+    "o": ["A. It requires extensive, slow bioactivation.", "B. It undergoes slow, zero-order gastrointestinal absorption.", "C. It acts as a nuclear transcription antagonist, requiring time to decrease the synthesis of downstream Na+/K+ ATPase pumps and ENaC channels.", "D. It undergoes slow, first-order kinetics.", "E. It is heavily bound to plasma proteins and slowly released into tubules."],
+    "a": "C"
+  },
+  {
+    "n": 61,
+    "s": "Biochemistry",
+    "l": 1,
+    "q": "Which ketone body is uniquely generated via the non-enzymatic, spontaneous decarboxylation of acetoacetate in a patient experiencing severe ketoacidosis?",
+    "o": ["A. Alpha-ketoglutarate", "B. Acetone", "C. Beta-hydroxybutyrate", "D. Acetoacetyl-CoA", "E. Oxaloacetate"],
+    "a": "B"
+  },
+  {
+    "n": 62,
+    "s": "Anatomy",
+    "l": 1,
+    "q": "Following surgical ligation or traumatic occlusion of the proximal axillary artery, collateral arterial blood supply to the upper limb can be maintained through anastomoses involving which vessel?",
+    "o": ["A. Dorsal scapular artery", "B. Internal thoracic artery", "C. Thoracodorsal artery", "D. Deep brachial artery", "E. Lateral thoracic artery"],
+    "a": "A"
+  },
+  {
+    "n": 63,
+    "s": "Physiology",
+    "l": 1,
+    "q": "The rapid filling phase occurs in:",
+    "o": ["A. Atrial systole", "B. Atrial diastole", "C. Ventricular systole", "D. Ventricular diastole", "E. Isovolumetric contraction phase"],
+    "a": "D"
+  },
+  {
+    "n": 64,
+    "s": "Physiology",
+    "l": 1,
+    "q": "Which of the following best describes preload?",
+    "o": ["A. The resistance that the ventricle must overcome to eject blood during systole", "B. The volume of blood pumped by the ventricle per minute", "C. The degree of stretch of ventricular muscle fibers at the end of diastole before contraction", "D. The intrinsic force of myocardial contraction independent of fiber length", "E. The ability of cardiac muscle to conduct electrical impulses"],
+    "a": "C"
+  },
+  {
+    "n": 65,
+    "s": "Pathology",
+    "l": 1,
+    "q": "A patient arrives at the emergency department with severe hemorrhagic shock following an abdominal stab wound. Despite aggressive resuscitation, two days later the patient develops profound hypoxemic respiratory failure. A lung biopsy would most likely reveal:",
+    "o": ["A. Renal failure", "B. Hepatic infarction", "C. Diffuse Alveolar Damage (DAD)", "D. Lobar pneumonia", "E. Pulmonary thromboembolism"],
+    "a": "C"
+  },
+  {
+    "n": 66,
+    "s": "Pathology",
+    "l": 1,
+    "q": "A lung biopsy specimen obtained from a patient presenting with chronic cough and night sweats demonstrates acid-fast bacilli. Which histological feature is most characteristic of this condition?",
+    "o": ["A. Central caseous (eosinophilic) necrosis surrounded by activated epithelioid macrophages and Langhans giant cells", "B. Non-caseating granulomas composed purely of well-demarcated whorls of fibroblasts", "C. Dense interstitial fibrosis with extensive intra-alveolar hyaline membranes", "D. Coagulative necrosis displaying preserved cellular outlines without nuclei", "E. Suppurative abscess formation characterized by an abundance of necrotic neutrophils"],
+    "a": "A"
+  },
+  {
+    "n": 67,
+    "s": "Immunology",
+    "l": 1,
+    "q": "During positive and negative selection in the thymus cortex, developing _______ interacts directly with MHC-I and MHC-II surface molecules to receive crucial survival and growth signals.",
+    "o": ["A. T-cells", "B. B-cells", "C. Macrophages", "D. Neutrophils", "E. Natural Killer cells"],
+    "a": "A"
+  },
+  {
+    "n": 68,
+    "s": "Immunology",
+    "l": 1,
+    "q": "MHC-I binds to?",
+    "o": ["A. CD8+", "B. CD4+", "C. LFA", "D. ICAM", "E. B7"],
+    "a": "A"
+  },
+  {
+    "n": 69,
+    "s": "Medical education",
+    "l": 1,
+    "q": "Which one shows the ethical principle of autonomy?",
+    "o": ["A. The doctor respects the mentally competent patient's refusal to take chemotherapy even though it could be therapeutic.", "B. The doctor administers life-saving medication to an unconscious patient without family consent.", "C. The doctor decides to withhold a terminal diagnosis from a patient to prevent emotional distress.", "D. The doctor reports a communicable disease outbreak to public health authorities.", "E. The doctor allocates limited critical care beds based on a first-come, first-served policy."],
+    "a": "A"
+  },
+  {
+    "n": 70,
+    "s": "Biochemistry",
+    "l": 1,
+    "q": "Which of the following serum enzymes is highly specific and standardly utilized to detect or confirm hepatobiliary obstruction or injury?",
+    "o": ["A. Gamma-Glutamyl Transferase (GGT)", "B. Creatine Kinase (CK)", "C. Amylase", "D. Aspartate Aminotransferase (AST)", "E. Alanine Aminotransferase (ALT)"],
+    "a": "A"
+  },
+  {
+    "n": 71,
+    "s": "Pathology",
+    "l": 1,
+    "q": "What is the primary effect of oxidized LDL (OX-LDL) in the development of atherosclerosis?",
+    "o": ["A. Inhibit macrophages", "B. It directly stimulates the continuous release of endothelial nitric oxide", "C. Stimulates the immune response", "D. Decreases smooth muscle cell proliferation", "E. Stabilizes the atherosclerotic fibrous cap"],
+    "a": "C"
+  },
+  {
+    "n": 72,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "What is the primary intracellular mechanism of action for ligands binding to nuclear receptors?",
+    "o": ["A. Modulation of DNA transcription and protein synthesis", "B. Rapid activation of G-protein coupled secondary messengers", "C. Direct opening of ligand-gated chloride ion channels", "D. Phosphorylation of tyrosine kinase domains on the cell membrane", "E. Generation of cyclic GMP via soluble guanylyl cyclase activation"],
+    "a": "A"
+  },
+  {
+    "n": 73,
+    "s": "Pathology",
+    "l": 1,
+    "q": "Following a minor skin piercing, a patient develops an exuberant, raised dermal scar that extends well beyond the boundaries of the original tissue injury site. This lesion is classified as a:",
+    "o": ["A. Granulation tissue nodule", "B. Hypertrophic scar", "C. Keloid", "D. Dermatofibroma", "E. Fibroma"],
+    "a": "C"
+  },
+  {
+    "n": 74,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which pharmacological agent can be utilized as a direct muscarinic receptor agonist to manage xerostomia (dry mouth) in a patient with Sjögren's syndrome?",
+    "o": ["A. Atropine", "B. Scopolamine", "C. Oxybutynin", "D. Ipratropium", "E. Pilocarpine"],
+    "a": "E"
+  },
+  {
+    "n": 75,
+    "s": "Physiology",
+    "l": 1,
+    "q": "A 72-year-old woman suddenly loses consciousness while walking. The episode lasts about one minute. A witness reports no warning symptoms. What is the most likely pathophysiological mechanism?",
+    "o": ["A. Vasovagal syncope", "B. Hypoglycemia", "C. Cerebral hypoperfusion", "D. Orthostatic hypotension", "E. Anxiety attack"],
+    "a": "C"
+  },
+  {
+    "n": 76,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which of the following drugs directly inhibits renin, thereby preventing the conversion of angiotensinogen to angiotensin I?",
+    "o": ["A. Losartan", "B. Captopril", "C. Aliskiren", "D. Valsartan", "E. Spironolactone"],
+    "a": "C"
+  },
+  {
+    "n": 77,
+    "s": "Immunology",
+    "l": 1,
+    "q": "Which of the following is a primary lymphoid organ?",
+    "o": ["A. Spleen", "B. Lymph nodes", "C. Peyer’s patches", "D. Thymus", "E. Tonsils"],
+    "a": "D"
+  },
+  {
+    "n": 78,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which pharmacological mechanism explains the primary therapeutic lipid-lowering profile and clinical utility of the bile acid sequestrant Cholestyramine?",
+    "o": ["A. Competitive inhibition of the microsomal HMG-CoA reductase enzyme", "B. Prevention of cholesterol absorption at the brush border via NPC1L1 protein binding", "C. Binding of intestinal bile acids, preventing enterohepatic recirculation", "D. Direct activation of peroxisome proliferator-activated receptor alpha (PPAR-alpha)", "E. Inhibition of PCSK9-mediated degradation of hepatic low-density lipoprotein receptors"],
+    "a": "C"
+  },
+  {
+    "n": 79,
+    "s": "Anatomy",
+    "l": 1,
+    "q": "The proximal part of the greater gastric omentum is supplied by?",
+    "o": ["A. Superior mesenteric artery", "B. Left gastric artery", "C. Common hepatic artery", "D. Splenic artery", "E. Right gastroepiploic artery"],
+    "a": "D"
+  },
+  {
+    "n": 80,
+    "s": "Biochemistry",
+    "l": 1,
+    "q": "Hartnup's disease is caused by deficiency of:",
+    "o": ["A. Tryptophan decarboxylase", "B. Tryptophan dioxygenase", "C. Tryptophan synthase", "D. Tryptophan hydroxylase", "E. Tryptophan oxygenase"],
+    "a": "B"
+  },
+  {
+    "n": 81,
+    "s": "Biochemistry",
+    "l": 1,
+    "q": "In Krebs cycle:",
+    "o": ["A. Acetyl CoA is combined to oxaloacetate resulting in Isocitrate.", "B. 2GTP are produced per one acetyl CoA.", "C. 3NADH are produced from this cycle per glucose molecule.", "D. The FADH2 from this cycle per one acetyl CoA yields 2ATP through oxidative phosphorylation.", "E. The products of this cycle are energy + CO2."],
+    "a": "D"
+  },
+  {
+    "n": 82,
+    "s": "Pathology",
+    "l": 1,
+    "q": "Which of the following is NOT a congenital heart disease?",
+    "o": ["A. Ventricular septal defect", "B. Tetralogy of Fallot", "C. Atherosclerosis", "D. Atrial septal defect", "E. Patent ductus arteriosus"],
+    "a": "C"
+  },
+  {
+    "n": 83,
+    "s": "Immunology",
+    "l": 1,
+    "q": "Which class of immunoglobulins is predominantly found in external secretions such as saliva, tears, and mucous membranes?",
+    "o": ["A. IgA", "B. IgD", "C. IgG", "D. IgE", "E. IgM"],
+    "a": "A"
+  },
+  {
+    "n": 84,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which of the following drugs can displace bilirubin from albumin-binding sites and increase the risk of kernicterus in neonates?",
+    "o": ["A. Trimethoprim", "B. Ciprofloxacin", "C. Amoxicillin", "D. Sulfamethoxazole", "E. Metronidazole"],
+    "a": "D"
+  },
+  {
+    "n": 85,
+    "s": "Pathology",
+    "l": 1,
+    "q": "A 42-year-old man is concerned about a darkly pigmented \"mole\" on the back of his hand. The lesion has enlarged and bled during the past month. On physical examination, there is a slightly raised, darkly pigmented, 1.2-cm lesion on the dorsum of the right hand. The lesion is completely excised. Which of the following factors presents the greatest risk for the development of this neoplasm?",
+    "o": ["A. Allergy to latex", "B. Asbestos exposure", "C. Chemotherapy", "D. Smoking tobacco", "E. Ultraviolet radiation"],
+    "a": "E"
+  },
+  {
+    "n": 86,
+    "s": "Anatomy",
+    "l": 1,
+    "q": "During an inguinal operation in Femoral hernia, in the spermatic cord, the testicular artery and the artery to the ductus deferens are preserved, but the third artery is accidentally severed. The damaged artery is a branch of which artery?",
+    "o": ["A. Femoral artery", "B. Abdominal aorta", "C. External iliac artery", "D. Internal iliac artery", "E. Inferior epigastric artery"],
+    "a": "E"
+  },
+  {
+    "n": 87,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Glomerular filtration of a drug primarily depends on which of the following?",
+    "o": ["A. Hepatic enzyme activity", "B. Lipid solubility of the drug", "C. Urinary pH", "D. Plasma protein binding", "E. Renal tubular secretion rate"],
+    "a": "D"
+  },
+  {
+    "n": 88,
+    "s": "Medical education",
+    "l": 1,
+    "q": "Mr. H's case is unethical, why?",
+    "o": ["A. The doctor did not respect the patient's expressed opinion of not amputating his arm.", "B. The medical staff shared the patient's records on public platforms without anonymization.", "C. The hospital billed the patient for procedures that were never ordered or executed.", "D. The physician performed an experimental drug trial without proper administrative oversight.", "E. The clinical team delayed primary resuscitation due to documentation protocols."],
+    "a": "A"
+  },
+  {
+    "n": 89,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which of the following drugs act by inhibiting HMG-CoA reductase?",
+    "o": ["A. Ezetimibe", "B. Niacin", "C. Gemfibrozil", "D. Atorvastatin", "E. Cholestyramine"],
+    "a": "D"
+  },
+  {
+    "n": 90,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which drug is commonly used intravenously for rapid control of hypertension during surgery?",
+    "o": ["A. Esmolol", "B. Ivabradine", "C. Empagliflozin", "D. Salbutamol", "E. Mirabegron", "F. Clonidine"],
+    "a": "A"
+  },
+  {
+    "n": 91,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which drug is a sodium-glucose cotransporter-2 (SGLT2) inhibitor?",
+    "o": ["A. Esmolol", "B. Ivabradine", "C. Empagliflozin", "D. Salbutamol", "E. Mirabegron", "F. Clonidine"],
+    "a": "C"
+  },
+  {
+    "n": 92,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which drug decreases heart rate by acting on the sinoatrial (SA) node through inhibition of the funny current (If)?",
+    "o": ["A. Esmolol", "B. Ivabradine", "C. Empagliflozin", "D. Salbutamol", "E. Mirabegron", "F. Clonidine"],
+    "a": "B"
+  },
+  {
+    "n": 93,
+    "s": "Immunology",
+    "l": 1,
+    "q": "Which cells are the most important professional antigen-presenting cells?",
+    "o": ["A. Toll-like receptor", "B. Antigen-specific receptor", "C. Phagocytes and Dendritic cells", "D. White blood cells", "E. Plasma cells"],
+    "a": "C"
+  },
+  {
+    "n": 94,
+    "s": "Immunology",
+    "l": 1,
+    "q": "Which receptor recognizes pathogen-associated molecular patterns (PAMPs)?",
+    "o": ["A. Toll-like receptor", "B. Antigen-specific receptor", "C. Phagocytes and Dendritic cells", "D. White blood cells", "E. Plasma cells"],
+    "a": "A"
+  },
+  {
+    "n": 95,
+    "s": "Immunology",
+    "l": 1,
+    "q": "Which receptor specifically binds an antigen?",
+    "o": ["A. Toll-like receptor", "B. Antigen-specific receptor", "C. Phagocytes and Dendritic cells", "D. White blood cells", "E. Plasma cells"],
+    "a": "B"
+  },
+   {
+    "n": 96,
+    "s": "Pathology",
+    "l": 1,
+    "q": "A malignant tumor arising from hepatocytes is called:",
+    "o": ["A. Vinca alkaloids", "B. Methotrexate", "C. Hepatoma", "D. Alkylating agents", "E. Cyclophosphamide"],
+    "a": "C"
+  },
+  {
+    "n": 97,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which drug inhibits folic acid metabolism?",
+    "o": ["A. Hepatoma", "B. Methotrexate", "C. Vinca alkaloids", "D. Alkylating agents", "E. Cyclophosphamide"],
+    "a": "B"
+  },
+  {
+    "n": 98,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which class of drugs acts as antimitotic agents by inhibiting microtubule formation?",
+    "o": ["A. Hepatoma", "B. Methotrexate", "C. Alkylating agents", "D. Vinca alkaloids", "E. Cyclophosphamide"],
+    "a": "D"
+  },
+ 
+ 
+  {
+    "n": 99,
+    "s": "Pathology",
+    "l": 1,
+    "q": "Jaundice is caused by increased levels of which pigment?",
+    "o": ["A. Bilirubin", "B. Dystrophic calcification", "C. Anthracosis", "D. Hemosiderin", "E. Metastatic calcification"],
+    "a": "A"
+  },
+  {
+    "n": 100,
+    "s": "Pathology",
+    "l": 1,
+    "q": "Deposition of calcium in damaged tissue despite normal serum calcium levels is called:",
+    "o": ["A. Bilirubin", "B. Dystrophic calcification", "C. Anthracosis", "D. Hemosiderin", "E. Metastatic calcification"],
+    "a": "B"
+  },
+  {
+    "n": 101,
+    "s": "Pathology",
+    "l": 1,
+    "q": "A coal miner develops black discoloration of the lungs. What is the diagnosis?",
+    "o": ["A. Bilirubin", "B. Dystrophic calcification", "C. Anthracosis", "D. Hemosiderin", "E. Metastatic calcification"],
+    "a": "C"
+  },
+  {
+    "n": 102,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which β3-adrenergic agonist is used for overactive bladder and urinary retention symptoms?",
+    "o": ["A. Bethanechol", "B. Salbutamol", "C. Clonidine", "D. Mirabegron", "E. Propranolol"],
+    "a": "D"
+  },
+  {
+    "n": 103,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which β2-adrenergic agonist is used in the treatment of bronchial asthma?",
+    "o": ["A. Mirabegron", "B. Salbutamol", "C. Clonidine", "D. Bethanechol", "E. Propranolol"],
+    "a": "B"
+  },
+  {
+    "n": 104,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which α2-adrenergic agonist may be used in the management of ADHD?",
+    "o": ["A. Mirabegron", "B. Salbutamol", "C. Propranolol", "D. Bethanechol", "E. Clonidine"],
+    "a": "E"
+  },
+  {
+    "n": 105,
+    "s": "Immunology",
+    "l": 1,
+    "q": "A patient develops a malar rash and immune complex deposition in the kidneys. What is the diagnosis?",
+    "o": ["A. Graves disease", "B. Systemic lupus erythematosus (SLE)", "C. Myasthenia gravis", "D. Rheumatoid arthritis", "E. Hashimoto thyroiditis"],
+    "a": "B"
+  },
+  {
+    "n": 106,
+    "s": "Immunology",
+    "l": 1,
+    "q": "Autoantibodies interfere with neuromuscular transmission, causing muscle weakness. What is the diagnosis?",
+    "o": ["A. Graves disease", "B. Systemic lupus erythematosus (SLE)", "C. Myasthenia gravis", "D. Rheumatoid arthritis", "E. Hashimoto thyroiditis"],
+    "a": "C"
+  },
+  {
+    "n": 107,
+    "s": "Immunology",
+    "l": 1,
+    "q": "Autoantibodies stimulate the TSH receptor, causing hyperthyroidism. What is the diagnosis?",
+    "o": ["A. Graves disease", "B. Systemic lupus erythematosus (SLE)", "C. Myasthenia gravis", "D. Rheumatoid arthritis", "E. Hashimoto thyroiditis"],
+    "a": "A"
+  },
+  {
+    "n": 108,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which drug is generally contraindicated in a 6-year-old child with Lyme disease?",
+    "o": ["A. Vancomycin", "B. Aztreonam", "C. Piperacillin", "D. Amoxicillin", "E. Doxycycline"],
+    "a": "E"
+  },
+  {
+    "n": 109,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "A patient with a severe penicillin allergy develops a Pseudomonas infection. Which antibiotic is the SAFEST alternative?",
+    "o": ["A. Doxycycline", "B. Aztreonam", "C. Piperacillin", "D. Amoxicillin", "E. Vancomycin"],
+    "a": "B"
+  },
+  {
+    "n": 110,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Which penicillin has activity against Pseudomonas aeruginosa?",
+    "o": ["A. Doxycycline", "B. Aztreonam", "C. Piperacillin", "D. Amoxicillin", "E. Vancomycin"],
+    "a": "C"
+  },
+  {
+    "n": 111,
+    "s": "Pathology",
+    "l": 1,
+    "q": "A woman develops arm swelling after mastectomy with axillary lymph node dissection. What is the condition?",
+    "o": ["A. Increased hydrostatic pressure", "B. Lymphatic obstruction", "C. Lymphedema", "D. Decreased plasma oncotic pressure", "E. Cellulitis"],
+    "a": "C"
+  },
+  {
+    "n": 112,
+    "s": "Pathology",
+    "l": 1,
+    "q": "A breast carcinoma causes orange-peel (peau d'orange) appearance of the skin. What is the underlying mechanism?",
+    "o": ["A. Increased hydrostatic pressure", "B. Lymphatic obstruction", "C. Lymphedema", "D. Decreased plasma oncotic pressure", "E. Cellulitis"],
+    "a": "B"
+  },
+  {
+    "n": 113,
+    "s": "Pathology",
+    "l": 1,
+    "q": "An emergency physician stands for prolonged periods and develops bilateral leg edema without cardiac disease. What is the most likely mechanism?",
+    "o": ["A. Increased hydrostatic pressure", "B. Lymphatic obstruction", "C. Lymphedema", "D. Decreased plasma oncotic pressure", "E. Cellulitis"],
+    "a": "A"
+  },
+ 
+
+
+];
+
+
+const lectures = {
+   1:  "Protein Metabolism 🥩",
+   2:  "Lipid Metabolism 🥑",
+   3:  "Enzymology🧪",
+   4:  "Cancer 🧬",
+   5:  "Carbohydrate Metabolism 🍞",
+   6:  "Nutrition 🥗",
+ 7: "Inhibitors of baterial protein synthesis",
+ 8: "Hypersensitivity Immune response & Related diseases",
+ 9: "Complement system II",
+ 10: "Cytokines and immunotherapy",
+ 11: "Antibody",
+ 12: "Neoplasia",
+ 13: "Hemodynamic disorders shock",
+ 14: "Neoplasia - Molecular basis of cancer",
+ 15: "Inflammation",
+ 16: "Cell injury - Cellular adaptation",
+ 17: "Embolism & infarction",
+ 18: "Drug metabolism",
+ 19: "Cell wall inhibitors",
+ 20: "Drug receptor interaction",
+ 21: "Antifungal drugs",
+ 22: "Sympathomimetic drugs",
+ 23: "Parasympathomimetics",
+ 24: "Adrenergic receptor blockers",
+};
+  
+const lectureFilters = {
+    "All": [],
+    "Biochemistry": [
+        { label: "All",                            val: "All" },
+        
+        { label: "Protein Metabolism 🥩",     val: 1 },
+        { label: "Lipid Metabolism 🥑",     val: 2 },
+        { label: "Enzymology 🧪",     val: 3 },
+        { label: "Cancer 🧬",     val: 4 },
+        { label: "Carbohydrate Metabolism 🍞",     val: 5 },
+        { label: "Nutrition 🥗",     val: 6 },
+
+ ],
+
+  "Pharmacology": [
+        { label: "All",               val: "All" },
+        
+        { label: "Inhibitors of baterial protein synthesis",     val: 7 },
+        {label: "Drug metabolism",     val: 18 },
+        {label: "Cell wall inhibitors",     val: 19 },
+        {label: "Drug receptor interaction",     val: 20 },
+        {label: "Antifungal drugs",     val: 21 },
+        {label: "Sympathomimetic drugs",     val: 22 },
+        {label: "Parasympathomimetics",     val: 23 },
+        {label: "Adrenergic receptor blockers",     val: 24 },
+ ],
+    
+ "Immunology": [
+        { label: "All",               val: "All" },
+        
+        { label: "Hypersensitivity Immune response & Related diseases",     val: 8 },
+        { label: "Complement system II",     val: 9 },
+        { label: "Cytokines and immunotherapy",     val: 10 },
+        { label: "Antibody",     val: 11 },
+    
+
+
+],
+
+"Pathology": [
+        { label: "All",               val: "All" },
+        
+        { label: "Neoplasia",     val: 12 },
+        { label: "Hemodynamic disorders shock",     val: 13 },
+        { label: "Neoplasia - Molecular basis of cancer",     val: 14 },
+        {label: "Inflammation",     val: 15 },
+        {label: "Cell injury - Cellular adaptation",     val: 16 },
+        {label: "Embolism & infarction",     val: 17 },
+],
+
+
+
+};
+let currentSubjectFilter = "All";  // default
+let currentLecture = "All";
+
+const container = document.getElementById('quiz-content');
+const filterBar = document.getElementById('filter-bar');
+
+function renderFilterBar() {
+    const filters = lectureFilters[currentSubjectFilter] || lectureFilters["All"];
+    filterBar.innerHTML = filters.map(f =>
+        `<button class="filter-btn${f.val === currentLecture ? " active" : ""}" onclick="filterByLecture('${f.val}', this)">${f.label}</button>`
+    ).join('');
+}
+
+function getLectureLabel(val) {
+    if (val === "All" && currentSubjectFilter === "All") return "All";
+    if (val === "All") {
+        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pharmacology": "Pharmacology 💊", "Immunology": "Immunology 🛡️", "Pathology": "Pathology 🦠", "Medical Education": "Medical Education 📘" };
+        return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
+    }
+    return lectures[val] || val;
+}
+
+function updateSectionHeading() {
+    const existing = document.getElementById('section-heading');
+    const visibleBlocks = [...document.querySelectorAll('.q-block')].filter(b => b.style.display !== "none");
+    const count = visibleBlocks.length;
+
+    let noResultsMsg = document.getElementById('no-results-msg');
+    if (count === 0) {
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.id = 'no-results-msg';
+            noResultsMsg.className = 'no-results';
+            noResultsMsg.textContent = "No questions found.";
+            container.appendChild(noResultsMsg);
+        }
+    } else if (noResultsMsg) {
+        noResultsMsg.remove();
+    }
+
+    const label = getLectureLabel(currentLecture);
+    const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
+
+    if (existing) {
+        existing.style.display = (count === 0) ? "none" : "flex";
+        existing.querySelector('.section-heading-title').textContent = label;
+        existing.querySelector('.mcq-count-badge').textContent = badgeText;
+    } else if (count > 0) {
+        const heading = document.createElement('div');
+        heading.id = 'section-heading';
+        heading.className = 'section-heading';
+        heading.innerHTML = `<span class="section-heading-title">${label}</span><span class="mcq-count-badge">${badgeText}</span>`;
+        container.insertBefore(heading, container.firstChild);
+    }
+}
+
+function renderQuiz() {
+    container.innerHTML = '';
+    allQuestions.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.subject = item.s;
+        div.dataset.lecture = item.l ?? "";
+        div.dataset.searchText = (item.q + " " + item.o.join(" ")).toLowerCase();
+
+        div.style.display = matchesFilters(item) ? "block" : "none";
+
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <button class="ans-btn" data-answer="Answer: ${item.a}" onclick="toggleAnswer(this)">Answer</button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+    updateSectionHeading();
+}
+
+function matchesFilters(item) {
+    const subjectOk = currentSubjectFilter === "All" || item.s === currentSubjectFilter;
+    const lectureOk = currentLecture === "All" || item.l === currentLecture;
+    return subjectOk && lectureOk;
+}
+
+function filterByLecture(val, btn) {
+    currentLecture = val;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    handleSearch();
+}
+
+// Subject dropdown logic
+function toggleSubjectDropdown() {
+    const dd = document.getElementById('subject-dropdown');
+    const btn = document.getElementById('subject-toggle-btn');
+    const isOpen = dd.classList.contains('open');
+    if (isOpen) {
+        dd.classList.remove('open');
+        btn.classList.remove('dropdown-open');
+    } else {
+        dd.classList.add('open');
+        btn.classList.add('dropdown-open');
+    }
+}
+
+function selectSubjectFilter(subject, el) {
+    currentSubjectFilter = subject;
+    currentLecture = "All";
+    localStorage.setItem('selectedSubject', subject);
+    // update selected state in dropdown
+    document.querySelectorAll('.subject-dropdown-item').forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+    // keep dropdown open — do NOT close it
+    // re-render filter bar and quiz
+    renderFilterBar();
+    handleSearch();
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+    const wrapper = document.querySelector('.subject-toggle-wrapper');
+    if (wrapper && !wrapper.contains(e.target)) {
+        document.getElementById('subject-dropdown').classList.remove('open');
+        document.getElementById('subject-toggle-btn').classList.remove('dropdown-open');
+    }
+});
+
+function handleSearch() {
+    const term = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+    blocks.forEach(block => {
+        resetBlock(block);
+        const subjectOk = currentSubjectFilter === "All" || block.dataset.subject === currentSubjectFilter;
+        const lectureOk = currentLecture === "All" || String(block.dataset.lecture) === String(currentLecture);
+        const matchesSearch = term === "" || block.dataset.searchText.includes(term);
+        if (subjectOk && lectureOk && matchesSearch) {
+            block.style.display = "block";
+            if (term !== "") highlight(block, term);
+        } else {
+            block.style.display = "none";
+        }
+    });
+    updateSectionHeading();
+}
+
+function resetBlock(block) {
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+    qText.innerHTML = qText.dataset.original;
+    opts.forEach(li => li.innerHTML = li.dataset.original);
+    block.classList.remove('revealed');
+    const btn = block.querySelector('.ans-btn');
+    if (btn && btn.dataset.answer) btn.textContent = 'Answer';
+}
+
+function highlight(block, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    block.querySelector('.q-text').innerHTML = block.querySelector('.q-text').innerHTML.replace(regex, '<mark>$1</mark>');
+    block.querySelectorAll('li').forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+}
+
+function toggleAnswer(btn) {
+    const block = btn.closest('.q-block');
+    const isRevealed = block.classList.toggle('revealed');
+    btn.textContent = isRevealed ? btn.dataset.answer : 'Answer';
+}
+
+function toggleTheme() {
+    const isLight = document.body.getAttribute('data-theme') === 'light';
+    const newTheme = isLight ? '' : 'light';
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.getElementById('theme-icon').innerHTML = isLight 
+        ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
+        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+}
+
+(function () {
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+        document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+    // Restore saved subject (default: Biochemistry)
+    const saved = localStorage.getItem('selectedSubject');
+    if (saved && lectureFilters[saved]) {
+        currentSubjectFilter = saved;
+    }
+    // Mark the correct dropdown item as selected
+    document.querySelectorAll('.subject-dropdown-item').forEach(item => {
+        if (item.dataset.subject === currentSubjectFilter) {
+            item.classList.add('selected');
+        } else {
+            item.classList.remove('selected');
+        }
+    });
+}());
+
+renderFilterBar();
+renderQuiz();
+</script>
+</body>
+</html>
