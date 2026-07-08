@@ -24,7 +24,7 @@ if (localStorage.getItem('medq_active') === 'true') {
 
 // ===== CONSTANTS =====
 const DEFAULT_IMG  = 'https://i.imgur.com/yR5Tpv8.png';
-const DEFAULT_NAME = 'MedQ';
+const DEFAULT_NAME = 'Med-Q';
 let pendingImageDataUrl = null;
 
 // ===== PROFILE MODAL =====
@@ -197,6 +197,7 @@ const ALL_SECTIONS = [
         
       ]},
       { title: '2018-2019 Year Exam', links: [
+        { label: 'End-Block 🔃',   badge: '8 MCQs',    href: 'IBS_End-Block_2018-2019.html' },
         { label: 'Final',   badge: '47 MCQs',    href: 'IBS_Final_2018-2019.html' },
         { label: 'Quiz', badge: '20 MCQs', href: 'IBS_Quiz_2018-2019.html' }
 
@@ -216,15 +217,12 @@ const ALL_SECTIONS = [
 
       { title: '2023-2024 Year Exam',     links: [
         { label: 'End-Block _ Theory', badge: '30 MCQs',  href: 'IBS_End-Block_Theory_2023-2024.html' },
-        { label: 'End-Block _ Practice', badge: '10 Questions',  href: 'IBS_Practical_exam_2023-2024.html' },
+        { label: 'End-Block _ Practice', badge: '10 Questions',  href: 'IBS_End-Block_Practice_2023-2024.html' },
         { label: 'Final', badge: '88 MCQs',  href: 'IBS_Final_2023-2024.html' },
+ ] },
 
 
-      ] },
-
-
-
-     { title: '2024-2025 Year Exam',     links: [
+{ title: '2024-2025 Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '32 MCQs',  href: 'IBS_End-Block_2024-2025.html' },
       { label: 'Final', badge: '74 MCQs',  href: 'IBS_Final_2024-2025.html' }
     
@@ -288,33 +286,49 @@ const ALL_SECTIONS = [
     
     ]
   },
-  {
-    type: 'Cardiovascular system 🫀',
+  
+   {
+    type: 'Cardiovascular System 🫀',
     cards: [
-      { title: 'Anatomy 🦴', links: [
-        { label: 'Theory',   badge: '196 MCQs',    href: 'Anatomy.html' },
-        { label: 'Practice', badge: '70 Questions', href: 'Anatomylabs.html' }
+     
+      { title: '2018-2019 Year Exam', links: [
+        { label: 'Final',   badge: '47 MCQs',    href: 'IBS_Final_2018-2019.html' },
+        { label: 'Quiz', badge: '20 MCQs', href: 'IBS_Quiz_2018-2019.html' }
+
       ]},
-      { title: 'Biochemistry 🧪', links: [
-        { label: 'Theory',   badge: '131 MCQs',    href: 'Microbiology.html' },
-        { label: 'Practice', badge: '32 Questions', href: 'Microbiology labs.html' }
+      { title: '2020-2021 Year Exam', links: [
+        { label: 'Final',   badge: '45 MCQs',     href: 'CVS_Final_2020-2021.html' },
+        
       ]},
-      { title: 'Community medicine ', links: [
-        { label: 'Theory',   badge: '82 MCQs',     href: 'Molecular biology.html' },
-        { label: 'Practice', badge: '4 Questions',  href: 'M.biology-practical.html' }
-      ]},
-      { title: 'Histology 🫁',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      
-      
-      { title: 'Medical education 📕',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-    { title: 'Medicine',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Microbiology 🦠',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Pathology ',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Pharmacology 💊',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Physiology ⚡',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Radiology ☢️',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Sugery 👨‍⚕️ ',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
+      { title: '2021-2022 Year Exam',   links: [
+        { label: 'End-Block', badge: '30 MCQs', href: 'IBS_End-Module_2021-2022.html' },
+        { label: 'Final', badge: '87 MCQs', href: 'CVS_Final_2021-2022.html' }
+
+     ]},
+     
+       { title: '2022-2023 Year Exam',     links: [{ label: 'End-Block _ Practice', badge: '10 Questions',  href: 'IBS_Practical_exam_2022-2023.html' }] },
+
+
+      { title: '2023-2024 Year Exam',     links: [
+        { label: 'End-Block _ Theory', badge: '30 MCQs',  href: 'IBS_End-Block_Theory_2023-2024.html' },
+        { label: 'End-Block _ Practice', badge: '10 Questions',  href: 'IBS_End-Block_Practice_2023-2024.html' },
+        { label: 'Final', badge: '88 MCQs',  href: 'IBS_Final_2023-2024.html' },
+
+
+      ] },
+
+
+
+     { title: '2024-2025 Year Exam',     links: [
+      { label: 'End-Block _ Theory', badge: '32 MCQs',  href: 'IBS_End-Block_2024-2025.html' },
+      { label: 'Final', badge: '74 MCQs',  href: 'IBS_Final_2024-2025.html' }
     
+    ] },
+     { title: '2025-2026 Year Exam',     links: [
+      { label: 'End-Block _ Theory', badge: '30 MCQs',  href: 'IBS_End-Block_2025-2026.html' },
+      { label: 'Final', badge: '113 MCQs',  href: 'IBS_Final_2025-2026.html' }
+    
+    ] },
     ]
   },
   {
