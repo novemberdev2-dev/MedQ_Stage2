@@ -399,6 +399,7 @@
              
                 <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
                 <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🦠</div>
+                <div class="subject-dropdown-item" data-subject="Immunology" onclick="selectSubjectFilter('Immunology', this)"><span class="filter-option-dot"></span>Immunology 🛡️</div>
               
         </div>
         </div>
@@ -479,85 +480,87 @@ const allQuestions = [
 
 
 
-  { n: 1, s: "Pathology", l: 1, q: "Which of the following causes chemical cell injury?", o: ["A. Deep cold", "B. Burn", "C. Radiation", "D. Rickettsiae", "E. Arsenic"], a: "E" },
-  { n: 2, s: "Pathology", l: 1, q: "A 60-year-old man has a problem in his heart. The myocardium is firm, with yellow-brown color deposits. An excessive amount of which of the following substances would be found in his heart?", o: ["A. Bilirubin", "B. Glycogen", "C. Wear & tear (Lipofuscin)", "D. Hemosiderin", "E. Melanin"], a: "C" },
-  { n: 3, s: "Pathology", l: 1, q: "Nutritional imbalance (such as in anorexia nervosa or metabolic disease) can be classified as a form of:", o: ["A. Chemical injury", "B. Genetic disease", "C. Infectious agent", "D. Nutritional imbalance", "E. Chemical agent"], a: "D" },
-  { n: 4, s: "Pathology", l: 1, q: "In glandular metaplasia, which of the following epithelial changes occurs?", o: ["A. Columnar epithelium changes to squamous epithelium", "B. Squamous epithelium changes to columnar epithelium", "C. Pseudostratified epithelium changes to stratified squamous", "D. Transitional epithelium changes to squamous epithelium", "E. Cuboidal epithelium changes to transitional epithelium"], a: "B" },
-  { n: 5, s: "Pathology", l: 1, q: "Which of the following cellular adaptations is not a fertile soil for neoplastic transformation?", o: ["A. Hyperplasia and metaplasia", "B. Hyperplasia and dysplasia", "C. Hyperplasia and hypertrophy", "D. Atrophy and hyperplasia", "E. Hypertrophy and atrophy"], a: "E" },
-  { n: 6, s: "Pathology", l: 1, q: "In the morphological change of atrophy, which of the following is characteristically found?", o: ["A. Increase in the number of cell organelles", "B. Decrease of autophagic vacuoles", "C. Increase in the cell size", "D. Lipofuscin granules", "E. Decreased cellular pigmentation"], a: "D" },
-  { n: 7, s: "Pathology", l: 1, q: "An 8-year-old child has sickle cell anemia and his spleen decreased in size. Which of these cellular changes occurred?", o: ["A. Hyperplasia", "B. Hypertrophy", "C. Necrosis", "D. Atrophy", "E. Metaplasia"], a: "D" },
-  { n: 8, s: "Pathology", l: 1, q: "A patient had a myocardial infarction. After reperfusion, there will be further damage caused by:", o: ["A. Free radicals", "B. Complete anoxia", "C. Calcium efflux", "D. Lactic acidosis", "E. Hypothermia"], a: "A" },
-  { n: 9, s: "Pathology", l: 1, q: "Liquefactive necrosis characteristically occurs in which organ?", o: ["A. Heart", "B. Brain", "C. Kidney", "D. Spleen", "E. Liver"], a: "B" },
-  { n: 10, s: "Pathology", l: 1, q: "Metastatic calcification is characteristically associated with which of the following conditions?", o: ["A. Chronic cell ischemia", "B. Areas of liquefactive necrosis", "C. Dystrophic valve disease", "D. Hyperparathyroidism", "E. Localized trauma"], a: "D" },
-  { n: 11, s: "Pathology", l: 1, q: "Dystrophic calcification typically:", o: ["A. Occurs in areas of necrosis", "B. Is associated with systemic hypercalcemia", "C. Affects normal blood vessels systemically", "D. Is caused by primary hyperparathyroidism", "E. Resolves completely without scarring"], a: "A" },
-  { n: 12, s: "Pathology", l: 1, q: "A person has small cell carcinoma of the lung. A biopsy taken from the lymph node reveals that the lymph nodes are not enlarged but look black. What is the cause?", o: ["A. Hemosiderosis", "B. Anthracosis", "C. Melano-carcinoma", "D. Lipofuscinosis", "E. Bilirubinemia"], a: "B" },
-  { n: 13, s: "Pathology", l: 1, q: "A patient has cancer and takes chemotherapy. The cancer cells are destroyed, causing the nucleus and the cytoplasm to be fragmented. What is the mechanism?", o: ["A. Necrosis", "B. Metaplasia", "C. Apoptosis", "D. Hypertrophy", "E. Atrophy"], a: "C" },
-  { n: 14, s: "Pathology", l: 1, q: "A man working under sun exposure notices his skin color changed after a while. This happens because of an enzymatic change of tyrosine to which substance?", o: ["A. Melatonin", "B. Bilirubin", "C. Hemosiderin", "D. Dihydroxy phenylalanine", "E. Lipofuscin"], a: "D" },
-  { n: 15, s: "Pathology", l: 1, q: "Which chemical histochemical reaction/stain is specific for identifying tissue iron?", o: ["A. Periodic acid–Schiff", "B. Sudan IV reaction", "C. Prussian blue reaction", "D. Oil Red O stain", "E. Hematoxylin and eosin"], a: "C" },
-  { n: 16, s: "Pathology", l: 1, q: "Excessive systemic accumulation of iron pigment causing multi-organ dysfunction is called:", o: ["A. Hemochromatosis", "B. Anthracosis", "C. Hemosiderosis", "D. Albinism", "E. Jaundice"], a: "A" },
-  { n: 17, s: "Pathology", l: 1, q: "Which one of the following describes a feature that is NOT characteristic of metastatic calcification?", o: ["A. There will be an increase in the level of serum Ca++", "B. It occurs primarily due to aging or damaged heart valves", "C. It occurs due to deposition of calcium in kidneys", "D. It is found in normal tissues during hypercalcemic states", "E. It can be caused by vitamin D intoxication"], a: "B" },
-  { n: 18, s: "Pathology", l: 1, q: "The wet gangrene of an organ or tissue is morphologically characterized by:", o: ["A. Caseous necrosis", "B. Fibrinoid necrosis", "C. Coagulative necrosis", "D. Liquefactive necrosis", "E. Fat saponification"], a: "D" },
-  { n: 19, s: "Pathology", l: 1, q: "A man started a new job. After working for a period, he became ill and black pigments were found in his lungs. What is the most likely cause?", o: ["A. Asbestosis", "B. Anthracosis", "C. Silicosis", "D. Siderosis", "E. Berylliosis"], a: "B" },
-  { n: 20, s: "Pathology", l: 1, q: "During fat necrosis, free fatty acids combine with calcium to produce salt via which process?", o: ["A. Liquefaction", "B. Coagulation", "C. Caseation", "D. Saponification (soap formation)", "E. Cornification"], a: "D" },
-  { n: 21, s: "Pathology", l: 1, q: "A patient experienced severe substernal chest pain with elevated serum troponin. Which type of necrosis can be found in his heart?", o: ["A. Liquefactive necrosis", "B. Caseous necrosis", "C. Coagulative necrosis", "D. Fat necrosis", "E. Fibrinoid necrosis"], a: "C" },
-  { n: 22, s: "Pathology", l: 1, q: "When cell injury causes depletion of intracellular ATP, which of these ionic shifts occurs?", o: ["A. Influx of Ca²⁺ and Na⁺, efflux of K⁺", "B. Influx of K⁺, efflux of Ca²⁺ and Na⁺", "C. Influx of Na⁺ and K⁺, efflux of Ca²⁺", "D. Influx of Ca²⁺ and K⁺, efflux of Na⁺", "E. Efflux of Ca²⁺, Na⁺, and K⁺"], a: "A" },
-  { n: 23, s: "Pathology", l: 1, q: "Which of the following occurs in reversible cell injury?", o: ["A. Plasma membrane damage", "B. Amorphous densities in mitochondria", "C. Swelling of the cell", "D. Increased intracellular pH", "E. Nuclear karyorrhexis"], a: "C" },
-  { n: 24, s: "Pathology", l: 1, q: "A person chronically consumes high amounts of alcohol. Which of the following intracellular features will be seen in hepatocytes?", o: ["A. Councilman body", "B. Mallory body", "C. Negri body", "D. Aschoff body", "E. Lewy body"], a: "B" },
-  { n: 25, s: "Pathology", l: 1, q: "Which histochemical stain is commonly used to demonstrate fatty changes in a liver biopsy?", o: ["A. Periodic acid–Schiff (PAS)", "B. Prussian blue", "C. Hematoxylin and Eosin", "D. Sudan IV or Oil Red O", "E. Masson's trichrome"], a: "D" },
-  { n: 26, s: "Pathology", l: 1, q: "Bacteria are introduced into a perfused tissue preparation. Leukocytes leave the vasculature and migrate to the site of bacterial inoculation. The movement of these leukocytes is most likely to be mediated by which of the following substances?", o: ["A. Bradykinin", "B. Chemokines", "C. Complement C3a", "D. Histamine", "E. Prostaglandins"], a: "B" },
-  { n: 27, s: "Pathology", l: 1, q: "A 38-year-old woman tests positive for hepatitis. After a month, her liver enzyme levels have returned to normal. Which phase of the cell cycle are the hepatocytes in after recovery?", o: ["A. G0", "B. G1", "C. S", "D. G2", "E. M"], a: "A" },
-  { n: 28, s: "Pathology", l: 1, q: "A localized clinical collection of pus within a tissue or organ cavity is termed a/an:", o: ["A. Ulcer", "B. Blister", "C. Abscess", "D. Granuloma", "E. Keloid"], a: "C" },
-  { n: 29, s: "Pathology", l: 1, q: "A patient presents with a fluid-filled skin blister following a mild burn. What is this type of inflammation?", o: ["A. Purulent inflammation", "B. Fibrinous inflammation", "C. Serous inflammation", "D. Granulomatous inflammation", "E. Ulcerative inflammation"], a: "C" },
-  { n: 30, s: "Pathology", l: 1, q: "Which one of the following statements is NOT correct regarding healing by first intention?", o: ["A. Clean uninfected surgical incision", "B. Wounds have opposed margins", "C. Minimal tissue loss and scar", "D. Scar formation occurs in the first week", "E. Fast re-epithelialization by cells"], a: "D" },
-  { n: 31, s: "Pathology", l: 1, q: "A diabetic person has developed a deep, excavating inflammation in the skin of the lower extremities. This lesion is a/an:", o: ["A. Abscess", "B. Serous blister", "C. Keloid", "D. Ulcer", "E. Fistula"], a: "D" },
-  { n: 32, s: "Pathology", l: 1, q: "Which inflammatory cell type acts as the principal or predominant cell in granulomatous inflammation?", o: ["A. Neutrophil", "B. Eosinophil", "C. Macrophage", "D. Basophil", "E. Plasma cell"], a: "C" },
-  { n: 33, s: "Pathology", l: 1, q: "Which of the following substances can act as growth factor?", o: ["A. Histamine", "B. Cytokines", "C. Bradykinin", "D. Leukotrienes", "E. Thromboxane"], a: "B" },
-  { n: 34, s: "Pathology", l: 1, q: "Which of the following molecules acts as an opsonin to promote phagocytosis by macrophages and neutrophils?", o: ["A. C3b and IgG", "B. Histamine and C5a", "C. Leukotriene B4", "D. Bradykinin and IgE", "E. Interleukin-1 and TNF"], a: "A" },
-  { n: 35, s: "Pathology", l: 1, q: "A patient undergoes surgical screening for a suspected breast cancer mass. Which clinical management tool is most appropriate?", o: ["A. Stool examination", "B. Excisional biopsy", "C. Self breast examination", "D. Upper GI endoscopy", "E. Incisional biopsy"], a: "C" },
-  { n: 36, s: "Pathology", l: 1, q: "A patient presents with a suspicious pigmentary skin lesion. What is the standard diagnostic procedure to screen it?", o: ["A. Self breast examination", "B. Incisional biopsy", "C. Upper GI endoscopy", "D. Stool examination", "E. Excisional biopsy"], a: "E" },
-  { n: 37, s: "Pathology", l: 1, q: "A patient is clinically evaluated for suspected gastric cancer. Which screening modality is utilized?", o: ["A. Self breast examination", "B. Upper GI endoscopy", "C. Excisional biopsy", "D. Stool examination", "E. Incisional biopsy"], a: "B" },
-  { n: 38, s: "Pathology", l: 1, q: "To perform screening for colon cancer, which initial diagnostic test is most commonly used?", o: ["A. Self breast examination", "B. Excisional biopsy", "C. Upper GI endoscopy", "D. Stool examination", "E. Incisional biopsy"], a: "D" },
-  { n: 39, s: "Pathology", l: 1, q: "To examine a suspicious neoplastic lesion located directly in the rectum, which procedure is chosen?", o: ["A. Self breast examination", "B. Excisional biopsy", "C. Upper GI endoscopy", "D. Stool examination", "E. Incisional biopsy"], a: "E" },
-  { n: 40, s: "Pathology", l: 1, q: "A surgical oncologist resects a primary carcinoma mass but wants to evaluate whether there is micro-metastasis to the regional lymph node chain. What is this technique?", o: ["A. Fine needle aspiration", "B. Excisional biopsy", "C. Sentinel lymph node biopsy", "D. Incisional biopsy", "E. Pap smear screening"], a: "C" },
-  { n: 41, s: "Pathology", l: 1, q: "A clinical radiologist is exposed to chronic low-dose occupational radiation. He is at a heightened risk of getting:", o: ["A. Hemangiosarcoma", "B. Leukemia", "C. Teratoma", "D. Pleomorphic adenoma", "E. Chondroma"], a: "B" },
-  { n: 42, s: "Pathology", l: 1, q: "A tumor that originate from all three germ cell layers is called:", o: ["A. Teratoma", "B. Pleomorphic adenoma", "C. Hemangiosarcoma", "D. Chondroma", "E. Adenocarcinoma"], a: "A" },
-  { n: 43, s: "Pathology", l: 1, q: "Which tumor is a benign neoplasm that uniquely originates from a mixture of both epithelial and mesenchymal tissues?", o: ["A. Teratoma", "B. Pleomorphic adenoma of salivary gland", "C. Chondroma", "D. Fibrosarcoma", "E. Squamous cell papilloma"], a: "B" },
-  { n: 44, s: "Pathology", l: 1, q: "An inherited defect in a DNA mismatch repair gene leading to Hereditary Non-Polyposis Colorectal Cancer (HNPCC) causes which cancer?", o: ["A. Gastric cancer", "B. Pancreatic cancer", "C. Lung cancer", "D. Colon cancer", "E. Vaginal cancer"], a: "D" },
-  { n: 45, s: "Pathology", l: 1, q: "Which one of the following neoplasms represents a completely benign tumor?", o: ["A. Melanoma", "B. Chondroma", "C. Leukemia", "D. Lymphoma", "E. Hemangiosarcoma"], a: "B" },
-  { n: 46, s: "Pathology", l: 1, q: "Which type of cancer metastasizes early through direct seeding of body cavities or fluids?", o: ["A. Chondroma", "B. Colon cancer", "C. Vaginal cancer", "D. Teratoma", "E. Pancreatic adenocarcinoma"], a: "C" },
-  { n: 47, s: "Pathology", l: 1, q: "An industrial factory worker has had long-term exposure to polyvinyl chloride (PVC). He is at a high risk of getting:", o: ["A. Leukemia", "B. Teratoma", "C. Pleomorphic adenoma", "D. Hemangiosarcoma", "E. Chondroma"], a: "D" },
-  { n: 48, s: "Pathology", l: 1, q: "A patient is undergoing biochemical evaluation for prostate cancer diagnosis. Which of the following is utilized?", o: ["A. CA 19-9", "B. Specific serum tumor marker (PSA)", "C. Periodic acid–Schiff", "D. Prussian blue reaction", "E. Sudan IV stain"], a: "B" },
-  { n: 49, s: "Pathology", l: 1, q: "CA 19-9 is a well-established serum tumor marker used clinically to support the diagnosis of:", o: ["A. Prostate cancer", "B. Pancreatic adenocarcinoma", "C. Vaginal cancer", "D. Small cell lung carcinoma", "E. Leukemia"], a: "B" },
-  { n: 50, s: "Pathology", l: 1, q: "Which one of the following statements is NOT true about tumor grading?", o: ["A. Only the pathologist can do it", "B. It depends directly on the degree of differentiation", "C. It has more clinical prognostic value than staging", "D. The high-grade tumors behave more aggressively", "E. It assesses mitotic figures and cellular atypia"], a: "C" },
-  { n: 51, s: "Pathology", l: 1, q: "Which stain is standard for viewing general cell protein?", o: ["A. Periodic acid–Schiff", "B. Hematoxylin and Eosin", "C. Sudan IV", "D. Prussian blue", "E. Oil Red O"], a: "B" },
-  { n: 52, s: "Pathology", l: 1, q: "Which stain is used to demonstrate carbohydrate structures?", o: ["A. Hematoxylin and eosin", "B. Prussian blue reaction", "C. Sudan IV", "D. Periodic acid–Schiff (PAS)", "E. Oil Red O"], a: "D" },
-  { n: 53, s: "Pathology", l: 1, q: "Which interleukin is involved in CD8+ T-cell interactions or production pathways?", o: ["A. IL-4", "B. IL-1", "C. TNF", "D. IL-12", "E. IL-6"], a: "A" },
-  { n: 54, s: "Pathology", l: 1, q: "Which cytokine pathway protects immune cells from undergoing premature apoptosis?", o: ["A. IL pathway", "B. Histamine pathway", "C. Bradykinin pathway", "D. Leukotriene pathway", "E. Prostaglandin pathway"], a: "A" },
-  { n: 55, s: "Pathology", l: 1, q: "Which cytokine is essential for defense against helminthic infections by activating eosinophils?", o: ["A. IL-1", "B. IL-2", "C. IL-5", "D. IL-10", "E. TNF-alpha"], a: "C" },
-  { n: 56, s: "Pathology", l: 1, q: "Eosinophils bind to helminths coated with antibody molecules using which surface structure?", o: ["A. C5b receptor", "B. J chain", "C. CD8 molecule", "D. Fc receptor", "E. IgD receptor"], a: "D" },
-  { n: 57, s: "Pathology", l: 1, q: "Which neuroendocrine hormone functions to regulate systemic leptin levels?", o: ["A. Testosterone", "B. Estrogen", "C. Melatonin", "D. Progesterone", "E. Cortisol"], a: "C" },
-  { n: 58, s: "Pathology", l: 1, q: "Congenital leptin deficiency is clinically noted to:", o: ["A. Impair T-cell proliferation", "B. Enhance B-cell differentiation", "C. Block type I hypersensitivity", "D. Stimulate active acquired immunity", "E. Inhibit alternative complement pathway"], a: "A" },
-  { n: 59, s: "Pathology", l: 1, q: "Which steroid hormone acts as a direct biological precursor that can change to estrogen?", o: ["A. Melatonin", "B. Cortisol", "C. Progesterone", "D. Testosterone", "E. Leptin"], a: "D" },
-  { n: 60, s: "Pathology", l: 1, q: "ABO blood incompatibility and Goodpasture syndrome are mediated by which hypersensitivity mechanism?", o: ["A. Type I hypersensitivity reaction", "B. Type II hypersensitivity reaction", "C. Type III hypersensitivity reaction", "D. Type IV hypersensitivity reaction", "E. Alternative pathway reaction"], a: "B" },
-  { n: 61, s: "Pathology", l: 1, q: "Which complement component serves as the initial anchor to form the membrane attack complex?", o: ["A. C3a", "B. C5a", "C. C5b", "D. C3b", "E. J chain"], a: "C" },
-  { n: 62, s: "Pathology", l: 1, q: "Which complement split product acts as a powerful factor for leukocyte chemotaxis?", o: ["A. C3d", "B. C5a", "C. C5b", "D. IgD", "E. J chain"], a: "B" },
-  { n: 63, s: "Pathology", l: 1, q: "Which cells participate actively in the alternative pathway of complement activation?", o: ["A. Mast cells & basophils", "B. Eosinophils only", "C. Cytotoxic CD8+ T cells", "D. Plasma cells", "E. Hepatocytes"], a: "A" },
-  { n: 64, s: "Pathology", l: 1, q: "Which of the following is a prominent example of a common indoor allergen?", o: ["A. Oak pollen", "B. Dust mites", "C. Poison ivy", "D. Goldenrod", "E. Industrial PVC dust"], a: "B" },
-  { n: 65, s: "Pathology", l: 1, q: "What is the major surface immunoglobulin found on the membrane of immature B cells?", o: ["A. IgA", "B. IgE", "C. IgM", "D. IgD", "E. IgG"], a: "D" },
-  { n: 66, s: "Pathology", l: 1, q: "Which immunoglobulin isotype is most efficient at antigen agglutination and complement complex activation?", o: ["A. IgD", "B. IgE", "C. IgA", "D. IgG", "E. IgM"], a: "E" },
-  { n: 67, s: "Pathology", l: 1, q: "The secretory dimeric form of IgA requires which structural peptide component to hold monomers together?", o: ["A. Fc receptor", "B. J chain", "C. C5b subunit", "D. IgD chain", "E. Opsonin loop"], a: "B" },
-  { n: 68, s: "Pathology", l: 1, q: "Which immunoglobulin binds tightly to mast cells and basophils, playing a central role in type I hypersensitivity (allergy)?", o: ["A. IgA", "B. IgD", "C. IgE", "D. IgG", "E. IgM"], a: "C" },
-  { n: 69, s: "Pathology", l: 1, q: "What is the most common type of clinical acute urticaria?", o: ["A. Acute non-allergic urticaria", "B. Type II hemolytic urticaria", "C. Granulomatous urticaria", "D. Autoimmune Goodpasture urticaria", "E. Hereditary complement deficiency urticaria"], a: "A" },
-  { n: 70, s: "Pathology", l: 1, q: "Which statement is WRONG concerning the clinical actions of corticosteroids?", o: ["A. It is an immunosuppressive drug", "B. It is an immune enhancer drug", "C. It reduces inflammatory cytokines", "D. It decreases leukocyte migration", "E. It stabilizes lysosomal membranes"], a: "B" },
-  { n: 71, s: "Pathology", l: 1, q: "Which one of the following statements is NOT true regarding the physiological process of phagocytosis?", o: ["A. Phagocytosis cannot occur without an opsonin", "B. Neutrophils engulf bacterial structures", "C. It requires recognition and attachment phases", "D. Phagosomes fuse with cell lysosomes", "E. Reactive oxygen species kill microbes"], a: "A" },
-  { n: 72, s: "Pathology", l: 1, q: "Which of the following immunoglobulins provides primary, crucial adaptive mucosal response protection against viral infection?", o: ["A. IgD", "B. IgE", "C. IgG", "D. IgM", "E. IgA"], a: "E" },
-  { n: 73, s: "Pathology", l: 1, q: "Which type of immunization induces artificial active acquired immunity in an individual?", o: ["A. Natural infection with a pathogen", "B. Vaccination", "C. Transfer of maternal colostrum", "D. Injection of preformed immunoglobulins", "E. Infusion of active T cells"], a: "B" },
-  { n: 74, s: "Pathology", l: 1, q: "Which physical attribute is NOT a typical characteristic of an effective immunogen?", o: ["A. High chemical complexity", "B. Foreignness to host", "C. Low molecular weight", "D. High molecular weight", "E. Degradability by APCs"], a: "C" },
-  { n: 75, s: "Pathology", l: 1, q: "The dimeric form of immunoglobulin is typically seen in which specific subclass structure?", o: ["A. IgG1", "B. IgA2", "C. IgD", "D. IgE", "E. IgM"], a: "B" },
-  { n: 76, s: "Pathology", l: 1, q: "Which surface immunoglobulin molecule is primarily involved in signaling the differentiation of naive B-cells?", o: ["A. IgA", "B. IgE", "C. IgG", "D. IgD", "E. IgM"], a: "D" },
+  { n: 48, s: "Pathology", l: 1, q: "Which of the following causes chemical cell injury?", o: ["A. Deep cold", "B. Burn", "C. Radiation", "D. Rickettsiae", "E. Arsenic"], a: "E" },
+  { n: 49, s: "Pathology", l: 1, q: "A 60-year-old man has a problem in his heart. The myocardium is firm, with yellow-brown color deposits. An excessive amount of which of the following substances would be found in his heart?", o: ["A. Bilirubin", "B. Glycogen", "C. Wear & tear (Lipofuscin)", "D. Hemosiderin", "E. Melanin"], a: "C" },
+  { n: 50, s: "Pathology", l: 1, q: "Metabolic disease (such as anorexia nervosa or metabolic disease) caused by:", o: ["A. Chemical injury", "B. Genetic disease", "C. Infectious agent", "D. Nutritional imbalance", "E. Chemical agent"], a: "D" },
+  { n: 51, s: "Pathology", l: 1, q: "In glandular metaplasia, which of the following epithelial changes occurs?", o: ["A. Columnar epithelium changes to squamous epithelium", "B. Squamous epithelium changes to columnar epithelium", "C. Pseudostratified epithelium changes to stratified squamous", "D. Transitional epithelium changes to squamous epithelium", "E. Cuboidal epithelium changes to transitional epithelium"], a: "B" },
+  { n: 52, s: "Pathology", l: 1, q: "Which of the following cellular adaptations is not a fertile soil for neoplastic transformation?", o: ["A. Hyperplasia and metaplasia", "B. Hyperplasia and dysplasia", "C. Hyperplasia and hypertrophy", "D. Atrophy and hyperplasia", "E. Hypertrophy and atrophy"], a: "E" },
+  { n: 53, s: "Pathology", l: 1, q: "In the morphological change of atrophy, which of the following is characteristically found?", o: ["A. Increase in the number of cell organelles", "B. Decrease of autophagic vacuoles", "C. Increase in the cell size", "D. Lipofuscin granules", "E. Decreased cellular pigmentation"], a: "D" },
+  { n: 54, s: "Pathology", l: 1, q: "An 8-year-old child has sickle cell anemia and his spleen decreased in size. Which of these cellular changes occurred?", o: ["A. Hyperplasia", "B. Hypertrophy", "C. Necrosis", "D. Atrophy", "E. Metaplasia"], a: "D" },
+  { n: 55, s: "Pathology", l: 1, q: "A patient had a myocardial infarction. After reperfusion, there will be further damage caused by:", o: ["A. Free radicals", "B. Complete anoxia", "C. Calcium efflux", "D. Lactic acidosis", "E. Hypothermia"], a: "A" },
+  { n: 56, s: "Pathology", l: 1, q: "Liquefactive necrosis characteristically occurs in which organ?", o: ["A. Heart", "B. Brain", "C. Kidney", "D. Spleen", "E. Liver"], a: "B" },
+  { n: 57, s: "Pathology", l: 1, q: "Metastatic calcification is characteristically associated with which of the following conditions?", o: ["A. Chronic cell ischemia", "B. Areas of liquefactive necrosis", "C. Dystrophic valve disease", "D. Hyperparathyroidism", "E. Localized trauma"], a: "D" },
+  { n: 58, s: "Pathology", l: 1, q: "Dystrophic calcification typically:", o: ["A. Occurs in areas of necrosis", "B. Is associated with systemic hypercalcemia", "C. Affects normal blood vessels systemically", "D. Is caused by primary hyperparathyroidism", "E. Resolves completely without scarring"], a: "A" },
+  { n: 59, s: "Pathology", l: 1, q: "A person has small cell carcinoma of the lung. A biopsy taken from the lymph node reveals that the lymph nodes are not enlarged but look black. What is the cause?", o: ["A. Hemosiderosis", "B. Anthracosis", "C. Melano-carcinoma", "D. Lipofuscinosis", "E. Bilirubinemia"], a: "B" },
+  { n: 60, s: "Pathology", l: 1, q: "A patient has cancer and takes chemotherapy. The cancer cells are destroyed, causing the nucleus and the cytoplasm to be fragmented. What is the mechanism?", o: ["A. Necrosis", "B. Metaplasia", "C. Apoptosis", "D. Hypertrophy", "E. Atrophy"], a: "C" },
+  { n: 61, s: "Pathology", l: 1, q: "A man working under sun exposure notices his skin color changed after a while. This happens because of an enzymatic change of tyrosine to which substance?", o: ["A. Melatonin", "B. Bilirubin", "C. Hemosiderin", "D. Dihydroxy phenylalanine", "E. Lipofuscin"], a: "D" },
+  { n: 62, s: "Pathology", l: 1, q: "Which chemical histochemical reaction/stain is specific for identifying tissue iron?", o: ["A. Periodic acid–Schiff", "B. Sudan IV reaction", "C. Prussian blue reaction", "D. Oil Red O stain", "E. Hematoxylin and eosin"], a: "C" },
+  { n: 63, s: "Pathology", l: 1, q: "Excessive systemic accumulation of iron pigment causing multi-organ dysfunction is called:", o: ["A. Hemochromatosis", "B. Anthracosis", "C. Hemosiderosis", "D. Albinism", "E. Jaundice"], a: "A" },
+  { n: 64, s: "Pathology", l: 1, q: "Which one of the following describes a feature that is NOT characteristic of metastatic calcification?", o: ["A. There will be an increase in the level of serum Ca++", "B. It occurs primarily due to aging or damaged heart valves", "C. It occurs due to deposition of calcium in kidneys", "D. It is found in normal tissues during hypercalcemic states", "E. It can be caused by vitamin D intoxication"], a: "B" },
+  { n: 65, s: "Pathology", l: 1, q: "The wet gangrene of an organ or tissue is morphologically characterized by:", o: ["A. Caseous necrosis", "B. Fibrinoid necrosis", "C. Coagulative necrosis", "D. Liquefactive necrosis", "E. Fat saponification"], a: "D" },
+  { n: 66, s: "Pathology", l: 1, q: "A man started a new job. After working for a period, he became ill and black pigments were found in his lungs. What is the most likely cause?", o: ["A. Asbestosis", "B. Anthracosis", "C. Silicosis", "D. Siderosis", "E. Berylliosis"], a: "B" },
+  { n: 67, s: "Pathology", l: 1, q: "During fat necrosis, free fatty acids combine with calcium to produce salt via which process?", o: ["A. Liquefaction", "B. Coagulation", "C. Caseation", "D. Saponification (soap formation)", "E. Cornification"], a: "D" },
+  { n: 68, s: "Pathology", l: 1, q: "A patient experienced severe substernal chest pain with elevated serum troponin. Which type of necrosis can be found in his heart?", o: ["A. Liquefactive necrosis", "B. Caseous necrosis", "C. Coagulative necrosis", "D. Fat necrosis", "E. Fibrinoid necrosis"], a: "C" },
+  { n: 69, s: "Pathology", l: 1, q: "When cell injury causes depletion of intracellular ATP, which of these ionic shifts occurs?", o: ["A. Influx of Ca²⁺ and Na⁺, efflux of K⁺", "B. Influx of K⁺, efflux of Ca²⁺ and Na⁺", "C. Influx of Na⁺ and K⁺, efflux of Ca²⁺", "D. Influx of Ca²⁺ and K⁺, efflux of Na⁺", "E. Efflux of Ca²⁺, Na⁺, and K⁺"], a: "A" },
+  { n: 70, s: "Pathology", l: 1, q: "Which of the following occurs in reversible cell injury?", o: ["A. Plasma membrane damage", "B. Amorphous densities in mitochondria", "C. Swelling of the cell", "D. Increased intracellular pH", "E. Nuclear karyorrhexis"], a: "C" },
+  { n: 71, s: "Pathology", l: 1, q: "A person chronically consumes high amounts of alcohol. Which of the following intracellular features will be seen in hepatocytes?", o: ["A. Councilman body", "B. Mallory body", "C. Negri body", "D. Aschoff body", "E. Lewy body"], a: "B" },
+  { n: 72, s: "Pathology", l: 1, q: "Which histochemical stain is commonly used to demonstrate fatty changes in a liver biopsy?", o: ["A. Periodic acid–Schiff (PAS)", "B. Prussian blue", "C. Hematoxylin and Eosin", "D. Sudan IV or Oil Red O", "E. Masson's trichrome"], a: "D" },
+  { n: 73, s: "Pathology", l: 1, q: "Bacteria are introduced into a perfused tissue preparation. Leukocytes leave the vasculature and migrate to the site of bacterial inoculation. The movement of these leukocytes is most likely to be mediated by which of the following substances?", o: ["A. Bradykinin", "B. Chemokines", "C. Complement C3a", "D. Histamine", "E. Prostaglandins"], a: "B" },
+  { n: 74, s: "Pathology", l: 1, q: "A 38-year-old woman tests positive for hepatitis. After a month, her liver enzyme levels have returned to normal. Which phase of the cell cycle are the hepatocytes in after recovery?", o: ["A. G0", "B. G1", "C. S", "D. G2", "E. M"], a: "A" },
+  { n: 75, s: "Pathology", l: 1, q: "A localized clinical collection of pus within a tissue or organ cavity is termed a/an:", o: ["A. Ulcer", "B. Blister", "C. Abscess", "D. Granuloma", "E. Keloid"], a: "C" },
+  { n: 76, s: "Pathology", l: 1, q: "A patient presents with a fluid-filled skin blister following a mild burn. What is this type of inflammation?", o: ["A. Purulent inflammation", "B. Fibrinous inflammation", "C. Serous inflammation", "D. Granulomatous inflammation", "E. Ulcerative inflammation"], a: "C" },
+  { n: 77, s: "Pathology", l: 1, q: "Which one of the following statements is NOT correct regarding healing by first intention?", o: ["A. Clean uninfected surgical incision", "B. Wounds have opposed margins", "C. Minimal tissue loss and scar", "D. Scar formation occurs in the first week", "E. Fast re-epithelialization by cells"], a: "D" },
+  { n: 78, s: "Pathology", l: 1, q: "A diabetic person has developed a deep, excavating inflammation in the skin of the lower extremities. This lesion is a/an:", o: ["A. Abscess", "B. Serous blister", "C. Keloid", "D. Ulcer", "E. Fistula"], a: "D" },
+  { n: 79, s: "Pathology", l: 1, q: "Which inflammatory cell type acts as the principal or predominant cell in granulomatous inflammation?", o: ["A. Neutrophil", "B. Eosinophil", "C. Macrophage", "D. Basophil", "E. Plasma cell"], a: "C" },
+  { n: 80, s: "Pathology", l: 1, q: "Which of the following substances can act as growth factor?", o: ["A. Histamine", "B. Cytokines", "C. Bradykinin", "D. Leukotrienes", "E. Thromboxane"], a: "B" },
+  { n: 81, s: "Pathology", l: 1, q: "Which of the following molecules acts as an opsonin to promote phagocytosis by macrophages and neutrophils?", o: ["A. C3b and IgG", "B. Histamine and C5a", "C. Leukotriene B4", "D. Bradykinin and IgE", "E. Interleukin-1 and TNF"], a: "A" },
+ { n: 82, s: "Pathology", l: 1, q: "Which screening tool is used for breast cancer?", o: ["A. Stool examination", "B. Excisional biopsy", "C. Self breast examination", "D. Upper GI endoscopy", "E. Incisional biopsy"], a: "C" },
+{ n: 83, s: "Pathology", l: 1, q: "Which procedure is used for a suspicious skin lesion?", o: ["A. Self breast examination", "B. Incisional biopsy", "C. Upper GI endoscopy", "D. Stool examination", "E. Excisional biopsy"], a: "E" },
+{ n: 84, s: "Pathology", l: 1, q: "Which screening modality is used for gastric cancer?", o: ["A. Self breast examination", "B. Upper GI endoscopy", "C. Excisional biopsy", "D. Stool examination", "E. Incisional biopsy"], a: "B" },
+{ n: 85, s: "Pathology", l: 1, q: "Which test is commonly used for colon cancer screening?", o: ["A. Self breast examination", "B. Excisional biopsy", "C. Upper GI endoscopy", "D. Stool examination", "E. Incisional biopsy"], a: "D" },
+{ n: 86, s: "Pathology", l: 1, q: "Which procedure is used for a lesion in the rectum?", o: ["A. Self breast examination", "B. Excisional biopsy", "C. Upper GI endoscopy", "D. Stool examination", "E. Incisional biopsy"], a: "E" },
+ 
+  { n: 87, s: "Pathology", l: 1, q: "A surgical oncologist resects a primary carcinoma mass but wants to evaluate whether there is micro-metastasis to the regional lymph node chain. What is this technique?", o: ["A. Fine needle aspiration", "B. Excisional biopsy", "C. Sentinel lymph node biopsy", "D. Incisional biopsy", "E. Pap smear screening"], a: "C" },
+  { n: 88, s: "Pathology", l: 1, q: "A clinical radiologist is exposed to chronic low-dose occupational radiation. He is at a heightened risk of getting:", o: ["A. Hemangiosarcoma", "B. Leukemia", "C. Teratoma", "D. Pleomorphic adenoma", "E. Chondroma"], a: "B" },
+  { n: 89, s: "Pathology", l: 1, q: "A tumor that originate from all three germ cell layers is called:", o: ["A. Teratoma", "B. Pleomorphic adenoma", "C. Hemangiosarcoma", "D. Chondroma", "E. Adenocarcinoma"], a: "A" },
+  { n: 90, s: "Pathology", l: 1, q: "Which tumor is a benign neoplasm that uniquely originates from a mixture of both epithelial and mesenchymal tissues?", o: ["A. Teratoma", "B. Pleomorphic adenoma of salivary gland", "C. Chondroma", "D. Fibrosarcoma", "E. Squamous cell papilloma"], a: "B" },
+  { n: 91, s: "Pathology", l: 1, q: "An inherited defect in a DNA mismatch repair gene leading to Hereditary Non-Polyposis Colorectal Cancer (HNPCC) causes which cancer?", o: ["A. Gastric cancer", "B. Pancreatic cancer", "C. Lung cancer", "D. Colon cancer", "E. Vaginal cancer"], a: "D" },
+  { n: 92, s: "Pathology", l: 1, q: "Which one of the following neoplasms represents a completely benign tumor?", o: ["A. Melanoma", "B. Chondroma", "C. Leukemia", "D. Lymphoma", "E. Hemangiosarcoma"], a: "B" },
+  { n: 93, s: "Pathology", l: 1, q: "Which type of cancer metastasizes early through direct seeding of body cavities or fluids?", o: ["A. Chondroma", "B. Colon cancer", "C. Vaginal cancer", "D. Teratoma", "E. Pancreatic adenocarcinoma"], a: "C" },
+  { n: 94, s: "Pathology", l: 1, q: "An industrial factory worker has had long-term exposure to polyvinyl chloride (PVC). He is at a high risk of getting:", o: ["A. Leukemia", "B. Teratoma", "C. Pleomorphic adenoma", "D. Hemangiosarcoma", "E. Chondroma"], a: "D" },
+  { n: 95, s: "Pathology", l: 1, q: "A patient is undergoing biochemical evaluation for prostate cancer diagnosis. Which of the following is utilized?", o: ["A. CA 19-9", "B. Specific serum tumor marker (PSA)", "C. Periodic acid–Schiff", "D. Prussian blue reaction", "E. Sudan IV stain"], a: "B" },
+  { n: 96, s: "Pathology", l: 1, q: "CA 19-9 is a well-established serum tumor marker used clinically to support the diagnosis of:", o: ["A. Prostate cancer", "B. Pancreatic adenocarcinoma", "C. Vaginal cancer", "D. Small cell lung carcinoma", "E. Leukemia"], a: "B" },
+  { n: 97, s: "Pathology", l: 1, q: "Which one of the following statements is NOT true about tumor grading?", o: ["A. Only the pathologist can do it", "B. It depends directly on the degree of differentiation", "C. It has more clinical prognostic value than staging", "D. The high-grade tumors behave more aggressively", "E. It assesses mitotic figures and cellular atypia"], a: "C" },
+  { n: 98, s: "Pathology", l: 1, q: "Which stain is standard for viewing general cell protein?", o: ["A. Periodic acid–Schiff", "B. Hematoxylin and Eosin", "C. Sudan IV", "D. Prussian blue", "E. Oil Red O"], a: "B" },
+  { n: 99, s: "Pathology", l: 1, q: "Which stain is used to demonstrate carbohydrate structures?", o: ["A. Hematoxylin and eosin", "B. Prussian blue reaction", "C. Sudan IV", "D. Periodic acid–Schiff (PAS)", "E. Oil Red O"], a: "D" },
+  { n: 100, s: "Immunology", l: 1, q: "Which interleukin is involved in CD8+ T-cell interactions or production pathways?", o: ["A. IL-4", "B. IL-1", "C. TNF", "D. IL-12", "E. IL-6"], a: "A" },
+  { n: 101, s: "Immunology", l: 1, q: "Which cytokine pathway protects immune cells from undergoing premature apoptosis?", o: ["A. IL pathway", "B. Histamine pathway", "C. Bradykinin pathway", "D. Leukotriene pathway", "E. Prostaglandin pathway"], a: "A" },
+  { n: 102, s: "Immunology", l: 1, q: "Which cytokine is essential for defense against helminthic infections by activating eosinophils?", o: ["A. IL-1", "B. IL-2", "C. IL-5", "D. IL-10", "E. TNF-alpha"], a: "C" },
+  { n: 103, s: "Immunology", l: 1, q: "Eosinophils bind to helminths coated with antibody molecules using which surface structure?", o: ["A. C5b receptor", "B. J chain", "C. CD8 molecule", "D. Fc receptor", "E. IgD receptor"], a: "D" },
+  { n: 104, s: "Immunology", l: 1, q: "Which neuroendocrine hormone functions to regulate systemic leptin levels?", o: ["A. Testosterone", "B. Estrogen", "C. Melatonin", "D. Progesterone", "E. Cortisol"], a: "C" },
+  { n: 105, s: "Immunology", l: 1, q: "Congenital leptin deficiency is clinically noted to:", o: ["A. Impair T-cell proliferation", "B. Enhance B-cell differentiation", "C. Block type I hypersensitivity", "D. Stimulate active acquired immunity", "E. Inhibit alternative complement pathway"], a: "A" },
+  { n: 106, s: "Immunolog", l: 1, q: "Which steroid hormone acts as a direct biological precursor that can change to estrogen?", o: ["A. Melatonin", "B. Cortisol", "C. Progesterone", "D. Testosterone", "E. Leptin"], a: "D" },
+  { n: 107, s: "Immunology", l: 1, q: "ABO blood incompatibility and Goodpasture syndrome are mediated by which hypersensitivity mechanism?", o: ["A. Type I hypersensitivity reaction", "B. Type II hypersensitivity reaction", "C. Type III hypersensitivity reaction", "D. Type IV hypersensitivity reaction", "E. Alternative pathway reaction"], a: "B" },
+  { n: 108, s: "Immunology", l: 1, q: "Which complement component serves as the initial anchor to form the membrane attack complex?", o: ["A. C3a", "B. C5a", "C. C5b", "D. C3b", "E. J chain"], a: "C" },
+  { n: 109, s: "Immunology", l: 1, q: "Which complement split product acts as a powerful factor for leukocyte chemotaxis?", o: ["A. C3d", "B. C5a", "C. C5b", "D. IgD", "E. J chain"], a: "B" },
+  { n: 110, s: "Immunology", l: 1, q: "Which cells participate actively in the alternative pathway of complement activation?", o: ["A. Mast cells & basophils", "B. Eosinophils only", "C. Cytotoxic CD8+ T cells", "D. Plasma cells", "E. Hepatocytes"], a: "A" },
+  { n: 111, s: "Immunology", l: 1, q: "Which of the following is a prominent example of a common indoor allergen?", o: ["A. Oak pollen", "B. Dust mites", "C. Poison ivy", "D. Goldenrod", "E. Industrial PVC dust"], a: "B" },
+  { n: 112, s: "Immunology", l: 1, q: "What is the major surface immunoglobulin found on the membrane of immature B cells?", o: ["A. IgA", "B. IgE", "C. IgM", "D. IgD", "E. IgG"], a: "D" },
+  { n: 113, s: "Immunology", l: 1, q: "Which immunoglobulin isotype is most efficient at antigen agglutination and complement complex activation?", o: ["A. IgD", "B. IgE", "C. IgA", "D. IgG", "E. IgM"], a: "E" },
+  { n: 114, s: "Immunology", l: 1, q: "Which immunoglobulin contains a J-chain and is the main antibody in secretions?", o: ["A. IgA", "B. IgD", "C. IgE", "D. IgG", "E. IgM"], a: "A" },
+  { n: 115, s: "Immunology", l: 1, q: "The secretory dimeric form of IgA requires which structural peptide component to hold monomers together?", o: ["A. Fc receptor", "B. J chain", "C. C5b subunit", "D. IgD chain", "E. Opsonin loop"], a: "B" },
+  { n: 116, s: "Immunology", l: 1, q: "Which immunoglobulin binds tightly to mast cells and basophils, playing a central role in type I hypersensitivity (allergy)?", o: ["A. IgA", "B. IgD", "C. IgE", "D. IgG", "E. IgM"], a: "C" },
+  { n: 117, s: "Immunology", l: 1, q: "What is the most common type of clinical acute urticaria?", o: ["A. Acute non-allergic urticaria", "B. Type II hemolytic urticaria", "C. Granulomatous urticaria", "D. Autoimmune Goodpasture urticaria", "E. Hereditary complement deficiency urticaria"], a: "A" },
+  { n: 118, s: "Immunology", l: 1, q: "Which statement is WRONG concerning the clinical actions of steroids?", o: ["A. It is an immunosuppressive drug", "B. It is an immune enhancer drug", "C. It reduces inflammatory cytokines", "D. It decreases leukocyte migration", "E. It stabilizes lysosomal membranes"], a: "B" },
+  { n: 119, s: "Immunology", l: 1, q: "Which one of the following is NOT true regarding phagocytosis?", o: ["A. Phagocytosis cannot occur without an opsonin", "B. Neutrophils engulf bacterial structures", "C. It requires recognition and attachment phases", "D. Phagosomes fuse with cell lysosomes", "E. Reactive oxygen species kill microbes"], a: "A" },
+  { n: 120, s: "Immunology", l: 1, q: "Which of the following immunoglobulins provides primary, crucial adaptive mucosal response protection against viral infection?", o: ["A. IgD", "B. IgE", "C. IgG", "D. IgM", "E. IgA"], a: "E" },
+  { n: 121, s: "Immunology", l: 1, q: "Which of the following is a  artificial active acquired immunity in an individual?", o: ["A. Natural infection with a pathogen", "B. Vaccination", "C. Transfer of maternal colostrum", "D. Injection of preformed immunoglobulins", "E. Infusion of active T cells"], a: "B" },
+  { n: 122, s: "Immunology", l: 1, q: "Which physical attribute is NOT a typical characteristic of an effective immunogen?", o: ["A. High chemical complexity", "B. Foreignness to host", "C. Low molecular weight", "D. High molecular weight", "E. Degradability by APCs"], a: "C" },
+  { n: 123, s: "Immunology", l: 1, q: "The dimeric form of immunoglobulin is typically seen in which specific subclass structure?", o: ["A. IgG1", "B. IgA2", "C. IgD", "D. IgE", "E. IgM"], a: "B" },
+  { n: 124, s: "Immunology", l: 1, q: "Which surface immunoglobulin molecule is primarily involved in signaling the differentiation of naive B-cells?", o: ["A. IgA", "B. IgE", "C. IgG", "D. IgD", "E. IgM"], a: "D" },
 
   {
-    n: 48,
+    n: 125,
     s: "Pathology",
     l: 1,
     q: "A female developed shortness of breath and complications during laboring, what will be found in her lungs?",
@@ -571,7 +574,7 @@ const allQuestions = [
     a: "B"
   },
   {
-    n: 49,
+    n: 126,
     s: "Pathology",
     l: 1,
     q: "A man had an accident which affected his head and caused compression on the cerebral hemisphere. What is the most likely pathological change that develops as a result of this condition?",
@@ -585,7 +588,7 @@ const allQuestions = [
     a: "D"
   },
   {
-    n: 50,
+    n: 127,
     s: "Pathology",
     l: 1,
     q: "A person after prolonged immobilization has a risk to develop:",
@@ -599,7 +602,7 @@ const allQuestions = [
     a: "C"
   },
   {
-    n: 51,
+    n: 128,
     s: "Pathology",
     l: 1,
     q: "Ischemic necrosis of which organ causes red infarction?",
@@ -613,7 +616,7 @@ const allQuestions = [
     a: "E"
   },
   {
-    n: 52,
+    n: 129,
     s: "Pathology",
     l: 1,
     q: "A woman dies after a history of distended veins in the neck and hepatomegaly. The cut surface of the liver showed (nutmeg) appearances, what is the pathology behind it?",
@@ -627,7 +630,7 @@ const allQuestions = [
     a: "A"
   },
   {
-    n: 53,
+    n: 130,
     s: "Pathology",
     l: 1,
     q: "A man had edema in the leg, the specific gravity is less than 1.012. What is the cause?",
@@ -641,7 +644,7 @@ const allQuestions = [
     a: "D"
   },
   {
-    n: 54,
+    n: 131,
     s: "Pathology",
     l: 1,
     q: "A woman presented with fainting, peripheral vasodilation, low blood pressure, high pulse rate, fever, and elevated lactate. What is the diagnosis?",
@@ -655,7 +658,7 @@ const allQuestions = [
     a: "E"
   },
   {
-    n: 55,
+    n: 132,
     s: "Pathology",
     l: 1,
     q: "Which of the following is NOT a risk factor for thrombus?",
@@ -669,7 +672,7 @@ const allQuestions = [
     a: "C"
   },
   {
-    n: 56,
+    n: 133,
     s: "Pathology",
     l: 1,
     q: "A patient got electrolyte imbalance and had anuria. What is the diagnosis?",
@@ -683,7 +686,7 @@ const allQuestions = [
     a: "A"
   },
   {
-    n: 57,
+    n: 134,
     s: "Pathology",
     l: 1,
     q: "A person had an accident, presented with a fracture in the femur bone and got dyspnea. What is the cause of the symptom?",
@@ -697,7 +700,7 @@ const allQuestions = [
     a: "D"
   },
   {
-    n: 58,
+    n: 135,
     s: "Pathology",
     l: 1,
     q: "Most of the arterial emboli will occur in:",
@@ -711,7 +714,7 @@ const allQuestions = [
     a: "C"
   },
   {
-    n: 59,
+    n: 136,
     s: "Pathology",
     l: 1,
     q: "A person had myocardial infarction, we will give aspirin as prevention because it has an effect on:",
@@ -725,7 +728,7 @@ const allQuestions = [
     a: "B"
   },
   {
-    n: 60,
+    n: 137,
     s: "Pathology",
     l: 1,
     q: "Where do the mural thrombi happen?",
@@ -739,7 +742,7 @@ const allQuestions = [
     a: "E"
   },
   {
-    n: 61,
+    n: 138,
     s: "Pathology",
     l: 1,
     q: "A person had a nodule on his mitral valve and the culture was negative, what is it?",
@@ -753,7 +756,7 @@ const allQuestions = [
     a: "C"
   },
   {
-    n: 62,
+    n: 139,
     s: "Pathology",
     l: 1,
     q: "The primary influences on thrombus formation are called:",
@@ -767,7 +770,7 @@ const allQuestions = [
     a: "B"
   },
   {
-    n: 63,
+    n: 140,
     s: "Pathology",
     l: 1,
     q: "Which of the following is the cause of endothelial cell loss?",
@@ -781,7 +784,7 @@ const allQuestions = [
     a: "B"
   },
   {
-    n: 64,
+    n: 141,
     s: "Pathology",
     l: 1,
     q: "Which one of the following is a fate of a thrombus?",
@@ -793,8 +796,18 @@ const allQuestions = [
       "E. Propagation towards the heart"
     ],
     a: "E"
-  }
+  },
 
+  
+  { n: 142, s: "Pathology", l: 1, q: "In metaplasia, the definition states that the process is ________ and the change is from one adult fully differentiated cell type to another.", o: ["A. Irreversible", "B. Malignant", "C. Reversible", "D. Congenital", "E. Hypertrophic"], a: "C" },
+  { n: 143, s: "Pathology", l: 1, q: "In the bronchial epithelium of a person who is a smoker, there will be a ________ change from pseudostratified respiratory epithelium to stratified squamous.", o: ["A. Squamous metaplasia", "B. Glandular hyperplasia", "C. Caseous necrosis", "D. Liquefactive atrophy", "E. Mucinous dysplasia"], a: "A" },
+  { n: 144, s: "Pathology", l: 1, q: "The thymus gland undergoes ________ in adulthood.", o: ["A. Pathological hyperplasia", "B. Malignant transformation", "C. Squamous metaplasia", "D. Dystrophic calcification", "E. Physiological atrophy"], a: "E" },
+  { n: 145, s: "Pathology", l: 1, q: "Coagulative necrosis characteristically occurs in the:", o: ["A. Brain", "B. Heart", "C. Pancreas", "D. Salivary gland", "E. Lung"], a: "B" },
+  { n: 146, s: "Pathology", l: 1, q: "The paraneoplastic syndrome of pancreatic cancer is associated with:", o: ["A. Pigmentation of skin in neck", "B. Distended veins in the neck", "C. Acute tubular necrosis", "D. Severe lymphedema of the arm", "E. Disseminated intravascular coagulation"], a: "A" },
+  { n: 147, s: "Pathology", l: 1, q: "Which immunoglobulin plays a primary role in type 1 hypersensitivity (allergy)?", o: ["A. IgA", "B. IgD", "C. IgG", "D. IgM", "E. IgE"], a: "E" },
+  { n: 148, s: "Pathology", l: 1, q: "Which of the following viruses does NOT cause cancer?", o: ["A. HPV human papilloma virus", "B. EBV Epstein-Barr virus", "C. HBV hepatitis B virus", "D. KSHV koposi sarcoma herpes virus", "E. Influenza virus"], a: "E" },
+{ n: 149, s: "Pathology", l: 1, q: "Which of the following is NOT a morphological feature of malignant neoplasm?", o: ["A. Pleomorphism", "B. Hyperchromatism", "C. Increased nuclear-cytoplasmic ratio", "D. Abnormal mitotic figures", "E. Cellular swelling"], a: "E" },
+{ n: 150, s: "Pathology", l: 1, q: "Barrett esophagus is an example of:", o: ["A. Hyperplasia", "B. Dysplasia", "C. Metaplasia", "D. Neoplasia", "E. Hypertrophy"], a: "C" }
 ];
 
 
@@ -855,7 +868,7 @@ function renderFilterBar() {
 function getLectureLabel(val) {
     if (val === "All" && currentSubjectFilter === "All") return "All";
     if (val === "All") {
-        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pharmacology": "Pharmacology 💊", "Pathology": "Pathology 🦠" };
+        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pharmacology": "Pharmacology 💊", "Immunology": "Immunology 🛡️", "Pathology": "Pathology 🦠" };
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
     return lectures[val] || val;
