@@ -291,11 +291,7 @@ const ALL_SECTIONS = [
     type: 'Cardiovascular System 🫀',
     cards: [
      
-      { title: '2018-2019 Year Exam', links: [
-        { label: 'Final',   badge: '47 MCQs',    href: 'IBS_Final_2018-2019.html' },
-        { label: 'Quiz', badge: '20 MCQs', href: 'IBS_Quiz_2018-2019.html' }
-
-      ]},
+      
       { title: '2020-2021 Year Exam', links: [
         { label: 'Final',   badge: '45 MCQs',     href: 'CVS_Final_2020-2021.html' },
         
