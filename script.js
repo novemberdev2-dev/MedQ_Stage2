@@ -198,7 +198,7 @@ const ALL_SECTIONS = [
       ]},
       { title: '2018-2019 Year Exam', links: [
         { label: 'End-Block 🔃',   badge: '8 MCQs',    href: 'IBS_End-Block_2018-2019.html' },
-        { label: 'Final 🔃',   badge: '150 MCQs',    href: 'IBS_Final_2018-2019.html' },
+        { label: 'Final',   badge: '47 MCQs',    href: 'IBS_Final_2018-2019.html' },
         { label: 'Quiz', badge: '20 MCQs', href: 'IBS_Quiz_2018-2019.html' }
 
       ]},
@@ -217,7 +217,7 @@ const ALL_SECTIONS = [
 
       { title: '2023-2024 Year Exam',     links: [
         { label: 'End-Block _ Theory', badge: '30 MCQs',  href: 'IBS_End-Block_Theory_2023-2024.html' },
-        { label: 'End-Block _ Practice', badge: '10 Questions',  href: 'IBS_Practical_exam_2023-2024.html' },
+        { label: 'End-Block _ Practice', badge: '10 Questions',  href: 'IBS_End-Block_Practice_2023-2024.html' },
         { label: 'Final', badge: '88 MCQs',  href: 'IBS_Final_2023-2024.html' },
  ] },
 
@@ -229,7 +229,7 @@ const ALL_SECTIONS = [
     ] },
      { title: '2025-2026 Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '30 MCQs',  href: 'IBS_End-Block_2025-2026.html' },
-      { label: 'Final', badge: '113 MCQs',  href: 'IBS_Final_2025-2026.html' }
+      { label: 'Final', badge: '66 MCQs',  href: 'IBS_Final_2025-2026.html' }
     
     ] },
     ]
@@ -291,38 +291,41 @@ const ALL_SECTIONS = [
     type: 'Cardiovascular System 🫀',
     cards: [
      
-      
-      { title: '2020-2021 Year Exam', links: [
+      { title: '2018-2019 Year Exam', links: [
+        { label: 'Final',   badge: '0 MCQs',    href: 'IBS_Final_2018-2019.html' },
+        { label: 'Quiz', badge: '0 MCQs', href: 'IBS_Quiz_2018-2019.html' }
+
+      ]},
+      { title: '2020-2021 Year Exam 🔥', links: [
         { label: 'Final',   badge: '45 MCQs',     href: 'CVS_Final_2020-2021.html' },
         
       ]},
-      { title: '2021-2022 Year Exam',   links: [
-        { label: 'End-Block', badge: '30 MCQs', href: 'IBS_End-Module_2021-2022.html' },
-        { label: 'Final', badge: '87 MCQs', href: 'CVS_Final_2021-2022.html' }
+      { title: '2021-2022 Year Exam 🔥',   links: [
+        { label: 'Final', badge: '31 MCQs', href: 'CVS_Final_2021-2022.html' },
 
      ]},
      
-       { title: '2022-2023 Year Exam',     links: [{ label: 'End-Block _ Practice', badge: '10 Questions',  href: 'IBS_Practical_exam_2022-2023.html' }] },
 
 
       { title: '2023-2024 Year Exam',     links: [
-        { label: 'End-Block _ Theory', badge: '30 MCQs',  href: 'IBS_End-Block_Theory_2023-2024.html' },
-        { label: 'End-Block _ Practice', badge: '10 Questions',  href: 'IBS_End-Block_Practice_2023-2024.html' },
-        { label: 'Final', badge: '88 MCQs',  href: 'IBS_Final_2023-2024.html' },
+        { label: 'End-Block _ Theory', badge: '0 MCQs',  href: 'IBS_End-Block_Theory_2023-2024.html' },
+        { label: 'End-Block _ Practice', badge: '0 Questions',  href: 'IBS_End-Block_Practice_2023-2024.html' },
+
+ ] },
+
+ { title: '2024-2025 Year Exam',     links: [
+        { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'CVS_End-Block_Theory_2024-2025.html' },
+        { label: 'End-Block _ Practice', badge: '0 Questions',  href: 'CVS_End-Block_Practice_2023-2024.html' },
+        { label: 'Final', badge: '0 MCQs',  href: 'CVS_Final_2024-2025.html' },
 
 
       ] },
 
 
-
-     { title: '2024-2025 Year Exam',     links: [
-      { label: 'End-Block _ Theory', badge: '32 MCQs',  href: 'IBS_End-Block_2024-2025.html' },
-      { label: 'Final', badge: '74 MCQs',  href: 'IBS_Final_2024-2025.html' }
-    
-    ] },
      { title: '2025-2026 Year Exam',     links: [
-      { label: 'End-Block _ Theory', badge: '30 MCQs',  href: 'IBS_End-Block_2025-2026.html' },
-      { label: 'Final', badge: '113 MCQs',  href: 'IBS_Final_2025-2026.html' }
+      { label: 'End-Block _ Theory', badge: '0 MCQs',  href: 'CVS_End-Block_Theory_2025-2026.html' },
+      { label: 'End-Block _ Practice', badge: '0 Questions',  href: 'CVS_End-Block_Practice_2025-2026.html' },
+      { label: 'Final', badge: '54 MCQs',  href: 'CVS_Final_2025-2026.html' }
     
     ] },
     ]
