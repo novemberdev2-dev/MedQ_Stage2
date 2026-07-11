@@ -399,16 +399,13 @@
                 <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
                 <div class="subject-dropdown-item" data-subject="Immunology" onclick="selectSubjectFilter('Anatomy', this)"><span class="filter-option-dot"></span>Anatomy 🦴</div>
                 <div class="subject-dropdown-item" data-subject="Medical education" onclick="selectSubjectFilter('Medical education', this)"><span class="filter-option-dot"></span>Medical Education 📘</div>
-                <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Phathology', this)"><span class="filter-option-dot"></span>Pathology 🦠</div>
+                <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
                 <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
-                <div class="subject-dropdown-item" data-subject="Community medicine" onclick="selectSubjectFilter('Community medicine', this)"><span class="filter-option-dot"></span>Community Medicine</div>
-                <div class="subject-dropdown-item" data-subject="Medicine" onclick="selectSubjectFilter('Medicine', this)"><span class="filter-option-dot"></span>Medicine</div>
-                <div class="subject-dropdown-item" data-subject="Microbiology" onclick="selectSubjectFilter('Microbiology', this)"><span class="filter-option-dot"></span>Microbiology</div>
+               
+                <div class="subject-dropdown-item" data-subject="Microbiology" onclick="selectSubjectFilter('Microbiology', this)"><span class="filter-option-dot"></span>Microbiology 🦠</div>
                 <div class="subject-dropdown-item" data-subject="Physiology" onclick="selectSubjectFilter('Physiology', this)"><span class="filter-option-dot"></span>Physiology ⚡</div>
                 <div class="subject-dropdown-item" data-subject="Radiology" onclick="selectSubjectFilter('Radiology', this)"><span class="filter-option-dot"></span>Radiology ☢️</div>
-                <div class="subject-dropdown-item" data-subject="Surgery" onclick="selectSubjectFilter('Surgery', this)"><span class="filter-option-dot"></span>Surgery </div>
-                <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🧬</div>
-              
+                <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🫁</div>
         </div>
         </div>
 
@@ -445,36 +442,10 @@ const allQuestions = [
     ],
     a: 'C'
   },
+ 
+  
   {
     n: 2,
-    s: 'Pharmacology',
-    l: 1,
-    q: 'A case with Treponema pallidum?',
-    o: [
-      'A. Oral amoxicillin',
-      'B. Intravenous gentamicin',
-      'C. Oral ciprofloxacin',
-      'D. Topical erythromycin',
-      'E. Benzathine penicillin'
-    ],
-    a: 'E'
-  },
-  {
-    n: 3,
-    s: 'Pharmacology',
-    l: 1,
-    q: 'Which one is true about weak basic drugs?',
-     o: [
-      'A. Excreted more in alkaline urine',
-      'B. Excreted more in acidic urine',
-      'C. Highly ionized in alkaline environments',
-      'D. Absorbed faster from acidic gastric contents',
-      'E. Do not undergo renal clearance'
-    ],
-    a: 'B'
-  },
-  {
-    n: 4,
     s: 'Pharmacology',
     l: 1,
     q: 'Which antifungal drug is the glucan inhibitor?',
@@ -487,92 +458,8 @@ const allQuestions = [
     ],
     a: 'D'
   },
-  {
-    n: 5,
-    s: 'Pharmacology',
-    l: 1,
-    q: 'Which drug works only on Gram-negative bacteria?',
-    o: [
-      'A. Aztreonam',
-      'B. Vancomycin',
-      'C. Linezolid',
-      'D. Clindamycin',
-      'E. Daptomycin'
-    ],
-    a: 'A'
-  },
-  {
-    n: 6,
-    s: 'Pharmacology',
-    l: 1,
-    q: 'A patient with renal disease: which cephalosporin drugs are best?',
-    o: [
-      'A. Cefazolin',
-      'B. Cefepime',
-      'C. Ceftriaxone',
-      'D. Ceftazidime',
-      'E. Cefuroxime'
-    ],
-    a: 'C'
-  },
-  {
-    n: 7,
-    s: 'Pharmacology',
-    l: 1,
-    q: 'Someone eating an unknown plant that caused dry mouth and mydriasis?',
-    o: [
-      'A. Sympatholytic',
-      'B. Anticholinergic',
-      'C. Cholinergic',
-      'D. Nicotinic agonist',
-      'E. Histaminergic'
-    ],
-    a: 'B'
-  },
-  {
-    n: 8,
-    s: 'Pharmacology',
-    l: 1,
-    q: 'Teratogenic drugs like thalidomide are a part of which type of adverse effect?',
-    o: [
-      'A. Augmented effects',
-      'B. Bizarre effects',
-      'C. Chronic effects',
-      'D. End-of-use effects',
-      'E. Delayed effects'
-    ],
-    a: 'E'
-  },
-  {
-    n: 9,
-    s: 'Pharmacology',
-    l: 1,
-    q: 'What is the receptor of vitamin D?',
-    o: [
-      'A. G-protein coupled receptor',
-      'B. Tyrosine kinase receptor',
-      'C. Ligand-gated ion channel',
-      'D. Nuclear receptor',
-      'E. Cytokine receptor'
-    ],
-    a: 'D'
-  },
-  {
-    n: 10,
-    s: 'Pharmacology',
-    l: 1,
-    q: 'Which one is a decarboxylase inhibitor used for Parkinson\'s disease?',
-    o: [
-      'A. Pramipexole',
-      'B. Selegiline',
-      'C. Carbidopa',
-      'D. Entacapone',
-      'E. Amantadine'
-    ],
-    a: 'C'
-  },
-  {
-    n: 11,
+{
+    n: 3,
     s: 'Pharmacology',
     l: 1,
     q: 'Which diuretic can remove the largest amount of fluid from the body?',
@@ -586,7 +473,7 @@ const allQuestions = [
     a: 'B'
   },
   {
-    n: 12,
+    n: 4,
     s: 'Pharmacology',
     l: 1,
     q: 'Verapamil is contraindicated in?',
@@ -599,36 +486,10 @@ const allQuestions = [
     ],
     a: 'E'
   },
+  
+ 
   {
-    n: 13,
-    s: 'Pharmacology',
-    l: 1,
-    q: 'Which drug has dual action, stimulating guanylate cyclase and synergizing with endogenous nitric oxide?',
-    o: [
-      'A. Riociguat',
-      'B. Sildenafil',
-      'C. Nitroglycerin',
-      'D. Hydralazine',
-      'E. Sodium nitroprusside'
-    ],
-    a: 'A'
-  },
-  {
-    n: 14,
-    s: 'Pharmacology',
-    l: 1,
-    q: 'Which of the following is used for nasal congestion (nasal decongestant)?',
-    o: [
-      'A. Cetirizine',
-      'B. Fluticasone',
-      'C. Ipratropium',
-      'D. Xylometazoline',
-      'E. Montelukast'
-    ],
-    a: 'D'
-  },
-  {
-    n: 15,
+    n: 5,
     s: 'Pharmacology',
     l: 1,
     q: 'Which drug has a short duration of action and is used during surgery?',
@@ -642,7 +503,7 @@ const allQuestions = [
     a: 'C'
   },
   {
-    n: 16,
+    n: 6,
     s: 'Pharmacology',
     l: 1,
     q: 'Which drug decreases heart failure by working on the SGLT2i?',
@@ -655,22 +516,9 @@ const allQuestions = [
     ],
     a: 'B'
   },
+  
   {
-    n: 17,
-    s: 'Pharmacology',
-    l: 1,
-    q: 'Which drug is used in empiric therapy?',
-    o: [
-      'A. Penicillin V',
-      'B. Isoniazid',
-      'C. Methotrexate',
-      'D. Cyclosporine',
-      'E. Meropenem'
-    ],
-    a: 'E'
-  },
-  {
-    n: 18,
+    n: 7,
     s: 'Pharmacology',
     l: 1,
     q: 'What drug is used for postoperative urine retention?',
@@ -684,7 +532,7 @@ const allQuestions = [
     a: 'D'
   },
   {
-    n: 19,
+    n: 8,
     s: 'Pharmacology',
     l: 1,
     q: 'Co-trimoxazole in G6PD deficiency causes?',
@@ -697,22 +545,9 @@ const allQuestions = [
     ],
     a: 'C'
   },
+ 
   {
-    n: 20,
-    s: 'Pharmacology',
-    l: 1,
-    q: 'Which drug is used for asthma?',
-    o: [
-      'A. Salbutamol',
-      'B. Propranolol',
-      'C. Codeine',
-      'D. Indomethacin',
-      'E. Digoxin'
-    ],
-    a: 'A'
-  },
-  {
-    n: 21,
+    n: 9,
     s: 'Pharmacology',
     l: 1,
     q: 'Which drug, converted to a false neurotransmitter, is used for hypertension?',
@@ -725,92 +560,11 @@ const allQuestions = [
     ],
     a: 'B'
   },
+ 
+ 
+  
   {
-    n: 22,
-    s: 'Pharmacology',
-    l: 1,
-    q: 'Which drug is not an enzyme inducer?',
-    o: [
-      'A. Phenytoin',
-      'B. Carbamazepine',
-      'C. Rifampin',
-      'D. Phenobarbital',
-      'E. Cimetidine'
-    ],
-    a: 'E'
-  },
-  {
-    n: 23,
-    s: 'Biochemistry',
-    l: 1,
-    q: 'HDL activated by which enzyme?',
-    o: [
-      'A. Lipoprotein lipase',
-      'B. ACAT',
-      'C. Pancreatic lipase',
-      'D. LCAT',
-      'E. Hepatic lipase'
-    ],
-    a: 'D'
-  },
-  {
-    n: 24,
-    s: 'Biochemistry',
-    l: 1,
-    q: 'Which process causes increased glucose levels?',
-    o: [
-      'A. Glycolysis',
-      'B. Glycogenesis',
-      'C. Gluconeogenesis',
-      'D. Pentose phosphate pathway',
-      'E. Lipogenesis'
-    ],
-    a: 'C'
-  },
-  {
-    n: 25,
-    s: 'Biochemistry',
-    l: 1,
-    q: 'Lipase activity is dependent on which of the following ions?',
-    o: [
-      'A. Sodium',
-      'B. Calcium',
-      'C. Potassium',
-      'D. Magnesium',
-      'E. Zinc'
-    ],
-    a: 'B'
-  },
-  {
-    n: 26,
-    s: 'Biochemistry',
-    l: 1,
-    q: 'Fumarase, which converts fumarate to malate, is referred to as which enzyme class?',
-    o: [
-      'A. Lyases',
-      'B. Transferases',
-      'C. Isomerases',
-      'D. Ligases',
-      'E. Oxidoreductases'
-    ],
-    a: 'A'
-  },
-  {
-    n: 27,
-    s: 'Biochemistry',
-    l: 1,
-    q: 'All of the following are required for the biosynthesis of glutamate except:',
-    o: [
-      'A. Ammonia',
-      'B. NADH',
-      'C. α-ketoglutarate',
-      'D. Glutamate dehydrogenase',
-      'E. ATP'
-    ],
-    a: 'E'
-  },
-  {
-    n: 28,
+    n: 10,
     s: 'Biochemistry',
     l: 1,
     q: 'Alpha-1 antitrypsin deficiency causes?',
@@ -823,359 +577,12 @@ const allQuestions = [
     ],
     a: 'D'
   },
+ 
+  
+
   {
-    n: 29,
-    s: 'Biochemistry',
-    l: 1,
-    q: 'What is the first step of beta-oxidation?',
-    o: [
-      'A. Hydration',
-      'B. Thiolysis',
-      'C. Dehydrogenation',
-      'D. Condensation',
-      'E. Reduction'
-    ],
-    a: 'C'
-  },
-  {
-    n: 30,
-    s: 'Biochemistry',
-    l: 1,
-    q: 'The amino acid that detoxifies benzoic acid to form hippuric acid is:',
-    o: [
-      'A. Arginine',
-      'B. Glycine',
-      'C. Aspartic acid',
-      'D. Alanine',
-      'E. Asparagine'
-    ],
-    a: 'B'
-  },
-  {
-    n: 31,
-    s: 'Biochemistry',
-    l: 1,
-    q: 'Which of the following is WRONG about competitive inhibitors?',
-    o: [
-      'A. They bind to the active site',
-      'B. Their effect can be overcome by increasing substrate concentration',
-      'C. They increase the apparent Km value',
-      'D. They do not alter Vmax',
-      'E. They are irreversible'
-    ],
-    a: 'E'
-  },
-  {
-    n: 32,
-    s: 'Biochemistry',
-    l: 1,
-    q: 'Which one is true regarding TCA?',
-    o: [
-      'A. 1 NADH per turn',
-      'B. 2 NADH per turn',
-      'C. 0 NADH per turn',
-      'D. 3 NADH per turn',
-      'E. 4 NADH per turn'
-    ],
-    a: 'D'
-  },
-  {
-    n: 33,
-    s: 'Biochemistry',
-    l: 1,
-    q: 'What percentage of daily caloric intake typically comes from carbohydrates in a ketogenic diet?',
-    o: [
-      'A. 5-10%',
-      'B. 20-30%',
-      'C. 45-55%',
-      'D. 60-70%',
-      'E. 80-90%'
-    ],
-    a: 'A'
-  },
-  {
-    n: 34,
-    s: 'Biochemistry',
-    l: 1,
-    q: 'Which of the following is NOT a biomarker for the liver?',
-    o: [
-      'A. Alanine aminotransferase',
-      'B. Aspartate aminotransferase',
-      'C. Acid phosphatase',
-      'D. Alkaline phosphatase',
-      'E. Bilirubin'
-    ],
-    a: 'C'
-  },
-  {
-    n: 35,
-    s: 'Biochemistry',
-    l: 1,
-    q: 'Galactosemia?',
-    o: [
-      'A. Is an Infectious disease.',
-      'B. Is a Hereditary disease.',
-      'C. Is an Autoimmune disease.',
-      'D. Is a Nutritional deficiency disease.',
-      'E. Is a Neoplastic disease.'
-    ],
-    a: 'B'
-  },
-  {
-    n: 36,
-    s: 'Biochemistry',
-    l: 1,
-    q: 'How does alcohol contribute to the development of fatty liver?',
-    o: [
-      'A. By depleting ATP stores needed for lipid synthesis.',
-      'B. By directly accelerating VLDL secretion from liver cells.',
-      'C. By blocking the absorption of dietary carbohydrates.',
-      'D. By destroying the structural proteins of adipocytes.',
-      'E. By generating an excess of NADH, which inhibits the oxidation of fatty acids (triglycerides).'
-    ],
-    a: 'E'
-  },
-  {
-    n: 37,
-    s: 'Immunology',
-    l: 1,
-    q: 'Immunoglobulin G (IgG) crosses the placenta to the fetus in which condition?',
-    o: [
-      'A. Systemic lupus erythematosus',
-      'B. Sarcoidosis',
-      'C. Hashimoto\'s thyroiditis',
-      'D. Grave\'s disease',
-      'E. Autoimmune anemia'
-    ],
-    a: 'D'
-  },
-  {
-    n: 38,
-    s: 'Immunology',
-    l: 1,
-    q: 'Which factor is primarily involved in preventing the initiation of the alternative pathway of the complement system?',
-    o: [
-      'A. Factor B',
-      'B. Factor D',
-      'C. Factor H',
-      'D. C3b',
-      'E. Properdin'
-    ],
-    a: 'C'
-  },
-  {
-    n: 39,
-    s: 'Immunology',
-    l: 1,
-    q: 'Which cytokine is known for its anti-inflammatory effects?',
-    o: [
-      'A. IL-1',
-      'B. IL-10',
-      'C. TNF-alpha',
-      'D. IL-6',
-      'E. IL-12'
-    ],
-    a: 'B'
-  },
-  {
-    n: 40,
-    s: 'Immunology',
-    l: 1,
-    q: 'A patient diagnosed with Systemic Lupus Erythematosus (SLE) is found to have a significant deficiency in the complement component C3. Which of the following processes would be primarily impaired in this patient due to the C3 deficiency?',
-    o: [
-      'A. T-cell activation',
-      'B. Antibody class switching',
-      'C. Mast cell degranulation',
-      'D. Interferon production',
-      'E. Opsonization'
-    ],
-    a: 'E'
-  },
-  {
-    n: 41,
-    s: 'Immunology',
-    l: 1,
-    q: 'Which of the following statements is WRONG regarding Interferon-gamma (IFN-gamma)?',
-    o: [
-      'A. It inhibits TH1 differentiation and activates TH2 proliferation.',
-      'B. It activates macrophages.',
-      'C. It enhances MHC expression.',
-      'D. It is secreted by NK cells.',
-      'E. It promotes class switching to certain IgG subclasses.'
-    ],
-    a: 'A'
-  },
-  {
-    n: 42,
-    s: 'Immunology',
-    l: 1,
-    q: 'Which of the following statements about progesterone is true?',
-    o: [
-      'A. It acts as a pro-inflammatory agent.',
-      'B. It enhances T cell cytotoxic activity.',
-      'C. It stimulates complement system activation.',
-      'D. It is an immunosuppressive agent.',
-      'E. It upregulates MHC Class II expression.'
-    ],
-    a: 'D'
-  },
-  {
-    n: 43,
-    s: 'Immunology',
-    l: 1,
-    q: 'What is the specific name given to monocytes that migrate into the liver tissue and differentiate there?',
-    o: [
-      'A. Microglial cells',
-      'B. Alveolar macrophages',
-      'C. Kupffer cells',
-      'D. Langerhans cells',
-      'E. Osteoclasts'
-    ],
-    a: 'C'
-  },
-  {
-    n: 44,
-    s: 'Immunology',
-    l: 1,
-    q: 'Vaccination is considered a form of:',
-    o: [
-      'A. Natural passive acquired immunity',
-      'B. Artificial active acquired immunity',
-      'C. Natural active acquired immunity',
-      'D. Artificial passive acquired immunity',
-      'E. Innate non-specific immunity'
-    ],
-    a: 'B'
-  },
-  {
-    n: 45,
-    s: 'Immunology',
-    l: 1,
-    q: 'The tests known as RIST and RAST are primarily used to quantify or measure:',
-     o: [
-      'A. IgM antibodies',
-      'B. IgG antibodies',
-      'C. IgA antibodies',
-      'D. IgD antibodies',
-      'E. IgE antibodies'
-    ],
-    a: 'E'
-  },
-  {
-    n: 46,
-    s: 'Immunology',
-    l: 1,
-    q: 'Which class of antibody is found in external secretions?',
-    o: [
-      'A. IgD',
-      'B. IgE',
-      'C. IgM',
-      'D. IgA',
-      'E. IgG'
-    ],
-    a: 'D'
-  },
-  {
-    n: 47,
-    s: 'Immunology',
-    l: 1,
-    q: 'Functional deficiency of T cells (Tregs) and abnormal expression of the Foxp3 gene is associated with increased susceptibility to:',
-    o: [
-      'A. Rheumatoid arthritis',
-      'B. Type 1 diabetes mellitus',
-      'C. Myasthenia Gravis',
-      'D. Systemic sclerosis',
-      'E. Multiple sclerosis'
-    ],
-    a: 'C'
-  },
-  {
-    n: 48,
-    s: 'Immunology',
-    l: 1,
-    q: 'Which of the following does not have MHC class I?',
-    o: [
-      'A. RBCs',
-      'B. Macrophages',
-      'C. T cells',
-      'D. Hepatocytes',
-      'E. Neutrophils'
-    ],
-    a: 'A'
-  },
-  {
-    n: 49,
-    s: 'Immunology',
-    l: 1,
-    q: 'Which of the following conditions is the marker ACCP most specific for?',
-    o: [
-      'A. Systemic lupus erythematosus',
-      'B. Rheumatoid arthritis',
-      'C. Osteoarthritis',
-      'D. Ankylosing spondylitis',
-      'E. Gouty arthritis'
-    ],
-    a: 'B'
-  },
-  {
-    n: 50,
-    s: 'Immunology',
-    l: 1,
-    q: 'At the initiation of the immune response, bacterial surface antigens known as PAMPs bind to which specific type of host cell surface receptor?',
-    o: [
-      'A. T-cell receptor',
-      'B. B-cell receptor',
-      'C. Complement receptor 1',
-      'D. Fc receptor',
-      'E. Toll-like receptor'
-    ],
-    a: 'E'
-  },
-  {
-    n: 51,
-    s: 'Immunology',
-    l: 1,
-    q: 'A patient has a defect in CD18 integrin. Which step of the inflammatory process will be impaired?',
-    o: [
-      'A. Rolling',
-      'B. Diapedesis',
-      'C. Chemotaxis',
-      'D. Adhesion',
-      'E. Phagocytosis'
-    ],
-    a: 'D'
-  },
-  {
-    n: 52,
-    s: 'Immunology',
-    l: 1,
-    q: 'Postinfection glomerulonephritis, Based on its underlying mechanism and broad classification within immune disorders, which term best describes its nature?',
-    o: [
-      'A. Localized',
-      'B. Organ-specific',
-      'C. Systemic',
-      'D. Transient',
-      'E. Innate'
-    ],
-    a: 'C'
-  },
-  {
-    n: 53,
-    s: 'Immunology',
-    l: 1,
-    q: 'Which part of complement system contribute as attracting neutrophils?',
-    o: [
-      'A. C3b',
-      'B. C5a',
-      'C. C4a',
-      'D. C2a',
-      'E. C9'
-    ],
-    a: 'B'
-  },
-  {
-    n: 54,
-    s: 'Medical Education',
+    n: 11,
+    s: 'Medical education',
     l: 1,
     q: 'In the prison experiment, which act is concerned with Article 4?',
     o: [
@@ -1188,8 +595,8 @@ const allQuestions = [
     a: 'E'
   },
   {
-    n: 55,
-    s: 'Medical Education',
+    n: 12,
+    s: 'Medical education',
     l: 1,
     q: '(CVS) In Mr. HS\'s condition, which of the following is impaired (not exactly)?',
     o: [
@@ -1201,148 +608,9 @@ const allQuestions = [
     ],
     a: 'A'
   },
+ 
   {
-    n: 56,
-    s: 'Pathology',
-    l: 1,
-    q: 'A patient had a case of aortic aneurysm rupture. What is the reason why atherosclerosis raises the susceptibility of aortic aneurysm?',
-    o: [
-      'A. Endothelial hyperplasia within the tunica intima.',
-      'B. Hypertrophy of the outer adventitial layer.',
-      'C. Acute calcification of the vasa vasorum.',
-      'D. Smooth muscle atrophy due to atherosclerosis.',
-      'E. Direct destruction by viral elements.'
-    ],
-    a: 'D'
-  },
-  {
-    n: 57,
-    s: 'Pathology',
-    l: 1,
-    q: 'Papillary thyroid cancer is because of:',
-    o: [
-      'A. Chemical carcinogens',
-      'B. Chronic inflammation',
-      'C. Ionizing radiation',
-      'D. Bacterial infection',
-      'E. Nutritional deficiencies'
-    ],
-    a: 'C'
-  },
-  {
-    n: 58,
-    s: 'Pathology',
-    l: 1,
-    q: 'Cervical cancer is caused by:',
-    o: [
-      'A. EBV',
-      'B. HPV',
-      'C. HBV',
-      'D. HIV',
-      'E. HTLV-1'
-    ],
-    a: 'B'
-  },
-  {
-    n: 59,
-    s: 'Pathology',
-    l: 1,
-    q: 'Nasopharyngeal carcinoma is because of:',
-    o: [
-      'A. HPV',
-      'B. CMV',
-      'C. HSV',
-      'D. VZV',
-      'E. EBV'
-    ],
-    a: 'E'
-  },
-  {
-    n: 60,
-    s: 'Pathology',
-    l: 1,
-    q: 'A patient with hypertension and hyperlipidemia is found to have right renal artery stenosis. Which of the following adaptive changes is most likely to occur in the affected (right) kidney?',
-    o: [
-      'A. Hypertrophy',
-      'B. Hyperplasia',
-      'C. Metaplasia',
-      'D. Atrophy',
-      'E. Dysplasia'
-    ],
-    a: 'D'
-  },
-  {
-    n: 61,
-    s: 'Pathology',
-    l: 1,
-    q: 'Known as the guardian of the genome?',
-    o: [
-      'A. RB gene',
-      'B. APC gene',
-      'C. p53',
-      'D. BRCA1',
-      'E. MYC'
-    ],
-    a: 'C'
-  },
-  {
-    n: 62,
-    s: 'Pathology',
-    l: 1,
-    q: 'A patient with hyperparathyroidism due to a parathyroid adenoma presents with tissue calcifications. Which of the following types of calcification is most likely present?',
-    o: [
-      'A. Dystrophic calcification',
-      'B. Metastatic calcification',
-      'C. Caseous calcification',
-      'D. Sclerotic calcification',
-      'E. Apoptotic calcification'
-    ],
-    a: 'B'
-  },
-  {
-    n: 63,
-    s: 'Pathology',
-    l: 1,
-    q: 'Breast cancer due to a p53 mutation: what is disrupted?',
-    o: [
-      'A. Apoptosis irregularities',
-      'B. Excessive proliferation',
-      'C. Gene repair impairment',
-      'D. Cellular adhesion loss',
-      'E. Angiogenesis inhibition'
-    ],
-    a: 'A'
-  },
-  {
-    n: 64,
-    s: 'Pathology',
-    l: 1,
-    q: 'Patient with HIV presented with a red, raised lesion. Diagnosis?',
-    o: [
-      'A. Melanoma',
-      'B. Basal cell carcinoma',
-      'C. Squamous cell carcinoma',
-      'D. Hemangioma',
-      'E. Kaposi sarcoma'
-    ],
-    a: 'E'
-  },
-  {
-    n: 65,
-    s: 'Pathology',
-    l: 1,
-    q: 'A woman is diagnosed with ovarian cancer that has metastasized to the peritoneum. What is the most likely route of spread?',
-    o: [
-      'A. Hematogenous spread',
-      'B. Lymphatic spread',
-      'C. Intraepithelial migration',
-      'D. Seeding within body cavities',
-      'E. Iatrogenic implantation'
-    ],
-    a: 'D'
-  },
-  {
-    n: 66,
+    n: 13,
     s: 'Pathology',
     l: 1,
     q: 'A patient has been shot by a bullet, hypotensive with a high heart rate. Which of the following changes are expected to happen after two days?',
@@ -1357,7 +625,7 @@ const allQuestions = [
   },
 
   {
-  n: 67,
+  n: 14,
   s: 'Pathology',
   l: 1,
   q: 'Which condition is most likely in a patient with ST-segment elevation and elevated troponin levels?',
@@ -1371,64 +639,8 @@ const allQuestions = [
   a: 'B'
 },
  
-  {
-    n: 68,
-    s: 'Pathology',
-    l: 1,
-    q: 'Morphological characteristic of a peptic ulcer?',
-    o: [
-      'A. Epithelial metaplasia only',
-      'B. Transmural granulomatous swelling',
-      'C. Intact mucosal architecture',
-      'D. Diffuse neoplastic sheets',
-      'E. Loss of mucosal cells'
-    ],
-    a: 'E'
-  },
-  {
-    n: 69,
-    s: 'Pathology',
-    l: 1,
-    q: 'A patient presents with symptoms including fever and night sweats. Further investigation reveals a positive result on an acid-fast stain culture. Which characteristic morphological pattern of necrosis is most likely to be observed in affected tissues?',
-    o: [
-      'A. Coagulative necrosis',
-      'B. Liquefactive necrosis',
-      'C. Fat necrosis',
-      'D. Caseous necrosis',
-      'E. Fibrinoid necrosis'
-    ],
-    a: 'D'
-  },
-  {
-    n: 70,
-    s: 'Pathology',
-    l: 1,
-    q: 'A 42-year-old man is concerned about a darkly pigmented mole on the back of his hand. The lesion has enlarged and bled during the past month. On physical examination, there is a slightly raised, darkly pigmented, 1.2-cm lesion on the dorsum of the right hand. The lesion is completely excised. Which of the following factors presents the greatest risk for the development of this neoplasm?',
-    o: [
-      'A. Allergy to latex',
-      'B. Asbestos exposure',
-      'C. Ultraviolet radiation',
-      'D. Smoking tobacco',
-      'E. Chemotherapy'
-    ],
-    a: 'C'
-  },
-  {
-    n: 71,
-    s: 'Pathology',
-    l: 1,
-    q: 'Which of the following tumor markers is elevated in the blood of patients with liver cancer?',
-    o: [
-      'A. Carcinoembryonic antigen',
-      'B. Alpha-fetoprotein',
-      'C. CA-125',
-      'D. Prostate-specific antigen',
-      'E. Human chorionic gonadotropin'
-    ],
-    a: 'B'
-  },
-  {
-    n: 72,
+ {
+    n: 15,
     s: 'Pathology',
     l: 1,
     q: 'Which of the following is a neurological manifestation of RF?',
@@ -1441,66 +653,40 @@ const allQuestions = [
     ],
     a: 'E'
   },
-  {
-    n: 73,
-    s: 'Pathology',
-    l: 1,
-    q: 'A raised lesion that ruptures to release yellowish pus containing necrotic debris is most likely associated with which type of exudate?',
-     o: [
-      'A. Abscess',
-      'B. Granulomatous with caseation',
-      'C. Serous transudate',
-      'D. Suppurative purulent',
-      'E. Fibrinous inflammation'
-    ],
-    a: 'D'
-  },
-  {
-    n: 74,
-    s: 'Pathology',
-    l: 1,
-    q: 'A woman stands for a long time and after a while her lower limb and feet get swollen. Her tests are normal and physical examination is normal. What is the most likely cause of the swelling?',
-    o: [
-      'A. Increased hydrostatic pressure',
-      'B. Decreased hydrostatic pressure',
-      'C. Decreased oncotic pressure',
-      'D. Lymphatic obstruction',
-      'E. Sodium retention'
-    ],
-    a: 'A'
-  },
-  { n: 75, s: "Histology", l: 1, q: "Visceral pericardium is made of:", o: ["A. Endothelium", "B. Stratified squamous epithelium", "C. Mesothelium", "D. Transitional epithelium", "E. Dense regular connective tissue"], a: "C" },
-  { n: 76, s: "Histology", l: 1, q: "Which of the following is WRONG according to elastic artery?", o: ["A. Middle layer mainly composed of smooth muscle.", "B. Tunica intima contains internal elastic lamina.", "C. Aorta is a prominent example.", "D. Tunica media is rich in elastic fibers.", "E. Designed to withstand high pressure fluctuations."], a: "A" },
-  { n: 77, s: "Anatomy", l: 1, q: "What are the typical terminal branches of the common carotid artery?", o: ["A. Subclavian artery and vertebral artery.", "B. Maxillary artery and superficial temporal artery.", "C. Anterior cerebral artery and middle cerebral artery.", "D. External carotid artery and Internal carotid artery.", "E. Thyrocervical trunk and costocervical trunk."], a: "D" },
-  { n: 78, s: "Anatomy", l: 1, q: "Basilic vein is located in:", o: ["A. Lateral side of the dorsal venous arch.", "B. Medial side of the dorsal venous arch.", "C. Deep palmar venous arch.", "D. Plantar venous network.", "E. Anterior surface of the patella."], a: "B" },
-  { n: 79, s: "Anatomy", l: 1, q: "The brachial artery typically bifurcate at:", o: ["A. Surgical neck of the humerus", "B. Styloid process of the ulna", "C. Olecranon process", "D. Neck of the radius", "E. Medial epicondyle"], a: "D" },
-  { n: 80, s: "Anatomy", l: 1, q: "The inferior Vena Cava (IVC) is formed at which vertebral level?", o: ["A. 5th lumbar vertebra", "B. 4th lumbar vertebra", "C. 12th thoracic vertebra", "D. 1st lumbar vertebra", "E. 3rd lumbar vertebra"], a: "A" },
-  { n: 81, s: "Anatomy", l: 1, q: "Which statement is correct regarding the atrioventricular groove?", o: ["A. It runs vertically along the interventricular septum.", "B. It separates the left atrium from the right atrium.", "C. It is located anterior to the tricuspid valve.", "D. It is entirely located on the posterior aspect of the heart.", "E. It contains only the pulmonary veins."], a: "C" },
-  { n: 82, s: "Anatomy", l: 1, q: "The abdominal aorta divides into:", o: ["A. Internal and external iliac arteries", "B. Celiac trunk and superior mesenteric artery", "C. Renal and gonadal arteries", "D. Right and left common iliac arteries", "E. Femoral and popliteal arteries"], a: "D" },
-  { n: 83, s: "Anatomy", l: 1, q: "Which one of the following statements is FALSE regarding the brachiocephalic vein?", o: ["A. It is formed by the internal jugular and subclavian veins.", "B. It is formed by the union of the internal jugular vein and the vertebral vein.", "C. There are right and left brachiocephalic veins.", "D. They unite to form the superior vena cava.", "E. It drains blood from the upper head and neck region."], a: "B" },
-  { n: 84, s: "Anatomy", l: 1, q: "Branches of the ascending aorta:", o: ["A. Brachiocephalic trunk and left subclavian artery", "B. Common carotid and internal thoracic arteries", "C. Intercostal and subcostal arteries", "D. Celiac trunk and renal arteries", "E. Right and left coronary arteries"], a: "E" },
-  { n: 85, s: "Anatomy", l: 1, q: "Thoracic duct drains into:", o: ["A. Right internal jugular vein", "B. Superior vena cava", "C. Left brachiocephalic", "D. Left subclavian artery", "E. Right brachiocephalic vein"], a: "C" },
-  { n: 86, s: "Anatomy", l: 1, q: "The base of the heart is mainly composed of:", o: ["A. Left atrium", "B. Right ventricle", "C. Right atrium", "D. Left ventricle", "E. Apex of the heart"], a: "A" },
-  { n: 87, s: "Genetics", l: 1, q: "In the context of genetic testing for Dilated Cardiomyopathy (DCM), a \"Pathogenic\" variant is best described as:", o: ["A. Benign polymorphism with no clinical impact.", "B. Variant of uncertain significance.", "C. Likely benign variant seen in healthy controls.", "D. Strong evidence of disease association.", "E. Artifact of genetic sequencing techniques."], a: "D" },
-  { n: 88, s: "Genetics", l: 1, q: "Which epigenetic mechanisms are primarily involved in the pathogenesis of preeclampsia?", o: ["A. Gene duplication and deletion events.", "B. Chromosomal inversion and translocation.", "C. Single nucleotide polymorphisms in coding regions.", "D. Somatic mutations in vascular endothelial cells.", "E. DNA methylation, and histone modifications"], a: "E" },
-  { n: 89, s: "Genetics", l: 1, q: "In preeclampsia, which maternal gene variants is primarily associated with regulating endothelial function and vascular relaxation?", o: ["A. ACE2", "B. NOS3", "C. MTHFR", "D. AGTR1", "E. VEGF"], a: "B" },
-  { n: 90, s: "Microbiology", l: 1, q: "All of the following are true regarding to Lymphatic Filariasis, EXCEPT:", o: ["A. Occult filariasis occurs due to blockage of lymph vessels and lymph nodes by the adult worm.", "B. It is transmitted by mosquito vectors.", "C. Wuchereria bancrofti is a causative agent.", "D. Microfilariae exhibit nocturnal periodicity in most endemic regions.", "E. Chronic infection leads to elephantiasis."], a: "A" },
-  { n: 91, s: "Microbiology", l: 1, q: "A patient with a valve replacement develops infective endocarditis. Which of the following microorganisms is most likely to be the causative agent?", o: ["A. Staphylococcus aureus", "B. Escherichia coli", "C. Viridans streptococci", "D. Pseudomonas aeruginosa", "E. Streptococcus pneumoniae"], a: "C" },
-  { n: 92, s: "Microbiology", l: 1, q: "Are antigen-presenting cells (APCs) that take up lipids foam-cell-like in appearance?", o: ["A. B lymphocytes", "B. Dendritic cells", "C. Natural killer cells", "D. Neutrophils", "E. T helper cells"], a: "B" },
-  { n: 93, s: "Microbiology", l: 1, q: "A patient presents with a history of sore throat that, if left untreated, could potentially lead to complications such as rheumatic fever. The cause is:", o: ["A. Staphylococcus epidermidis", "B. Enterococcus faecalis", "C. Streptococcus pneumoniae", "D. Group A Streptococcus", "E. Corynebacterium diphtheriae"], a: "D" },
-  { n: 94, s: "Community", l: 1, q: "Which one is incorrect about secondary prevention of CHD?", o: ["A. Reduction of fat intake to 20-30% of total energy intake.", "B. Consumption of unsaturated fats must be limited to < 10% of total energy intake.", "C. A reduction of dietary cholesterol to below 100 mg per 1000 kcal per day.", "D. An increase in complex carbohydrate consumption.", "E. Reduction of salt intake to 5 g daily or less."], a: "B" },
-  { n: 95, s: "Radiology", l: 1, q: "In a chest X-ray, which structure forms the upper left border of the mediastinum?", o: ["A. Superior vena cava", "B. Aortic knob", "C. Pulmonary trunk", "D. Left atrial appendage", "E. Right atrium"], a: "B" },
-  { n: 96, s: "Physiology", l: 1, q: "Which of following decreases blood pressure?", o: ["A. Angiotensin II", "B. Epinephrine", "C. Antidiuretic hormone", "D. Atrial natriuretic peptide", "E. Aldosterone"], a: "D" },
-  { n: 97, s: "Physiology", l: 1, q: "What is the role of baroreceptors in response to decreased blood pressure?", o: ["A. Decreased peripheral resistance", "B. Increased vagal nerve firing rate", "C. Increased parasympathetic outflow to the heart", "D. Decreased heart rate and contractility", "E. Vasoconstriction of systemic veins"], a: "A" },
-  { n: 98, s: "Physiology", l: 1, q: "What increases, in order from fastest, in response to hypovolemic shock?", o: ["A. Aldosterone, Sympathetic system, Angiotensin II", "B. Angiotensin II, Aldosterone, Sympathetic system", "C. Sympathetic system, Angiotensin II, Aldosterone", "D. Cortisol, Thyroid hormone, Erythropoietin", "E. Insulin, Glucagon, Somatostatin"], a: "C" },
-  { n: 99, s: "Physiology", l: 1, q: "On ECG, the fastest way to detect axis deviation is to look at:", o: ["A. Lead II and Lead III", "B. V1 and V2", "C. Lead aVR and aVL", "D. V5 and V6", "E. aVF and lead I"], a: "E" },
-  { n: 100, s: "Physiology", l: 1, q: "Difference between End diastolic pressure and End systolic Pressure is:", o: ["A. Cardiac Output", "B. Ejection Fraction", "C. Mean Arterial Pressure", "D. Stroke Volume", "E. Total Peripheral Resistance"], a: "D" },
-  { n: 101, s: "Physiology", l: 1, q: "Moderate exercise cause:", o: ["A. Increase in total peripheral resistance", "B. Decrease peripheral resistance", "C. Severe decrease in cardiac output", "D. Complete shutdown of blood flow to kidneys", "E. Profound bradycardia"], a: "B" },
-  { n: 102, s: "Physiology", l: 1, q: "Heart Rate multiplying total peripheral resistance:", o: ["A. Stroke Volume", "B. Ejection Fraction", "C. Cardiac Output", "D. Pulse Pressure", "E. End-Diastolic Volume"], a: "C" },
-  { n: 103, s: "Physiology", l: 1, q: "_________ has the slowest conduction velocity in the cardiac conduction system.", o: ["A. AV node", "B. SA node", "C. Purkinje fibers", "D. Bundle of His", "E. Atrial myocardium"], a: "A" },
-  { n: 104, s: "Physiology", l: 1, q: "_________ increases end-diastolic volume (EDV).", o: ["A. Increased heart rate", "B. Decreased compliance", "C. Decreased blood volume", "D. Total peripheral resistance", "E. Venous return"], a: "E" },
-  { n: 105, s: "Physiology", l: 1, q: "Which of the following is true regarding the passive filling phase of the cardiac cycle?", o: ["A. It requires atrial contraction.", "B. It occurs during ventricular systole.", "C. It accounts for only 10% of filling.", "D. Lasts 0.3s", "E. Occurs while the AV valves are closed."], a: "D" },
-  { n: 106, s: "Physiology", l: 1, q: "Choose the INCORRECT one.", o: ["A. Vagal stimulation slows the heart.", "B. Digitalis increases contractility.", "C. Sympathetic stimulation of the SA node decrease heart rate.", "D. Calcium ions increase myocardial contractility.", "E. Epinephrine increases cardiac output."], a: "C" }
+
+  
+  { n: 16, s: "Histology", l: 1, q: "Visceral pericardium is made of:", o: ["A. Endothelium", "B. Stratified squamous epithelium", "C. Mesothelium", "D. Transitional epithelium", "E. Dense regular connective tissue"], a: "C" },
+  { n: 17, s: "Histology", l: 1, q: "Which of the following is WRONG according to elastic artery?", o: ["A. Middle layer mainly composed of smooth muscle.", "B. Tunica intima contains internal elastic lamina.", "C. Aorta is a prominent example.", "D. Tunica media is rich in elastic fibers.", "E. Designed to withstand high pressure fluctuations."], a: "A" },
+  { n: 18, s: "Anatomy", l: 1, q: "What are the typical terminal branches of the common carotid artery?", o: ["A. Subclavian artery and vertebral artery.", "B. Maxillary artery and superficial temporal artery.", "C. Anterior cerebral artery and middle cerebral artery.", "D. External carotid artery and Internal carotid artery.", "E. Thyrocervical trunk and costocervical trunk."], a: "D" },
+  { n: 19, s: "Anatomy", l: 1, q: "Basilic vein is located in:", o: ["A. Lateral side of the dorsal venous arch.", "B. Medial side of the dorsal venous arch.", "C. Deep palmar venous arch.", "D. Plantar venous network.", "E. Anterior surface of the patella."], a: "B" },
+  { n: 20, s: "Anatomy", l: 1, q: "The brachial artery typically bifurcate at:", o: ["A. Surgical neck of the humerus", "B. Styloid process of the ulna", "C. Olecranon process", "D. Neck of the radius", "E. Medial epicondyle"], a: "D" },
+  { n: 21, s: "Anatomy", l: 1, q: "The inferior Vena Cava (IVC) is formed at which vertebral level?", o: ["A. 5th lumbar vertebra", "B. 4th lumbar vertebra", "C. 12th thoracic vertebra", "D. 1st lumbar vertebra", "E. 3rd lumbar vertebra"], a: "A" },
+  { n: 22, s: "Anatomy", l: 1, q: "Which statement is correct regarding the atrioventricular groove?", o: ["A. It runs vertically along the interventricular septum.", "B. It separates the left atrium from the right atrium.", "C. It is located anterior to the tricuspid valve.", "D. It is entirely located on the posterior aspect of the heart.", "E. It contains only the pulmonary veins."], a: "C" },
+  { n: 23, s: "Anatomy", l: 1, q: "The abdominal aorta divides into:", o: ["A. Internal and external iliac arteries", "B. Celiac trunk and superior mesenteric artery", "C. Renal and gonadal arteries", "D. Right and left common iliac arteries", "E. Femoral and popliteal arteries"], a: "D" },
+  { n: 24, s: "Anatomy", l: 1, q: "Which one of the following statements is FALSE regarding the brachiocephalic vein?", o: ["A. It is formed by the internal jugular and subclavian veins.", "B. It is formed by the union of the internal jugular vein and the vertebral vein.", "C. There are right and left brachiocephalic veins.", "D. They unite to form the superior vena cava.", "E. It drains blood from the upper head and neck region."], a: "B" },
+  { n: 25, s: "Anatomy", l: 1, q: "Branches of the ascending aorta:", o: ["A. Brachiocephalic trunk and left subclavian artery", "B. Common carotid and internal thoracic arteries", "C. Intercostal and subcostal arteries", "D. Celiac trunk and renal arteries", "E. Right and left coronary arteries"], a: "E" },
+  { n: 26, s: "Anatomy", l: 1, q: "Thoracic duct drains into:", o: ["A. Right internal jugular vein", "B. Superior vena cava", "C. Left brachiocephalic", "D. Left subclavian artery", "E. Right brachiocephalic vein"], a: "C" },
+  { n: 27, s: "Anatomy", l: 1, q: "The base of the heart is mainly composed of:", o: ["A. Left atrium", "B. Right ventricle", "C. Right atrium", "D. Left ventricle", "E. Apex of the heart"], a: "A" },
+  { n: 28, s: "Genetics", l: 1, q: "In the context of genetic testing for Dilated Cardiomyopathy (DCM), a \"Pathogenic\" variant is best described as:", o: ["A. Benign polymorphism with no clinical impact.", "B. Variant of uncertain significance.", "C. Likely benign variant seen in healthy controls.", "D. Strong evidence of disease association.", "E. Artifact of genetic sequencing techniques."], a: "D" },
+  { n: 29, s: "Genetics", l: 1, q: "Which epigenetic mechanisms are primarily involved in the pathogenesis of preeclampsia?", o: ["A. Gene duplication and deletion events.", "B. Chromosomal inversion and translocation.", "C. Single nucleotide polymorphisms in coding regions.", "D. Somatic mutations in vascular endothelial cells.", "E. DNA methylation, and histone modifications"], a: "E" },
+  { n: 30, s: "Genetics", l: 1, q: "In preeclampsia, which maternal gene variants is primarily associated with regulating endothelial function and vascular relaxation?", o: ["A. ACE2", "B. NOS3", "C. MTHFR", "D. AGTR1", "E. VEGF"], a: "B" },
+  { n: 31, s: "Microbiology", l: 1, q: "All of the following are true regarding to Lymphatic Filariasis, EXCEPT:", o: ["A. Occult filariasis occurs due to blockage of lymph vessels and lymph nodes by the adult worm.", "B. It is transmitted by mosquito vectors.", "C. Wuchereria bancrofti is a causative agent.", "D. Microfilariae exhibit nocturnal periodicity in most endemic regions.", "E. Chronic infection leads to elephantiasis."], a: "A" },
+  { n: 32, s: "Microbiology", l: 1, q: "A patient with a valve replacement develops infective endocarditis. Which of the following microorganisms is most likely to be the causative agent?", o: ["A. Staphylococcus aureus", "B. Escherichia coli", "C. Viridans streptococci", "D. Pseudomonas aeruginosa", "E. Streptococcus pneumoniae"], a: "C" },
+  { n: 33, s: "Microbiology", l: 1, q: "Are antigen-presenting cells (APCs) that take up lipids foam-cell-like in appearance?", o: ["A. B lymphocytes", "B. Dendritic cells", "C. Natural killer cells", "D. Neutrophils", "E. T helper cells"], a: "B" },
+  { n: 34, s: "Microbiology", l: 1, q: "A patient presents with a history of sore throat that, if left untreated, could potentially lead to complications such as rheumatic fever. The cause is:", o: ["A. Staphylococcus epidermidis", "B. Enterococcus faecalis", "C. Streptococcus pneumoniae", "D. Group A Streptococcus", "E. Corynebacterium diphtheriae"], a: "D" },
+  { n: 35, s: "Community", l: 1, q: "Which one is incorrect about secondary prevention of CHD?", o: ["A. Reduction of fat intake to 20-30% of total energy intake.", "B. Consumption of unsaturated fats must be limited to < 10% of total energy intake.", "C. A reduction of dietary cholesterol to below 100 mg per 1000 kcal per day.", "D. An increase in complex carbohydrate consumption.", "E. Reduction of salt intake to 5 g daily or less."], a: "B" },
+  { n: 36, s: "Radiology", l: 1, q: "In a chest X-ray, which structure forms the upper left border of the mediastinum?", o: ["A. Superior vena cava", "B. Aortic knob", "C. Pulmonary trunk", "D. Left atrial appendage", "E. Right atrium"], a: "B" },
+  { n: 37, s: "Physiology", l: 1, q: "Which of following decreases blood pressure?", o: ["A. Angiotensin II", "B. Epinephrine", "C. Antidiuretic hormone", "D. Atrial natriuretic peptide", "E. Aldosterone"], a: "D" },
+  { n: 38, s: "Physiology", l: 1, q: "What is the role of baroreceptors in response to decreased blood pressure?", o: ["A. Decreased peripheral resistance", "B. Increased vagal nerve firing rate", "C. Increased parasympathetic outflow to the heart", "D. Decreased heart rate and contractility", "E. Vasoconstriction of systemic veins"], a: "A" },
+  { n: 39, s: "Physiology", l: 1, q: "What increases, in order from fastest, in response to hypovolemic shock?", o: ["A. Aldosterone, Sympathetic system, Angiotensin II", "B. Angiotensin II, Aldosterone, Sympathetic system", "C. Sympathetic system, Angiotensin II, Aldosterone", "D. Cortisol, Thyroid hormone, Erythropoietin", "E. Insulin, Glucagon, Somatostatin"], a: "C" },
+  { n: 40, s: "Physiology", l: 1, q: "On ECG, the fastest way to detect axis deviation is to look at:", o: ["A. Lead II and Lead III", "B. V1 and V2", "C. Lead aVR and aVL", "D. V5 and V6", "E. aVF and lead I"], a: "E" },
+  { n: 41, s: "Physiology", l: 1, q: "Difference between End diastolic pressure and End systolic Pressure is:", o: ["A. Cardiac Output", "B. Ejection Fraction", "C. Mean Arterial Pressure", "D. Stroke Volume", "E. Total Peripheral Resistance"], a: "D" },
+  { n: 42, s: "Physiology", l: 1, q: "Moderate exercise cause:", o: ["A. Increase in total peripheral resistance", "B. Decrease peripheral resistance", "C. Severe decrease in cardiac output", "D. Complete shutdown of blood flow to kidneys", "E. Profound bradycardia"], a: "B" },
+  { n: 43, s: "Physiology", l: 1, q: "Heart Rate multiplying total peripheral resistance:", o: ["A. Stroke Volume", "B. Ejection Fraction", "C. Cardiac Output", "D. Pulse Pressure", "E. End-Diastolic Volume"], a: "C" },
+  { n: 44, s: "Physiology", l: 1, q: "_________ has the slowest conduction velocity in the cardiac conduction system.", o: ["A. AV node", "B. SA node", "C. Purkinje fibers", "D. Bundle of His", "E. Atrial myocardium"], a: "A" },
+  { n: 45, s: "Physiology", l: 1, q: "_________ increases end-diastolic volume (EDV).", o: ["A. Increased heart rate", "B. Decreased compliance", "C. Decreased blood volume", "D. Total peripheral resistance", "E. Venous return"], a: "E" },
+  { n: 46, s: "Physiology", l: 1, q: "Which of the following is true regarding the passive filling phase of the cardiac cycle?", o: ["A. It requires atrial contraction.", "B. It occurs during ventricular systole.", "C. It accounts for only 10% of filling.", "D. Lasts 0.3s", "E. Occurs while the AV valves are closed."], a: "D" },
+  { n: 47, s: "Physiology", l: 1, q: "Choose the INCORRECT one.", o: ["A. Vagal stimulation slows the heart.", "B. Digitalis increases contractility.", "C. Sympathetic stimulation of the SA node decrease heart rate.", "D. Calcium ions increase myocardial contractility.", "E. Epinephrine increases cardiac output."], a: "C" }
 
 ];
 
@@ -1544,7 +730,7 @@ function renderFilterBar() {
 function getLectureLabel(val) {
     if (val === "All" && currentSubjectFilter === "All") return "All";
     if (val === "All") {
-        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pharmacology": "Pharmacology 💊", "Immunology": "Immunology 🛡️" };
+        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pharmacology": "Pharmacology 💊", "Anatomy": "Anatomy 🦴", "Histology": "Histology 🫁", "Medical education": "Medical Education 📘" , "Pathology": "Pathology 🔬" , "Microbiology": "Microbiology 🦠" , "Physiology": "Physiology ⚡" , "Radiology": "Radiology ☢️" };
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
     return lectures[val] || val;
