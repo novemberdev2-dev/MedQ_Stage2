@@ -308,7 +308,7 @@ const ALL_SECTIONS = [
 
  { title: '2024-2025 Year Exam',     links: [
         { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'CVS_End-Block_Theory_2024-2025.html' },
-        { label: 'End-Block _ Practice', badge: '0 Questions',  href: 'CVS_End-Block_Practice_2023-2024.html' },
+        { label: 'End-Block _ Practice', badge: '16 Questions',  href: 'CVS_End-Block_Practice_2024-2025.html' },
         { label: 'Final', badge: '0 MCQs',  href: 'CVS_Final_2024-2025.html' },
 
 
