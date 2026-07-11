@@ -238,7 +238,7 @@ const ALL_SECTIONS = [
     type: 'Musculoskeletal system and dermatology 🦴',
     cards: [
       { title: 'Anatomy 🦴', links: [
-        { label: 'Theory',   badge: '196 MCQs',    href: 'Anatomy.html' },
+        { label: 'Theory',   badge: '29 MCQs',    href: 'Newstyle.html' },
         { label: 'Practice', badge: '70 Questions', href: 'Anatomylabs.html' }
       ]},
       { title: 'Biochemistry 🧪', links: [
