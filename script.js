@@ -224,7 +224,7 @@ const ALL_SECTIONS = [
 
 { title: '2024-2025 Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '32 MCQs',  href: 'IBS_End-Block_2024-2025.html' },
-      { label: 'Final', badge: '74 MCQs',  href: 'IBS_Final_2024-2025.html' }
+      { label: 'Final', badge: '61 MCQs',  href: 'IBS_Final_2024-2025.html' }
     
     ] },
      { title: '2025-2026 Year Exam',     links: [
@@ -309,7 +309,7 @@ const ALL_SECTIONS = [
  { title: '2024-2025 Year Exam 🔥',     links: [
         { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'CVS_End-Block_Theory_2024-2025.html' },
         { label: 'End-Block _ Practice', badge: '16 Questions',  href: 'CVS_End-Block_Practice_2024-2025.html' },
-        { label: 'Final', badge: '106 MCQs',  href: 'CVS_Final_2024-2025.html' },
+        { label: 'Final', badge: '47 MCQs',  href: 'CVS_Final_2024-2025.html' },
 
 
       ] },
