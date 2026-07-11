@@ -306,13 +306,6 @@ const ALL_SECTIONS = [
      ]},
      
 
-
-      { title: '2023-2024 Year Exam',     links: [
-        { label: 'End-Block _ Theory', badge: '0 MCQs',  href: 'IBS_End-Block_Theory_2023-2024.html' },
-        { label: 'End-Block _ Practice', badge: '0 Questions',  href: 'IBS_End-Block_Practice_2023-2024.html' },
-
- ] },
-
  { title: '2024-2025 Year Exam',     links: [
         { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'CVS_End-Block_Theory_2024-2025.html' },
         { label: 'End-Block _ Practice', badge: '0 Questions',  href: 'CVS_End-Block_Practice_2023-2024.html' },
