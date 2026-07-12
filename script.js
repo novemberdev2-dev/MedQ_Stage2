@@ -232,6 +232,11 @@ const ALL_SECTIONS = [
       { label: 'Final', badge: '66 MCQs',  href: 'IBS_Final_2025-2026.html' }
     
     ] },
+
+      { title: 'Unkown Year Exam',     links: [
+      { label: 'Quiz', badge: '17 MCQs',  href: 'IBS_ Quiz_Unkown year.html' },
+    
+    ] },
     ]
   },
   {
