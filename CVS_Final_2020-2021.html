@@ -226,6 +226,7 @@
             user-select: none;
             cursor: pointer;
             text-align: left;
+            white-space: nowrap;
         }
 
         [data-theme="light"] .subject-dropdown-item { color: #666; }
@@ -398,16 +399,13 @@
                 <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
                 <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
                 <div class="subject-dropdown-item" data-subject="Immunology" onclick="selectSubjectFilter('Anatomy', this)"><span class="filter-option-dot"></span>Anatomy 🦴</div>
-                <div class="subject-dropdown-item" data-subject="Medical education" onclick="selectSubjectFilter('Medical education', this)"><span class="filter-option-dot"></span>Medical Education 📘</div>
-                <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Phathology', this)"><span class="filter-option-dot"></span>Pathology 🦠</div>
+                <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
                 <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
-                <div class="subject-dropdown-item" data-subject="Community medicine" onclick="selectSubjectFilter('Community medicine', this)"><span class="filter-option-dot"></span>Community Medicine</div>
-                <div class="subject-dropdown-item" data-subject="Medicine" onclick="selectSubjectFilter('Medicine', this)"><span class="filter-option-dot"></span>Medicine</div>
-                <div class="subject-dropdown-item" data-subject="Microbiology" onclick="selectSubjectFilter('Microbiology', this)"><span class="filter-option-dot"></span>Microbiology</div>
+                <div class="subject-dropdown-item" data-subject="Community Medicine" onclick="selectSubjectFilter('Community Medicine', this)"><span class="filter-option-dot"></span>Community Medicine 📘</div>
+                <div class="subject-dropdown-item" data-subject="Microbiology" onclick="selectSubjectFilter('Microbiology', this)"><span class="filter-option-dot"></span>Microbiology 🦠</div>
                 <div class="subject-dropdown-item" data-subject="Physiology" onclick="selectSubjectFilter('Physiology', this)"><span class="filter-option-dot"></span>Physiology ⚡</div>
-                <div class="subject-dropdown-item" data-subject="Radiology" onclick="selectSubjectFilter('Radiology', this)"><span class="filter-option-dot"></span>Radiology ☢️</div>
-                <div class="subject-dropdown-item" data-subject="Surgery" onclick="selectSubjectFilter('Surgery', this)"><span class="filter-option-dot"></span>Surgery </div>
-                <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🧬</div>
+                <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🫁</div>
+                <div class="subject-dropdown-item" data-subject="Embryology" onclick="selectSubjectFilter('Embryology', this)"><span class="filter-option-dot"></span>Embryology 👶</div>
               
         </div>
         </div>
@@ -454,7 +452,7 @@ const allQuestions = [
 
 { n: 12, s: "Pharmacology", l: 1, q: "The drug of choice for hypertension with diabetic nephropathy is: (case question)", o: ["A. Atenolol", "B. Hydrochlorothiazide", "C. Verapamil", "D. Olmesartan", "E. Prazosin"], a: "D" },
 
-{ n: 13, s: "Parasitology", l: 1, q: "The infective stage of filariasis is:", o: ["A. Microfilaria", "B. Adult worm", "C. L3 larva", "D. Egg", "E. L1 larva"], a: "C" },
+{ n: 13, s: "Pathology", l: 1, q: "The infective stage of filariasis is:", o: ["A. Microfilaria", "B. Adult worm", "C. L3 larva", "D. Egg", "E. L1 larva"], a: "C" },
 
 { n: 14, s: "Pathology", l: 1, q: "A patient with the onion-skin appearance of arterioles is most likely to have: (case question)", o: ["A. Hyaline arteriolosclerosis", "B. Hyperplastic arteriolosclerosis", "C. Atherosclerosis", "D. Monckeberg sclerosis", "E. Vasculitis"], a: "B" },
 
@@ -508,7 +506,7 @@ const allQuestions = [
 
 { n: 39, s: "Embryology", l: 1, q: "Atrial septal defect (ASD) in infants may be caused by:", o: ["A. Excessive reabsorption of septum primum", "B. Failure of septum secundum formation", "C. Persistent truncus arteriosus", "D. Failure of endocardial cushion fusion", "E. Patent ductus arteriosus"], a: "A" },
 
-{ n: 40, s: "Community medicine", l: 1, q: "The male-to-female ratio for rheumatic fever is:", o: ["A. 2:1", "B. 3:2", "C. 1:2", "D. 3:1", "E. 1:1"], a: "E" },
+{ n: 40, s: "Community Medicine", l: 1, q: "The male-to-female ratio for rheumatic fever is:", o: ["A. 2:1", "B. 3:2", "C. 1:2", "D. 3:1", "E. 1:1"], a: "E" },
 
 { n: 41, s: "Pathology", l: 1, q: "An obese patient with burning pain that becomes worse while lying down most likely has: (case question)", o: ["A. Peptic ulcer disease", "B. Gastroesophageal reflux disease", "C. Acute pancreatitis", "D. Acute appendicitis", "E. Cholecystitis"], a: "B" },
 
@@ -563,7 +561,8 @@ function renderFilterBar() {
 function getLectureLabel(val) {
     if (val === "All" && currentSubjectFilter === "All") return "All";
     if (val === "All") {
-        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pharmacology": "Pharmacology 💊", "Immunology": "Immunology 🛡️" };
+        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pharmacology": "Pharmacology 💊", "Anatomy": "Anatomy 🦴", "Histology": "Histology 🫁", "Community Medicine": "Community Medicine 📘" , "Pathology": "Pathology 🔬" , "Microbiology": "Microbiology 🦠" , "Physiology": "Physiology ⚡" , "Embryology": "Embryology 👶"};
+
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
     return lectures[val] || val;
