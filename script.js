@@ -334,7 +334,7 @@ const ALL_SECTIONS = [
 
      { title: 'Unkown Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '6 MCQs',  href: 'CVS_End-Block_Theory_Unkown Year.html' },
-      { label: 'Final', badge: '0 MCQs',  href: 'CVS_Final_2025-2026.html' },
+      { label: 'Final', badge: '44 MCQs',  href: 'CVS_Final_Unknown Year.html' },
       { label: 'Quiz', badge: '0 MCQs',  href: 'CVS_Quiz_Unkown year.html' },
     
     ] },
