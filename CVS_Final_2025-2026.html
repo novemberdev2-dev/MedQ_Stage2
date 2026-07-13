@@ -397,9 +397,9 @@
                 <div class="subject-dropdown-header">Subject</div>
               
                 <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
+                <div class="subject-dropdown-item" data-subject="Anatomy" onclick="selectSubjectFilter('Anatomy', this)"><span class="filter-option-dot"></span>Anatomy 🦴</div>
              
                 <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
-                <div class="subject-dropdown-item" data-subject="Anatomy" onclick="selectSubjectFilter('Anatomy', this)"><span class="filter-option-dot"></span>Anatomy 🦴</div>
                 <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
                 <div class="subject-dropdown-item" data-subject="Physiology" onclick="selectSubjectFilter('Physiology', this)"><span class="filter-option-dot"></span>Physiology ⚡</div>
                 <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
@@ -890,83 +890,20 @@ const allQuestions = [
 
 
 const lectures = {
-   1:  "Protein Metabolism 🥩",
-   2:  "Lipid Metabolism 🥑",
-   3:  "Enzymology🧪",
-   4:  "Cancer 🧬",
-   5:  "Carbohydrate Metabolism 🍞",
-   6:  "Nutrition 🥗",
- 7: "Inhibitors of baterial protein synthesis",
- 8: "Hypersensitivity Immune response & Related diseases",
- 9: "Complement system II",
- 10: "Cytokines and immunotherapy",
- 11: "Antibody",
- 12: "Neoplasia",
- 13: "Hemodynamic disorders shock",
- 14: "Neoplasia - Molecular basis of cancer",
- 15: "Inflammation",
- 16: "Cell injury - Cellular adaptation",
- 17: "Embolism & infarction",
- 18: "Drug metabolism",
- 19: "Cell wall inhibitors",
- 20: "Drug receptor interaction",
- 21: "Antifungal drugs",
- 22: "Sympathomimetic drugs",
- 23: "Parasympathomimetics",
- 24: "Adrenergic receptor blockers",
+   1:  "Blood vessels of the thorax",
+   2:  "Blood vessels of head and neck",
+   
 };
   
 const lectureFilters = {
     "All": [],
-    "Biochemistry": [
+    "Anatomy": [
         { label: "All",                            val: "All" },
         
-        { label: "Protein Metabolism 🥩",     val: 1 },
-        { label: "Lipid Metabolism 🥑",     val: 2 },
-        { label: "Enzymology 🧪",     val: 3 },
-        { label: "Cancer 🧬",     val: 4 },
-        { label: "Carbohydrate Metabolism 🍞",     val: 5 },
-        { label: "Nutrition 🥗",     val: 6 },
-
+        { label: "Blood vessels of the thorax",     val: 1 },
+        { label: "Blood vessels of head and neck",     val: 2 },
+       
  ],
-
-  "Pharmacology": [
-        { label: "All",               val: "All" },
-        
-        { label: "Inhibitors of baterial protein synthesis",     val: 7 },
-        {label: "Drug metabolism",     val: 18 },
-        {label: "Cell wall inhibitors",     val: 19 },
-        {label: "Drug receptor interaction",     val: 20 },
-        {label: "Antifungal drugs",     val: 21 },
-        {label: "Sympathomimetic drugs",     val: 22 },
-        {label: "Parasympathomimetics",     val: 23 },
-        {label: "Adrenergic receptor blockers",     val: 24 },
- ],
-    
- "Immunology": [
-        { label: "All",               val: "All" },
-        
-        { label: "Hypersensitivity Immune response & Related diseases",     val: 8 },
-        { label: "Complement system II",     val: 9 },
-        { label: "Cytokines and immunotherapy",     val: 10 },
-        { label: "Antibody",     val: 11 },
-    
-
-
-],
-
-"Pathology": [
-        { label: "All",               val: "All" },
-        
-        { label: "Neoplasia",     val: 12 },
-        { label: "Hemodynamic disorders shock",     val: 13 },
-        { label: "Neoplasia - Molecular basis of cancer",     val: 14 },
-        {label: "Inflammation",     val: 15 },
-        {label: "Cell injury - Cellular adaptation",     val: 16 },
-        {label: "Embolism & infarction",     val: 17 },
-],
-
-
 
 };
 let currentSubjectFilter = "All";  // default
