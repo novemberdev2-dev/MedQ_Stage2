@@ -226,6 +226,7 @@
             user-select: none;
             cursor: pointer;
             text-align: left;
+            white-space: nowrap;
         }
 
         [data-theme="light"] .subject-dropdown-item { color: #666; }
@@ -396,18 +397,11 @@
                 <div class="subject-dropdown-header">Subject</div>
               
                 <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
-                <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
                 <div class="subject-dropdown-item" data-subject="Immunology" onclick="selectSubjectFilter('Anatomy', this)"><span class="filter-option-dot"></span>Anatomy 🦴</div>
-                <div class="subject-dropdown-item" data-subject="Medical education" onclick="selectSubjectFilter('Medical education', this)"><span class="filter-option-dot"></span>Medical Education 📘</div>
-                <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Phathology', this)"><span class="filter-option-dot"></span>Pathology 🦠</div>
-                <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
-                <div class="subject-dropdown-item" data-subject="Community medicine" onclick="selectSubjectFilter('Community medicine', this)"><span class="filter-option-dot"></span>Community Medicine</div>
-                <div class="subject-dropdown-item" data-subject="Medicine" onclick="selectSubjectFilter('Medicine', this)"><span class="filter-option-dot"></span>Medicine</div>
-                <div class="subject-dropdown-item" data-subject="Microbiology" onclick="selectSubjectFilter('Microbiology', this)"><span class="filter-option-dot"></span>Microbiology</div>
+                <div class="subject-dropdown-item" data-subject="Community Medicine" onclick="selectSubjectFilter('Community Medicine', this)"><span class="filter-option-dot"></span>Community Medicine 📘</div>
+                <div class="subject-dropdown-item" data-subject="Microbiology" onclick="selectSubjectFilter('Microbiology', this)"><span class="filter-option-dot"></span>Micobiology 🦠</div>
                 <div class="subject-dropdown-item" data-subject="Physiology" onclick="selectSubjectFilter('Physiology', this)"><span class="filter-option-dot"></span>Physiology ⚡</div>
-                <div class="subject-dropdown-item" data-subject="Radiology" onclick="selectSubjectFilter('Radiology', this)"><span class="filter-option-dot"></span>Radiology ☢️</div>
-                <div class="subject-dropdown-item" data-subject="Surgery" onclick="selectSubjectFilter('Surgery', this)"><span class="filter-option-dot"></span>Surgery </div>
-                <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🧬</div>
+                <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🫁</div>
               
         </div>
         </div>
@@ -589,33 +583,28 @@ const allQuestions = [
   { "n": 25, "s": "Physiology", "l": 1, "q": "In which event ventricular pressure is less than atrial pressure:", "o": ["A. Isovolumetric contraction", "B. Ventricular ejection", "C. Controlled relaxation", "D. Isovolumetric relaxation only", "E. 1- Isovolumetric relaxation 2- Atrial systole"], "a": "E" },
   { "n": 26, "s": "Histology", "l": 1, "q": "Purkinje fibers are located in:", "o": ["A. Epicardium", "B. Myocardium", "C. Pericardium", "D. Sub-endocardium", "E. Tunica adventitia"], "a": "D" },
   { "n": 27, "s": "Histology", "l": 1, "q": "What is special about Elastic arteries walls:", "o": ["A. High amount of skeletal muscle", "B. Elastic fiber in tunica media", "C. Absence of tunica intima", "D. Thick tunica adventitia", "E. Rich in continuous capillaries"], "a": "B" },
-  { "n": 28, "s": "Community", "l": 1, "q": "(Tracking) blood pressure the term indicates:", "o": ["A. Every 12 h", "B. Every 48 h", "C. Every 24 h", "D. Every 1 hour", "E. Once a week"], "a": "C" },
-  { "n": 29, "s": "Community", "l": 1, "q": "Primordial prevention of heart disease:", "o": ["A. Knowledge and education", "B. Early screening and medication", "C. Surgical intervention", "D. Cardiac rehabilitation", "E. Vaccination programs"], "a": "A" },
-  { "n": 30, "s": "Community", "l": 1, "q": "Main cause of sub-acute endocarditis:", "o": ["A. Exogenous", "B. Iatrogenic", "C. Nosocomial", "D. Idiopathic", "E. Endogenous"], "a": "E" },
+  { "n": 28, "s": "Community Medicine", "l": 1, "q": "(Tracking) blood pressure the term indicates:", "o": ["A. Every 12 h", "B. Every 48 h", "C. Every 24 h", "D. Every 1 hour", "E. Once a week"], "a": "C" },
+  { "n": 29, "s": "Community Medicine", "l": 1, "q": "Primordial prevention of heart disease:", "o": ["A. Knowledge and education", "B. Early screening and medication", "C. Surgical intervention", "D. Cardiac rehabilitation", "E. Vaccination programs"], "a": "A" },
+  { "n": 30, "s": "Community Medicine", "l": 1, "q": "Main cause of sub-acute endocarditis:", "o": ["A. Exogenous", "B. Iatrogenic", "C. Nosocomial", "D. Idiopathic", "E. Endogenous"], "a": "E" },
 { "n": 31, "s": "Microbiology", "l": 1, "q": "Which parasitic stage is infective to humans and causes elephantiasis?", "o": ["A. 1st stage rhabditiform larva", "B. 2nd stage filariform larva", "C. 3rd stage filariform larva", "D. Adult macrofilaria only", "E. Microfilariae egg stage"], "a": "C" }
 
 ];
 
 
 const lectures = {
-   1:  "Biochemical Basis of Atherosclerosis",
-   2:  "Cardiac Biomarkers 🫀",
+   1:  "Blood vessels of the thorax",
+   2:  "Blood vessels of the head and neck",
    
 
 };
   
 const lectureFilters = {
     "All": [],
-    "Biochemistry": [
-        { label: "All",                            val: "All" },
-        
-        { label: "Biochemical Basis of Atherosclerosis",     val: 1 },
-        { label: "Cardiac Biomarkers 🫀",     val: 2 },
-     ],
+   
     "Anatomy": [
         { label: "All", val: "All" },
-        { label: "Blood vessels of the thorax", val: 3 },
-        { label: "Blood vessels of the head and neck", val: 4 },
+        { label: "Blood vessels of the thorax", val: 1 },
+        { label: "Blood vessels of the head and neck", val: 2 },
      ],
     
 };
@@ -636,7 +625,7 @@ function renderFilterBar() {
 function getLectureLabel(val) {
     if (val === "All" && currentSubjectFilter === "All") return "All";
     if (val === "All") {
-        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pharmacology": "Pharmacology 💊", "Immunology": "Immunology 🛡️" };
+        const subjectLabels = { "Microbiology": "Microbiology 🦠", "Community Medicine": "Community Medicine 📘", "Anatomy": "Anatomy 🦴", "Histology": "Histology 🫁", "Physiology": "Physiology ⚡" };
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
     return lectures[val] || val;
