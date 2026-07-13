@@ -412,14 +412,8 @@
                 <div class="subject-dropdown-item" data-subject="Anatomy" onclick="selectSubjectFilter('Anatomy', this)"><span class="filter-option-dot"></span>Anatomy 🦴</div>
                 <div class="subject-dropdown-item" data-subject="Physiology" onclick="selectSubjectFilter('Physiology', this)"><span class="filter-option-dot"></span>Physiology ⚡</div>
                 <div class="subject-dropdown-item" data-subject="Microbiology" onclick="selectSubjectFilter('Microbiology', this)"><span class="filter-option-dot"></span>Microbiology 🦠</div>
-                <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
-                <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
-                <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
-                <div class="subject-dropdown-item" data-subject="Genetics" onclick="selectSubjectFilter('Genetics', this)"><span class="filter-option-dot"></span>Genetics 🧬</div>
-                <div class="subject-dropdown-item" data-subject="Medical education" onclick="selectSubjectFilter('Medical education', this)"><span class="filter-option-dot"></span>Medical education 📘</div>
                 <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🫁</div>
-                <div class="subject-dropdown-item" data-subject="Community medicine" onclick="selectSubjectFilter('Community medicine', this)"><span class="filter-option-dot"></span>Community medicine 📕</div>
-                <div class="subject-dropdown-item" data-subject="Radiology" onclick="selectSubjectFilter('Radiology', this)"><span class="filter-option-dot"></span>Radiology ☢️</div>
+                <div class="subject-dropdown-item" data-subject="Community Medicine" onclick="selectSubjectFilter('Community Medicine', this)"><span class="filter-option-dot"></span>Community Medicine 📘</div>
 
 
 
@@ -475,7 +469,7 @@ const allQuestions = [
   { n: 23, s: "Microbiology", l: 1, q: "A patient presents with a sudden fever, and a culture shows gram-positive cocci normally found on the skin. What is the underlying pathophysiology?", o: ["A. Invasion by highly virulent bacteria (Staphylococcus aureus)", "B. Immune complex deposition", "C. Subacute colonization by low-virulence normal flora", "D. Hypersensitivity reaction", "E. Chronic granulomatous inflammation"], a: "A" },
   { n: 24, s: "Anatomy", l: 1, q: "All of the following are correct about chest X-ray findings, EXCEPT:", o: ["A. The right hemidiaphragm is normally higher than the left", "B. The cardiac silhouette occupies less than 50% of the thoracic width", "C. Pulmonary window is located between the aortic arch and right pulmonary artery", "D. Costophrenic angles should be sharp and clear", "E. The trachea is typically midline or slightly to the right"], a: "C" },
   { n: 25, s: "Physiology", l: 1, q: "A patient presents with bilateral pitting edema of the lower limbs and hepatomegaly. What is the diagnosis?", o: ["A. Left-sided heart failure", "B. Nephrotic syndrome", "C. Cirrhosis of the liver", "D. Deep vein thrombosis", "E. Right-sided heart failure"], a: "E" },
-  { n: 26, s: "Community", l: 1, q: "Which statement about coronary heart disease is FALSE?", o: ["A. Smoking cessation reduces recurrent MI risk ~50%", "B. Hypertension is a risk factor", "C. Smoking cessation is a therapy", "D. Smoking acts additively with other risk factors", "E. High alcohol intake is an independent risk factor"], a: "D" },
+  { n: 26, s: "Community Medicine", l: 1, q: "Which statement about coronary heart disease is FALSE?", o: ["A. Smoking cessation reduces recurrent MI risk ~50%", "B. Hypertension is a risk factor", "C. Smoking cessation is a therapy", "D. Smoking acts additively with other risk factors", "E. High alcohol intake is an independent risk factor"], a: "D" },
   { n: 27, s: "Physiology", l: 1, q: "All of the following indications or associations for performing an ECG are correct EXCEPT:", o: ["A. All patients over 60 years old", "B. All patients under 10 years old", "C. Diabetics", "D. Cardiothoracic surgery", "E. Cardiovascular and renal diseases"], a: "B" },
 
 
@@ -511,80 +505,21 @@ const allQuestions = [
 
 
 const lectures = {
-   1:  "Protein Metabolism 🥩",
-   2:  "Lipid Metabolism 🥑",
-   3:  "Enzymology🧪",
-   4:  "Cancer 🧬",
-   5:  "Carbohydrate Metabolism 🍞",
-   6:  "Nutrition 🥗",
- 7: "Inhibitors of baterial protein synthesis",
- 8: "Hypersensitivity Immune response & Related diseases",
- 9: "Complement system II",
- 10: "Cytokines and immunotherapy",
- 11: "Antibody",
- 12: "Neoplasia",
- 13: "Hemodynamic disorders shock",
- 14: "Neoplasia - Molecular basis of cancer",
- 15: "Inflammation",
- 16: "Cell injury - Cellular adaptation",
- 17: "Embolism & infarction",
- 18: "Drug metabolism",
- 19: "Cell wall inhibitors",
- 20: "Drug receptor interaction",
- 21: "Antifungal drugs",
- 22: "Sympathomimetic drugs",
- 23: "Parasympathomimetics",
- 24: "Adrenergic receptor blockers",
+   1:  "Blood vessels of the thorax",
+   2:  "Blood vessels of head and neck",
 };
   
 const lectureFilters = {
     "All": [],
-    "Biochemistry": [
-        { label: "All",                            val: "All" },
-        
-        { label: "Protein Metabolism 🥩",     val: 1 },
-        { label: "Lipid Metabolism 🥑",     val: 2 },
-        { label: "Enzymology 🧪",     val: 3 },
-        { label: "Cancer 🧬",     val: 4 },
-        { label: "Carbohydrate Metabolism 🍞",     val: 5 },
-        { label: "Nutrition 🥗",     val: 6 },
-
- ],
-
-  "Pharmacology": [
-        { label: "All",               val: "All" },
-        
-        { label: "Inhibitors of baterial protein synthesis",     val: 7 },
-        {label: "Drug metabolism",     val: 18 },
-        {label: "Cell wall inhibitors",     val: 19 },
-        {label: "Drug receptor interaction",     val: 20 },
-        {label: "Antifungal drugs",     val: 21 },
-        {label: "Sympathomimetic drugs",     val: 22 },
-        {label: "Parasympathomimetics",     val: 23 },
-        {label: "Adrenergic receptor blockers",     val: 24 },
- ],
+   
     
- "Immunology": [
+ 
+"Anatomy": [
         { label: "All",               val: "All" },
         
-        { label: "Hypersensitivity Immune response & Related diseases",     val: 8 },
-        { label: "Complement system II",     val: 9 },
-        { label: "Cytokines and immunotherapy",     val: 10 },
-        { label: "Antibody",     val: 11 },
-    
-
-
-],
-
-"Pathology": [
-        { label: "All",               val: "All" },
-        
-        { label: "Neoplasia",     val: 12 },
-        { label: "Hemodynamic disorders shock",     val: 13 },
-        { label: "Neoplasia - Molecular basis of cancer",     val: 14 },
-        {label: "Inflammation",     val: 15 },
-        {label: "Cell injury - Cellular adaptation",     val: 16 },
-        {label: "Embolism & infarction",     val: 17 },
+        { label: "Blood vessels of the thorax",     val: 1 },
+        { label: "Blood vessels of head and neck",     val: 2 },
+      
 ],
 
 
@@ -606,7 +541,15 @@ function renderFilterBar() {
 function getLectureLabel(val) {
     if (val === "All" && currentSubjectFilter === "All") return "All";
     if (val === "All") {
-        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pharmacology": "Pharmacology 💊", "Immunology": "Immunology 🛡️", "Pathology": "Pathology 🦠", "Medical education": "Medical Education 📘" };
+
+        const subjectLabels = {  
+    "Anatomy": "Anatomy 🦴",
+    "Physiology": "Physiology ⚡",
+    "Microbiology": "Microbiology 🦠",
+    "Histology": "Histology 🫁",
+    "Community Medicine": "Community Medicine 📘",
+ };
+
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
     return lectures[val] || val;
