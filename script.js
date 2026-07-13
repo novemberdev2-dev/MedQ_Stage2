@@ -234,7 +234,7 @@ const ALL_SECTIONS = [
     ] },
 
      { title: 'Unkown Year Exam',     links: [
-      { label: 'Quiz', badge: '17 MCQs',  href: 'IBS_ Quiz_Unkown year.html' },
+      { label: 'Quiz', badge: '17 MCQs',  href: 'IBS_Quiz_Unkown year.html' },
     
     ] },
     ]
