@@ -203,7 +203,7 @@ const ALL_SECTIONS = [
 
       ]},
       { title: '2020-2021 Year Exam', links: [
-        { label: 'Final',   badge: '61 MCQs',     href: 'IBS_Final_2020-2021.html' },
+        { label: 'Final',   badge: '62 MCQs',     href: 'IBS_Final_2020-2021.html' },
         
       ]},
       { title: '2021-2022 Year Exam',   links: [
