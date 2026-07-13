@@ -399,7 +399,7 @@
              
                 <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
                 <div class="subject-dropdown-item" data-subject="Immunology" onclick="selectSubjectFilter('Immunology', this)"><span class="filter-option-dot"></span>Immunology 🛡️</div>
-                <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🦠</div>
+                <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬 </div>
                 <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
               
         </div>
@@ -770,7 +770,7 @@ function renderFilterBar() {
 function getLectureLabel(val) {
     if (val === "All" && currentSubjectFilter === "All") return "All";
     if (val === "All") {
-        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pharmacology": "Pharmacology 💊", "Immunology": "Immunology 🛡️" };
+        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pharmacology": "Pharmacology 💊", "Immunology": "Immunology 🛡️", "Pathology": "Pathology 🔬" };
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
     return lectures[val] || val;
