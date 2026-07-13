@@ -377,7 +377,7 @@
 <div class="container">
     <div class="header" style="padding: 9px 14px; margin-bottom: 15px;">
         <div style="display: flex; align-items: center; gap: 12px;">
-         
+           
             <span style="font-size: 0.90rem; font-weight: 800; color: var(--header-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">IBS 🧪&nbsp;·&nbsp; Final  &nbsp;·&nbsp; 2020-2021</span>
         </div>
     </div>
@@ -399,8 +399,8 @@
              
                 <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
                 <div class="subject-dropdown-item" data-subject="Immunology" onclick="selectSubjectFilter('Immunology', this)"><span class="filter-option-dot"></span>Immunology 🛡️</div>
-                <div class="subject-dropdown-item" data-subject="Medical education" onclick="selectSubjectFilter('Medical education', this)"><span class="filter-option-dot"></span>Medical Education 📘</div>
-                <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🦠</div>
+                <div class="subject-dropdown-item" data-subject="Medical Education" onclick="selectSubjectFilter('Medical Education', this)"><span class="filter-option-dot"></span>Medical Education 📘</div>
+                <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
                 <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
               
         </div>
@@ -472,7 +472,7 @@ const allQuestions = [
 
 
 
-{ n: 31, s: "Medical education", l: 1, q: "Stress during pregnancy is called:", o: ["A. Distress", "B. Eustress", "C. Burnout", "D. Anxiety disorder", "E. Depression"], a: "B" },
+{ n: 31, s: "Medical Education", l: 1, q: "Stress during pregnancy is called:", o: ["A. Distress", "B. Eustress", "C. Burnout", "D. Anxiety disorder", "E. Depression"], a: "B" },
 
 { n: 32, s: "Pathology", l: 1, q: "Increased acid phosphatase is associated with:", o: ["A. Lung cancer", "B. Breast cancer", "C. Prostate cancer", "D. Colon cancer", "E. Liver cancer"], a: "C" },
 
@@ -662,7 +662,7 @@ function renderFilterBar() {
 function getLectureLabel(val) {
     if (val === "All" && currentSubjectFilter === "All") return "All";
     if (val === "All") {
-        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pharmacology": "Pharmacology 💊", "Immunology": "Immunology 🛡️" };
+        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pharmacology": "Pharmacology 💊", "Immunology": "Immunology 🛡️", "Medical Education":"Medical Education 📘", "Pathology":"Pathology 🔬" };
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
     return lectures[val] || val;
