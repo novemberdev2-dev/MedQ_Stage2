@@ -234,7 +234,7 @@ const ALL_SECTIONS = [
     ] },
 
      { title: 'Unkown Year Exam',     links: [
-      { label: 'Quiz', badge: '17 MCQs',  href: 'IBS_Quiz_Unkown year.html' },
+      { label: 'Quiz', badge: '17 MCQs',  href: 'IBS_ Quiz_Unkown year.html' },
     
     ] },
     ]
@@ -334,8 +334,8 @@ const ALL_SECTIONS = [
 
      { title: 'Unkown Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '0 MCQs',  href: 'CVS_End-Block_Theory_2025-2026.html' },
-      { label: 'End-Block _ Practice', badge: '0 Questions',  href: 'CVS_End-Block_Practice_2025-2026.html' },
-      { label: 'Final', badge: '0 MCQs',  href: 'CVS_Final_2025-2026.html' }
+      { label: 'Final', badge: '0 MCQs',  href: 'CVS_Final_2025-2026.html' },
+      { label: 'Quiz', badge: '0 MCQs',  href: 'CVS_Quiz_Unkown year.html' },
     
     ] },
     ]
