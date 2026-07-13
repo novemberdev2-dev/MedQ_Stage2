@@ -390,7 +390,7 @@
     <div class="header" style="padding: 9px 14px; margin-bottom: 15px;">
         <div style="display: flex; align-items: center; gap: 12px;">
             
-            <span style="font-size: 0.90rem; font-weight: 800; color: var(--header-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">CVS  &nbsp;·&nbsp; End-Block &nbsp;·&nbsp; 2024-2025</span>
+            <span style="font-size: 0.90rem; font-weight: 800; color: var(--header-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">CVS 🫀 &nbsp;·&nbsp; End-Block &nbsp;·&nbsp; 2024-2025</span>
         </div>
     </div>
 
@@ -416,9 +416,9 @@
                 <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
                 <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
                 <div class="subject-dropdown-item" data-subject="Genetics" onclick="selectSubjectFilter('Genetics', this)"><span class="filter-option-dot"></span>Genetics 🧬</div>
-                <div class="subject-dropdown-item" data-subject="Medical education" onclick="selectSubjectFilter('Medical education', this)"><span class="filter-option-dot"></span>Medical education 📘</div>
+                <div class="subject-dropdown-item" data-subject="Medical Education" onclick="selectSubjectFilter('Medical Education', this)"><span class="filter-option-dot"></span>Medical education 📘</div>
                 <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🫁</div>
-                <div class="subject-dropdown-item" data-subject="Community medicine" onclick="selectSubjectFilter('Community medicine', this)"><span class="filter-option-dot"></span>Community medicine 📕</div>
+                <div class="subject-dropdown-item" data-subject="Community Medicine" onclick="selectSubjectFilter('Community Medicine', this)"><span class="filter-option-dot"></span>Community medicine 📕</div>
                 <div class="subject-dropdown-item" data-subject="Radiology" onclick="selectSubjectFilter('Radiology', this)"><span class="filter-option-dot"></span>Radiology ☢️</div>
 
 
@@ -458,8 +458,8 @@ const allQuestions = [
   { n: 8, s: "Genetics", l: 1, q: "Which epigenetic mechanisms are primarily involved in the pathogenesis of preeclampsia?", o: ["A. RNA splicing and protein folding", "B. Telomere shortening and DNA mutation", "C. Chromosome inversion and translocation", "D. DNA methylation and histone modifications", "E. Ubiquitination and phosphorylation"], a: "D" },
   { n: 9, s: "Biochemistry", l: 1, q: "Which of the following cardiac markers is more specific to myocardial damage?", o: ["A. Myoglobin", "B. CK-MB", "C. LDH", "D. AST", "E. Total CK"], a: "B" },
   { n: 10, s: "Biochemistry", l: 1, q: "What is the function of Troponin T?", o: ["A. Binds calcium ions directly", "B. Hydrolyzes ATP during contraction", "C. Inhibits the actin-myosin interaction", "D. Anchors myosin to the Z-disc", "E. Binds to tropomyosin"], a: "E" },
-  { n: 11, s: "Community", l: 1, q: "All of the following are true regarding RHD, EXCEPT:", o: ["A. It is directly related to socioeconomic status", "B. Primary prevention is done by improving quality care and health", "C. Female to male ratio 1:1", "D. Mainly affects children and adolescence", "E. A cause for premature death"], a: "C" },
-  { n: 12, s: "Community", l: 1, q: "A patient with hypertension and hyperlipidemia: all of the following are primary prevention EXCEPT:", o: ["A. Treadmill test", "B. Diet", "C. Exercise", "D. Smoking cessation", "E. Statin"], a: "A" },
+  { n: 11, s: "Community Medicine", l: 1, q: "All of the following are true regarding RHD, EXCEPT:", o: ["A. It is directly related to socioeconomic status", "B. Primary prevention is done by improving quality care and health", "C. Female to male ratio 1:1", "D. Mainly affects children and adolescence", "E. A cause for premature death"], a: "C" },
+  { n: 12, s: "Community Medicine", l: 1, q: "A patient with hypertension and hyperlipidemia: all of the following are primary prevention EXCEPT:", o: ["A. Treadmill test", "B. Diet", "C. Exercise", "D. Smoking cessation", "E. Statin"], a: "A" },
   { n: 13, s: "Radiology", l: 1, q: "What is the upper limit of the normal cardiothoracic ratio in standard posteroanterior and anteroposterior chest X-ray views?", o: ["A. 30-35%", "B. 40-45%", "C. 45-50%", "D. 50-60%", "E. 65-75%"], a: "D" },
   { n: 14, s: "Pathology", l: 1, q: "Which of the following get trapped in the tunica intima of arteries and later die, forming a necrotized core?", o: ["A. Neutrophils", "B. Endothelial cells", "C. Smooth muscle cells", "D. Platelets", "E. Foam cells"], a: "E" },
   { n: 15, s: "Pathology", l: 1, q: "A patient presents with bilateral leg edema and hepatomegaly, but no signs of pulmonary congestion. Which of the following is the most likely diagnosis?", o: ["A. Left-sided heart failure", "B. Right-sided heart failure", "C. Acute myocardial infarction", "D. Mitral valve stenosis", "E. Dilated cardiomyopathy"], a: "B" },
@@ -537,81 +537,23 @@ const allQuestions = [
 
 
 const lectures = {
-   1:  "Protein Metabolism 🥩",
-   2:  "Lipid Metabolism 🥑",
-   3:  "Enzymology🧪",
-   4:  "Cancer 🧬",
-   5:  "Carbohydrate Metabolism 🍞",
-   6:  "Nutrition 🥗",
- 7: "Inhibitors of baterial protein synthesis",
- 8: "Hypersensitivity Immune response & Related diseases",
- 9: "Complement system II",
- 10: "Cytokines and immunotherapy",
- 11: "Antibody",
- 12: "Neoplasia",
- 13: "Hemodynamic disorders shock",
- 14: "Neoplasia - Molecular basis of cancer",
- 15: "Inflammation",
- 16: "Cell injury - Cellular adaptation",
- 17: "Embolism & infarction",
- 18: "Drug metabolism",
- 19: "Cell wall inhibitors",
- 20: "Drug receptor interaction",
- 21: "Antifungal drugs",
- 22: "Sympathomimetic drugs",
- 23: "Parasympathomimetics",
- 24: "Adrenergic receptor blockers",
+   1:  "Blood vessels of the thorax",
+   2:  "Blood vessels of head and neck",
 };
   
 const lectureFilters = {
     "All": [],
-    "Biochemistry": [
-        { label: "All",                            val: "All" },
+    "Anatomy": [
+        { label: "All",       val: "All" },
         
-        { label: "Protein Metabolism 🥩",     val: 1 },
-        { label: "Lipid Metabolism 🥑",     val: 2 },
-        { label: "Enzymology 🧪",     val: 3 },
-        { label: "Cancer 🧬",     val: 4 },
-        { label: "Carbohydrate Metabolism 🍞",     val: 5 },
-        { label: "Nutrition 🥗",     val: 6 },
-
+        { label: "Blood vessels of the thorax",     val: 1 },
+        { label: "Blood vessels of head and neck",     val: 2 },
+       
  ],
 
-  "Pharmacology": [
-        { label: "All",               val: "All" },
-        
-        { label: "Inhibitors of baterial protein synthesis",     val: 7 },
-        {label: "Drug metabolism",     val: 18 },
-        {label: "Cell wall inhibitors",     val: 19 },
-        {label: "Drug receptor interaction",     val: 20 },
-        {label: "Antifungal drugs",     val: 21 },
-        {label: "Sympathomimetic drugs",     val: 22 },
-        {label: "Parasympathomimetics",     val: 23 },
-        {label: "Adrenergic receptor blockers",     val: 24 },
- ],
-    
- "Immunology": [
-        { label: "All",               val: "All" },
-        
-        { label: "Hypersensitivity Immune response & Related diseases",     val: 8 },
-        { label: "Complement system II",     val: 9 },
-        { label: "Cytokines and immunotherapy",     val: 10 },
-        { label: "Antibody",     val: 11 },
-    
+ 
+ 
 
-
-],
-
-"Pathology": [
-        { label: "All",               val: "All" },
-        
-        { label: "Neoplasia",     val: 12 },
-        { label: "Hemodynamic disorders shock",     val: 13 },
-        { label: "Neoplasia - Molecular basis of cancer",     val: 14 },
-        {label: "Inflammation",     val: 15 },
-        {label: "Cell injury - Cellular adaptation",     val: 16 },
-        {label: "Embolism & infarction",     val: 17 },
-],
 
 
 
@@ -632,7 +574,19 @@ function renderFilterBar() {
 function getLectureLabel(val) {
     if (val === "All" && currentSubjectFilter === "All") return "All";
     if (val === "All") {
-        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pharmacology": "Pharmacology 💊", "Immunology": "Immunology 🛡️", "Pathology": "Pathology 🦠", "Medical education": "Medical Education 📘" };
+        const subjectLabels = {
+    "Anatomy": "Anatomy 🦴",
+    "Physiology": "Physiology ⚡",
+    "Microbiology": "Microbiology 🦠",
+    "Pharmacology": "Pharmacology 💊",
+    "Biochemistry": "Biochemistry 🧪",
+    "Pathology": "Pathology 🔬",
+    "Genetics": "Genetics 🧬",
+    "Medical Education": "Medical Education 📘",
+    "Histology": "Histology 🫁",
+    "Community Medicine": "Community Medicine 📕",
+    "Radiology": "Radiology ☢️"
+};
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
     return lectures[val] || val;
