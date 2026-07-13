@@ -198,7 +198,7 @@ const ALL_SECTIONS = [
       ]},
       { title: '2018-2019 Year Exam', links: [
         { label: 'End-Block 🔃',   badge: '8 MCQs',    href: 'IBS_End-Block_2018-2019.html' },
-        { label: 'Final',   badge: '47 MCQs',    href: 'IBS_Final_2018-2019.html' },
+        { label: 'Final',   badge: '150 MCQs',    href: 'IBS_Final_2018-2019.html' },
         { label: 'Quiz', badge: '20 MCQs', href: 'IBS_Quiz_2018-2019.html' }
 
       ]},
