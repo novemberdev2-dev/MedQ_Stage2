@@ -5,5 +5,14 @@
 </head>
 <body>
 
+<h1 id="exam-name">Loading...</h1>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const examId = params.get("id");
+
+document.getElementById("exam-name").textContent = examId;
+</script>
+
 </body>
 </html>
