@@ -226,6 +226,7 @@
             user-select: none;
             cursor: pointer;
             text-align: left;
+            white-space: nowrap;
         }
 
         [data-theme="light"] .subject-dropdown-item { color: #666; }
@@ -398,10 +399,13 @@
                 <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
              
                 <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
-                <div class="subject-dropdown-item" data-subject="Immunology" onclick="selectSubjectFilter('Immunology', this)"><span class="filter-option-dot"></span>Immunology 🛡️</div>
-                <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🦠</div>
+                <div class="subject-dropdown-item" data-subject="Anatomy" onclick="selectSubjectFilter('Anatomy', this)"><span class="filter-option-dot"></span>Anatomy 🦴</div>
+                <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
+                <div class="subject-dropdown-item" data-subject="Physiology" onclick="selectSubjectFilter('Physiology', this)"><span class="filter-option-dot"></span>Physiology ⚡</div>
                 <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
                 <div class="subject-dropdown-item" data-subject="Medical education" onclick="selectSubjectFilter('Medical Education', this)"><span class="filter-option-dot"></span>Medical Education 📘</div>
+                <div class="subject-dropdown-item" data-subject="Radiology" onclick="selectSubjectFilter('Radiology', this)"><span class="filter-option-dot"></span>Radiology ☢️</div>
+                <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🫁</div>
               
         </div>
         </div>
@@ -713,7 +717,7 @@ const allQuestions = [
   
   {
     "n": 35,
-    "s": "Medical education",
+    "s": "Medical Education",
     "l": 1,
     "q": "Which one shows the ethical principle of autonomy?",
     "o": ["A. The doctor respects the mentally competent patient's refusal to take chemotherapy even though it could be therapeutic.", "B. The doctor administers life-saving medication to an unconscious patient without family consent.", "C. The doctor decides to withhold a terminal diagnosis from a patient to prevent emotional distress.", "D. The doctor reports a communicable disease outbreak to public health authorities.", "E. The doctor allocates limited critical care beds based on a first-come, first-served policy."],
@@ -763,7 +767,7 @@ const allQuestions = [
   },
   {
     "n": 41,
-    "s": "Immunology",
+    "s": "Physiology",
     "l": 1,
     "q": "Which of the following is a primary lymphoid organ?",
     "o": ["A. Spleen", "B. Lymph nodes", "C. Peyer’s patches", "D. Thymus", "E. Tonsils"],
@@ -815,7 +819,7 @@ const allQuestions = [
  
   {
     "n": 47,
-    "s": "Medical education",
+    "s": "Medical Education",
     "l": 1,
     "q": "Mr. H's case is unethical, why?",
     "o": ["A. The doctor did not respect the patient's expressed opinion of not amputating his arm.", "B. The medical staff shared the patient's records on public platforms without anonymization.", "C. The hospital billed the patient for procedures that were never ordered or executed.", "D. The physician performed an experimental drug trial without proper administrative oversight.", "E. The clinical team delayed primary resuscitation due to documentation protocols."],
@@ -981,7 +985,19 @@ function renderFilterBar() {
 function getLectureLabel(val) {
     if (val === "All" && currentSubjectFilter === "All") return "All";
     if (val === "All") {
-        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pharmacology": "Pharmacology 💊", "Immunology": "Immunology 🛡️", "Pathology": "Pathology 🦠", "Medical Education": "Medical Education 📘" };
+         const subjectLabels = {
+    "Anatomy": "Anatomy 🦴",
+    "Physiology": "Physiology ⚡",
+    "Microbiology": "Microbiology 🦠",
+    "Pharmacology": "Pharmacology 💊",
+    "Biochemistry": "Biochemistry 🧪",
+    "Pathology": "Pathology 🔬",
+    "Genetics": "Genetics 🧬",
+    "Medical Education": "Medical Education 📘",
+    "Histology": "Histology 🫁",
+    "Community Medicine": "Community Medicine 📕",
+    "Radiology": "Radiology ☢️"
+};
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
     return lectures[val] || val;
