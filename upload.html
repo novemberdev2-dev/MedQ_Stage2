@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<button onclick="uploadQuestions()">Upload Questions</button>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD2ebyMYNM-AXWXbzAUNcck2pqRx1mb8Z4",
+  authDomain: "questions-3e15f.firebaseapp.com",
+  projectId: "questions-3e15f",
+  storageBucket: "questions-3e15f.firebasestorage.app",
+  messagingSenderId: "904702626300",
+  appId: "1:904702626300:web:77ca0f1eafb30e6f234a79"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.uploadQuestions = async function () {
+
+    const allQuestions = [
+        // PASTE YOUR QUESTIONS HERE
+    ];
+
+    for (const question of allQuestions) {
+        await addDoc(
+            collection(db, "exams", "IBS_Final_2025-2026", "questions"),
+            question
+        );
+    }
+
+    alert("Finished uploading!");
+}
+</script>
+
+</body>
+</html>
