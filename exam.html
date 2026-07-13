@@ -7,11 +7,36 @@
 
 <h1 id="exam-name">Loading...</h1>
 
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "questions-3e15f.firebaseapp.com",
+  projectId: "questions-3e15f",
+  storageBucket: "questions-3e15f.firebasestorage.app",
+  messagingSenderId: "904702626300",
+  appId: "YOUR_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 const params = new URLSearchParams(window.location.search);
 const examId = params.get("id");
 
 document.getElementById("exam-name").textContent = examId;
+
+const querySnapshot = await getDocs(
+    collection(db, "exams", examId, "questions")
+);
+
+console.log("Questions found:", querySnapshot.size);
+
+querySnapshot.forEach(doc => {
+    console.log(doc.data());
+});
 </script>
 
 </body>
