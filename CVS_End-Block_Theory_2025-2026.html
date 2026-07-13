@@ -18,6 +18,7 @@
             --ans-bg: #1e293b;
             --ans-text: #f0cf6a;
             --filter-bg: transparent;
+            --correct-color: #2e7d32;
             
         }
 
@@ -33,6 +34,7 @@
             --ans-bg: #eef6e4;
             --ans-text: #2e7d32;
             --filter-bg: transparent;
+            --correct-color: #e53935;
             
         }
 
@@ -342,7 +344,7 @@
         }
 
         mark { background-color: #f0cf6a; color: #000; }
-
+.opts li.correct-option { color: var(--correct-color); font-weight: 500; }
         .section-heading {
             display: flex;
             justify-content: space-between;
@@ -412,12 +414,9 @@
                 <div class="subject-dropdown-item" data-subject="Anatomy" onclick="selectSubjectFilter('Anatomy', this)"><span class="filter-option-dot"></span>Anatomy 🦴</div>
                 <div class="subject-dropdown-item" data-subject="Physiology" onclick="selectSubjectFilter('Physiology', this)"><span class="filter-option-dot"></span>Physiology ⚡</div>
                 <div class="subject-dropdown-item" data-subject="Microbiology" onclick="selectSubjectFilter('Microbiology', this)"><span class="filter-option-dot"></span>Microbiology 🦠</div>
+
                 <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🫁</div>
-                <div class="subject-dropdown-item" data-subject="Community Medicine" onclick="selectSubjectFilter('Community Medicine', this)"><span class="filter-option-dot"></span>Community Medicine 📘</div>
-
-
-
-
+                <div class="subject-dropdown-item" data-subject="Community Medicine" onclick="selectSubjectFilter('Community Medicine', this)"><span class="filter-option-dot"></span>Community Medicine 📕</div>
                 <div class="subject-dropdown-item" data-subject="Medical education" onclick="selectSubjectFilter('Essay Questions', this)"><span class="filter-option-dot"></span>Essay Questions</div>
 
         </div>
@@ -506,22 +505,22 @@ const allQuestions = [
 
 const lectures = {
    1:  "Blood vessels of the thorax",
-   2:  "Blood vessels of head and neck",
+   2:  "Blood vessels of the head and neck",
+   
 };
   
 const lectureFilters = {
     "All": [],
-   
-    
- 
-"Anatomy": [
-        { label: "All",               val: "All" },
+    "Anatomy": [
+        { label: "All",                            val: "All" },
         
         { label: "Blood vessels of the thorax",     val: 1 },
-        { label: "Blood vessels of head and neck",     val: 2 },
+        { label: "Blood vessels of the head and neck",     val: 2 },
       
-],
 
+ ],
+
+ 
 
 
 };
@@ -541,15 +540,7 @@ function renderFilterBar() {
 function getLectureLabel(val) {
     if (val === "All" && currentSubjectFilter === "All") return "All";
     if (val === "All") {
-
-        const subjectLabels = {  
-    "Anatomy": "Anatomy 🦴",
-    "Physiology": "Physiology ⚡",
-    "Microbiology": "Microbiology 🦠",
-    "Histology": "Histology 🫁",
-    "Community Medicine": "Community Medicine 📘",
- };
-
+        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pharmacology": "Pharmacology 💊", "Immunology": "Immunology 🛡️", "Pathology": "Pathology 🦠", "Medical education": "Medical Education 📘" };
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
     return lectures[val] || val;
@@ -614,9 +605,9 @@ function renderQuiz() {
             ? item.a.map((part, i) => {
                 const label = `Answer ${letters[i] || (i + 1)}`;
                 const revealText = isEssay ? part : `Answer: ${part}`;
-                return `<button class="ans-btn" data-label="${label}" data-answer="${escapeAttr(revealText)}" onclick="toggleAnswer(this)">${label}</button>`;
+                return `<button class="ans-btn" data-label="${label}" data-answer="${escapeAttr(revealText)}" data-essay="${isEssay}" data-correct="${escapeAttr(part)}" onclick="toggleAnswer(this)">${label}</button>`;
               }).join('')
-            : `<button class="ans-btn" data-label="Answer" data-answer="${escapeAttr(isEssay ? item.a : 'Answer: ' + item.a)}" onclick="toggleAnswer(this)">Answer</button>`;
+            : `<button class="ans-btn" data-label="Answer" data-answer="${escapeAttr(isEssay ? item.a : 'Answer: ' + item.a)}" data-essay="${isEssay}" data-correct="${escapeAttr(item.a)}" onclick="toggleAnswer(this)">Answer</button>`;
 
         div.innerHTML = `
             <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
@@ -631,6 +622,12 @@ function renderQuiz() {
     });
     updateSectionHeading();
 }
+
+document.addEventListener("keydown", function(e) {
+    if (e.ctrlKey && e.key.toLowerCase() === "s") {
+        e.preventDefault();
+    }
+});
 
 function matchesFilters(item) {
     const subjectOk = currentSubjectFilter === "All" || item.s === currentSubjectFilter;
@@ -703,9 +700,10 @@ function resetBlock(block) {
     const qText = block.querySelector('.q-text');
     const opts = block.querySelectorAll('li');
     qText.innerHTML = qText.dataset.original;
-    opts.forEach(li => li.innerHTML = li.dataset.original);
+    opts.forEach(li => { li.innerHTML = li.dataset.original; li.classList.remove('correct-option'); });
     block.querySelectorAll('.ans-btn').forEach(btn => {
         btn.classList.remove('revealed');
+        btn.dataset.revealed = "false";
         if (btn.dataset.answer) btn.textContent = btn.dataset.label;
     });
 }
@@ -725,8 +723,36 @@ function escapeAttr(str) {
 }
 
 function toggleAnswer(btn) {
-    const isRevealed = btn.classList.toggle('revealed');
-    btn.textContent = isRevealed ? btn.dataset.answer : btn.dataset.label;
+    // Essay questions have no real options to highlight, so keep the original
+    // behavior of revealing the answer text directly on the button.
+    if (btn.dataset.essay === "true") {
+        const isRevealed = btn.classList.toggle('revealed');
+        btn.textContent = isRevealed ? btn.dataset.answer : btn.dataset.label;
+        return;
+    }
+
+    // MCQ questions: keep all options the same color, and instead of showing
+    // the answer on the button, color the correct option(s) red and turn the
+    // button into a "Hide" button. The button's own appearance should not
+    // change, only its text, so we track state via a data attribute rather
+    // than the styled 'revealed' class.
+    const isRevealed = btn.dataset.revealed !== "true";
+    btn.dataset.revealed = isRevealed ? "true" : "false";
+    const block = btn.closest('.q-block');
+    const correctLetters = (btn.dataset.correct || '')
+        .split(/[,\s]+/)
+        .map(s => s.trim())
+        .filter(Boolean);
+
+    block.querySelectorAll('.opts li').forEach(li => {
+        const original = li.dataset.original || li.textContent;
+        const letter = original.split('.')[0].trim();
+        if (correctLetters.includes(letter)) {
+            li.classList.toggle('correct-option', isRevealed);
+        }
+    });
+
+    btn.textContent = isRevealed ? btn.dataset.label.replace('Answer', 'Hide') : btn.dataset.label;
 }
 
 function toggleTheme() {
