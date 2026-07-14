@@ -37,16 +37,31 @@
             --input-border: #cccccc;
             --ans-bg: #eef6e4;
             --ans-text: #2e7d32;
-            --filter-bg: transparent;
             --correct-color: #e53935;
             --btn-bg: #52525b; 
             --btn-text: #ffffff;
         }
 
-      .filter-btn.active {
-            background-color: var(--btn-bg);
-            color: var(--btn-text);
-            border-color: var(--btn-bg);
+        /* Banner styling for your automatic uploader */
+        .uploader-banner {
+            background-color: #ff9800;
+            color: #000;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        .uploader-banner button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 8px;
         }
 
         body {
@@ -99,32 +114,6 @@
             text-overflow: ellipsis;
         }
 
-        @media (max-width: 480px) {
-            .header {
-                align-items: flex-start;
-                text-align: left;
-            }
-            .header-title-wrap {
-                align-items: flex-start;
-            }
-            .header-title {
-                font-size: 0.80rem;
-                white-space: normal;
-                overflow: visible;
-                text-overflow: clip;
-                word-break: break-word;
-                line-height: 1.4;
-                text-align: left;
-            }
-            .title-line1,
-            .title-line2 {
-                display: block;
-            }
-            .title-sep-2 {
-                display: none;
-            }
-        }
-
         .header-actions {
             display: flex;
             align-items: center;
@@ -138,8 +127,6 @@
             background-color: var(--input-border);
             flex-shrink: 0;
         }
-
-        .controls-row { display: flex; gap: 12px; margin-bottom: 10px; }
 
         .search-wrapper {
             position: relative;
@@ -166,7 +153,7 @@
             outline: none;
         }
 
-        .theme-toggle {
+        .theme-toggle, .search-toggle-btn {
             background-color: transparent;
             border: none;
             color: var(--text-main);
@@ -178,20 +165,7 @@
             justify-content: center;
             transition: all 0.3s;
             flex-shrink: 0;
-        }
-
-        .search-toggle-btn {
-            background-color: transparent;
-            border: none;
-            color: var(--text-main);
-            width: 36px;
-            height: 36px;
-            border-radius: 7px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            flex-shrink: 0;
+            cursor: pointer;
         }
 
         .search-bar-expand {
@@ -217,6 +191,7 @@
             justify-content: center;
             transition: all 0.3s;
             flex-shrink: 0;
+            cursor: pointer;
         }
 
         .filter-container {
@@ -231,7 +206,6 @@
             flex-wrap: nowrap;
             max-width: 100%;
             box-sizing: border-box;
-            -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
         }
         .filter-container::-webkit-scrollbar { display: none; }
@@ -253,24 +227,12 @@
             justify-content: center;
             transition: all 0.3s;
             flex-shrink: 0;
-        }
-
-        .subject-toggle svg {
-            stroke: none !important;
-            fill: var(--text-main);
-            pointer-events: none;
+            cursor: pointer;
         }
 
         .subject-toggle.dropdown-open {
             border-color: rgba(255,255,255,0.3);
             background: rgba(40, 42, 45, 0.9);
-        }
-
-        .subject-toggle.dropdown-open svg { fill: var(--text-main); }
-
-        [data-theme="light"] .subject-toggle.dropdown-open {
-            border-color: #121212;
-            background: rgba(255,255,255,1);
         }
 
         .subject-dropdown {
@@ -312,11 +274,6 @@
             border-bottom: 1px solid rgba(255,255,255,0.08);
         }
 
-        [data-theme="light"] .subject-dropdown-header {
-            border-bottom-color: rgba(0,0,0,0.08);
-            color: #999;
-        }
-
         .subject-dropdown-item {
             display: flex;
             align-items: center;
@@ -328,32 +285,16 @@
             transition: background 0.15s ease, color 0.15s ease;
             user-select: none;
             cursor: pointer;
-            text-align: left;
-            white-space: nowrap;
         }
 
         [data-theme="light"] .subject-dropdown-item { color: #666; }
-
-        .subject-dropdown-item:not(:last-child) {
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-        }
-
-        [data-theme="light"] .subject-dropdown-item:not(:last-child) {
-            border-bottom-color: rgba(0,0,0,0.06);
-        }
 
         .subject-dropdown-item:hover {
             background: rgba(255,255,255,0.06);
             color: #e2e8f0;
         }
 
-        [data-theme="light"] .subject-dropdown-item:hover {
-            background: rgba(0,0,0,0.04);
-            color: #111;
-        }
-
         .subject-dropdown-item.selected { color: #f1f5f9; }
-
         [data-theme="light"] .subject-dropdown-item.selected { color: #111; }
 
         .filter-option-dot {
@@ -362,22 +303,7 @@
             border-radius: 50%;
             border: 1.5px solid rgba(255,255,255,0.25);
             flex-shrink: 0;
-            transition: background 0.15s ease, border-color 0.15s ease;
         }
-
-        [data-theme="light"] .filter-option-dot { border-color: rgba(0,0,0,0.2); }
-
-        .subject-dropdown-item.selected .filter-option-dot {
-            background: #f1f5f9;
-            border-color: #f1f5f9;
-        }
-
-        [data-theme="light"] .subject-dropdown-item.selected .filter-option-dot {
-            background: #111;
-            border-color: #111;
-        }
-
-        .controls-row { position: relative; }
 
         .filter-btn {
             background-color: var(--input-bg);
@@ -392,6 +318,13 @@
             white-space: nowrap;
             margin-bottom: 10px;
             margin-top: 6px;
+            cursor: pointer;
+        }
+
+        .filter-btn.active {
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            border-color: var(--btn-bg);
         }
 
         .divider { border: none; margin-bottom: 12px; }
@@ -402,7 +335,6 @@
             padding-bottom: 30px;
         }
 
-        .q-block:last-child { border-bottom: none; }
         .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
         .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
 
@@ -414,13 +346,6 @@
             gap: 10px;
         }
 
-        .ans-row--multi {
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: flex-start;
-            gap: 8px;
-        }
-
         .ans-btn {
             background-color: var(--btn-bg);
             color: var(--btn-text);
@@ -430,11 +355,9 @@
             margin-top: 20px;
             font-weight: 650;
             font-size: 16px;
+            cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
         }
-
-        .ans-btn:hover { opacity: 0.9; }
-        .ans-btn:active { transform: scale(0.98); }
 
         .ans-btn.revealed {
             background-color: var(--ans-bg);
@@ -448,7 +371,7 @@
 
         mark { background-color: #f0cf6a; color: #000; }
         .opts li.correct-option { color: var(--correct-color); font-weight: 500; }
-
+        
         .section-heading {
             display: flex;
             justify-content: space-between;
@@ -465,15 +388,7 @@
             font-size: 1.15rem;
             font-weight: 500;
             opacity: 0.6;
-            box-sizing: border-box;
             width: 100%;
-            display: block; 
-        }
-
-        .section-heading-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-main);
         }
 
         .mcq-count-badge {
@@ -486,33 +401,13 @@
             letter-spacing: 0.05em;
             white-space: nowrap;
         }
-
-        /* Temp Admin uploader styling */
-        .uploader-banner {
-            background: #ff9800;
-            color: #000;
-            padding: 15px;
-            text-align: center;
-            font-weight: bold;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        .uploader-banner button {
-            background: #000;
-            color: #fff;
-            border: none;
-            padding: 8px 15px;
-            margin-top: 10px;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-        }
     </style>
 </head>
 
-<body>
+<body oncontextmenu="return false;">
 
 <div class="container">
+
     <div id="admin-uploader" class="uploader-banner">
         ⚠️ ADMIN: Click this button ONCE to automatically save your 29 questions to the backend!
         <br>
@@ -543,7 +438,7 @@
                     <div class="subject-dropdown-item" data-subject="Microbiology" onclick="selectSubjectFilter('Microbiology', this)"><span class="filter-option-dot"></span>Microbiology 🦠</div>
                     <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🫁</div>
                     <div class="subject-dropdown-item" data-subject="Community Medicine" onclick="selectSubjectFilter('Community Medicine', this)"><span class="filter-option-dot"></span>Community Medicine 📕</div>
-                    <div class="subject-dropdown-item" data-subject="Medical education" onclick="selectSubjectFilter('Essay Questions', this)"><span class="filter-option-dot"></span>Essay Questions</div>
+                    <div class="subject-dropdown-item" data-subject="Essay Questions" onclick="selectSubjectFilter('Essay Questions', this)"><span class="filter-option-dot"></span>Essay Questions</div>
                 </div>
             </div>
 
@@ -574,65 +469,69 @@
 </div>
 
 <script>
-// ==========================================
-// 1. YOUR FIREBASE CONFIGURATION GOES HERE
-// ==========================================
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
+// 3. YOUR FIREBASE KEYS GO HERE!
+// (Replace all empty double quotes below with your real Firebase keys)
 const firebaseConfig = {
-  apiKey: "AIzaSyD2ebyMYNM-AXWXbzAUNcck2pqRx1mb8Z4",
+  apiKey: "YOUR_REAL_API_KEY",
   authDomain: "questions-3e15f.firebaseapp.com",
   projectId: "questions-3e15f",
   storageBucket: "questions-3e15f.firebasestorage.app",
-  messagingSenderId: "904702626300",
-  appId: "1:904702626300:web:77ca0f1eafb30e6f234a79"
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// ==========================================
-// 2. THE 29 ORIGINAL QUESTIONS (USED ONLY TO AUTOMATICALLY SEED FIRESTORE)
-// ==========================================
+// Temporary Admin array to seed your database on button click
 const questionsToUpload = [
-  { n: 1, s: "Physiology", l: 1, q: "What is the primary effect of the Renin-Angiotensin-Aldosterone System (RAAS)?", o: ["A. Potassium and water retention", "B. Calcium retention", "C. Sodium and water retention", "D. Magnesium retention"], a: "C" },
-  { n: 2, s: "Anatomy", l: 1, q: "Which of the following is a branch of the ascending aorta?", o: ["A. Left common carotid artery", "B. Brachiocephalic artery", "C. Coronary arteries", "D. Left subclavian artery"], a: "C" },
-  { n: 3, s: "Anatomy", l: 1, q: "Which structural feature prevents reflux of blood into the left ventricle?", o: ["A. Tricuspid valve", "B. Aortic valve", "C. Mitral valve", "D. Pulmonary valve"], a: "B" },
-  { n: 4, s: "Anatomy", l: 1, q: "At what vertebral level does the arch of the aorta typically begin and end?", o: ["A. T2", "B. T4", "C. T6", "D. T8"], a: "B" },
-  { n: 5, s: "Anatomy", l: 1, q: "Which artery directly supplies the left atrium and left ventricle?", o: ["A. Right coronary artery", "B. Left coronary artery", "C. Superior vena cava", "D. Pulmonary artery"], a: "B" },
-  { n: 6, s: "Anatomy", l: 2, q: "Which branch of the external carotid artery arises closest to its origin?", o: ["A. Facial artery", "B. Superior thyroid artery", "C. Lingual artery", "D. Occipital artery"], a: "B" },
-  { n: 7, s: "Anatomy", l: 2, q: "The internal carotid artery enters the skull through which opening?", o: ["A. Foramen ovale", "B. Carotid canal", "C. Jugular foramen", "D. Foramen rotundum"], a: "B" },
-  { n: 8, s: "Anatomy", l: 2, q: "Which vessel participates in the formation of the Circle of Willis?", o: ["A. External carotid artery", "B. Facial artery", "C. Basilar artery", "D. Maxillary artery"], a: "C" },
-  { n: 9, s: "Anatomy", l: 2, q: "At what anatomical landmark does the common carotid artery typically bifurcate?", o: ["A. Upper border of the thyroid cartilage", "B. Hyoid bone", "C. Jugular notch", "D. Sternal angle"], a: "A" },
-  { n: 10, s: "Anatomy", l: 2, q: "Which cranial nerve accompanies the internal jugular vein within the carotid sheath?", o: ["A. Cranial nerve VII", "B. Cranial nerve X", "C. Cranial nerve XI", "D. Cranial nerve XII"], a: "B" },
-  { n: 11, s: "Physiology", l: 1, q: "The plateau phase of the ventricular action potential is primarily due to:", o: ["A. Inflow of sodium ions", "B. Outflow of potassium ions", "C. Inflow of calcium ions through L-type channels", "D. Outflow of chloride ions"], a: "C" },
-  { n: 12, s: "Physiology", l: 1, q: "Which of the following describes the Frank-Starling law of the heart?", o: ["A. Increased heart rate increases contractility", "B. Increased end-diastolic volume increases stroke volume", "C. Decreased venous return increases cardiac output", "D. Increased afterload increases stroke volume"], a: "B" },
-  { n: 13, s: "Physiology", l: 1, q: "What is the primary pacemaker of the normal heart?", o: ["A. Atrioventricular (AV) node", "B. Purkinje fibers", "C. Sinoatrial (SA) node", "D. Bundle of His"], a: "C" },
-  { n: 14, s: "Physiology", l: 1, q: "The first heart sound (S1) is caused by the closure of which valves?", o: ["A. Aortic and pulmonary valves", "B. Mitral and tricuspid valves", "C. Mitral and aortic valves", "D. Tricuspid and pulmonary valves"], a: "B" },
-  { n: 15, s: "Physiology", l: 1, q: "During which phase of the cardiac cycle are all four valves closed?", o: ["A. Isovolumetric contraction", "B. Ventricular ejection", "C. Rapid ventricular filling", "D. Atrial systole"], a: "A" },
-  { n: 16, s: "Physiology", l: 1, q: "Which factor increases coronary blood flow the most during exercise?", o: ["A. Sympathetic stimulation of alpha-receptors", "B. Parasympathetic stimulation", "C. Accumulation of local metabolites like adenosine", "D. Increased diastolic pressure"], a: "C" },
-  { n: 17, s: "Physiology", l: 1, q: "Which parameter is calculated as: Heart Rate x Stroke Volume?", o: ["A. Pulse pressure", "B. Cardiac output", "C. Mean arterial pressure", "D. Total peripheral resistance"], a: "B" },
-  { n: 18, s: "Physiology", l: 1, q: "What is the physiological function of the AV nodal delay?", o: ["A. To allow ventricles to contract before atria", "B. To allow the atria to completely empty into the ventricles", "C. To prevent backflow of blood into the veins", "D. To increase the force of ventricular contraction"], a: "B" },
-  { n: 19, s: "Physiology", l: 1, q: "In an ECG, what does the T wave represent?", o: ["A. Atrial depolarization", "B. Ventricular depolarization", "C. Ventricular repolarization", "D. Atrial repolarization"], a: "C" },
-  { n: 20, s: "Physiology", l: 1, q: "Which of the following baroreceptor responses occurs in response to high blood pressure?", o: ["A. Increased sympathetic activity", "B. Decreased parasympathetic activity", "C. Decreased sympathetic and increased parasympathetic activity", "D. Vasoconstriction of arterioles"], a: "C" },
-  { n: 21, s: "Microbiology", l: 1, q: "Which microorganism is most commonly associated with acute infective endocarditis in intravenous drug users?", o: ["A. Streptococcus viridans", "B. Staphylococcus aureus", "C. Enterococcus faecalis", "D. Escherichia coli"], a: "B" },
-  { n: 22, s: "Microbiology", l: 1, q: "What is the primary causative agent of Rheumatic Fever?", o: ["A. Staphylococcus epidermidis", "B. Streptococcus pyogenes (Group A)", "C. Streptococcus pneumoniae", "D. Coxsackievirus B"], a: "B" },
-  { n: 23, s: "Histology", l: 1, q: "Which layer of a blood vessel contains the internal elastic lamina?", o: ["A. Tunica adventitia", "B. Tunica media", "C. Tunica intima", "D. Tunica externa"], a: "C" },
-  { n: 24, s: "Histology", l: 1, q: "Which type of capillary is characterized by small openings or pores in its endothelial cells?", o: ["A. Continuous capillaries", "B. Fenestrated capillaries", "C. Sinusoidal capillaries", "D. Lymphatic capillaries"], a: "B" },
-  { n: 25, s: "Histology", l: 1, q: "The intercalated discs of cardiac muscle tissue contain which junctions?", o: ["A. Tight junctions and desmosomes", "B. Gap junctions and desmosomes", "C. Hemidesmosomes and gap junctions", "D. Tight junctions and hemidesmosomes"], a: "B" },
-  { n: 26, s: "Community Medicine", l: 1, q: "Which modifiable risk factor contributes the most to the global burden of cardiovascular disease?", o: ["A. Genetic predisposition", "B. Hypertension", "C. Age", "D. Air pollution"], a: "B" },
-  { n: 27, s: "Community Medicine", l: 1, q: "Which type of prevention is aimed at managing cardiovascular disease after it has been diagnosed?", o: ["A. Primordial prevention", "B. Primary prevention", "C. Secondary prevention", "D. Tertiary prevention"], a: "D" },
-  { n: 28, s: "Medical education", l: 1, q: "List three physiological factors that regulate mean arterial blood pressure.", o: [""], a: ["Cardiac Output", "Systemic Vascular Resistance", "Blood Volume"] },
-  { n: 29, s: "Medical education", l: 1, q: "Describe the pathway of cardiac conduction starting from the SA node.", o: [""], a: ["SA Node -> Internodal Pathways -> AV Node -> Bundle of His -> Bundle Branches -> Purkinje Fibers"] }
+  { n: 1, s: "Physiology", l: 1, q: "What is the primary effect of the Renin-Angiotensin-Aldosterone System (RAAS)?", o: ["A. Potassium and water retention", "B. Calcium excretion and vasoconstriction", "C. Sodium and water retention", "D. Magnesium retention and vasodilation", "E. Sodium excretion and potassium retention"], a: "C" },
+  { n: 2, s: "Anatomy", l: 1, q: "Which blood vessel supplies the walls of larger blood vessels?", o: ["A. Vasa vasorum", "B. Tunica media", "C. Vasa nervorum", "D. Capillary bed", "E. Endothelial cleft"], a: "A" },
+  { n: 3, s: "Physiology", l: 1, q: "What is the effect of doing regular aerobic exercise on the heart?", o: ["A. Increases resting heart rate", "B. Has no effect on resting heart rate", "C. Decreases stroke volume", "D. Increases cardiac systemic vascular resistance", "E. Decreases resting heart rate"], a: "E" },
+  { n: 4, s: "Anatomy", l: 1, q: "Which artery is commonly used as the access point for CT angiography?", o: ["A. Femoral artery", "B. Radial artery", "C. Ulnar artery", "D. Brachial artery", "E. Popliteal artery"], a: "B" },
+  { n: 5, s: "Physiology", l: 1, q: "In which condition is Candesartan strictly contraindicated?", o: ["A. Primary hypertension", "B. Congestive heart failure", "C. Diabetic nephropathy", "D. Bilateral renal stenosis", "E. Aortic regurgitation"], a: "D" },
+  { n: 6, s: "Physiology", l: 1, q: "Which medication is indicated for the treatment of Raynaud's disease?", o: ["A. Nifedipine", "B. Aspirin", "C. Heparin", "D. Penicillin", "E. Metoprolol"], a: "A" },
+  { n: 7, s: "Physiology", l: 1, q: "(case question) What is the drug of choice for a patient with the lipid profile (LDL 210, TG 130, HDL 45)?", o: ["A. Metformin", "B. Ezetimibe", "C. Atorvastatin", "D. Gemfibrozil", "E. Colesevelam"], a: "C" },
+  { n: 8, s: "Physiology", l: 1, q: "What does the physiological term 'preload' refer to?", o: ["A. The resistance the ventricle must overcome to pump blood", "B. The volume of blood ejected during a single contraction", "C. The total volume of blood remaining in the atrium", "D. How much myocardium stretches at the end of diastole", "E. The velocity of blood flow through the aortic valve"], a: "D" },
+  { n: 9, s: "Histology", l: 1, q: "Which of the following components is not contained within an atheroma?", o: ["A. Cholesterol crystals", "B. Basophil", "C. Foam cells", "D. Smooth muscle cells", "E. Necrotic core"], a: "B" },
+  { n: 10, s: "Physiology", l: 1, q: "A wide QRS complex accompanied by tall, peaked T waves on an ECG indicates which of the following?", o: ["A. Mild hypokalemia", "B. Severe hypercalcemia", "C. Acute myocardial infarction", "D. Hypomagnesemia", "E. Severe hyperkalemia"], a: "E" },
+  { n: 11, s: "Physiology", l: 1, q: "All of the following statements regarding peripheral vascular disease are correct EXCEPT:", o: ["A. Risk factors include smoking and diabetes", "B. Can lead to critical limb ischemia", "C. Intermittent claudication is pain during rest and gets better by walking", "D. Diagnosis can involve ankle-brachial index", "E. Physical signs include loss of hair on legs"], a: "C" },
+  { n: 12, s: "Microbiology", l: 1, q: "Which of the following is a FALSE statement regarding Acute Rheumatic Fever (ARF)?", o: ["A. It is caused by staphylococcus pyogenes", "B. It follows a streptococcal pharyngitis", "C. Diagnostic criteria include Jones criteria", "D. It can lead to rheumatic heart disease", "E. Subcutaneous nodules are a major manifestation"], a: "A" },
+  { n: 13, s: "Anatomy", l: 1, q: "Which vessels form the vascular anastomosis located posterior to the medial epicondyle?", o: ["A. Inferior ulnar collateral and anterior ulnar recurrent", "B. Profunda brachii and radial recurrent", "C. Superior ulnar collateral and anterior ulnar recurrent", "D. Superior ulnar collateral and posterior ulnar recurrent", "E. Radial collateral and interosseous recurrent"], a: "D" },
+  { n: 14, s: "Anatomy", l: 1, q: "3rd posterior intercostal vein drains into:", o: ["A. Azygos vein", "B. Internal thoracic vein", "C. Hemiazygos vein", "D. Accessory hemiazygos vein", "E. Superior intercostal vein"], a: "E" },
+  { n: 15, s: "Physiology", l: 1, q: "A 70-year-old woman suddenly loses consciousness while walking. The episode lasts about one minute. A witness reports no warning symptoms. What is the most likely cause?", o: ["A. Vasovagal syncope", "B. Cerebral hypoperfusion", "C. Hypoglycemia", "D. Orthostatic hypotension", "E. Anxiety attack"], a: "B" },
+  { n: 16, s: "Anatomy", l: 1, q: "The union of the maxillary vein and the posterior auricular vein forms which of the following?", o: ["A. Retromandibular vein", "B. Internal jugular vein", "C. External jugular vein", "D. Facial vein", "E. Anterior jugular vein"], a: "A" },
+  { n: 17, s: "Physiology", l: 1, q: "The closure of the atrioventricular valves occur at the:", o: ["A. Beginning of ventricular diastole", "B. End of ventricular systole", "C. Beginning of ventricular systole", "D. Middle of ventricular diastole", "E. End of atrial systole"], a: "C" },
+  { n: 18, s: "Anatomy", l: 1, q: "All of the following are drained by the right lymphatic duct EXCEPT:", o: ["A. Right side of the head and neck", "B. Right lower limb", "C. Right upper limb", "D. Right side of the thorax", "E. Right bronchomediastinal trunk"], a: "B" },
+  { n: 19, s: "Microbiology", l: 1, q: "Which of the following is NOT a risk factor for rheumatic heart disease?", o: ["A. HIV", "B. Immunosuppression", "C. IV drug use", "D. Asthma", "E. Overcrowding"], a: "D" },
+  { n: 20, s: "Histology", l: 1, q: "Which pathological characteristic is typically found within the thrombus of Buerger's disease?", o: ["A. Huge non-inflammatory clots", "B. Large numbers of eosinophils", "C. Severe atheromatous plaque calcification", "D. Extensive foam cell accumulation", "E. Small micro abscesses"], a: "E" },
+  { n: 21, s: "Microbiology", l: 1, q: "About chronic lymphatic filariasis, which of the following is correct?", o: ["A. Microfilaremia always elevated", "B. Microfilaremia often absent", "C. Microfilaremia easily detected during the day", "D. Diagnostic in 100% of cases", "E. Associated with acute bacterial cellulitis"], a: "B" },
+  { n: 22, s: "Anatomy", l: 1, q: "Ischemia of the hindgut is most directly caused by the obstruction of which artery?", o: ["A. Celiac trunk", "B. Superior mesenteric artery", "C. Internal iliac artery", "D. Inferior mesenteric artery", "E. Common iliac artery"], a: "D" },
+  { n: 23, s: "Microbiology", l: 1, q: "A patient presents with a sudden fever, and a culture shows gram-positive cocci normally found on the skin. What is the underlying pathophysiology?", o: ["A. Invasion by highly virulent bacteria (Staphylococcus aureus)", "B. Immune complex deposition", "C. Subacute colonization by low-virulence normal flora", "D. Hypersensitivity reaction", "E. Chronic granulomatous inflammation"], a: "A" },
+  { n: 24, s: "Anatomy", l: 1, q: "All of the following are correct about chest X-ray findings, EXCEPT:", o: ["A. The right hemidiaphragm is normally higher than the left", "B. The cardiac silhouette occupies less than 50% of the thoracic width", "C. Pulmonary window is located between the aortic arch and right pulmonary artery", "D. Costophrenic angles should be sharp and clear", "E. The trachea is typically midline or slightly to the right"], a: "C" },
+  { n: 25, s: "Physiology", l: 1, q: "A patient presents with bilateral pitting edema of the lower limbs and hepatomegaly. What is the diagnosis?", o: ["A. Left-sided heart failure", "B. Nephrotic syndrome", "C. Cirrhosis of the liver", "D. Deep vein thrombosis", "E. Right-sided heart failure"], a: "E" },
+  { n: 26, s: "Community Medicine", l: 1, q: "Which statement about coronary heart disease is FALSE?", o: ["A. Smoking cessation reduces recurrent MI risk ~50%", "B. Hypertension is a risk factor", "C. Smoking cessation is a therapy", "D. Smoking acts additively with other risk factors", "E. High alcohol intake is an independent risk factor"], a: "D" },
+  { n: 27, s: "Physiology", l: 1, q: "All of the following indications or associations for performing an ECG are correct EXCEPT:", o: ["A. All patients over 60 years old", "B. All patients under 10 years old", "C. Diabetics", "D. Cardiothoracic surgery", "E. Cardiovascular and renal diseases"], a: "B" },
+  { 
+    n: 28, 
+    s: "Essay Questions", 
+    l: 1, 
+    q: "A patient develops chest pain after 5 minutes of climbing stairs, which is relieved by rest. Explain the pathophysiology. (stable angina case)", 
+    o: [""], 
+    a: "Myocardial ischemia during exertion alters ventricular repolarization, leading to ST-segment depression."
+  },
+  { 
+    n: 29, 
+    s: "Essay Questions", 
+    l: 1, 
+    o: [""], 
+    q: "Why should phosphodiesterase-5 inhibitors not be used with nitrates?",
+    a: "Because both increase nitric oxide–mediated cGMP, causing excessive vasodilation and severe hypotension"
+  }
 ];
 
-let allQuestions = [];
+let allQuestions = []; // Loaded dynamically from Firebase!
 
 const lectures = {
    1:  "Blood vessels of the thorax",
@@ -642,58 +541,58 @@ const lectures = {
 const lectureFilters = {
     "All": [],
     "Anatomy": [
-        { label: "All", val: "All" },
-        { label: "Blood vessels of the thorax", val: 1 },
-        { label: "Blood vessels of the head and neck", val: 2 },
-    ],
+        { label: "All",                            val: "All" },
+        { label: "Blood vessels of the thorax",     val: 1 },
+        { label: "Blood vessels of the head and neck",     val: 2 }
+    ]
 };
 
-let currentSubjectFilter = "All"; 
+let currentSubjectFilter = "All";
 let currentLecture = "All";
 
 const container = document.getElementById('quiz-content');
 const filterBar = document.getElementById('filter-bar');
 
-// ADMIN FUNCTION: SEEDS YOUR DATABASE INSTANTLY
+// ADMIN SEEDER FUNCTION
 async function uploadAllQuestionsToFirebase() {
-    const btn = document.querySelector("#admin-uploader button");
-    btn.disabled = true;
-    btn.innerText = "Uploader active... Please wait...";
-
     try {
-        await db.collection("quizzes").doc("cvs-end-block-2025").set({
-            questions: questionsToUpload
+        const batch = db.batch();
+        questionsToUpload.forEach(q => {
+            const docRef = db.collection("cvs_questions").doc(String(q.n));
+            batch.set(docRef, q);
         });
-        alert("🎉 Success! Your 29 questions are uploaded. You can now delete the ADMIN banner and redeploy.");
-        document.getElementById("admin-uploader").style.display = "none";
-        loadQuizData(); // Reload the UI dynamically
-    } catch (error) {
-        console.error("Upload error: ", error);
-        alert("Upload failed. Make sure Firestore rules allow read/write or check your configuration settings.");
-        btn.disabled = false;
-        btn.innerText = "📤 Upload Questions Now";
+        await batch.commit();
+        alert("🎉 Success! Your 29 questions are uploaded.");
+        location.reload();
+    } catch (e) {
+        alert("Error: " + e.message);
+        console.error(e);
     }
 }
 
-// MAIN LOADING FUNCTION
-async function loadQuizData() {
-    container.innerHTML = `<div class="no-results">Loading quiz questions securely...</div>`;
-    
-    const urlParams = new URLSearchParams(window.location.search);
-    const quizId = urlParams.get('id') || 'cvs-end-block-2025';
-
+// LOAD FROM FIREBASE DYNAMICALLY
+async function loadQuestionsFromFirebase() {
     try {
-        const doc = await db.collection("quizzes").doc(quizId).get();
-        if (doc.exists) {
-            allQuestions = doc.data().questions || [];
-            renderFilterBar();
-            renderQuiz();
-        } else {
-            container.innerHTML = `<div class="no-results">Error: Questions not uploaded yet. Click the orange button at the top to upload them.</div>`;
+        const snapshot = await db.collection("cvs_questions").orderBy("n", "asc").get();
+        allQuestions = [];
+        snapshot.forEach(doc => {
+            allQuestions.push(doc.data());
+        });
+        
+        // Hide the uploader banner if questions are already in DB
+        if (allQuestions.length > 0) {
+            const banner = document.getElementById("admin-uploader");
+            if (banner) banner.style.display = "none";
         }
-    } catch (error) {
-        console.error("Firebase Error: ", error);
-        container.innerHTML = `<div class="no-results">Failed to fetch questions. Check network or your Firebase API keys.</div>`;
+        
+        renderFilterBar();
+        renderQuiz();
+    } catch (e) {
+        console.error("Database connection failed: ", e);
+        // Fallback to offline memory array so the app never breaks
+        allQuestions = [...questionsToUpload];
+        renderFilterBar();
+        renderQuiz();
     }
 }
 
@@ -711,14 +610,9 @@ function getLectureLabel(val) {
             "Anatomy": "Anatomy 🦴",
             "Physiology": "Physiology ⚡",
             "Microbiology": "Microbiology 🦠",
-            "Pharmacology": "Pharmacology 💊",
-            "Biochemistry": "Biochemistry 🧪",
-            "Pathology": "Pathology 🔬",
-            "Genetics": "Genetics 🧬",
-            "Medical Education": "Medical Education 📘",
             "Histology": "Histology 🫁",
             "Community Medicine": "Community Medicine 📕",
-            "Radiology": "Radiology ☢️"
+            "Essay Questions": "Essay Questions"
         };
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
@@ -766,7 +660,7 @@ function renderQuiz() {
         div.className = 'q-block';
         div.dataset.subject = item.s;
         div.dataset.lecture = item.l ?? "";
-        div.dataset.searchText = (item.q + " " + (item.o ? item.o.join(" ") : "")).toLowerCase();
+        div.dataset.searchText = (item.q + " " + item.o.join(" ")).toLowerCase();
 
         div.style.display = matchesFilters(item) ? "block" : "none";
 
@@ -785,7 +679,7 @@ function renderQuiz() {
         div.innerHTML = `
             <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
             <ul class="opts">
-                ${item.o ? item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('') : ''}
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
             </ul>
             <div class="ans-row${isMulti ? ' ans-row--multi' : ''}">
                 ${answerButtonsHtml}
@@ -795,12 +689,6 @@ function renderQuiz() {
     });
     updateSectionHeading();
 }
-
-document.addEventListener("keydown", function(e) {
-    if (e.ctrlKey && e.key.toLowerCase() === "s") {
-        e.preventDefault();
-    }
-});
 
 function matchesFilters(item) {
     const subjectOk = currentSubjectFilter === "All" || item.s === currentSubjectFilter;
@@ -945,13 +833,14 @@ function toggleTheme() {
         : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
 }
 
+// Initializer
 (function () {
     if (localStorage.getItem('theme') === 'light') {
         document.body.setAttribute('data-theme', 'light');
         document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
     }
     const saved = localStorage.getItem('selectedSubject');
-    if (saved && lectureFilters[saved]) {
+    if (saved && saved !== "Biochemistry") {
         currentSubjectFilter = saved;
     }
     document.querySelectorAll('.subject-dropdown-item').forEach(item => {
@@ -961,8 +850,9 @@ function toggleTheme() {
             item.classList.remove('selected');
         }
     });
-
-    loadQuizData();
+    
+    // Connect to Firestore and load live questions
+    loadQuestionsFromFirebase();
 }());
 </script>
 </body>
