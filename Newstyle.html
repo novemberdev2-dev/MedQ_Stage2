@@ -486,49 +486,7 @@ const db = firebase.firestore();
 
 // Temporary Admin array to seed your database on button click
 const questionsToUpload = [
-  { n: 1, s: "Physiology", l: 1, q: "What is the primary effect of the Renin-Angiotensin-Aldosterone System (RAAS)?", o: ["A. Potassium and water retention", "B. Calcium excretion and vasoconstriction", "C. Sodium and water retention", "D. Magnesium retention and vasodilation", "E. Sodium excretion and potassium retention"], a: "C" },
-  { n: 2, s: "Anatomy", l: 1, q: "Which blood vessel supplies the walls of larger blood vessels?", o: ["A. Vasa vasorum", "B. Tunica media", "C. Vasa nervorum", "D. Capillary bed", "E. Endothelial cleft"], a: "A" },
-  { n: 3, s: "Physiology", l: 1, q: "What is the effect of doing regular aerobic exercise on the heart?", o: ["A. Increases resting heart rate", "B. Has no effect on resting heart rate", "C. Decreases stroke volume", "D. Increases cardiac systemic vascular resistance", "E. Decreases resting heart rate"], a: "E" },
-  { n: 4, s: "Anatomy", l: 1, q: "Which artery is commonly used as the access point for CT angiography?", o: ["A. Femoral artery", "B. Radial artery", "C. Ulnar artery", "D. Brachial artery", "E. Popliteal artery"], a: "B" },
-  { n: 5, s: "Physiology", l: 1, q: "In which condition is Candesartan strictly contraindicated?", o: ["A. Primary hypertension", "B. Congestive heart failure", "C. Diabetic nephropathy", "D. Bilateral renal stenosis", "E. Aortic regurgitation"], a: "D" },
-  { n: 6, s: "Physiology", l: 1, q: "Which medication is indicated for the treatment of Raynaud's disease?", o: ["A. Nifedipine", "B. Aspirin", "C. Heparin", "D. Penicillin", "E. Metoprolol"], a: "A" },
-  { n: 7, s: "Physiology", l: 1, q: "(case question) What is the drug of choice for a patient with the lipid profile (LDL 210, TG 130, HDL 45)?", o: ["A. Metformin", "B. Ezetimibe", "C. Atorvastatin", "D. Gemfibrozil", "E. Colesevelam"], a: "C" },
-  { n: 8, s: "Physiology", l: 1, q: "What does the physiological term 'preload' refer to?", o: ["A. The resistance the ventricle must overcome to pump blood", "B. The volume of blood ejected during a single contraction", "C. The total volume of blood remaining in the atrium", "D. How much myocardium stretches at the end of diastole", "E. The velocity of blood flow through the aortic valve"], a: "D" },
-  { n: 9, s: "Histology", l: 1, q: "Which of the following components is not contained within an atheroma?", o: ["A. Cholesterol crystals", "B. Basophil", "C. Foam cells", "D. Smooth muscle cells", "E. Necrotic core"], a: "B" },
-  { n: 10, s: "Physiology", l: 1, q: "A wide QRS complex accompanied by tall, peaked T waves on an ECG indicates which of the following?", o: ["A. Mild hypokalemia", "B. Severe hypercalcemia", "C. Acute myocardial infarction", "D. Hypomagnesemia", "E. Severe hyperkalemia"], a: "E" },
-  { n: 11, s: "Physiology", l: 1, q: "All of the following statements regarding peripheral vascular disease are correct EXCEPT:", o: ["A. Risk factors include smoking and diabetes", "B. Can lead to critical limb ischemia", "C. Intermittent claudication is pain during rest and gets better by walking", "D. Diagnosis can involve ankle-brachial index", "E. Physical signs include loss of hair on legs"], a: "C" },
-  { n: 12, s: "Microbiology", l: 1, q: "Which of the following is a FALSE statement regarding Acute Rheumatic Fever (ARF)?", o: ["A. It is caused by staphylococcus pyogenes", "B. It follows a streptococcal pharyngitis", "C. Diagnostic criteria include Jones criteria", "D. It can lead to rheumatic heart disease", "E. Subcutaneous nodules are a major manifestation"], a: "A" },
-  { n: 13, s: "Anatomy", l: 1, q: "Which vessels form the vascular anastomosis located posterior to the medial epicondyle?", o: ["A. Inferior ulnar collateral and anterior ulnar recurrent", "B. Profunda brachii and radial recurrent", "C. Superior ulnar collateral and anterior ulnar recurrent", "D. Superior ulnar collateral and posterior ulnar recurrent", "E. Radial collateral and interosseous recurrent"], a: "D" },
-  { n: 14, s: "Anatomy", l: 1, q: "3rd posterior intercostal vein drains into:", o: ["A. Azygos vein", "B. Internal thoracic vein", "C. Hemiazygos vein", "D. Accessory hemiazygos vein", "E. Superior intercostal vein"], a: "E" },
-  { n: 15, s: "Physiology", l: 1, q: "A 70-year-old woman suddenly loses consciousness while walking. The episode lasts about one minute. A witness reports no warning symptoms. What is the most likely cause?", o: ["A. Vasovagal syncope", "B. Cerebral hypoperfusion", "C. Hypoglycemia", "D. Orthostatic hypotension", "E. Anxiety attack"], a: "B" },
-  { n: 16, s: "Anatomy", l: 1, q: "The union of the maxillary vein and the posterior auricular vein forms which of the following?", o: ["A. Retromandibular vein", "B. Internal jugular vein", "C. External jugular vein", "D. Facial vein", "E. Anterior jugular vein"], a: "A" },
-  { n: 17, s: "Physiology", l: 1, q: "The closure of the atrioventricular valves occur at the:", o: ["A. Beginning of ventricular diastole", "B. End of ventricular systole", "C. Beginning of ventricular systole", "D. Middle of ventricular diastole", "E. End of atrial systole"], a: "C" },
-  { n: 18, s: "Anatomy", l: 1, q: "All of the following are drained by the right lymphatic duct EXCEPT:", o: ["A. Right side of the head and neck", "B. Right lower limb", "C. Right upper limb", "D. Right side of the thorax", "E. Right bronchomediastinal trunk"], a: "B" },
-  { n: 19, s: "Microbiology", l: 1, q: "Which of the following is NOT a risk factor for rheumatic heart disease?", o: ["A. HIV", "B. Immunosuppression", "C. IV drug use", "D. Asthma", "E. Overcrowding"], a: "D" },
-  { n: 20, s: "Histology", l: 1, q: "Which pathological characteristic is typically found within the thrombus of Buerger's disease?", o: ["A. Huge non-inflammatory clots", "B. Large numbers of eosinophils", "C. Severe atheromatous plaque calcification", "D. Extensive foam cell accumulation", "E. Small micro abscesses"], a: "E" },
-  { n: 21, s: "Microbiology", l: 1, q: "About chronic lymphatic filariasis, which of the following is correct?", o: ["A. Microfilaremia always elevated", "B. Microfilaremia often absent", "C. Microfilaremia easily detected during the day", "D. Diagnostic in 100% of cases", "E. Associated with acute bacterial cellulitis"], a: "B" },
-  { n: 22, s: "Anatomy", l: 1, q: "Ischemia of the hindgut is most directly caused by the obstruction of which artery?", o: ["A. Celiac trunk", "B. Superior mesenteric artery", "C. Internal iliac artery", "D. Inferior mesenteric artery", "E. Common iliac artery"], a: "D" },
-  { n: 23, s: "Microbiology", l: 1, q: "A patient presents with a sudden fever, and a culture shows gram-positive cocci normally found on the skin. What is the underlying pathophysiology?", o: ["A. Invasion by highly virulent bacteria (Staphylococcus aureus)", "B. Immune complex deposition", "C. Subacute colonization by low-virulence normal flora", "D. Hypersensitivity reaction", "E. Chronic granulomatous inflammation"], a: "A" },
-  { n: 24, s: "Anatomy", l: 1, q: "All of the following are correct about chest X-ray findings, EXCEPT:", o: ["A. The right hemidiaphragm is normally higher than the left", "B. The cardiac silhouette occupies less than 50% of the thoracic width", "C. Pulmonary window is located between the aortic arch and right pulmonary artery", "D. Costophrenic angles should be sharp and clear", "E. The trachea is typically midline or slightly to the right"], a: "C" },
-  { n: 25, s: "Physiology", l: 1, q: "A patient presents with bilateral pitting edema of the lower limbs and hepatomegaly. What is the diagnosis?", o: ["A. Left-sided heart failure", "B. Nephrotic syndrome", "C. Cirrhosis of the liver", "D. Deep vein thrombosis", "E. Right-sided heart failure"], a: "E" },
-  { n: 26, s: "Community Medicine", l: 1, q: "Which statement about coronary heart disease is FALSE?", o: ["A. Smoking cessation reduces recurrent MI risk ~50%", "B. Hypertension is a risk factor", "C. Smoking cessation is a therapy", "D. Smoking acts additively with other risk factors", "E. High alcohol intake is an independent risk factor"], a: "D" },
-  { n: 27, s: "Physiology", l: 1, q: "All of the following indications or associations for performing an ECG are correct EXCEPT:", o: ["A. All patients over 60 years old", "B. All patients under 10 years old", "C. Diabetics", "D. Cardiothoracic surgery", "E. Cardiovascular and renal diseases"], a: "B" },
-  { 
-    n: 28, 
-    s: "Essay Questions", 
-    l: 1, 
-    q: "A patient develops chest pain after 5 minutes of climbing stairs, which is relieved by rest. Explain the pathophysiology. (stable angina case)", 
-    o: [""], 
-    a: "Myocardial ischemia during exertion alters ventricular repolarization, leading to ST-segment depression."
-  },
-  { 
-    n: 29, 
-    s: "Essay Questions", 
-    l: 1, 
-    o: [""], 
-    q: "Why should phosphodiesterase-5 inhibitors not be used with nitrates?",
-    a: "Because both increase nitric oxide–mediated cGMP, causing excessive vasodilation and severe hypotension"
-  }
+ 
 ];
 
 let allQuestions = []; // Loaded dynamically from Firebase!
