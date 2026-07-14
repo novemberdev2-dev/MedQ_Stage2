@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CVS_End-Block_Theory_2025-2026</title>
 
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
     <style>
        :root {
             --bg-body: #121212;
@@ -21,7 +24,6 @@
             --correct-color: #2e7d32;
             --btn-bg: #f8fafc; 
             --btn-text: #0f172a;
-            
         }
 
         [data-theme="light"] {
@@ -39,7 +41,6 @@
             --correct-color: #e53935;
             --btn-bg: #52525b; 
             --btn-text: #ffffff;
-            
         }
 
       .filter-btn.active {
@@ -74,7 +75,7 @@
             border: 1px solid var(--input-border);
             color: var(--text-main);
             padding: 8px;
-           min-height: 28px;
+            min-height: 28px;
             border-radius: 7px;
             display: flex;
             justify-content: space-between;
@@ -235,7 +236,6 @@
         }
         .filter-container::-webkit-scrollbar { display: none; }
 
-        /* Subject picker dropdown */
         .subject-toggle-wrapper {
             position: relative;
             display: inline-block;
@@ -420,7 +420,8 @@
             justify-content: flex-start;
             gap: 8px;
         }
-.ans-btn {
+
+        .ans-btn {
             background-color: var(--btn-bg);
             color: var(--btn-text);
             border: none;
@@ -432,13 +433,8 @@
             transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
         }
 
-
-        .ans-btn:hover {
-            opacity: 0.9;
-        }
-        .ans-btn:active {
-            transform: scale(0.98);
-        }
+        .ans-btn:hover { opacity: 0.9; }
+        .ans-btn:active { transform: scale(0.98); }
 
         .ans-btn.revealed {
             background-color: var(--ans-bg);
@@ -451,7 +447,8 @@
         }
 
         mark { background-color: #f0cf6a; color: #000; }
-.opts li.correct-option { color: var(--correct-color); font-weight: 500; }
+        .opts li.correct-option { color: var(--correct-color); font-weight: 500; }
+
         .section-heading {
             display: flex;
             justify-content: space-between;
@@ -490,7 +487,6 @@
             white-space: nowrap;
         }
     </style>
-
 </head>
 
 <body oncontextmenu="return false;">
@@ -498,7 +494,6 @@
 <div class="container">
     <div class="header">
         <div class="header-title-wrap">
-
             <span class="header-title"><span class="title-line1">CVS 🫀 &nbsp;·&nbsp; End-Block</span><span class="title-sep-2">&nbsp;·&nbsp;</span><span class="title-line2">2025-2026</span></span>
         </div>
 
@@ -515,17 +510,13 @@
                 </div>
                 <div class="subject-dropdown" id="subject-dropdown">
                     <div class="subject-dropdown-header">Subject</div>
-                  
                     <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
-                 
                     <div class="subject-dropdown-item" data-subject="Anatomy" onclick="selectSubjectFilter('Anatomy', this)"><span class="filter-option-dot"></span>Anatomy 🦴</div>
                     <div class="subject-dropdown-item" data-subject="Physiology" onclick="selectSubjectFilter('Physiology', this)"><span class="filter-option-dot"></span>Physiology ⚡</div>
                     <div class="subject-dropdown-item" data-subject="Microbiology" onclick="selectSubjectFilter('Microbiology', this)"><span class="filter-option-dot"></span>Microbiology 🦠</div>
-
                     <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🫁</div>
                     <div class="subject-dropdown-item" data-subject="Community Medicine" onclick="selectSubjectFilter('Community Medicine', this)"><span class="filter-option-dot"></span>Community Medicine 📕</div>
                     <div class="subject-dropdown-item" data-subject="Medical education" onclick="selectSubjectFilter('Essay Questions', this)"><span class="filter-option-dot"></span>Essay Questions</div>
-
                 </div>
             </div>
 
@@ -556,99 +547,66 @@
 </div>
 
 <script>
+// ==========================================
+// 2. FIREBASE CONFIGURATION (PASTE YOURS HERE)
+// ==========================================
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "questions-3e15f.firebaseapp.com",
+  projectId: "questions-3e15f",
+  storageBucket: "questions-3e15f.firebasestorage.app",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
-const allQuestions = [
- 
-  
- 
-  
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-  { n: 1, s: "Physiology", l: 1, q: "What is the primary effect of the Renin-Angiotensin-Aldosterone System (RAAS)?", o: ["A. Potassium and water retention", "B. Calcium excretion and vasoconstriction", "C. Sodium and water retention", "D. Magnesium retention and vasodilation", "E. Sodium excretion and potassium retention"], a: "C" },
-  { n: 2, s: "Anatomy", l: 1, q: "Which blood vessel supplies the walls of larger blood vessels?", o: ["A. Vasa vasorum", "B. Tunica media", "C. Vasa nervorum", "D. Capillary bed", "E. Endothelial cleft"], a: "A" },
-  { n: 3, s: "Physiology", l: 1, q: "What is the effect of doing regular aerobic exercise on the heart?", o: ["A. Increases resting heart rate", "B. Has no effect on resting heart rate", "C. Decreases stroke volume", "D. Increases cardiac systemic vascular resistance", "E. Decreases resting heart rate"], a: "E" },
-  { n: 4, s: "Anatomy", l: 1, q: "Which artery is commonly used as the access point for CT angiography?", o: ["A. Femoral artery", "B. Radial artery", "C. Ulnar artery", "D. Brachial artery", "E. Popliteal artery"], a: "B" },
-  { n: 5, s: "Physiology", l: 1, q: "In which condition is Candesartan strictly contraindicated?", o: ["A. Primary hypertension", "B. Congestive heart failure", "C. Diabetic nephropathy", "D. Bilateral renal stenosis", "E. Aortic regurgitation"], a: "D" },
-  { n: 6, s: "Physiology", l: 1, q: "Which medication is indicated for the treatment of Raynaud's disease?", o: ["A. Nifedipine", "B. Aspirin", "C. Heparin", "D. Penicillin", "E. Metoprolol"], a: "A" },
-  { n: 7, s: "Physiology", l: 1, q: "(case question) What is the drug of choice for a patient with the lipid profile (LDL 210, TG 130, HDL 45)?", o: ["A. Metformin", "B. Ezetimibe", "C. Atorvastatin", "D. Gemfibrozil", "E. Colesevelam"], a: "C" },
-  { n: 8, s: "Physiology", l: 1, q: "What does the physiological term 'preload' refer to?", o: ["A. The resistance the ventricle must overcome to pump blood", "B. The volume of blood ejected during a single contraction", "C. The total volume of blood remaining in the atrium", "D. How much myocardium stretches at the end of diastole", "E. The velocity of blood flow through the aortic valve"], a: "D" },
-  { n: 9, s: "Histology", l: 1, q: "Which of the following components is not contained within an atheroma?", o: ["A. Cholesterol crystals", "B. Basophil", "C. Foam cells", "D. Smooth muscle cells", "E. Necrotic core"], a: "B" },
-  { n: 10, s: "Physiology", l: 1, q: "A wide QRS complex accompanied by tall, peaked T waves on an ECG indicates which of the following?", o: ["A. Mild hypokalemia", "B. Severe hypercalcemia", "C. Acute myocardial infarction", "D. Hypomagnesemia", "E. Severe hyperkalemia"], a: "E" },
-  { n: 11, s: "Physiology", l: 1, q: "All of the following statements regarding peripheral vascular disease are correct EXCEPT:", o: ["A. Risk factors include smoking and diabetes", "B. Can lead to critical limb ischemia", "C. Intermittent claudication is pain during rest and gets better by walking", "D. Diagnosis can involve ankle-brachial index", "E. Physical signs include loss of hair on legs"], a: "C" },
-  { n: 12, s: "Microbiology", l: 1, q: "Which of the following is a FALSE statement regarding Acute Rheumatic Fever (ARF)?", o: ["A. It is caused by staphylococcus pyogenes", "B. It follows a streptococcal pharyngitis", "C. Diagnostic criteria include Jones criteria", "D. It can lead to rheumatic heart disease", "E. Subcutaneous nodules are a major manifestation"], a: "A" },
-  { n: 13, s: "Anatomy", l: 1, q: "Which vessels form the vascular anastomosis located posterior to the medial epicondyle?", o: ["A. Inferior ulnar collateral and anterior ulnar recurrent", "B. Profunda brachii and radial recurrent", "C. Superior ulnar collateral and anterior ulnar recurrent", "D. Superior ulnar collateral and posterior ulnar recurrent", "E. Radial collateral and interosseous recurrent"], a: "D" },
-  { n: 14, s: "Anatomy", l: 1, q: "3rd posterior intercostal vein drains into:", o: ["A. Azygos vein", "B. Internal thoracic vein", "C. Hemiazygos vein", "D. Accessory hemiazygos vein", "E. Superior intercostal vein"], a: "E" },
-  { n: 15, s: "Physiology", l: 1, q: "A 70-year-old woman suddenly loses consciousness while walking. The episode lasts about one minute. A witness reports no warning symptoms. What is the most likely cause?", o: ["A. Vasovagal syncope", "B. Cerebral hypoperfusion", "C. Hypoglycemia", "D. Orthostatic hypotension", "E. Anxiety attack"], a: "B" },
-  { n: 16, s: "Anatomy", l: 1, q: "The union of the maxillary vein and the posterior auricular vein forms which of the following?", o: ["A. Retromandibular vein", "B. Internal jugular vein", "C. External jugular vein", "D. Facial vein", "E. Anterior jugular vein"], a: "A" },
-  { n: 17, s: "Physiology", l: 1, q: "The closure of the atrioventricular valves occur at the:", o: ["A. Beginning of ventricular diastole", "B. End of ventricular systole", "C. Beginning of ventricular systole", "D. Middle of ventricular diastole", "E. End of atrial systole"], a: "C" },
-  { n: 18, s: "Anatomy", l: 1, q: "All of the following are drained by the right lymphatic duct EXCEPT:", o: ["A. Right side of the head and neck", "B. Right lower limb", "C. Right upper limb", "D. Right side of the thorax", "E. Right bronchomediastinal trunk"], a: "B" },
-  { n: 19, s: "Microbiology", l: 1, q: "Which of the following is NOT a risk factor for rheumatic heart disease?", o: ["A. HIV", "B. Immunosuppression", "C. IV drug use", "D. Asthma", "E. Overcrowding"], a: "D" },
-  { n: 20, s: "Histology", l: 1, q: "Which pathological characteristic is typically found within the thrombus of Buerger's disease?", o: ["A. Huge non-inflammatory clots", "B. Large numbers of eosinophils", "C. Severe atheromatous plaque calcification", "D. Extensive foam cell accumulation", "E. Small micro abscesses"], a: "E" },
-  { n: 21, s: "Microbiology", l: 1, q: "About chronic lymphatic filariasis, which of the following is correct?", o: ["A. Microfilaremia always elevated", "B. Microfilaremia often absent", "C. Microfilaremia easily detected during the day", "D. Diagnostic in 100% of cases", "E. Associated with acute bacterial cellulitis"], a: "B" },
-  { n: 22, s: "Anatomy", l: 1, q: "Ischemia of the hindgut is most directly caused by the obstruction of which artery?", o: ["A. Celiac trunk", "B. Superior mesenteric artery", "C. Internal iliac artery", "D. Inferior mesenteric artery", "E. Common iliac artery"], a: "D" },
-  { n: 23, s: "Microbiology", l: 1, q: "A patient presents with a sudden fever, and a culture shows gram-positive cocci normally found on the skin. What is the underlying pathophysiology?", o: ["A. Invasion by highly virulent bacteria (Staphylococcus aureus)", "B. Immune complex deposition", "C. Subacute colonization by low-virulence normal flora", "D. Hypersensitivity reaction", "E. Chronic granulomatous inflammation"], a: "A" },
-  { n: 24, s: "Anatomy", l: 1, q: "All of the following are correct about chest X-ray findings, EXCEPT:", o: ["A. The right hemidiaphragm is normally higher than the left", "B. The cardiac silhouette occupies less than 50% of the thoracic width", "C. Pulmonary window is located between the aortic arch and right pulmonary artery", "D. Costophrenic angles should be sharp and clear", "E. The trachea is typically midline or slightly to the right"], a: "C" },
-  { n: 25, s: "Physiology", l: 1, q: "A patient presents with bilateral pitting edema of the lower limbs and hepatomegaly. What is the diagnosis?", o: ["A. Left-sided heart failure", "B. Nephrotic syndrome", "C. Cirrhosis of the liver", "D. Deep vein thrombosis", "E. Right-sided heart failure"], a: "E" },
-  { n: 26, s: "Community Medicine", l: 1, q: "Which statement about coronary heart disease is FALSE?", o: ["A. Smoking cessation reduces recurrent MI risk ~50%", "B. Hypertension is a risk factor", "C. Smoking cessation is a therapy", "D. Smoking acts additively with other risk factors", "E. High alcohol intake is an independent risk factor"], a: "D" },
-  { n: 27, s: "Physiology", l: 1, q: "All of the following indications or associations for performing an ECG are correct EXCEPT:", o: ["A. All patients over 60 years old", "B. All patients under 10 years old", "C. Diabetics", "D. Cardiothoracic surgery", "E. Cardiovascular and renal diseases"], a: "B" },
-
-
-  
- 
-
-  { 
-    n: 28, 
-    s: "Essay Questions", 
-    l: 1, 
-    q: "A patient develops chest pain after 5 minutes of climbing stairs, which is relieved by rest. Explain the pathophysiology. (stable angina case)", 
-    o: [""], 
-    a: "Myocardial ischemia during exertion alters ventricular repolarization, leading to ST-segment depression."
-  },
-  
-  
-
- { 
-    n: 29, 
-    s: "Essay Questions", 
-    l: 1, 
-     o: [""], 
-    q: "Why should phosphodiesterase-5 inhibitors not be used with nitrates?",
-    a: "Because both increase nitric oxide–mediated cGMP, causing excessive vasodilation and severe hypotension"
-},
-
-
-
-
-
-
-];
-
+// 3. SECURED: THE HARDCODED QUESTIONS ARE COMPLETELY DELETED!
+let allQuestions = [];
 
 const lectures = {
    1:  "Blood vessels of the thorax",
    2:  "Blood vessels of the head and neck",
-   
 };
   
 const lectureFilters = {
     "All": [],
     "Anatomy": [
-        { label: "All",                            val: "All" },
-        
-        { label: "Blood vessels of the thorax",     val: 1 },
-        { label: "Blood vessels of the head and neck",     val: 2 },
-      
-
- ],
-
- 
-
-
+        { label: "All", val: "All" },
+        { label: "Blood vessels of the thorax", val: 1 },
+        { label: "Blood vessels of the head and neck", val: 2 },
+    ],
 };
-let currentSubjectFilter = "All";  // default
+
+let currentSubjectFilter = "All"; 
 let currentLecture = "All";
 
 const container = document.getElementById('quiz-content');
 const filterBar = document.getElementById('filter-bar');
+
+// 4. NEW FUNCTION: FETCH DATA SECURELY FROM FIRESTORE
+async function loadQuizData() {
+    container.innerHTML = `<div class="no-results">Loading quiz questions securely...</div>`;
+    
+    // Read the "id" parameter from the URL, e.g. quiz.html?id=cvs-end-block-2025
+    const urlParams = new URLSearchParams(window.location.search);
+    const quizId = urlParams.get('id') || 'cvs-end-block-2025'; // fallback default
+
+    try {
+        const doc = await db.collection("quizzes").doc(quizId).get();
+        if (doc.exists) {
+            allQuestions = doc.data().questions || [];
+            renderFilterBar();
+            renderQuiz();
+        } else {
+            container.innerHTML = `<div class="no-results">Error: This quiz cannot be found.</div>`;
+        }
+    } catch (error) {
+        console.error("Firebase Error: ", error);
+        container.innerHTML = `<div class="no-results">Failed to fetch questions. Check network or permissions.</div>`;
+    }
+}
 
 function renderFilterBar() {
     const filters = lectureFilters[currentSubjectFilter] || lectureFilters["All"];
@@ -661,19 +619,19 @@ function getLectureLabel(val) {
     if (val === "All" && currentSubjectFilter === "All") return "All";
     if (val === "All") {
         const subjectLabels = {
-    "Anatomy": "Anatomy 🦴",
-    "Physiology": "Physiology ⚡",
-    "Microbiology": "Microbiology 🦠",
-    "Pharmacology": "Pharmacology 💊",
-    "Biochemistry": "Biochemistry 🧪",
-    "Pathology": "Pathology 🔬",
-    "Genetics": "Genetics 🧬",
-    "Medical Education": "Medical Education 📘",
-    "Histology": "Histology 🫁",
-    "Community Medicine": "Community Medicine 📕",
-    "Radiology": "Radiology ☢️"
-};
- return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
+            "Anatomy": "Anatomy 🦴",
+            "Physiology": "Physiology ⚡",
+            "Microbiology": "Microbiology 🦠",
+            "Pharmacology": "Pharmacology 💊",
+            "Biochemistry": "Biochemistry 🧪",
+            "Pathology": "Pathology 🔬",
+            "Genetics": "Genetics 🧬",
+            "Medical Education": "Medical Education 📘",
+            "Histology": "Histology 🫁",
+            "Community Medicine": "Community Medicine 📕",
+            "Radiology": "Radiology ☢️"
+        };
+        return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
     return lectures[val] || val;
 }
@@ -723,14 +681,8 @@ function renderQuiz() {
 
         div.style.display = matchesFilters(item) ? "block" : "none";
 
-        // If item.a is an array, render one button per element (Answer A, Answer B, ...).
-        // If item.a is a plain string, render the normal single "Answer" button.
-        // This is purely structural -- no need for "A."/"B." text in the answer itself.
         const isMulti = Array.isArray(item.a);
         const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
-
-        // Essay questions have no real options (o is empty or just [""]).
-        // For those, show just the answer text -- no "Answer:" prefix.
         const isEssay = !item.o || item.o.length === 0 || (item.o.length === 1 && item.o[0].trim() === "");
 
         const answerButtonsHtml = isMulti
@@ -774,7 +726,6 @@ function filterByLecture(val, btn) {
     handleSearch();
 }
 
-// Subject dropdown logic
 function toggleSubjectDropdown() {
     const dd = document.getElementById('subject-dropdown');
     const btn = document.getElementById('subject-toggle-btn');
@@ -792,16 +743,12 @@ function selectSubjectFilter(subject, el) {
     currentSubjectFilter = subject;
     currentLecture = "All";
     localStorage.setItem('selectedSubject', subject);
-    // update selected state in dropdown
     document.querySelectorAll('.subject-dropdown-item').forEach(i => i.classList.remove('selected'));
     el.classList.add('selected');
-    // keep dropdown open — do NOT close it
-    // re-render filter bar and quiz
     renderFilterBar();
     handleSearch();
 }
 
-// Close dropdown when clicking outside
 document.addEventListener('click', function(e) {
     const wrapper = document.querySelector('.subject-toggle-wrapper');
     if (wrapper && !wrapper.contains(e.target)) {
@@ -874,19 +821,12 @@ function escapeAttr(str) {
 }
 
 function toggleAnswer(btn) {
-    // Essay questions have no real options to highlight, so keep the original
-    // behavior of revealing the answer text directly on the button.
     if (btn.dataset.essay === "true") {
         const isRevealed = btn.classList.toggle('revealed');
         btn.textContent = isRevealed ? btn.dataset.answer : btn.dataset.label;
         return;
     }
 
-    // MCQ questions: keep all options the same color, and instead of showing
-    // the answer on the button, color the correct option(s) red and turn the
-    // button into a "Hide" button. The button's own appearance should not
-    // change, only its text, so we track state via a data attribute rather
-    // than the styled 'revealed' class.
     const isRevealed = btn.dataset.revealed !== "true";
     btn.dataset.revealed = isRevealed ? "true" : "false";
     const block = btn.closest('.q-block');
@@ -921,12 +861,10 @@ function toggleTheme() {
         document.body.setAttribute('data-theme', 'light');
         document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
     }
-    // Restore saved subject (default: Biochemistry)
     const saved = localStorage.getItem('selectedSubject');
     if (saved && lectureFilters[saved]) {
         currentSubjectFilter = saved;
     }
-    // Mark the correct dropdown item as selected
     document.querySelectorAll('.subject-dropdown-item').forEach(item => {
         if (item.dataset.subject === currentSubjectFilter) {
             item.classList.add('selected');
@@ -934,10 +872,10 @@ function toggleTheme() {
             item.classList.remove('selected');
         }
     });
-}());
 
-renderFilterBar();
-renderQuiz();
+    // START FETCHING SECURELY ON PAGE LOAD
+    loadQuizData();
+}());
 </script>
 </body>
 </html>
