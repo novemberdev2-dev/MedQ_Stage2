@@ -486,12 +486,39 @@
             letter-spacing: 0.05em;
             white-space: nowrap;
         }
+
+        /* Temp Admin uploader styling */
+        .uploader-banner {
+            background: #ff9800;
+            color: #000;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .uploader-banner button {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            margin-top: 10px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
-<body oncontextmenu="return false;">
+<body>
 
 <div class="container">
+    <div id="admin-uploader" class="uploader-banner">
+        ⚠️ ADMIN: Click this button ONCE to automatically save your 29 questions to the backend!
+        <br>
+        <button onclick="uploadAllQuestionsToFirebase()">📤 Upload Questions Now</button>
+    </div>
+
     <div class="header">
         <div class="header-title-wrap">
             <span class="header-title"><span class="title-line1">CVS 🫀 &nbsp;·&nbsp; End-Block</span><span class="title-sep-2">&nbsp;·&nbsp;</span><span class="title-line2">2025-2026</span></span>
@@ -548,21 +575,55 @@
 
 <script>
 // ==========================================
-// 2. FIREBASE CONFIGURATION (PASTE YOURS HERE)
+// 1. YOUR FIREBASE CONFIGURATION GOES HERE
 // ==========================================
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
-  authDomain: "questions-3e15f.firebaseapp.com",
-  projectId: "questions-3e15f",
-  storageBucket: "questions-3e15f.firebasestorage.app",
-  messagingSenderId: "YOUR_SENDER_ID",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
   appId: "YOUR_APP_ID"
 };
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// 3. SECURED: THE HARDCODED QUESTIONS ARE COMPLETELY DELETED!
+// ==========================================
+// 2. THE 29 ORIGINAL QUESTIONS (USED ONLY TO AUTOMATICALLY SEED FIRESTORE)
+// ==========================================
+const questionsToUpload = [
+  { n: 1, s: "Physiology", l: 1, q: "What is the primary effect of the Renin-Angiotensin-Aldosterone System (RAAS)?", o: ["A. Potassium and water retention", "B. Calcium retention", "C. Sodium and water retention", "D. Magnesium retention"], a: "C" },
+  { n: 2, s: "Anatomy", l: 1, q: "Which of the following is a branch of the ascending aorta?", o: ["A. Left common carotid artery", "B. Brachiocephalic artery", "C. Coronary arteries", "D. Left subclavian artery"], a: "C" },
+  { n: 3, s: "Anatomy", l: 1, q: "Which structural feature prevents reflux of blood into the left ventricle?", o: ["A. Tricuspid valve", "B. Aortic valve", "C. Mitral valve", "D. Pulmonary valve"], a: "B" },
+  { n: 4, s: "Anatomy", l: 1, q: "At what vertebral level does the arch of the aorta typically begin and end?", o: ["A. T2", "B. T4", "C. T6", "D. T8"], a: "B" },
+  { n: 5, s: "Anatomy", l: 1, q: "Which artery directly supplies the left atrium and left ventricle?", o: ["A. Right coronary artery", "B. Left coronary artery", "C. Superior vena cava", "D. Pulmonary artery"], a: "B" },
+  { n: 6, s: "Anatomy", l: 2, q: "Which branch of the external carotid artery arises closest to its origin?", o: ["A. Facial artery", "B. Superior thyroid artery", "C. Lingual artery", "D. Occipital artery"], a: "B" },
+  { n: 7, s: "Anatomy", l: 2, q: "The internal carotid artery enters the skull through which opening?", o: ["A. Foramen ovale", "B. Carotid canal", "C. Jugular foramen", "D. Foramen rotundum"], a: "B" },
+  { n: 8, s: "Anatomy", l: 2, q: "Which vessel participates in the formation of the Circle of Willis?", o: ["A. External carotid artery", "B. Facial artery", "C. Basilar artery", "D. Maxillary artery"], a: "C" },
+  { n: 9, s: "Anatomy", l: 2, q: "At what anatomical landmark does the common carotid artery typically bifurcate?", o: ["A. Upper border of the thyroid cartilage", "B. Hyoid bone", "C. Jugular notch", "D. Sternal angle"], a: "A" },
+  { n: 10, s: "Anatomy", l: 2, q: "Which cranial nerve accompanies the internal jugular vein within the carotid sheath?", o: ["A. Cranial nerve VII", "B. Cranial nerve X", "C. Cranial nerve XI", "D. Cranial nerve XII"], a: "B" },
+  { n: 11, s: "Physiology", l: 1, q: "The plateau phase of the ventricular action potential is primarily due to:", o: ["A. Inflow of sodium ions", "B. Outflow of potassium ions", "C. Inflow of calcium ions through L-type channels", "D. Outflow of chloride ions"], a: "C" },
+  { n: 12, s: "Physiology", l: 1, q: "Which of the following describes the Frank-Starling law of the heart?", o: ["A. Increased heart rate increases contractility", "B. Increased end-diastolic volume increases stroke volume", "C. Decreased venous return increases cardiac output", "D. Increased afterload increases stroke volume"], a: "B" },
+  { n: 13, s: "Physiology", l: 1, q: "What is the primary pacemaker of the normal heart?", o: ["A. Atrioventricular (AV) node", "B. Purkinje fibers", "C. Sinoatrial (SA) node", "D. Bundle of His"], a: "C" },
+  { n: 14, s: "Physiology", l: 1, q: "The first heart sound (S1) is caused by the closure of which valves?", o: ["A. Aortic and pulmonary valves", "B. Mitral and tricuspid valves", "C. Mitral and aortic valves", "D. Tricuspid and pulmonary valves"], a: "B" },
+  { n: 15, s: "Physiology", l: 1, q: "During which phase of the cardiac cycle are all four valves closed?", o: ["A. Isovolumetric contraction", "B. Ventricular ejection", "C. Rapid ventricular filling", "D. Atrial systole"], a: "A" },
+  { n: 16, s: "Physiology", l: 1, q: "Which factor increases coronary blood flow the most during exercise?", o: ["A. Sympathetic stimulation of alpha-receptors", "B. Parasympathetic stimulation", "C. Accumulation of local metabolites like adenosine", "D. Increased diastolic pressure"], a: "C" },
+  { n: 17, s: "Physiology", l: 1, q: "Which parameter is calculated as: Heart Rate x Stroke Volume?", o: ["A. Pulse pressure", "B. Cardiac output", "C. Mean arterial pressure", "D. Total peripheral resistance"], a: "B" },
+  { n: 18, s: "Physiology", l: 1, q: "What is the physiological function of the AV nodal delay?", o: ["A. To allow ventricles to contract before atria", "B. To allow the atria to completely empty into the ventricles", "C. To prevent backflow of blood into the veins", "D. To increase the force of ventricular contraction"], a: "B" },
+  { n: 19, s: "Physiology", l: 1, q: "In an ECG, what does the T wave represent?", o: ["A. Atrial depolarization", "B. Ventricular depolarization", "C. Ventricular repolarization", "D. Atrial repolarization"], a: "C" },
+  { n: 20, s: "Physiology", l: 1, q: "Which of the following baroreceptor responses occurs in response to high blood pressure?", o: ["A. Increased sympathetic activity", "B. Decreased parasympathetic activity", "C. Decreased sympathetic and increased parasympathetic activity", "D. Vasoconstriction of arterioles"], a: "C" },
+  { n: 21, s: "Microbiology", l: 1, q: "Which microorganism is most commonly associated with acute infective endocarditis in intravenous drug users?", o: ["A. Streptococcus viridans", "B. Staphylococcus aureus", "C. Enterococcus faecalis", "D. Escherichia coli"], a: "B" },
+  { n: 22, s: "Microbiology", l: 1, q: "What is the primary causative agent of Rheumatic Fever?", o: ["A. Staphylococcus epidermidis", "B. Streptococcus pyogenes (Group A)", "C. Streptococcus pneumoniae", "D. Coxsackievirus B"], a: "B" },
+  { n: 23, s: "Histology", l: 1, q: "Which layer of a blood vessel contains the internal elastic lamina?", o: ["A. Tunica adventitia", "B. Tunica media", "C. Tunica intima", "D. Tunica externa"], a: "C" },
+  { n: 24, s: "Histology", l: 1, q: "Which type of capillary is characterized by small openings or pores in its endothelial cells?", o: ["A. Continuous capillaries", "B. Fenestrated capillaries", "C. Sinusoidal capillaries", "D. Lymphatic capillaries"], a: "B" },
+  { n: 25, s: "Histology", l: 1, q: "The intercalated discs of cardiac muscle tissue contain which junctions?", o: ["A. Tight junctions and desmosomes", "B. Gap junctions and desmosomes", "C. Hemidesmosomes and gap junctions", "D. Tight junctions and hemidesmosomes"], a: "B" },
+  { n: 26, s: "Community Medicine", l: 1, q: "Which modifiable risk factor contributes the most to the global burden of cardiovascular disease?", o: ["A. Genetic predisposition", "B. Hypertension", "C. Age", "D. Air pollution"], a: "B" },
+  { n: 27, s: "Community Medicine", l: 1, q: "Which type of prevention is aimed at managing cardiovascular disease after it has been diagnosed?", o: ["A. Primordial prevention", "B. Primary prevention", "C. Secondary prevention", "D. Tertiary prevention"], a: "D" },
+  { n: 28, s: "Medical education", l: 1, q: "List three physiological factors that regulate mean arterial blood pressure.", o: [""], a: ["Cardiac Output", "Systemic Vascular Resistance", "Blood Volume"] },
+  { n: 29, s: "Medical education", l: 1, q: "Describe the pathway of cardiac conduction starting from the SA node.", o: [""], a: ["SA Node -> Internodal Pathways -> AV Node -> Bundle of His -> Bundle Branches -> Purkinje Fibers"] }
+];
+
 let allQuestions = [];
 
 const lectures = {
@@ -585,13 +646,33 @@ let currentLecture = "All";
 const container = document.getElementById('quiz-content');
 const filterBar = document.getElementById('filter-bar');
 
-// 4. NEW FUNCTION: FETCH DATA SECURELY FROM FIRESTORE
+// ADMIN FUNCTION: SEEDS YOUR DATABASE INSTANTLY
+async function uploadAllQuestionsToFirebase() {
+    const btn = document.querySelector("#admin-uploader button");
+    btn.disabled = true;
+    btn.innerText = "Uploader active... Please wait...";
+
+    try {
+        await db.collection("quizzes").doc("cvs-end-block-2025").set({
+            questions: questionsToUpload
+        });
+        alert("🎉 Success! Your 29 questions are uploaded. You can now delete the ADMIN banner and redeploy.");
+        document.getElementById("admin-uploader").style.display = "none";
+        loadQuizData(); // Reload the UI dynamically
+    } catch (error) {
+        console.error("Upload error: ", error);
+        alert("Upload failed. Make sure Firestore rules allow read/write or check your configuration settings.");
+        btn.disabled = false;
+        btn.innerText = "📤 Upload Questions Now";
+    }
+}
+
+// MAIN LOADING FUNCTION
 async function loadQuizData() {
     container.innerHTML = `<div class="no-results">Loading quiz questions securely...</div>`;
     
-    // Read the "id" parameter from the URL, e.g. quiz.html?id=cvs-end-block-2025
     const urlParams = new URLSearchParams(window.location.search);
-    const quizId = urlParams.get('id') || 'cvs-end-block-2025'; // fallback default
+    const quizId = urlParams.get('id') || 'cvs-end-block-2025';
 
     try {
         const doc = await db.collection("quizzes").doc(quizId).get();
@@ -600,11 +681,11 @@ async function loadQuizData() {
             renderFilterBar();
             renderQuiz();
         } else {
-            container.innerHTML = `<div class="no-results">Error: This quiz cannot be found.</div>`;
+            container.innerHTML = `<div class="no-results">Error: Questions not uploaded yet. Click the orange button at the top to upload them.</div>`;
         }
     } catch (error) {
         console.error("Firebase Error: ", error);
-        container.innerHTML = `<div class="no-results">Failed to fetch questions. Check network or permissions.</div>`;
+        container.innerHTML = `<div class="no-results">Failed to fetch questions. Check network or your Firebase API keys.</div>`;
     }
 }
 
@@ -677,7 +758,7 @@ function renderQuiz() {
         div.className = 'q-block';
         div.dataset.subject = item.s;
         div.dataset.lecture = item.l ?? "";
-        div.dataset.searchText = (item.q + " " + item.o.join(" ")).toLowerCase();
+        div.dataset.searchText = (item.q + " " + (item.o ? item.o.join(" ") : "")).toLowerCase();
 
         div.style.display = matchesFilters(item) ? "block" : "none";
 
@@ -696,7 +777,7 @@ function renderQuiz() {
         div.innerHTML = `
             <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
             <ul class="opts">
-                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+                ${item.o ? item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('') : ''}
             </ul>
             <div class="ans-row${isMulti ? ' ans-row--multi' : ''}">
                 ${answerButtonsHtml}
@@ -873,7 +954,6 @@ function toggleTheme() {
         }
     });
 
-    // START FETCHING SECURELY ON PAGE LOAD
     loadQuizData();
 }());
 </script>
