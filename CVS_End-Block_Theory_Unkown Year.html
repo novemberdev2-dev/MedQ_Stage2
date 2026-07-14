@@ -716,6 +716,51 @@ function toggleTheme() {
         : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
 }
 
+    // 1. Prevent Right-Click
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+// 2. Block keyboard shortcuts for Saving, Printing, Viewing Source, and Inspecting
+document.addEventListener('keydown', function(e) {
+    // Block Ctrl+S or Cmd+S (Save)
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        alert("Saving this page is disabled.");
+        return false;
+    }
+
+    // Block Ctrl+P or Cmd+P (Print / Save as PDF)
+    if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+        e.preventDefault();
+        alert("Printing this page is disabled.");
+        return false;
+    }
+
+    // Block Ctrl+U or Cmd+Option+U (View Source)
+    if ((e.ctrlKey || e.metaKey) && e.key === 'u') {
+        e.preventDefault();
+        alert("Viewing source is disabled.");
+        return false;
+    }
+
+    // Block F12 (Developer Tools)
+    if (e.key === 'F12') {
+        e.preventDefault();
+        return false;
+    }
+
+    // Block Ctrl+Shift+I or Cmd+Option+I (Inspect)
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'I') {
+        e.preventDefault();
+        return false;
+    }
+    
+    // Block Ctrl+Shift+C (Inspect Element selector)
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'C') {
+        e.preventDefault();
+        return false;
+    }
+});
+
 (function () {
     if (localStorage.getItem('theme') === 'light') {
         document.body.setAttribute('data-theme', 'light');
@@ -739,5 +784,7 @@ function toggleTheme() {
 renderFilterBar();
 renderQuiz();
 </script>
+
+    
 </body>
 </html>
