@@ -10,15 +10,17 @@
             --bg-body: #121212;
             --text-main: #f1f5f9;
             --text-opts: #f1f5f9;
-            --header-bg: #1e293b;
-            --header-text: #38bdf8;
+            --header-bg: #f1f5f9;
+            --header-text: #0f172a;
             --border-color: #26292b;
             --input-bg: #1a1c1e;
             --input-border: #2a2f36;
             --ans-bg: #1e293b;
             --ans-text: #f0cf6a;
             --filter-bg: transparent;
-            --correct-color: #f0cf6a;
+            --correct-color: #2e7d32;
+            --btn-bg: #f8fafc; 
+            --btn-text: #0f172a;
             
         }
 
@@ -35,13 +37,15 @@
             --ans-text: #2e7d32;
             --filter-bg: transparent;
             --correct-color: #e53935;
+            --btn-bg: #52525b; 
+            --btn-text: #ffffff;
             
         }
 
-        .filter-btn.active {
-            background-color: #728fcf;
-            color: #fff;
-            border-color:  #728fcf;
+      .filter-btn.active {
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            border-color: var(--btn-bg);
         }
 
         body {
@@ -64,16 +68,83 @@
         }
 
         .header { 
-            text-align: center; 
+            text-align: left; 
             margin-bottom: 15px;
-            background-color: var(--header-bg);
-            color: var(--header-text);
-            padding: 50px;
-           min-height: 35px;
-            border-radius: 8px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 9px;
+            min-height: 28px;
+            border-radius: 7px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .header-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .header-title {
+            font-size: 0.84rem;
+            font-weight: 800;
+            color: var(--text-main);
+            white-space: normal;
+            overflow: visible;
+            text-overflow: clip;
+            display: block;
+            width: 100%;
+            text-align: left;
+        }
+
+        .title-part {
+            display: block;
+            line-height: 1.3;
+            margin-bottom: 5px;
+        }
+
+        .title-part:first-child {
+            font-size: 1.25em;
+            font-weight: 800;
+        }
+
+        .title-part:last-child {
+            font-size: 0.87em;
+            font-weight: 500;
+            margin-bottom: 0;
+            opacity: 0.85;
+            font-weight: 800;
+        }
+
+        .title-sep {
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 14px !important;
+            }
+            .header-title {
+                font-size: 0.74rem;
+            }
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .icon-divider {
+            width: 1px;
+            height: 24px;
+            background-color: var(--input-border);
+            flex-shrink: 0;
         }
 
         .controls-row { display: flex; gap: 12px; margin-bottom: 10px; }
@@ -104,6 +175,45 @@
         }
 
         .theme-toggle {
+            background-color: transparent;
+            border: none;
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .search-toggle-btn {
+            background-color: transparent;
+            border: none;
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .search-bar-expand {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .search-bar-expand.open {
+            display: flex;
+        }
+
+        .search-close-btn {
             background-color: var(--input-bg);
             border: 1px solid var(--input-border);
             color: var(--text-main);
@@ -141,11 +251,11 @@
         }
 
         .subject-toggle {
-            background-color: var(--input-bg);
-            border: 1px solid var(--input-border);
+            background-color: transparent;
+            border: none;
             color: var(--text-main);
-            width: 42px;
-            height: 42px;
+            width: 36px;
+            height: 36px;
             border-radius: 7px;
             display: flex;
             align-items: center;
@@ -319,18 +429,24 @@
             justify-content: flex-start;
             gap: 8px;
         }
-
-        .ans-btn {
-            background-color: #728fcf;
-            color: #fff;
+.ans-btn {
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
             border: none;
             padding: 7px 20px;
-            border-radius: 4px;
+            border-radius: 5px; 
             margin-top: 20px;
             font-weight: 650;
             font-size: 16px;
-            transition: background-color 0.2s, color 0.2s;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
+        }
 
+
+        .ans-btn:hover {
+            opacity: 0.9;
+        }
+        .ans-btn:active {
+            transform: scale(0.98);
         }
 
         .ans-btn.revealed {
@@ -389,52 +505,56 @@
 <body oncontextmenu="return false;">
 
 <div class="container">
-    <div class="header" style="padding: 9px 14px; margin-bottom: 15px;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-            
-            <span style="font-size: 0.90rem; font-weight: 800; color: var(--header-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">CVS 🫀 &nbsp;·&nbsp; End-Block &nbsp;·&nbsp; 2025-2026</span>
+    <div class="header">
+        <div class="header-title-wrap">
+
+            <span class="header-title"><span class="title-part">End-Block</span><span class="title-part">CVS 🫀 &nbsp;·&nbsp; 2025-2026</span></span>
+        </div>
+
+        <div class="header-actions">
+            <button class="search-toggle-btn" id="search-toggle-btn" onclick="toggleSearchBar()" title="Search">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.9536 14.9458L21 21M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </button>
+
+            <div class="icon-divider"></div>
+
+            <div class="subject-toggle-wrapper">
+                <div class="subject-toggle" id="subject-toggle-btn" onclick="toggleSubjectDropdown()" title="Filter by subject">
+                    <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.90693 3.9999C9.93791 3.99996 9.96894 4.00001 10 4.00001C10.0311 4.00001 10.0621 3.99996 10.0931 3.9999C10.4618 3.99929 10.8242 3.99869 11.147 4.08519C12.0098 4.31636 12.6836 4.99023 12.9148 5.85296C13.0013 6.1758 13.0007 6.53821 13.0001 6.90693C13.0001 6.93792 13 6.96895 13 7.00001H21C21.5523 7.00001 22 7.44772 22 8.00001C22 8.55229 21.5523 9.00001 21 9.00001H13C13 9.03107 13.0001 9.0621 13.0001 9.09309C13.0007 9.46181 13.0013 9.82422 12.9148 10.1471C12.6836 11.0098 12.0098 11.6837 11.147 11.9148C10.8242 12.0013 10.4618 12.0007 10.0931 12.0001C10.0621 12.0001 10.0311 12 10 12C9.96894 12 9.93791 12.0001 9.90692 12.0001C9.5382 12.0007 9.17579 12.0013 8.85295 11.9148C7.99022 11.6837 7.31635 11.0098 7.08519 10.1471C6.99868 9.82421 6.99928 9.46181 6.9999 9.09308C6.99995 9.0621 7 9.03106 7 9.00001H5C4.44772 9.00001 4 8.55229 4 8.00001C4 7.44772 4.44772 7.00001 5 7.00001H7C7 6.96895 6.99995 6.93792 6.9999 6.90693C6.99928 6.53821 6.99868 6.1758 7.08519 5.85296C7.31635 4.99023 7.99022 4.31636 8.85295 4.08519C9.17579 3.99869 9.5382 3.99929 9.90693 3.9999ZM9.49861 6.00536C9.39195 6.01022 9.36685 6.01805 9.37059 6.01704C9.19804 6.06328 9.06327 6.19805 9.01704 6.3706C9.0162 6.37411 9.00963 6.40483 9.00535 6.49861C9.00024 6.61064 9 6.75845 9 7.00001V9.00001C9 9.24156 9.00024 9.38937 9.00535 9.5014C9.01021 9.60806 9.01804 9.63315 9.01704 9.62942C9.06327 9.80196 9.19804 9.93674 9.37059 9.98297C9.36685 9.98197 9.39195 9.98979 9.49861 9.99466C9.61063 9.99977 9.75844 10 10 10C10.2416 10 10.3894 9.99977 10.5014 9.99466C10.608 9.98979 10.6331 9.98197 10.6294 9.98297C10.802 9.93674 10.9367 9.80196 10.983 9.62942C10.982 9.63315 10.9898 9.60806 10.9946 9.5014C10.9998 9.38937 11 9.24156 11 9.00001V7.00001C11 6.75845 10.9998 6.61064 10.9946 6.49861C10.9898 6.39196 10.982 6.36686 10.983 6.3706M9.49861 6.00536C9.61063 6.00025 9.75844 6.00001 10 6.00001L9.49861 6.00536ZM10 6.00001C10.2416 6.00001 10.3894 6.00025 10.5014 6.00536L10 6.00001ZM10.5014 6.00536C10.5952 6.00963 10.6259 6.0162 10.6294 6.01704L10.5014 6.00536ZM10.6298 6.01713C10.6298 6.01713 10.6296 6.0171 10.6294 6.01704L10.6298 6.01713ZM15.9069 11.9999C15.9379 12 15.9689 12 16 12C16.0311 12 16.0621 12 16.0931 11.9999C16.4618 11.9993 16.8242 11.9987 17.147 12.0852C18.0098 12.3164 18.6836 12.9902 18.9148 13.853C19.0013 14.1758 19.0007 14.5382 19.0001 14.9069C19.0001 14.9379 19 14.9689 19 15H21C21.5523 15 22 15.4477 22 16C22 16.5523 21.5523 17 21 17H19C19 17.0311 19.0001 17.0621 19.0001 17.0931C19.0007 17.4618 19.0013 17.8242 18.9148 18.1471C18.6836 19.0098 18.0098 19.6837 17.147 19.9148C16.8242 20.0013 16.4618 20.0007 16.0931 20.0001C16.0621 20.0001 16.0311 20 16 20C15.9689 20 15.9379 20.0001 15.9069 20.0001C15.5382 20.0007 15.1758 20.0013 14.853 19.9148C13.9902 19.6837 13.3164 19.0098 13.0852 18.1471C12.9987 17.8242 12.9993 17.4618 12.9999 17.0931C12.9999 17.0621 13 17.0311 13 17H5C4.44772 17 4 16.5523 4 16C4 15.4477 4.44772 15 5 15H13C13 14.969 12.9999 14.9379 12.9999 14.9069C12.9993 14.5382 12.9987 14.1758 13.0852 13.853C13.3164 12.9902 13.9902 12.3164 14.853 12.0852C15.1758 11.9987 15.5382 11.9993 15.9069 11.9999ZM15.4986 14.0054C15.392 14.0102 15.3669 14.018 15.3706 14.017C15.198 14.0633 15.0633 14.1981 15.017 14.3706C15.018 14.3669 15.0102 14.392 15.0054 14.4986C15.0002 14.6106 15 14.7585 15 15V17C15 17.2416 15.0002 17.3894 15.0054 17.5014C15.0102 17.6081 15.018 17.6332 15.017 17.6294C15.0633 17.802 15.198 17.9367 15.3706 17.983C15.3669 17.982 15.392 17.9898 15.4986 17.9947C15.6106 17.9998 15.7584 18 16 18C16.2416 18 16.3894 17.9998 16.5014 17.9947C16.608 17.9898 16.6331 17.982 16.6294 17.983C16.802 17.9367 16.9367 17.802 16.983 17.6294C16.982 17.6332 16.9898 17.6081 16.9946 17.5014C16.9998 17.3894 17 17.2416 17 17V15C17 14.7585 16.9998 14.6106 16.9946 14.4986C16.9898 14.392 16.982 14.3669 16.983 14.3706C16.9367 14.1981 16.802 14.0633 16.6294 14.017C16.6331 14.018 16.608 14.0102 16.5014 14.0054C16.3894 14.0002 16.2416 14 16 14C15.7584 14 15.6106 14.0002 15.4986 14.0054Z"/></svg>
+                </div>
+                <div class="subject-dropdown" id="subject-dropdown">
+                    <div class="subject-dropdown-header">Subject</div>
+                  
+                    <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
+                 
+                    <div class="subject-dropdown-item" data-subject="Anatomy" onclick="selectSubjectFilter('Anatomy', this)"><span class="filter-option-dot"></span>Anatomy 🦴</div>
+                    <div class="subject-dropdown-item" data-subject="Physiology" onclick="selectSubjectFilter('Physiology', this)"><span class="filter-option-dot"></span>Physiology ⚡</div>
+                    <div class="subject-dropdown-item" data-subject="Microbiology" onclick="selectSubjectFilter('Microbiology', this)"><span class="filter-option-dot"></span>Microbiology 🦠</div>
+
+                    <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🫁</div>
+                    <div class="subject-dropdown-item" data-subject="Community Medicine" onclick="selectSubjectFilter('Community Medicine', this)"><span class="filter-option-dot"></span>Community Medicine 📕</div>
+                    <div class="subject-dropdown-item" data-subject="Medical education" onclick="selectSubjectFilter('Essay Questions', this)"><span class="filter-option-dot"></span>Essay Questions</div>
+
+                </div>
+            </div>
+
+            <div class="icon-divider"></div>
+
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <svg id="theme-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
         </div>
     </div>
 
-    <div class="controls-row">
+    <div class="search-bar-expand" id="search-bar-expand">
         <div class="search-wrapper">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.9536 14.9458L21 21M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
             <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
         </div>
-        
-        <div class="subject-toggle-wrapper">
-            <div class="subject-toggle" id="subject-toggle-btn" onclick="toggleSubjectDropdown()" title="Filter by subject">
-                <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.90693 3.9999C9.93791 3.99996 9.96894 4.00001 10 4.00001C10.0311 4.00001 10.0621 3.99996 10.0931 3.9999C10.4618 3.99929 10.8242 3.99869 11.147 4.08519C12.0098 4.31636 12.6836 4.99023 12.9148 5.85296C13.0013 6.1758 13.0007 6.53821 13.0001 6.90693C13.0001 6.93792 13 6.96895 13 7.00001H21C21.5523 7.00001 22 7.44772 22 8.00001C22 8.55229 21.5523 9.00001 21 9.00001H13C13 9.03107 13.0001 9.0621 13.0001 9.09309C13.0007 9.46181 13.0013 9.82422 12.9148 10.1471C12.6836 11.0098 12.0098 11.6837 11.147 11.9148C10.8242 12.0013 10.4618 12.0007 10.0931 12.0001C10.0621 12.0001 10.0311 12 10 12C9.96894 12 9.93791 12.0001 9.90692 12.0001C9.5382 12.0007 9.17579 12.0013 8.85295 11.9148C7.99022 11.6837 7.31635 11.0098 7.08519 10.1471C6.99868 9.82421 6.99928 9.46181 6.9999 9.09308C6.99995 9.0621 7 9.03106 7 9.00001H5C4.44772 9.00001 4 8.55229 4 8.00001C4 7.44772 4.44772 7.00001 5 7.00001H7C7 6.96895 6.99995 6.93792 6.9999 6.90693C6.99928 6.53821 6.99868 6.1758 7.08519 5.85296C7.31635 4.99023 7.99022 4.31636 8.85295 4.08519C9.17579 3.99869 9.5382 3.99929 9.90693 3.9999ZM9.49861 6.00536C9.39195 6.01022 9.36685 6.01805 9.37059 6.01704C9.19804 6.06328 9.06327 6.19805 9.01704 6.3706C9.0162 6.37411 9.00963 6.40483 9.00535 6.49861C9.00024 6.61064 9 6.75845 9 7.00001V9.00001C9 9.24156 9.00024 9.38937 9.00535 9.5014C9.01021 9.60806 9.01804 9.63315 9.01704 9.62942C9.06327 9.80196 9.19804 9.93674 9.37059 9.98297C9.36685 9.98197 9.39195 9.98979 9.49861 9.99466C9.61063 9.99977 9.75844 10 10 10C10.2416 10 10.3894 9.99977 10.5014 9.99466C10.608 9.98979 10.6331 9.98197 10.6294 9.98297C10.802 9.93674 10.9367 9.80196 10.983 9.62942C10.982 9.63315 10.9898 9.60806 10.9946 9.5014C10.9998 9.38937 11 9.24156 11 9.00001V7.00001C11 6.75845 10.9998 6.61064 10.9946 6.49861C10.9898 6.39196 10.982 6.36686 10.983 6.3706M9.49861 6.00536C9.61063 6.00025 9.75844 6.00001 10 6.00001L9.49861 6.00536ZM10 6.00001C10.2416 6.00001 10.3894 6.00025 10.5014 6.00536L10 6.00001ZM10.5014 6.00536C10.5952 6.00963 10.6259 6.0162 10.6294 6.01704L10.5014 6.00536ZM10.6298 6.01713C10.6298 6.01713 10.6296 6.0171 10.6294 6.01704L10.6298 6.01713ZM15.9069 11.9999C15.9379 12 15.9689 12 16 12C16.0311 12 16.0621 12 16.0931 11.9999C16.4618 11.9993 16.8242 11.9987 17.147 12.0852C18.0098 12.3164 18.6836 12.9902 18.9148 13.853C19.0013 14.1758 19.0007 14.5382 19.0001 14.9069C19.0001 14.9379 19 14.9689 19 15H21C21.5523 15 22 15.4477 22 16C22 16.5523 21.5523 17 21 17H19C19 17.0311 19.0001 17.0621 19.0001 17.0931C19.0007 17.4618 19.0013 17.8242 18.9148 18.1471C18.6836 19.0098 18.0098 19.6837 17.147 19.9148C16.8242 20.0013 16.4618 20.0007 16.0931 20.0001C16.0621 20.0001 16.0311 20 16 20C15.9689 20 15.9379 20.0001 15.9069 20.0001C15.5382 20.0007 15.1758 20.0013 14.853 19.9148C13.9902 19.6837 13.3164 19.0098 13.0852 18.1471C12.9987 17.8242 12.9993 17.4618 12.9999 17.0931C12.9999 17.0621 13 17.0311 13 17H5C4.44772 17 4 16.5523 4 16C4 15.4477 4.44772 15 5 15H13C13 14.969 12.9999 14.9379 12.9999 14.9069C12.9993 14.5382 12.9987 14.1758 13.0852 13.853C13.3164 12.9902 13.9902 12.3164 14.853 12.0852C15.1758 11.9987 15.5382 11.9993 15.9069 11.9999ZM15.4986 14.0054C15.392 14.0102 15.3669 14.018 15.3706 14.017C15.198 14.0633 15.0633 14.1981 15.017 14.3706C15.018 14.3669 15.0102 14.392 15.0054 14.4986C15.0002 14.6106 15 14.7585 15 15V17C15 17.2416 15.0002 17.3894 15.0054 17.5014C15.0102 17.6081 15.018 17.6332 15.017 17.6294C15.0633 17.802 15.198 17.9367 15.3706 17.983C15.3669 17.982 15.392 17.9898 15.4986 17.9947C15.6106 17.9998 15.7584 18 16 18C16.2416 18 16.3894 17.9998 16.5014 17.9947C16.608 17.9898 16.6331 17.982 16.6294 17.983C16.802 17.9367 16.9367 17.802 16.983 17.6294C16.982 17.6332 16.9898 17.6081 16.9946 17.5014C16.9998 17.3894 17 17.2416 17 17V15C17 14.7585 16.9998 14.6106 16.9946 14.4986C16.9898 14.392 16.982 14.3669 16.983 14.3706C16.9367 14.1981 16.802 14.0633 16.6294 14.017C16.6331 14.018 16.608 14.0102 16.5014 14.0054C16.3894 14.0002 16.2416 14 16 14C15.7584 14 15.6106 14.0002 15.4986 14.0054Z"/></svg>
-            </div>
-            <div class="subject-dropdown" id="subject-dropdown">
-                <div class="subject-dropdown-header">Subject</div>
-              
-                <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
-             
-                <div class="subject-dropdown-item" data-subject="Anatomy" onclick="selectSubjectFilter('Anatomy', this)"><span class="filter-option-dot"></span>Anatomy 🦴</div>
-                <div class="subject-dropdown-item" data-subject="Physiology" onclick="selectSubjectFilter('Physiology', this)"><span class="filter-option-dot"></span>Physiology ⚡</div>
-                <div class="subject-dropdown-item" data-subject="Microbiology" onclick="selectSubjectFilter('Microbiology', this)"><span class="filter-option-dot"></span>Microbiology 🦠</div>
-                <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
-                <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
-                <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
-                <div class="subject-dropdown-item" data-subject="Genetics" onclick="selectSubjectFilter('Genetics', this)"><span class="filter-option-dot"></span>Genetics 🧬</div>
-                <div class="subject-dropdown-item" data-subject="Medical education" onclick="selectSubjectFilter('Medical education', this)"><span class="filter-option-dot"></span>Medical education 📘</div>
-                <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🫁</div>
-                <div class="subject-dropdown-item" data-subject="Community medicine" onclick="selectSubjectFilter('Community medicine', this)"><span class="filter-option-dot"></span>Community medicine 📕</div>
-                <div class="subject-dropdown-item" data-subject="Radiology" onclick="selectSubjectFilter('Radiology', this)"><span class="filter-option-dot"></span>Radiology ☢️</div>
-
-
-
-
-                <div class="subject-dropdown-item" data-subject="Medical education" onclick="selectSubjectFilter('Essay Questions', this)"><span class="filter-option-dot"></span>Essay Questions</div>
-
-        </div>
-        </div>
-
-        <button class="theme-toggle" onclick="toggleTheme()">
-            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
+        <button class="search-close-btn" onclick="closeSearchBar()" title="Close search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
     </div>
 
@@ -477,7 +597,7 @@ const allQuestions = [
   { n: 23, s: "Microbiology", l: 1, q: "A patient presents with a sudden fever, and a culture shows gram-positive cocci normally found on the skin. What is the underlying pathophysiology?", o: ["A. Invasion by highly virulent bacteria (Staphylococcus aureus)", "B. Immune complex deposition", "C. Subacute colonization by low-virulence normal flora", "D. Hypersensitivity reaction", "E. Chronic granulomatous inflammation"], a: "A" },
   { n: 24, s: "Anatomy", l: 1, q: "All of the following are correct about chest X-ray findings, EXCEPT:", o: ["A. The right hemidiaphragm is normally higher than the left", "B. The cardiac silhouette occupies less than 50% of the thoracic width", "C. Pulmonary window is located between the aortic arch and right pulmonary artery", "D. Costophrenic angles should be sharp and clear", "E. The trachea is typically midline or slightly to the right"], a: "C" },
   { n: 25, s: "Physiology", l: 1, q: "A patient presents with bilateral pitting edema of the lower limbs and hepatomegaly. What is the diagnosis?", o: ["A. Left-sided heart failure", "B. Nephrotic syndrome", "C. Cirrhosis of the liver", "D. Deep vein thrombosis", "E. Right-sided heart failure"], a: "E" },
-  { n: 26, s: "Community", l: 1, q: "Which statement about coronary heart disease is FALSE?", o: ["A. Smoking cessation reduces recurrent MI risk ~50%", "B. Hypertension is a risk factor", "C. Smoking cessation is a therapy", "D. Smoking acts additively with other risk factors", "E. High alcohol intake is an independent risk factor"], a: "D" },
+  { n: 26, s: "Community Medicine", l: 1, q: "Which statement about coronary heart disease is FALSE?", o: ["A. Smoking cessation reduces recurrent MI risk ~50%", "B. Hypertension is a risk factor", "C. Smoking cessation is a therapy", "D. Smoking acts additively with other risk factors", "E. High alcohol intake is an independent risk factor"], a: "D" },
   { n: 27, s: "Physiology", l: 1, q: "All of the following indications or associations for performing an ECG are correct EXCEPT:", o: ["A. All patients over 60 years old", "B. All patients under 10 years old", "C. Diabetics", "D. Cardiothoracic surgery", "E. Cardiovascular and renal diseases"], a: "B" },
 
 
@@ -513,82 +633,23 @@ const allQuestions = [
 
 
 const lectures = {
-   1:  "Protein Metabolism 🥩",
-   2:  "Lipid Metabolism 🥑",
-   3:  "Enzymology🧪",
-   4:  "Cancer 🧬",
-   5:  "Carbohydrate Metabolism 🍞",
-   6:  "Nutrition 🥗",
- 7: "Inhibitors of baterial protein synthesis",
- 8: "Hypersensitivity Immune response & Related diseases",
- 9: "Complement system II",
- 10: "Cytokines and immunotherapy",
- 11: "Antibody",
- 12: "Neoplasia",
- 13: "Hemodynamic disorders shock",
- 14: "Neoplasia - Molecular basis of cancer",
- 15: "Inflammation",
- 16: "Cell injury - Cellular adaptation",
- 17: "Embolism & infarction",
- 18: "Drug metabolism",
- 19: "Cell wall inhibitors",
- 20: "Drug receptor interaction",
- 21: "Antifungal drugs",
- 22: "Sympathomimetic drugs",
- 23: "Parasympathomimetics",
- 24: "Adrenergic receptor blockers",
+   1:  "Blood vessels of the thorax",
+   2:  "Blood vessels of the head and neck",
+   
 };
   
 const lectureFilters = {
     "All": [],
-    "Biochemistry": [
+    "Anatomy": [
         { label: "All",                            val: "All" },
         
-        { label: "Protein Metabolism 🥩",     val: 1 },
-        { label: "Lipid Metabolism 🥑",     val: 2 },
-        { label: "Enzymology 🧪",     val: 3 },
-        { label: "Cancer 🧬",     val: 4 },
-        { label: "Carbohydrate Metabolism 🍞",     val: 5 },
-        { label: "Nutrition 🥗",     val: 6 },
+        { label: "Blood vessels of the thorax",     val: 1 },
+        { label: "Blood vessels of the head and neck",     val: 2 },
+      
 
  ],
 
-  "Pharmacology": [
-        { label: "All",               val: "All" },
-        
-        { label: "Inhibitors of baterial protein synthesis",     val: 7 },
-        {label: "Drug metabolism",     val: 18 },
-        {label: "Cell wall inhibitors",     val: 19 },
-        {label: "Drug receptor interaction",     val: 20 },
-        {label: "Antifungal drugs",     val: 21 },
-        {label: "Sympathomimetic drugs",     val: 22 },
-        {label: "Parasympathomimetics",     val: 23 },
-        {label: "Adrenergic receptor blockers",     val: 24 },
- ],
-    
- "Immunology": [
-        { label: "All",               val: "All" },
-        
-        { label: "Hypersensitivity Immune response & Related diseases",     val: 8 },
-        { label: "Complement system II",     val: 9 },
-        { label: "Cytokines and immunotherapy",     val: 10 },
-        { label: "Antibody",     val: 11 },
-    
-
-
-],
-
-"Pathology": [
-        { label: "All",               val: "All" },
-        
-        { label: "Neoplasia",     val: 12 },
-        { label: "Hemodynamic disorders shock",     val: 13 },
-        { label: "Neoplasia - Molecular basis of cancer",     val: 14 },
-        {label: "Inflammation",     val: 15 },
-        {label: "Cell injury - Cellular adaptation",     val: 16 },
-        {label: "Embolism & infarction",     val: 17 },
-],
-
+ 
 
 
 };
@@ -608,8 +669,20 @@ function renderFilterBar() {
 function getLectureLabel(val) {
     if (val === "All" && currentSubjectFilter === "All") return "All";
     if (val === "All") {
-        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pharmacology": "Pharmacology 💊", "Immunology": "Immunology 🛡️", "Pathology": "Pathology 🦠", "Medical education": "Medical Education 📘" };
-        return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
+        const subjectLabels = {
+    "Anatomy": "Anatomy 🦴",
+    "Physiology": "Physiology ⚡",
+    "Microbiology": "Microbiology 🦠",
+    "Pharmacology": "Pharmacology 💊",
+    "Biochemistry": "Biochemistry 🧪",
+    "Pathology": "Pathology 🔬",
+    "Genetics": "Genetics 🧬",
+    "Medical Education": "Medical Education 📘",
+    "Histology": "Histology 🫁",
+    "Community Medicine": "Community Medicine 📕",
+    "Radiology": "Radiology ☢️"
+};
+ return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
     return lectures[val] || val;
 }
@@ -691,6 +764,12 @@ function renderQuiz() {
     updateSectionHeading();
 }
 
+document.addEventListener("keydown", function(e) {
+    if (e.ctrlKey && e.key.toLowerCase() === "s") {
+        e.preventDefault();
+    }
+});
+
 function matchesFilters(item) {
     const subjectOk = currentSubjectFilter === "All" || item.s === currentSubjectFilter;
     const lectureOk = currentLecture === "All" || item.l === currentLecture;
@@ -739,6 +818,25 @@ document.addEventListener('click', function(e) {
         document.getElementById('subject-toggle-btn').classList.remove('dropdown-open');
     }
 });
+
+function toggleSearchBar() {
+    const bar = document.getElementById('search-bar-expand');
+    const isOpen = bar.classList.contains('open');
+    if (isOpen) {
+        closeSearchBar();
+    } else {
+        bar.classList.add('open');
+        document.getElementById('search-input').focus();
+    }
+}
+
+function closeSearchBar() {
+    const bar = document.getElementById('search-bar-expand');
+    bar.classList.remove('open');
+    const input = document.getElementById('search-input');
+    input.value = '';
+    handleSearch();
+}
 
 function handleSearch() {
     const term = document.getElementById('search-input').value.toLowerCase();
