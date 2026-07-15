@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CVS_Quiz_Unknown year</title>
+
+    <style>
+       :root {
+            --bg-body: #121212;
+            --text-main: #f1f5f9;
+            --text-opts: #f1f5f9;
+            --header-bg: #1e293b;
+            --header-text: #38bdf8;
+            --border-color: #26292b;
+            --input-bg: #1a1c1e;
+            --input-border: #2a2f36;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --filter-bg: transparent;
+            
+        }
+
+        [data-theme="light"] {
+            --bg-body: #ffffff;
+            --text-main: #000000;
+            --text-opts: #333333;
+            --header-bg: #333333;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --input-bg: #ffffff;
+            --input-border: #cccccc;
+            --ans-bg: #eef6e4;
+            --ans-text: #2e7d32;
+            --filter-bg: transparent;
+            
+        }
+
+        .filter-btn.active {
+            background-color: #728fcf;
+            color: #fff;
+            border-color:  #728fcf;
+        }
+
+        body {
+            -webkit-user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1150px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 15px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 50px;
+           min-height: 35px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 10px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 10px 10px 10px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 7px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .filter-container {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-wrap: nowrap;
+            max-width: 100%;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .filter-container::-webkit-scrollbar { display: none; }
+
+        /* Subject picker dropdown */
+        .subject-toggle-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .subject-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 42px;
+            height: 42px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .subject-toggle svg {
+            stroke: none !important;
+            fill: var(--text-main);
+            pointer-events: none;
+        }
+
+        .subject-toggle.dropdown-open {
+            border-color: rgba(255,255,255,0.3);
+            background: rgba(40, 42, 45, 0.9);
+        }
+
+        .subject-toggle.dropdown-open svg { fill: var(--text-main); }
+
+        [data-theme="light"] .subject-toggle.dropdown-open {
+            border-color: #121212;
+            background: rgba(255,255,255,1);
+        }
+
+        .subject-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: #111111;
+            border: 1px solid rgba(255,255,255,0.13);
+            border-radius: 14px;
+            overflow: hidden;
+            min-width: 210px;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-6px) scale(0.97);
+            transition: opacity 0.22s ease, transform 0.22s ease;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.65);
+        }
+
+        .subject-dropdown.open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        [data-theme="light"] .subject-dropdown {
+            background: #ffffff;
+            border-color: rgba(0,0,0,0.13);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+        }
+
+        .subject-dropdown-header {
+            padding: 14px 16px 10px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #555;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        [data-theme="light"] .subject-dropdown-header {
+            border-bottom-color: rgba(0,0,0,0.08);
+            color: #999;
+        }
+
+        .subject-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 13px 16px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #aaa;
+            transition: background 0.15s ease, color 0.15s ease;
+            user-select: none;
+            cursor: pointer;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        [data-theme="light"] .subject-dropdown-item { color: #666; }
+
+        .subject-dropdown-item:not(:last-child) {
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        [data-theme="light"] .subject-dropdown-item:not(:last-child) {
+            border-bottom-color: rgba(0,0,0,0.06);
+        }
+
+        .subject-dropdown-item:hover {
+            background: rgba(255,255,255,0.06);
+            color: #e2e8f0;
+        }
+
+        [data-theme="light"] .subject-dropdown-item:hover {
+            background: rgba(0,0,0,0.04);
+            color: #111;
+        }
+
+        .subject-dropdown-item.selected { color: #f1f5f9; }
+
+        [data-theme="light"] .subject-dropdown-item.selected { color: #111; }
+
+        .filter-option-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.25);
+            flex-shrink: 0;
+            transition: background 0.15s ease, border-color 0.15s ease;
+        }
+
+        [data-theme="light"] .filter-option-dot { border-color: rgba(0,0,0,0.2); }
+
+        .subject-dropdown-item.selected .filter-option-dot {
+            background: #f1f5f9;
+            border-color: #f1f5f9;
+        }
+
+        [data-theme="light"] .subject-dropdown-item.selected .filter-option-dot {
+            background: #111;
+            border-color: #111;
+        }
+
+        .controls-row { position: relative; }
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin-bottom: 10px;
+            margin-top: 6px;
+        }
+
+        .divider { border: none; margin-bottom: 12px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+
+        .ans-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ans-btn {
+            background-color: #728fcf;
+            color: #fff;
+            border: none;
+            padding: 7px 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-weight: 650;
+            font-size: 16px;
+            transition: background-color 0.2s, color 0.2s;
+
+        }
+
+        .q-block.revealed .ans-btn {
+            background-color: var(--ans-bg);
+            color: var(--ans-text);
+            font-weight: 700;
+            padding: 7px 12px;
+            font-size: 16px;
+        }
+
+        mark { background-color: #f0cf6a; color: #000; }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 14px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-opts);
+            font-size: 1.15rem;
+            font-weight: 500;
+            opacity: 0.6;
+            box-sizing: border-box;
+            width: 100%;
+            display: block; 
+        }
+
+        .section-heading-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .mcq-count-badge {
+            font-size: 0.70rem;
+            font-weight: 700;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            padding: 2px 5px;
+            border-radius: 3px;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+
+<body oncontextmenu="return false;">
+
+<div class="container">
+    <div class="header" style="padding: 9px 14px; margin-bottom: 15px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+           
+            <span style="font-size: 0.90rem; font-weight: 800; color: var(--header-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">CVS 🫀 &nbsp;·&nbsp; Quiz &nbsp;·&nbsp; Unknown Year</span>
+        </div>
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+        
+        <div class="subject-toggle-wrapper">
+            <div class="subject-toggle" id="subject-toggle-btn" onclick="toggleSubjectDropdown()" title="Filter by subject">
+                <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.90693 3.9999C9.93791 3.99996 9.96894 4.00001 10 4.00001C10.0311 4.00001 10.0621 3.99996 10.0931 3.9999C10.4618 3.99929 10.8242 3.99869 11.147 4.08519C12.0098 4.31636 12.6836 4.99023 12.9148 5.85296C13.0013 6.1758 13.0007 6.53821 13.0001 6.90693C13.0001 6.93792 13 6.96895 13 7.00001H21C21.5523 7.00001 22 7.44772 22 8.00001C22 8.55229 21.5523 9.00001 21 9.00001H13C13 9.03107 13.0001 9.0621 13.0001 9.09309C13.0007 9.46181 13.0013 9.82422 12.9148 10.1471C12.6836 11.0098 12.0098 11.6837 11.147 11.9148C10.8242 12.0013 10.4618 12.0007 10.0931 12.0001C10.0621 12.0001 10.0311 12 10 12C9.96894 12 9.93791 12.0001 9.90692 12.0001C9.5382 12.0007 9.17579 12.0013 8.85295 11.9148C7.99022 11.6837 7.31635 11.0098 7.08519 10.1471C6.99868 9.82421 6.99928 9.46181 6.9999 9.09308C6.99995 9.0621 7 9.03106 7 9.00001H5C4.44772 9.00001 4 8.55229 4 8.00001C4 7.44772 4.44772 7.00001 5 7.00001H7C7 6.96895 6.99995 6.93792 6.9999 6.90693C6.99928 6.53821 6.99868 6.1758 7.08519 5.85296C7.31635 4.99023 7.99022 4.31636 8.85295 4.08519C9.17579 3.99869 9.5382 3.99929 9.90693 3.9999ZM9.49861 6.00536C9.39195 6.01022 9.36685 6.01805 9.37059 6.01704C9.19804 6.06328 9.06327 6.19805 9.01704 6.3706C9.0162 6.37411 9.00963 6.40483 9.00535 6.49861C9.00024 6.61064 9 6.75845 9 7.00001V9.00001C9 9.24156 9.00024 9.38937 9.00535 9.5014C9.01021 9.60806 9.01804 9.63315 9.01704 9.62942C9.06327 9.80196 9.19804 9.93674 9.37059 9.98297C9.36685 9.98197 9.39195 9.98979 9.49861 9.99466C9.61063 9.99977 9.75844 10 10 10C10.2416 10 10.3894 9.99977 10.5014 9.99466C10.608 9.98979 10.6331 9.98197 10.6294 9.98297C10.802 9.93674 10.9367 9.80196 10.983 9.62942C10.982 9.63315 10.9898 9.60806 10.9946 9.5014C10.9998 9.38937 11 9.24156 11 9.00001V7.00001C11 6.75845 10.9998 6.61064 10.9946 6.49861C10.9898 6.39196 10.982 6.36686 10.983 6.3706M9.49861 6.00536C9.61063 6.00025 9.75844 6.00001 10 6.00001L9.49861 6.00536ZM10 6.00001C10.2416 6.00001 10.3894 6.00025 10.5014 6.00536L10 6.00001ZM10.5014 6.00536C10.5952 6.00963 10.6259 6.0162 10.6294 6.01704L10.5014 6.00536ZM10.6298 6.01713C10.6298 6.01713 10.6296 6.0171 10.6294 6.01704L10.6298 6.01713ZM15.9069 11.9999C15.9379 12 15.9689 12 16 12C16.0311 12 16.0621 12 16.0931 11.9999C16.4618 11.9993 16.8242 11.9987 17.147 12.0852C18.0098 12.3164 18.6836 12.9902 18.9148 13.853C19.0013 14.1758 19.0007 14.5382 19.0001 14.9069C19.0001 14.9379 19 14.9689 19 15H21C21.5523 15 22 15.4477 22 16C22 16.5523 21.5523 17 21 17H19C19 17.0311 19.0001 17.0621 19.0001 17.0931C19.0007 17.4618 19.0013 17.8242 18.9148 18.1471C18.6836 19.0098 18.0098 19.6837 17.147 19.9148C16.8242 20.0013 16.4618 20.0007 16.0931 20.0001C16.0621 20.0001 16.0311 20 16 20C15.9689 20 15.9379 20.0001 15.9069 20.0001C15.5382 20.0007 15.1758 20.0013 14.853 19.9148C13.9902 19.6837 13.3164 19.0098 13.0852 18.1471C12.9987 17.8242 12.9993 17.4618 12.9999 17.0931C12.9999 17.0621 13 17.0311 13 17H5C4.44772 17 4 16.5523 4 16C4 15.4477 4.44772 15 5 15H13C13 14.969 12.9999 14.9379 12.9999 14.9069C12.9993 14.5382 12.9987 14.1758 13.0852 13.853C13.3164 12.9902 13.9902 12.3164 14.853 12.0852C15.1758 11.9987 15.5382 11.9993 15.9069 11.9999ZM15.4986 14.0054C15.392 14.0102 15.3669 14.018 15.3706 14.017C15.198 14.0633 15.0633 14.1981 15.017 14.3706C15.018 14.3669 15.0102 14.392 15.0054 14.4986C15.0002 14.6106 15 14.7585 15 15V17C15 17.2416 15.0002 17.3894 15.0054 17.5014C15.0102 17.6081 15.018 17.6332 15.017 17.6294C15.0633 17.802 15.198 17.9367 15.3706 17.983C15.3669 17.982 15.392 17.9898 15.4986 17.9947C15.6106 17.9998 15.7584 18 16 18C16.2416 18 16.3894 17.9998 16.5014 17.9947C16.608 17.9898 16.6331 17.982 16.6294 17.983C16.802 17.9367 16.9367 17.802 16.983 17.6294C16.982 17.6332 16.9898 17.6081 16.9946 17.5014C16.9998 17.3894 17 17.2416 17 17V15C17 14.7585 16.9998 14.6106 16.9946 14.4986C16.9898 14.392 16.982 14.3669 16.983 14.3706C16.9367 14.1981 16.802 14.0633 16.6294 14.017C16.6331 14.018 16.608 14.0102 16.5014 14.0054C16.3894 14.0002 16.2416 14 16 14C15.7584 14 15.6106 14.0002 15.4986 14.0054Z"/></svg>
+            </div>
+            <div class="subject-dropdown" id="subject-dropdown">
+                <div class="subject-dropdown-header">Subject</div>
+              
+                <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
+             
+                <div class="subject-dropdown-item" data-subject="Anatomy" onclick="selectSubjectFilter('Anatomy', this)"><span class="filter-option-dot"></span>Anatomy 🦴</div>
+                <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
+                
+        </div>
+        </div>
+
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="filter-container" id="filter-bar"></div>
+
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+<script>
+
+const allQuestions = [
+
+
+  // Diuretics (Questions 1-20)
+  { n: 1, s: "Pharmacology", l: 1, q: "Diuretics increase urine volume by:", o: ["A. Decreasing heart rate", "B. Inhibiting renal ion transporters to decrease Na+ reabsorption", "C. Decreasing blood glucose levels", "D. Increasing blood protein levels", "E. Stimulating aldosterone secretion"], a: "B" },
+  { n: 2, s: "Pharmacology", l: 1, q: "The mechanism of action of thiazide diuretics involves:", o: ["A. Inhibition of Na+/K+ ATPase in the proximal tubule", "B. Activation of Ca2+ channels in the collecting duct", "C. Inhibition of carbonic anhydrase", "D. Inhibition of Na+/Cl- cotransport system in the distal tubules", "E. Decreasing blood flow to the renal cortex"], a: "D" },
+  { n: 3, s: "Pharmacology", l: 1, q: "Thiazide diuretics are most commonly used for:", o: ["A. Severe kidney failure", "B. Uncomplicated hypertension", "C. Acute pulmonary edema", "D. Immediate relief of angina pectoris", "E. Idiopathic hypercalciuria with kidney stones"], a: "B" },
+  { n: 4, s: "Pharmacology", l: 1, q: "Major side effects of thiazide diuretics include:", o: ["A. Hypokalemia and volume depletion", "B. Hypoglycemia and hyperkalemia", "C. Hypernatremia and acidosis", "D. Hypocalcemia and hypothyroidism", "E. Hyperuricemia and hypercalcemia"], a: "A" },
+  { n: 5, s: "Pharmacology", l: 1, q: "Loop diuretics inhibit the reabsorption of:", o: ["A. Na+ in the distal convoluted tubule", "B. K+ in the collecting duct", "C. Na+/K+/2Cl- in the ascending limb of the loop of Henle", "D. HCO3- in the proximal tubule", "E. Glucose in the loop of Henle"], a: "C" },
+  { n: 6, s: "Pharmacology", l: 1, q: "Which clinical situation is loop diuretics preferred?", o: ["A. Chronic constipation", "B. Stable angina", "C. Type 2 diabetes mellitus", "D. Severe osteopenia", "E. Acute pulmonary edema"], a: "E" },
+  { n: 7, s: "Pharmacology", l: 1, q: "Loop diuretics can lead to:", o: ["A. Hyperkalemia", "B. Metabolic alkalosis", "C. Hypocalcemia", "D. Ototoxicity", "E. All of the above"], a: "C" },
+  { n: 8, s: "Pharmacology", l: 1, q: "Potassium-sparing diuretics act by:", o: ["A. Blocking aldosterone receptors", "B. Inhibiting Na+/Cl- cotransport", "C. Activating Na+/K+ ATPase", "D. Increasing calcium reabsorption", "E. Inhibiting the Na+/H+ antiporter"], a: "A" },
+  { n: 9, s: "Pharmacology", l: 1, q: "A clinical scenario where a potassium-sparing diuretic is useful is:", o: ["A. Secondary hyperaldosteronism", "B. Hyperkalemia", "C. Hyponatremia", "D. Hypercalcemia", "E. Nephrogenic diabetes insipidus"], a: "A" },
+  { n: 10, s: "Pharmacology", l: 1, q: "Combining potassium-sparing diuretics with ACE inhibitors can increase the risk of:", o: ["A. Hypokalemia", "B. Hyponatremia", "C. Hypercalcemia", "D. Hyperkalemia", "E. Ototoxicity"], a: "D" },
+  { n: 11, s: "Pharmacology", l: 1, q: "Spironolactone differs from amiloride by:", o: ["A. Inhibiting luminal sodium channels directly", "B. Blocking Na+/K+/2Cl- cotransport", "C. Acting as a competitive antagonist to aldosterone", "D. Increasing Na+/Ca2+ exchange", "E. Inhibiting carbonic anhydrase"], a: "C" },
+  { n: 12, s: "Pharmacology", l: 1, q: "A combination of diuretics might be preferred in which clinical case?", o: ["A. Uncomplicated hypertension", "B. Severe resistant edema", "C. Stable chronic kidney disease", "D. Mild dehydration", "E. Acute renal failure"], a: "B" },
+  { n: 13, s: "Pharmacology", l: 1, q: "Primary indications for using eplerenone include:", o: ["A. Type 1 diabetes management", "B. Acute kidney injury", "C. Hypertension and left ventricular hypertrophy", "D. Hyperthyroidism", "E. Chronic pulmonary disease"], a: "C" },
+  { n: 14, s: "Pharmacology", l: 1, q: "The role of diuretics in managing heart failure includes:", o: ["A. Reducing preload and edema", "B. Increasing blood volume", "C. Increasing heart rate", "D. Decreasing urine output", "E. Increasing myocardial contractility"], a: "A" },
+  { n: 15, s: "Pharmacology", l: 1, q: "Metabolic alkalosis due to diuretics is managed by:", o: ["A. Administering bicarbonate", "B. Administering insulin", "C. Reducing diuretic dosage", "D. Increasing dietary potassium", "E. Administering ammonium chloride"], a: "D" },
+  { n: 16, s: "Pharmacology", l: 1, q: "A patient with hypertension and gout requires a diuretic. You should avoid:", o: ["A. Loop diuretics due to hypokalemia", "B. Potassium-sparing diuretics due to hyperkalemia", "C. Thiazides due to hyperuricemia", "D. ACE inhibitors due to cough", "E. Calcium channel blockers due to edema"], a: "C" },
+  { n: 17, s: "Pharmacology", l: 1, q: "For acute pulmonary edema, the diuretic of choice is:", o: ["A. Furosemide", "B. Hydrochlorothiazide", "C. Spironolactone", "D. Amiloride", "E. Chlorthalidone"], a: "A" },
+  { n: 18, s: "Pharmacology", l: 1, q: "A patient with severe heart failure is experiencing hypokalemia due to diuretic therapy. You adjust their medication by:", o: ["A. Adding a loop diuretic", "B. Adding a potassium-sparing diuretic", "C. Switching to a thiazide diuretic", "D. Increasing the dose of the current diuretic", "E. Discontinuing all diuretics"], a: "B" },
+  { n: 19, s: "Pharmacology", l: 1, q: "For primary hyperaldosteronism, the most effective diuretic is:", o: ["A. Bumetanide", "B. Hydrochlorothiazide", "C. Spironolactone", "D. Indapamide", "E. Torsemide"], a: "C" },
+  { n: 20, s: "Pharmacology", l: 1, q: "A patient with cirrhosis and ascites is being evaluated for diuretic therapy. The preferred diuretic is:", o: ["A. Furosemide due to its strong diuretic effect", "B. Hydrochlorothiazide due to its long duration of action", "C. Spironolactone due to secondary hyperaldosteronism", "D. Amiloride due to its potassium-sparing properties", "E. Acetazolamide due to carbonic anhydrase inhibition"], a: "C" },
+
+  // ACE Inhibitors (Questions 21-40)
+  { n: 21, s: "Pharmacology", l: 1, q: "What triggers the release of renin from the kidney?", o: ["A. High sodium intake", "B. Reduced arterial pressure and sympathetic stimulation", "C. Increased arterial pressure", "D. High blood volume", "E. High potassium levels"], a: "B" },
+  { n: 22, s: "Pharmacology", l: 1, q: "What is the immediate product of angiotensinogen when acted upon by renin?", o: ["A. Angiotensin II", "B. Aldosterone", "C. Angiotensin I", "D. ACE", "E. Bradykinin"], a: "C" },
+  { n: 23, s: "Pharmacology", l: 1, q: "Which enzyme is responsible for the conversion of angiotensin I to angiotensin II?", o: ["A. Renin", "B. Angiotensin converting enzyme (ACE)", "C. Aldosterone synthase", "D. Bradykininase", "E. Neutral endopeptidase"], a: "B" },
+  { n: 24, s: "Pharmacology", l: 1, q: "What is the main action of angiotensin II?", o: ["A. Vasodilation", "B. Decreased blood pressure", "C. Vasoconstriction", "D. Decreased sodium reabsorption", "E. Decreased sympathetic outflow"], a: "C" },
+  { n: 25, s: "Pharmacology", l: 1, q: "Which receptor does angiotensin II primarily stimulate to exert its effects?", o: ["A. AT1", "B. AT2", "C. Beta-1 adrenergic receptors", "D. Alpha-1 adrenergic receptors", "E. Endothelin-1 receptors"], a: "A" },
+  { n: 26, s: "Pharmacology", l: 1, q: "ACE inhibitors are first-line treatment for hypertension in patients with:", o: ["A. Low risk of coronary disease", "B. High coronary disease risk or history of diabetes", "C. No history of chronic kidney disease", "D. High sodium intake", "E. Bilateral renal artery stenosis"], a: "B" },
+  { n: 27, s: "Pharmacology", l: 1, q: "How do ACE inhibitors lower blood pressure?", o: ["A. Increasing cardiac output", "B. Reducing peripheral vascular resistance", "C. Increasing heart rate", "D. Increasing sodium and water retention", "E. Increasing peripheral venous volume"], a: "B" },
+  { n: 28, s: "Pharmacology", l: 1, q: "What are the therapeutic uses of ACE inhibitors?", o: ["A. Accelerating the progression of diabetic nephropathy", "B. Increasing albuminuria", "C. Slowing the progression of diabetic nephropathy", "D. Treating hypokalemia", "E. Treating acute gouty arthritis"], a: "C" },
+  { n: 29, s: "Pharmacology", l: 1, q: "Which ACE inhibitor is available intravenously?", o: ["A. Captopril", "B. Lisinopril", "C. Enalaprilat", "D. Fosinopril", "E. Ramiprilat"], a: "C" },
+  { n: 30, s: "Pharmacology", l: 1, q: "What is a common adverse effect of ACE inhibitors?", o: ["A. Hypokalemia", "B. Dry cough", "C. Increased heart rate", "D. Hypoglycemia", "E. Lupus-like syndrome"], a: "B" },
+  { n: 31, s: "Pharmacology", l: 1, q: "Angiotensin II Receptor Blockers (ARBs) primarily block which receptor?", o: ["A. Beta-1 adrenergic receptors", "B. Alpha-1 adrenergic receptors", "C. AT1", "D. AT2", "E. Mineralocorticoid receptors"], a: "C" },
+  { n: 32, s: "Pharmacology", l: 1, q: "Why might ARBs be preferred over ACE inhibitors in some patients?", o: ["A. They increase bradykinin levels", "B. They have a higher risk of cough and angioedema", "C. They do not increase bradykinin levels", "D. They are less effective in lowering blood pressure", "E. They have superior inotropic effects"], a: "C" },
+  { n: 33, s: "Pharmacology", l: 1, q: "Which of the following is a direct renin inhibitor?", o: ["A. Eplerenone", "B. Losartan", "C. Aliskiren", "D. Valsartan", "E. Enalapril"], a: "C" },
+  { n: 34, s: "Pharmacology", l: 1, q: "What is the mechanism of action of aldosterone antagonists?", o: ["A. Inhibiting renin", "B. Blocking AT1 receptors", "C. Antagonizing aldosterone receptors", "D. Blocking ACE", "E. Activating the sodium pump"], a: "C" },
+  { n: 35, s: "Pharmacology", l: 1, q: "Which aldosterone antagonist is more selective and causes fewer endocrine effects?", o: ["A. Spironolactone", "B. Eplerenone", "C. Losartan", "D. Aliskiren", "E. Amiloride"], a: "B" },
+  { n: 36, s: "Pharmacology", l: 1, q: "A patient with chronic kidney disease and hypertension is being considered for medication to control blood pressure. Which class of drugs would be most appropriate?", o: ["A. Beta-blockers", "B. ACE inhibitors", "C. Calcium channel blockers", "D. Diuretics", "E. Alpha-2 agonists"], a: "B" },
+  { n: 37, s: "Pharmacology", l: 1, q: "A patient reports a persistent dry cough after starting a new blood pressure medication. Which medication is likely causing this symptom?", o: ["A. Lisinopril", "B. Amlodipine", "C. Hydrochlorothiazide", "D. Atenolol", "E. Valsartan"], a: "A" },
+  { n: 38, s: "Pharmacology", l: 1, q: "A pregnant woman with hypertension needs medication adjustment. Which of the following should be avoided?", o: ["A. Methyldopa", "B. Labetalol", "C. Enalapril", "D. Nifedipine", "E. Hydralazine"], a: "C" },
+  { n: 39, s: "Pharmacology", l: 1, q: "A patient with resistant hypertension is on multiple therapies but needs further blood pressure control. Which addition might be beneficial?", o: ["A. Another ACE inhibitor", "B. A beta-blocker", "C. Spironolactone", "D. A second ARB", "E. High-dose aspirin"], a: "C" },
+  { n: 40, s: "Pharmacology", l: 1, q: "A diabetic patient with hypertension is being evaluated for medication to protect renal function. Which medication class is preferred?", o: ["A. ACE inhibitors", "B. ARBs", "C. Either ACE inhibitors or ARBs", "D. Beta-blockers", "E. Direct vasodilators"], a: "C" },
+
+  // Antihyperlipidemic Agents (Questions 41-60)
+  { n: 41, s: "Pharmacology", l: 1, q: "What is hyperlipidemia?", o: ["A. Decrease in plasma cholesterol or triglycerides", "B. Increase in plasma cholesterol and/or triglycerides", "C. Decrease in blood glucose levels", "D. Increase in blood pressure", "E. Hyperproduction of bile acids"], a: "B" },
+  { n: 42, s: "Pharmacology", l: 1, q: "Which lipoprotein is primarily associated with an increased risk of atherosclerosis?", o: ["A. HDL", "B. LDL", "C. VLDL", "D. Chylomicrons", "E. IDL"], a: "B" },
+  { n: 43, s: "Pharmacology", l: 1, q: "What role does apolipoprotein play in lipid metabolism?", o: ["A. Decreases lipoprotein receptor recognition", "B. Mediates uptake of lipoprotein particles into tissues", "C. Inhibits cholesterol synthesis", "D. Acts as an enzyme in lipid digestion", "E. Suppresses lymphatic absorption"], a: "B" },
+  { n: 44, s: "Pharmacology", l: 1, q: "Which statin is known for its potent effect on triglyceride levels?", o: ["A. Lovastatin", "B. Simvastatin", "C. Rosuvastatin", "D. Pravastatin", "E. Fluvastatin"], a: "C" },
+  { n: 45, s: "Pharmacology", l: 1, q: "What is the primary mechanism of action of statins?", o: ["A. Inhibiting lipoprotein lipase", "B. Competitively inhibiting HMG-CoA reductase", "C. Activating PPAR-a receptors", "D. Binding to bile acids in the intestinal lumen", "E. Inhibiting the NPC1L1 transporter"], a: "B" },
+  { n: 46, s: "Pharmacology", l: 1, q: "Which fibrate is known for a greater reduction in LDL-C?", o: ["A. Gemfibrozil", "B. Fenofibrate", "C. Atorvastatin", "D. Ezetimibe", "E. Colesevelam"], a: "B" },
+  { n: 47, s: "Pharmacology", l: 1, q: "What is the effect of bile acid-binding resins on LDL cholesterol?", o: ["A. Decrease", "B. Increase", "C. No change", "D. Initial increase then decrease", "E. Rapidly elevates it"], a: "A" },
+  { n: 48, s: "Pharmacology", l: 1, q: "Ezetimibe reduces LDL-C by primarily inhibiting:", o: ["A. Bile acid synthesis", "B. Cholesterol absorption in the intestine", "C. HMG-CoA reductase", "D. VLDL production", "E. Cholesteryl ester transfer protein (CETP)"], a: "B" },
+  { n: 49, s: "Pharmacology", l: 1, q: "Which of the following is NOT an adverse effect of niacin?", o: ["A. Flushing", "B. Decreased uric acid level", "C. Hyperglycemia", "D. Hepatotoxicity", "E. Pruritus"], a: "B" },
+  { n: 50, s: "Pharmacology", l: 1, q: "PCSK9 inhibitors work by:", o: ["A. Decreasing PCSK9 protein production", "B. Inhibiting HMG-CoA reductase", "C. Increasing LDL receptor degradation", "D. Decreasing LDL receptor degradation", "E. Decreasing VLDL secretion"], a: "D" },
+  { n: 51, s: "Pharmacology", l: 1, q: "What is the primary goal of cholesterol-lowering therapy?", o: ["A. To reduce high-density lipoprotein (HDL)", "B. To increase low-density lipoprotein (LDL)", "C. To reduce low-density lipoprotein (LDL)", "D. To increase very low-density lipoprotein (VLDL)", "E. To completely eliminate triglycerides"], a: "C" },
+  { n: 52, s: "Pharmacology", l: 1, q: "Fibrates exert their lipid-lowering effect through activation of:", o: ["A. LDL receptors", "B. Peroxisome proliferator-activated receptor alpha (PPAR-a)", "C. NPC1L1 transporter", "D. PCSK9", "E. HMG-CoA reductase"], a: "B" },
+  { n: 53, s: "Pharmacology", l: 1, q: "Which antihyperlipidemic drugs are known to increase the risk for gallstones?", o: ["A. Statins", "B. PCSK9 inhibitors", "C. Fibrates", "D. Ezetimibe", "E. Bile acid sequestrants"], a: "C" },
+  { n: 54, s: "Pharmacology", l: 1, q: "Contraindications for the use of statins include:", o: ["A. Pregnancy and nursing mothers", "B. High HDL levels", "C. Low LDL levels", "D. High blood pressure", "E. History of gout"], a: "A" },
+  { n: 55, s: "Pharmacology", l: 1, q: "Nicotinic acid (Niacin) is most effective in:", o: ["A. Lowering LDL-C", "B. Increasing HDL-C", "C. Lowering blood glucose levels", "D. Decreasing blood pressure", "E. Reducing Chylomicrons"], a: "B" },
+  { n: 56, s: "Pharmacology", l: 1, q: "A patient with Type II hyperlipidemia is being considered for medication to lower LDL cholesterol. Which class of drugs would be most appropriate?", o: ["A. Fibrates", "B. Bile acid-binding resins", "C. Statins", "D. PCSK9 inhibitors", "E. Omega-3 fatty acids"], a: "C" },
+  { n: 57, s: "Pharmacology", l: 1, q: "A patient reports muscle pain and weakness after starting a new cholesterol-lowering medication. Which medication is likely causing these symptoms?", o: ["A. Ezetimibe", "B. Fenofibrate", "C. Rosuvastatin", "D. Colestipol", "E. Niacin"], a: "C" },
+  { n: 58, s: "Pharmacology", l: 1, q: "A patient with severe hypertriglyceridemia is evaluated for medication. Which drug class offers the best treatment option?", o: ["A. Statins", "B. Bile acid-binding resins", "C. Fibrates", "D. PCSK9 inhibitors", "E. Ezetimibe"], a: "C" },
+  { n: 59, s: "Pharmacology", l: 1, q: "A patient with a history of gallbladder disease needs a lipid-lowering medication. Which drug should be avoided?", o: ["A. Gemfibrozil", "B. Atorvastatin", "C. Cholestyramine", "D. Ezetimibe", "E. Pravastatin"], a: "A" },
+  { n: 60, s: "Pharmacology", l: 1, q: "For a patient with homozygous familial hypercholesterolemia not responding adequately to statins, which treatment could be added?", o: ["A. Niacin", "B. Lomitapide", "C. Fenofibrate", "D. Colestipol", "E. Lovastatin"], a: "B" },
+
+  // Calcium Channel Blockers & Direct Vasodilators (Questions 61-80)
+  { n: 61, s: "Pharmacology", l: 1, q: "Which of the following is a dihydropyridine calcium channel blocker?", o: ["A. Verapamil", "B. Diltiazem", "C. Nifedipine", "D. Both A and B", "E. Aliskiren"], a: "C" },
+  { n: 62, s: "Pharmacology", l: 1, q: "What is the primary mechanism of action of calcium channel blockers?", o: ["A. Block the inward movement of calcium by binding to L-type calcium channels", "B. Increase the inward movement of calcium", "C. Dilate veins", "D. Increase calcium levels in the heart", "E. Open sarcoplasmic calcium storage stores"], a: "A" },
+  { n: 63, s: "Pharmacology", l: 1, q: "Which calcium channel blocker is known for its selectivity towards vascular calcium channels over cardiac calcium channels?", o: ["A. Amlodipine", "B. Verapamil", "C. Diltiazem", "D. Nimodipine", "E. Gallopamil"], a: "A" },
+  { n: 64, s: "Pharmacology", l: 1, q: "For which condition is nimodipine specifically indicated?", o: ["A. Hypertension", "B. Prevention of cerebral vasospasm and ischemia following subarachnoid hemorrhage", "C. Hypertrophic obstructive cardiomyopathy", "D. Peripheral vascular disease", "E. Ventricular tachyarrhythmias"], a: "B" },
+  { n: 65, s: "Pharmacology", l: 1, q: "What is the main adverse effect common to dihydropyridine calcium channel blockers?", o: ["A. Bradycardia", "B. Reflex tachycardia", "C. Heart block", "D. Constipation", "E. Severe hyperkalemia"], a: "B" },
+  { n: 66, s: "Pharmacology", l: 1, q: "Which of the following is a non-dihydropyridine calcium channel blocker with a negative inotropic effect?", o: ["A. Amlodipine", "B. Felodipine", "C. Verapamil", "D. Nifedipine", "E. Isradipine"], a: "C" },
+  { n: 67, s: "Pharmacology", l: 1, q: "Hydralazine is classified under which category of antihypertensive drugs?", o: ["A. Calcium channel blockers", "B. Beta-blockers", "C. Direct vasodilators", "D. ACE inhibitors", "E. Central sympatholytics"], a: "C" },
+  { n: 68, s: "Pharmacology", l: 1, q: "Minoxidil is used topically for the treatment of:", o: ["A. Hypertension", "B. Hypertrichosis", "C. Alopecia", "D. Both B and C", "E. Glaucoma"], a: "D" },
+  { n: 69, s: "Pharmacology", l: 1, q: "Which drug is given by IV infusion in hypertensive emergencies due to its rapid action?", o: ["A. Diazoxide", "B. Hydralazine", "C. Sodium nitroprusside", "D. Minoxidil", "E. Fenoldopam"], a: "C" },
+  { n: 70, s: "Pharmacology", l: 1, q: "Diazoxide activates which type of channels to exert its vasodilatory effect?", o: ["A. Potassium channels", "B. Calcium channels", "C. Sodium channels", "D. Chloride channels", "E. L-type cardiac channels"], a: "A" },
+  { n: 71, s: "Pharmacology", l: 1, q: "What is the unique side effect of sodium nitroprusside related to its metabolism?", o: ["A. Hypokalemia", "B. Cyanide toxicity", "C. Hypercalcemia", "D. Magnesium deficiency", "E. Lactic acidosis only"], a: "B" },
+  { n: 72, s: "Pharmacology", l: 1, q: "Which drug is a dopamine D1 receptor agonist used in hypertensive emergencies?", o: ["A. Fenoldopam", "B. Hydralazine", "C. Minoxidil", "D. Diazoxide", "E. Nitroprusside"], a: "A" },
+  { n: 73, s: "Pharmacology", l: 1, q: "Verapamil is contraindicated in patients with:", o: ["A. Wolff-Parkinson-White syndrome", "B. Hypertension", "C. Peripheral vascular disease", "D. Raynaud's disease", "E. Essential tremor"], a: "A" },
+  { n: 74, s: "Pharmacology", l: 1, q: "Which of the following is NOT an adverse effect of non-dihydropyridine calcium channel blockers?", o: ["A. Reflex tachycardia ", "B. Bradycardia", "C. Worsening of CHF", "D. Constipation", "E. Gingival hyperplasia"], a: "E" },
+  { n: 75, s: "Pharmacology", l: 1, q: "Calcium channel blockers are particularly effective in treating:", o: ["A. Venous insufficiency", "B. Arterial hypertension", "C. Hyperkalemia", "D. Hypocalcemia", "E. Metabolic acidosis"], a: "B" },
+  { n: 76, s: "Pharmacology", l: 1, q: "A patient with cerebral vasospasm following a subarachnoid hemorrhage should be treated with:", o: ["A. Amlodipine", "B. Verapamil", "C. Nimodipine", "D. Hydralazine", "E. Nicardipine"], a: "C" },
+  { n: 77, s: "Pharmacology", l: 1, q: "A pregnant woman with severe hypertension should ideally be treated with:", o: ["A. Hydralazine", "B. Minoxidil", "C. Sodium nitroprusside", "D. Diazoxide", "E. Aliskiren"], a: "A" },
+  { n: 78, s: "Pharmacology", l: 1, q: "A patient with severe hypertrophic obstructive cardiomyopathy (HOCM) should avoid:", o: ["A. Nifedipine", "B. Diltiazem", "C. Verapamil", "D. Metoprolol", "E. Disopyramide"], a: "C" },
+  { n: 79, s: "Pharmacology", l: 1, q: "In treating a hypertensive emergency with rapid onset action required, which drug is most appropriate?", o: ["A. Amlodipine", "B. Sodium nitroprusside", "C. Felodipine", "D. Verapamil", "E. Labetalol"], a: "B" },
+  { n: 80, s: "Pharmacology", l: 1, q: "A patient experiencing reflex tachycardia as a side effect of antihypertensive therapy is likely being treated with:", o: ["A. Verapamil", "B. Diltiazem", "C. Nifedipine", "D. Fenoldopam", "E. Clonidine"], a: "C" },
+
+  // Sympatholytics & Pulmonary Hypertension (Questions 81-100)
+  { n: 81, s: "Pharmacology", l: 1, q: "What is the primary mechanism by which β-blockers reduce blood pressure?", o: ["A. Increasing renal blood flow", "B. Decreasing cardiac output", "C. Dilating veins", "D. Increasing heart rate", "E. Direct peripheral alpha blockade"], a: "B" },
+  { n: 82, s: "Pharmacology", l: 1, q: "Which β-blocker is known for its ability to increase nitric oxide production, leading to vasodilation?", o: ["A. Propranolol", "B. Atenolol", "C. Nebivolol", "D. Metoprolol", "E. Esmolol"], a: "C" },
+  { n: 83, s: "Pharmacology", l: 1, q: "Why are selective β1 blockers preferred in hypertensive patients with asthma?", o: ["A. They do not affect β2-mediated bronchodilation.", "B. They increase β2-mediated bronchodilation.", "C. They decrease heart rate more effectively.", "D. They are more effective in reducing blood pressure.", "E. They act as direct bronchodilators."], a: "A" },
+  { n: 84, s: "Pharmacology", l: 1, q: "Which of the following drugs is a non-selective β-blocker?", o: ["A. Esmolol", "B. Propranolol", "C. Atenolol", "D. Nebivolol", "E. Metoprolol"], a: "B" },
+  { n: 85, s: "Pharmacology", l: 1, q: "What adverse effect is associated with noncardioselective β-blockers in terms of lipid metabolism?", o: ["A. Increase in high-density lipoprotein cholesterol", "B. Decrease in low-density lipoprotein cholesterol", "C. Decrease in total cholesterol", "D. Increase in triglycerides", "E. Decreased fatty acid mobilization"], a: "D" },
+  { n: 86, s: "Pharmacology", l: 1, q: "α-Adrenergic blockers such as prazosin are used to treat hypertension by:", o: ["A. Increasing cardiac output", "B. Causing relaxation of arterial and venous smooth muscle", "C. Blocking β-adrenoceptors", "D. Increasing renin release", "E. Blocking central alpha-2 receptors"], a: "B" },
+  { n: 87, s: "Pharmacology", l: 1, q: "Which drug is a combined α- and β-adrenoceptor blocker used in the management of hypertensive emergencies?", o: ["A. Phentolamine", "B. Metoprolol", "C. Terazosin", "D. Atenolol", "E. Labetalol"], a: "E" },
+  { n: 88, s: "Pharmacology", l: 1, q: "Clonidine reduces blood pressure by:", o: ["A. Directly dilating peripheral arterioles", "B. Acting centrally as an α2 agonist", "C. Blocking α1-adrenoceptors", "D. Inhibiting β-adrenoceptors", "E. Depleting neuronal catecholamine stores"], a: "B" },
+  { n: 89, s: "Pharmacology", l: 1, q: "What is the primary use of phosphodiesterase-5 inhibitors in pulmonary hypertension?", o: ["A. To increase endothelin production", "B. To reduce cardiac output", "C. To inhibit breakdown of cGMP, leading to vasodilation", "D. To block α-adrenoceptors", "E. To act as a primary inotropic stimulant"], a: "C" },
+  { n: 90, s: "Pharmacology", l: 1, q: "Which of the following is a prostacyclin analog used in the treatment of pulmonary arterial hypertension?", o: ["A. Sildenafil", "B. Bosentan", "C. Epoprostenol", "D. Riociguat", "E. Macitentan"], a: "C" },
+  { n: 91, s: "Pharmacology", l: 1, q: "Endothelin receptor antagonists like bosentan are used in pulmonary hypertension because they:", o: ["A. Decrease endothelin-mediated vasoconstriction", "B. Increase nitric oxide production", "C. Inhibit phosphodiesterase type 5", "D. Stimulate α2-adrenoceptors", "E. Stimulate prostacyclin synthesis"], a: "A" },
+  { n: 92, s: "Pharmacology", l: 1, q: "Which medication requires monthly liver function tests due to potential hepatotoxicity when used in pulmonary hypertension?", o: ["A. Sildenafil", "B. Bosentan", "C. Epoprostenol", "D. Methyldopa", "E. Treprostinil"], a: "B" },
+  { n: 93, s: "Pharmacology", l: 1, q: "Riociguat is indicated for pulmonary hypertension because it:", o: ["A. Blocks β-adrenoceptors", "B. Directly blocks L-type calcium channels", "C. Inhibits endothelin receptors", "D. Acts as a prostacyclin analog", "E. Stimulates soluble guanylate cyclase"], a: "E" },
+  { n: 94, s: "Pharmacology", l: 1, q: "Which β-blocker undergoes extensive first-pass metabolism?", o: ["A. Propranolol", "B. Nebivolol", "C. Esmolol", "D. Atenolol", "E. Nadolol"], a: "A" },
+  { n: 95, s: "Pharmacology", l: 1, q: "Abrupt withdrawal of β-blockers may induce:", o: ["A. Hypotension", "B. Bradycardia", "C. Severe hypertension and angina", "D. Peripheral vasodilation", "E. Acute renal shut-down"], a: "C" },
+  { n: 96, s: "Pharmacology", l: 1, q: "A patient with hypertension and a history of asthma requires a β-blocker. Which of the following would be the most appropriate choice?", o: ["A. Propranolol", "B. Nebivolol", "C. Metoprolol", "D. Both B and C", "E. Nadolol"], a: "D" },
+  { n: 97, s: "Pharmacology", l: 1, q: "A patient with pulmonary arterial hypertension is not responding well to initial therapy. Which class of drug could be added for additional vasodilatory effects?", o: ["A. α-Adrenoceptor blockers", "B. Centrally acting adrenergic drugs", "C. Non-selective β-blockers", "D. Phosphodiesterase-5 inhibitors", "E. Direct-acting loop diuretics"], a: "D" },
+  { n: 98, s: "Pharmacology", l: 1, q: "For a patient experiencing rebound hypertension after discontinuing a hypertensive medication, which drug was likely stopped?", o: ["A. Clonidine", "B. Atenolol", "C. Doxazosin", "D. Sildenafil", "E. Enalapril"], a: "A" },
+  { n: 99, s: "Pharmacology", l: 1, q: "A pregnant woman with hypertension needs medication management. Which drug is considered safe and commonly used?", o: ["A. Methyldopa", "B. Labetalol", "C. Lisinopril ", "D. Nebivolol", "E. Both A and B"], a: "E" },
+  { n: 100, s: "Pharmacology", l: 1, q: "A patient with chronic heart failure and hypertension would benefit from adding which medication?", o: ["A. Carvedilol", "B. Prazosin", "C. Propranolol", "D. Hydralazine", "E. Clonidine"], a: "A" },
+
+  // Antihypertensive Agents + Angiotensin Inhibitors (Questions 101-120)
+  { n: 101, s: "Pharmacology", l: 1, q: "What is the primary mechanism of action of Angiotensin-Converting Enzyme Inhibitors (ACEIs)?", o: ["A. Block β-adrenoceptors", "B. Activate renin", "C. Inhibit conversion of angiotensin I to angiotensin II", "D. Block calcium channels", "E. Increase clearance of aldosterone"], a: "C" },
+  { n: 102, s: "Pharmacology", l: 1, q: "Which of the following is a side effect unique to ACE inhibitors?", o: ["A. Hypokalemia", "B. Dry cough", "C. Hypertrichosis", "D. Tachycardia", "E. Gouty flare"], a: "B" },
+  { n: 103, s: "Pharmacology", l: 1, q: "What is the effect of angiotensin II receptor blockers (ARBs) on bradykinin levels?", o: ["A. Increase", "B. Decrease", "C. Initially decrease, then increase", "D. No effect", "E. Dramatically fluctuate"], a: "D" },
+  { n: 104, s: "Pharmacology", l: 1, q: "Which class of antihypertensive drugs directly inhibits renin?", o: ["A. β-blockers", "B. Calcium channel blockers", "C. Renin inhibitors", "D. α-blockers", "E. Angiotensin receptor blockers"], a: "C" },
+  { n: 105, s: "Pharmacology", l: 1, q: "For which condition is the use of ACE inhibitors particularly beneficial?", o: ["A. Asthma", "B. Chronic kidney disease", "C. Hyperkalemia", "D. Bilateral renal stenosis", "E. Acute hepatic porphyria"], a: "B" },
+  { n: 106, s: "Pharmacology", l: 1, q: "What is the consequence of bilateral renal artery stenosis when treated with ACE inhibitors?", o: ["A. Increased glomerular filtration rate (GFR)", "B. Decreased blood pressure with no renal impact", "C. Potential renal failure due to decreased GFR", "D. Hyperkalemia", "E. Acute volume overload"], a: "C" },
+  { n: 107, s: "Pharmacology", l: 1, q: "Which antihypertensive drug class is known to cause hyperkalemia?", o: ["A. Thiazide diuretics", "B. Loop diuretics", "C. Dihydropyridines", "D. Calcium channel blockers", "E. Angiotensin inhibitors"], a: "E" },
+  { n: 108, s: "Pharmacology", l: 1, q: "Losartan is classified under which of the following antihypertensive drug classes?", o: ["A. ACE inhibitors", "B. β-blockers", "C. Angiotensin II receptor blockers (ARBs)", "D. Renin inhibitors", "E. Direct vasodilators"], a: "C" },
+  { n: 109, s: "Pharmacology", l: 1, q: "Which medication is the first orally effective direct renin inhibitor approved for hypertension?", o: ["A. Captopril", "B. Eprosartan", "C. Aliskiren", "D. Losartan", "E. Telmisartan"], a: "C" },
+  { n: 110, s: "Pharmacology", l: 1, q: "Angiotensin receptor blockers (ARBs) are contraindicated in which of the following conditions?", o: ["A. Hypertension", "B. Diabetes mellitus", "C. Pregnancy", "D. Asthma", "E. Heart failure"], a: "C" },
+  { n: 111, s: "Pharmacology", l: 1, q: "What is the primary reason for ACE inhibitors causing a dry cough?", o: ["A. Increased bradykinin levels in the pulmonary tree", "B. Increased aldosterone levels ", "C. Direct irritation of the throat", "D. Activation of pulmonary α-receptors", "E. Local histamine release"], a: "A" },
+  { n: 112, s: "Pharmacology", l: 1, q: "Which of the following is not a therapeutic use of ACE inhibitors?", o: ["A. Management of myocardial infarction", "B. Treatment of hyperkalemia", "C. Hypertension associated with chronic kidney disease", "D. Heart failure", "E. Prophylaxis of migraine"], a: "B" },
+  { n: 113, s: "Pharmacology", l: 1, q: "What is the role of endothelin in the pathophysiology of hypertension?", o: ["A. It acts as a vasodilator", "B. It decreases peripheral vascular resistance", "C. It contributes to vasoconstriction and vascular smooth muscle proliferation", "D. It inhibits aldosterone secretion", "E. It decreases heart rate"], a: "C" },
+  { n: 114, s: "Pharmacology", l: 1, q: "Angiotensin-converting enzyme inhibitors increase the levels of which substance leading to vasodilation?", o: ["A. Angiotensin II", "B. Aldosterone", "C. Bradykinin", "D. Endothelin-1", "E. Thromboxane"], a: "C" },
+  { n: 115, s: "Pharmacology", l: 1, q: "Which antihypertensive drug class is primarily excreted by the kidneys and requires dose adjustment in kidney impairment?", o: ["A. β-blockers", "B. ACE inhibitors", "C. Calcium channel blockers", "D. α-blockers", "E. Centrally acting sympatholytics"], a: "B" },
+  { n: 116, s: "Pharmacology", l: 1, q: "A patient with hypertension and chronic kidney disease is best treated with:", o: ["A. A thiazide diuretic", "B. An ACE inhibitor", "C. A calcium channel blocker", "D. A nonselective β-blocker", "E. An alpha-blocker"], a: "B" },
+  { n: 117, s: "Pharmacology", l: 1, q: "A pregnant woman with hypertension should avoid which class of antihypertensive medication?", o: ["A. Direct vasodilators ", "B. β-blockers", "C. Calcium channel blockers", "D. α-blockers", "E. Angiotensin receptor blockers (ARBs)"], a: "E" },
+  { n: 118, s: "Pharmacology", l: 1, q: "A patient with hypertension presents with a dry cough after starting a new medication. Which class of drug is likely responsible?", o: ["A. Diuretics", "B. ACE inhibitors", "C. ARBs", "D. Calcium channel blockers", "E. Beta-blockers"], a: "B" },
+  { n: 119, s: "Pharmacology", l: 1, q: "In a patient with bilateral renal artery stenosis, which antihypertensive medication should be avoided?", o: ["A. β-blockers", "B. Calcium channel blockers", "C. ACE inhibitors", "D. Potassium-sparing diuretics", "E. Centrally acting vasodilators"], a: "C" },
+  { n: 120, s: "Pharmacology", l: 1, q: "A patient with refractory hypertension already on a diuretic and a calcium channel blocker may benefit from adding:", o: ["A. Another diuretic", "B. An ACE inhibitor", "C. A β-blocker", "D. An α-blocker", "E. High-dose aspirin"], a: "B" },
+
+  // Hypertensive Emergencies & Urgencies (Questions 121-140)
+  { n: 121, s: "Pharmacology", l: 1, q: "What is the goal systolic blood pressure (SBP) in the treatment of hypertension?", o: ["A. Less than 130 mm Hg", "B. Less than 140 mm Hg", "C. Less than 150 mm Hg", "D. Less than 160 mm Hg", "E. Less than 110 mm Hg"], a: "B" },
+  { n: 122, s: "Pharmacology", l: 1, q: "Which class of antihypertensive drugs is recommended as first-line therapy for most patients with hypertension?", o: ["A. β-blockers", "B. Calcium channel blockers (CCBs)", "C. Angiotensin-converting enzyme inhibitors (ACEIs)", "D. All of the above"], a: "D" },
+  { n: 123, s: "Pharmacology", l: 1, q: "For a patient with hypertension and diabetes mellitus, which antihypertensive drug class is particularly beneficial?", o: ["A. Thiazide diuretics", "B. Angiotensin antagonists", "C. Calcium channel blockers", "D. α-blockers", "E. Direct-acting vasodilators"], a: "B" },
+  { n: 124, s: "Pharmacology", l: 1, q: "Which antihypertensive drug is considered the drug of choice for a hypertensive patient with osteoporosis?", o: ["A. Thiazide diuretics", "B. β-blockers", "C. ACE inhibitors", "D. Calcium channel blockers", "E. Loop diuretics"], a: "A" },
+  { n: 125, s: "Pharmacology", l: 1, q: "In patients with chronic kidney disease (CKD) and proteinuria, which drug class is preferred?", o: ["A. β-blockers", "B. Calcium channel blockers", "C. Angiotensin receptor blockers (ARBs) or ACE inhibitors", "D. α-blockers", "E. Loop diuretics"], a: "C" },
+  { n: 126, s: "Pharmacology", l: 1, q: "Which antihypertensive is recommended for use in hypertension concomitant with hyperthyroidism?", o: ["A. Propranolol", "B. Amlodipine", "C. Losartan", "D. Hydrochlorothiazide", "E. Clonidine"], a: "A" },
+  { n: 127, s: "Pharmacology", l: 1, q: "β-blockers are contraindicated in which of the following conditions?", o: ["A. Asthma", "B. Osteoporosis", "C. Hyperthyroidism", "D. Migraine", "E. Chronic stable angina"], a: "A" },
+  { n: 128, s: "Pharmacology", l: 1, q: "What is the initial treatment strategy for a patient with systolic blood pressure greater than 160 mm Hg or diastolic blood pressure greater than 100 mm Hg?", o: ["A. Start one antihypertensive drug", "B. Start two antihypertensive drugs simultaneously", "C. Lifestyle modifications only", "D. Immediate hospitalization", "E. Referral to nephrology directly"], a: "B" },
+  { n: 129, s: "Pharmacology", l: 1, q: "Which antihypertensive drug class is noted for bronchodilatory effects useful in asthma patients?", o: ["A. ACE inhibitors", "B. β-blockers", "C. Calcium channel blockers", "D. Thiazide diuretics", "E. Loop diuretics"], a: "C" },
+  { n: 130, s: "Pharmacology", l: 1, q: "Which drug is used for hypertensive emergencies with acute coronary ischemia?", o: ["A. Nitroglycerin", "B. Labetalol", "C. Sodium nitroprusside", "D. Hydralazine", "E. Diazoxide"], a: "A" },
+  { n: 131, s: "Pharmacology", l: 1, q: "For hypertensive urgencies, what is the initial goal for reducing blood pressure?", o: ["A. Reduce by 50% within 1 hour", "B. Reduce to less than 140/90 mm Hg within 2 hours", "C. Reduce by no more than 25% within minutes to 1 hour", "D. Reduce to less than 120/80 mm Hg within 6 hours", "E. Immediately normalize to baseline within 30 minutes"], a: "C" },
+  { n: 132, s: "Pharmacology", l: 1, q: "Which antihypertensive medication is preferred for hypertension associated with eclampsia of pregnancy?", o: ["A. Esmolol", "B. Enalaprilat", "C. Hydralazine", "D. Nicardipine", "E. Nitroprusside"], a: "C" },
+  { n: 133, s: "Pharmacology", l: 1, q: "Which class of drugs is NOT recommended as monotherapy for hypertension but can be useful in patients with benign prostatic hyperplasia?", o: ["A. α-blockers", "B. β-blockers", "C. Thiazide diuretics", "D. Calcium channel blockers", "E. Loop diuretics"], a: "A" },
+  { n: 134, s: "Pharmacology", l: 1, q: "Why are β-blockers not preferred in elderly patients with hypertension?", o: ["A. Increased risk of diabetes", "B. Attenuated response", "C. High risk of renal failure", "D. Increased risk of stroke", "E. Excessive postural hypotension"], a: "B" },
+  { n: 135, s: "Pharmacology", l: 1, q: "Which antihypertensive should be avoided in patients with gout?", o: ["A. ACE inhibitors", "B. Calcium channel blockers", "C. Thiazide diuretics", "D. Angiotensin receptor blockers", "E. Direct-acting loop diuretics"], a: "C" },
+  { n: 136, s: "Pharmacology", l: 1, q: "A 65-year-old African American man with hypertension and no other comorbidities starts treatment. Which class of antihypertensive drugs is most likely to be effective?", o: ["A. β-blockers", "B. Calcium channel blockers", "C. α-blockers", "D. ACE inhibitors", "E. Centrally acting sympatholytics"], a: "B" },
+  { n: 137, s: "Pharmacology", l: 1, q: "A patient with hypertension and chronic stable angina would benefit most from adding which class of medication?", o: ["A. β-blockers", "B. Thiazide diuretics", "C. α-blockers", "D. ARBs", "E. Direct renin inhibitors"], a: "A" },
+  { n: 138, s: "Pharmacology", l: 1, q: "A patient with hypertension presents with a severe headache and a BP of 180/120 mm Hg without any signs of target organ damage. What is the most appropriate initial treatment?", o: ["A. Oral thiazide diuretic", "B. Oral ACE inhibitor", "C. Intravenous nitroglycerin", "D. Oral β-blocker", "E. Intravenous sodium nitroprusside"], a: "C" },
+  { n: 139, s: "Pharmacology", l: 1, q: "For a patient experiencing hypertension with refractory edema, which additional medication could be considered?", o: ["A. β-blocker", "B. Thiazide diuretic", "C. Calcium channel blocker", "D. α-blocker", "E. High-dose ACE inhibitor"], a: "B" },
+  { n: 140, s: "Pharmacology", l: 1, q: "A diabetic patient with hypertension is best started on which type of antihypertensive medication?", o: ["A. β-blockers", "B. Thiazide diuretics", "C. ACE inhibitors or ARBs", "D. Calcium channel blockers", "E. Direct vasodilators"], a: "C" },
+
+
+  { n: 141, s: "Anatomy", l: 1, q: "An 8-year-old boy is brought to the emergency department following a fall resulting in a fracture of the 2nd rib. Upon examination, a perforation is noted, revealing a rupture of the second posterior intercostal artery, leading to significant bleeding. In order to control the bleeding, which of the following arteries should be ligated?", o: ["A. Internal mammary artery", "B. Musculophrenic artery", "C. Epigastric artery", "D. Superior intercostal artery", "E. Descending thoracic aorta"], a: "D" },
+
+{ n: 142, s: "Anatomy", l: 1, q: "During a surgical procedure, a surgeon has reflected the fat pad containing the thymic remnants and notes a large venous structure crossing the midline from the left and apparently emptying into the SVC. This vessel is most likely which of the following?", o: ["A. Right brachiocephalic vein", "B. Left brachiocephalic vein", "C. Left internal jugular vein", "D. Left subclavian vein", "E. Azygous vein"], a: "B" },
+
+{ n: 143, s: "Anatomy", l: 1, q: "During thoracocentesis for drainage of fluid from the left pleural cavity, a needle was inserted into the third intercostal space, inadvertently causing injury to the 3rd posterior intercostal vein. This vein anatomically drains into which of the following?", o: ["A. Azygous vein", "B. Superior hemiazygos vein", "C. Superior intercostal vein", "D. Innominate vein", "E. Subcostal vein"], a: "C" },
+
+{ n: 144, s: "Anatomy", l: 1, q: "A 45-year-old male patient undergoes coronary artery bypass grafting surgery. During the procedure, the surgeon identifies and mobilizes the internal thoracic artery (ITA) to use as a graft. While dissecting around the artery, the resident accidentally lacerates the surrounding veins (internal thoracic vein). Which of the following is the anatomical site for the formation of the internal thoracic vein?", o: ["A. 2nd costal cartilage", "B. 3rd intercostal cartilage", "C. 4th intercostal cartilage", "D. 5th intercostal cartilage", "E. 6th intercostal cartilage"], a: "E" },
+
+{ n: 145, s: "Anatomy", l: 1, q: "During a shoulder surgery, a surgeon ligates the second part of the axillary artery. Which of the following arteries provides the most significant collateral circulation to maintain blood supply to the upper limb?", o: ["A. Superior thoracic artery", "B. Subscapular artery", "C. Thoracoacromial artery", "D. Anterior circumflex humeral artery", "E. Lateral thoracic artery"], a: "B" },
+
+{ n: 146, s: "Anatomy", l: 1, q: "22-year-old male football player suffered a wrist injury while falling with force on his outstretched hand. When the anatomic snuffbox is exposed in surgery, an artery is visualized crossing the fractured bone that provides a floor for this space. What artery was visualized?", o: ["A. Ulnar", "B. Radial", "C. Anterior interosseous", "D. Posterior interosseous", "E. Deep palmar arch"], a: "B" },
+
+{ n: 147, s: "Anatomy", l: 1, q: "29-year-old female is examined in the emergency department after falling from her balcony. Radiographic examination reveals that she has suffered a broken clavicle, with associated internal bleeding. Which of the following vessels is most likely to be injured in clavicular fractures?", o: ["A. Subclavian artery", "B. Cephalic vein", "C. Lateral thoracic artery", "D. Subclavian vein", "E. Internal thoracic artery"], a: "D" },
+
+{ n: 148, s: "Anatomy", l: 1, q: "A 59-year-old woman is admitted to the hospital in a state of shock. During physical examination, several laceration are noted in her forearm and her radial pulse is absent. Where is the most typical place to identify the radial artery immediately after crossing the radiocarpal joint?", o: ["A. Between the two heads of the first dorsal interosseous muscles", "B. Below the tendon of the flexor pollicis longus", "C. Between the first and second interosseous Muscle", "D. Between the first interosseous muscle and the adductor pollicis longus", "E. Between the second and third interosseous Muscle"], a: "A" },
+
+{ n: 149, s: "Anatomy", l: 1, q: "A 28-year-old rock climber complains of numbness and tingling in his right hand, especially after prolonged overhead activity. Examination reveals a weak radial pulse when he raises his arm. Imaging shows compression of the axillary artery beneath a muscle near the coracoid process. Which muscle is most likely causing the compression?", o: ["A. Pectoralis major", "B. Pectoralis minor", "C. Subscapularis", "D. Teres major", "E. Serratus anterior"], a: "B" },
+
+{ n: 150, s: "Anatomy", l: 1, q: "The fact that the kidneys of a 32-year-old female patient were failing required that she be placed on dialysis. However, the search in her upper limb for a suitable vein was unexpectedly difficult. The major vein on the lateral side of the arm was too small; others were too delicate. Finally, a vein was found on the medial side of the arm that passed through the superficial and deep fascia to join veins beside the brachial artery. Which of the following veins was this?", o: ["A. Basilic", "B. Lateral cubital", "C. Cephalic", "D. Medial cubital", "E. Medial antebrachial"], a: "A" },
+{ n: 151, s: "Pharmacology", l: 1, q: "A 43-year-old heavy machine operator complains of seasonal allergies. Which one of the following medications would be most appropriate for management of his allergy symptoms?", o: ["A. Cyclizine.", "B. Doxylamine.", "C. Hydroxyzine.", "D. Fexofenadine.", "E. Cetirizine."], a: "D" },
+
+{ n: 152, s: "Pharmacology", l: 1, q: "Which one of the following statements concerning H1 antihistamines is correct?", o: ["A. Second-generation H1 antihistamines are relatively free of adverse effects.", "B. Because of the established long-term safety of first-generation H1 antihistamines, they are the first choice for allergic rhinitis.", "C. The motor coordination involved in driving an automobile is not affected by the use of first-generation H1 antihistamines.", "D. H1 antihistamines can be used in the treatment of acute anaphylaxis.", "E. Both first- and second-generation H1 antihistamines readily penetrate the blood-brain barrier."], a: "A" },
+
+{ n: 153, s: "Pharmacology", l: 1, q: "Which of the following medications has the most potential to significantly impair the ability to drive an automobile?", o: ["A. Diphenhydramine.", "B. Levocetirizine.", "C. Fexofenadine.", "D. Ranitidine.", "E. Cimetidine."], a: "A" },
+
+{ n: 154, s: "Pharmacology", l: 1, q: "Which of the following histamine receptor antagonists is known to enter the central nervous system readily and is known to be sedative?", o: ["A. Hydroxyzine.", "B. Cetirizine.", "C. Desloratadine.", "D. Loratadine.", "E. Fexofenadine."], a: "A" },
+
+{ n: 155, s: "Pharmacology", l: 1, q: "Which of the following statements about histamine receptor antagonists is MOST ACCURATE?", o: ["A. Most antihistamines have no antimuscarinic effects.", "B. α-Adrenergic effects of antihistamines may cause hypertension.", "C. First-generation antihistamines have no sedative side effects.", "D. Because of their cholinergic properties, antihistamines may not be effective in the relief of vertigo associated with motion sickness.", "E. Headache may be associated with some second-generation antihistamines."], a: "E" },
+
+{ n: 156, s: "Pharmacology", l: 1, q: "All of the following are preferred antihistamines for the management of allergic rhinitis except:", o: ["A. Chlorpheniramine.", "B. Fexofenadine.", "C. Loratadine.", "D. Cetirizine.", "E. Intranasal azelastine."], a: "A" },
+
+{ n: 157, s: "Pharmacology", l: 1, q: "A passenger sitting next to you in a plane boasts that he was a famous biochemist. He said he carboxylated a sedating antihistamine, and it is now only partially sedating and is a very well-known drug in the market. Which drug is he talking about?", o: ["A. Hydroxyzine.", "B. Cetirizine.", "C. Diphenhydramine.", "D. Doxylamine.", "E. Cyproheptadine."], a: "B" },
+
+{ n: 158, s: "Pharmacology", l: 1, q: "Which of the following is an H1-receptor antagonist that also has serotonin receptor antagonism on the appetite center with the ability to stimulate appetite?", o: ["A. Hydroxyzine.", "B. Loratadine.", "C. Diphenhydramine.", "D. Cetirizine.", "E. Cyproheptadine."], a: "E" },
+
+{ n: 159, s: "Pharmacology", l: 1, q: "Your neighbor said she used an H1 antihistamine that was available over-the-counter (OTC), and it caused her marked drowsiness and dry mouth and she slept quite longer than usual. Which is the most possible drug that she used?", o: ["A. Loratadine.", "B. Levocetirizine.", "C. Diphenhydramine.", "D. Fexofenadine.", "E. Desloratadine."], a: "C" },
+
+{ n: 160, s: "Pharmacology", l: 1, q: "A patient is going on a deep sea fishing trip and is worried about motion sickness. Which of the following would be the most appropriate?", o: ["A. Dimenhydrinate 1 hour prior to departure.", "B. Desloratadine 1 hour prior to departure.", "C. Doxylamine 1 hour prior to departure.", "D. Meclizine at onset of symptoms.", "E. Scopolamine at onset of symptoms."], a: "A" },
+
+{ n: 161, s: "Pharmacology", l: 1, q: "A patient has a severe ear infection that is associated with significant vertigo. Which of the following might be helpful?", o: ["A. Azelastine.", "B. Brompheniramine.", "C. Meclizine.", "D. Olopatadine.", "E. Cetirizine."], a: "C" },
+
+
+];
+
+
+const lectures = {
+   1:  "Blood vessels of the thorax",
+   2:  "Blood vessels of head and neck",
+   
+};
+  
+const lectureFilters = {
+    "All": [],
+    "Anatomy": [
+        { label: "All",                            val: "All" },
+        
+        { label: "Blood vessels of the thorax",     val: 1 },
+        { label: "Blood vessels of head and neck",     val: 2 },
+       
+ ],
+
+
+
+
+};
+let currentSubjectFilter = "All";  // default
+let currentLecture = "All";
+
+const container = document.getElementById('quiz-content');
+const filterBar = document.getElementById('filter-bar');
+
+function renderFilterBar() {
+    const filters = lectureFilters[currentSubjectFilter] || lectureFilters["All"];
+    filterBar.innerHTML = filters.map(f =>
+        `<button class="filter-btn${f.val === currentLecture ? " active" : ""}" onclick="filterByLecture('${f.val}', this)">${f.label}</button>`
+    ).join('');
+}
+
+function getLectureLabel(val) {
+    if (val === "All" && currentSubjectFilter === "All") return "All";
+    if (val === "All") {
+         const subjectLabels = {
+    "Anatomy": "Anatomy 🦴",
+    "Physiology": "Physiology ⚡",
+    "Microbiology": "Microbiology 🦠",
+    "Pharmacology": "Pharmacology 💊",
+    "Biochemistry": "Biochemistry 🧪",
+    "Pathology": "Pathology 🔬",
+    "Genetics": "Genetics 🧬",
+    "Medical Education": "Medical Education 📘",
+    "Histology": "Histology 🫁",
+    "Community Medicine": "Community Medicine 📕",
+    "Radiology": "Radiology ☢️"
+};
+        return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
+    }
+    return lectures[val] || val;
+}
+
+function updateSectionHeading() {
+    const existing = document.getElementById('section-heading');
+    const visibleBlocks = [...document.querySelectorAll('.q-block')].filter(b => b.style.display !== "none");
+    const count = visibleBlocks.length;
+
+    let noResultsMsg = document.getElementById('no-results-msg');
+    if (count === 0) {
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.id = 'no-results-msg';
+            noResultsMsg.className = 'no-results';
+            noResultsMsg.textContent = "No questions found.";
+            container.appendChild(noResultsMsg);
+        }
+    } else if (noResultsMsg) {
+        noResultsMsg.remove();
+    }
+
+    const label = getLectureLabel(currentLecture);
+    const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
+
+    if (existing) {
+        existing.style.display = (count === 0) ? "none" : "flex";
+        existing.querySelector('.section-heading-title').textContent = label;
+        existing.querySelector('.mcq-count-badge').textContent = badgeText;
+    } else if (count > 0) {
+        const heading = document.createElement('div');
+        heading.id = 'section-heading';
+        heading.className = 'section-heading';
+        heading.innerHTML = `<span class="section-heading-title">${label}</span><span class="mcq-count-badge">${badgeText}</span>`;
+        container.insertBefore(heading, container.firstChild);
+    }
+}
+
+function renderQuiz() {
+    container.innerHTML = '';
+    allQuestions.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.subject = item.s;
+        div.dataset.lecture = item.l ?? "";
+        div.dataset.searchText = (item.q + " " + item.o.join(" ")).toLowerCase();
+
+        div.style.display = matchesFilters(item) ? "block" : "none";
+
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <button class="ans-btn" data-answer="Answer: ${item.a}" onclick="toggleAnswer(this)">Answer</button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+    updateSectionHeading();
+}
+
+function matchesFilters(item) {
+    const subjectOk = currentSubjectFilter === "All" || item.s === currentSubjectFilter;
+    const lectureOk = currentLecture === "All" || item.l === currentLecture;
+    return subjectOk && lectureOk;
+}
+
+function filterByLecture(val, btn) {
+    currentLecture = val;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    handleSearch();
+}
+
+// Subject dropdown logic
+function toggleSubjectDropdown() {
+    const dd = document.getElementById('subject-dropdown');
+    const btn = document.getElementById('subject-toggle-btn');
+    const isOpen = dd.classList.contains('open');
+    if (isOpen) {
+        dd.classList.remove('open');
+        btn.classList.remove('dropdown-open');
+    } else {
+        dd.classList.add('open');
+        btn.classList.add('dropdown-open');
+    }
+}
+
+function selectSubjectFilter(subject, el) {
+    currentSubjectFilter = subject;
+    currentLecture = "All";
+    localStorage.setItem('selectedSubject', subject);
+    // update selected state in dropdown
+    document.querySelectorAll('.subject-dropdown-item').forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+    // keep dropdown open — do NOT close it
+    // re-render filter bar and quiz
+    renderFilterBar();
+    handleSearch();
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+    const wrapper = document.querySelector('.subject-toggle-wrapper');
+    if (wrapper && !wrapper.contains(e.target)) {
+        document.getElementById('subject-dropdown').classList.remove('open');
+        document.getElementById('subject-toggle-btn').classList.remove('dropdown-open');
+    }
+});
+
+function handleSearch() {
+    const term = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+    blocks.forEach(block => {
+        resetBlock(block);
+        const subjectOk = currentSubjectFilter === "All" || block.dataset.subject === currentSubjectFilter;
+        const lectureOk = currentLecture === "All" || String(block.dataset.lecture) === String(currentLecture);
+        const matchesSearch = term === "" || block.dataset.searchText.includes(term);
+        if (subjectOk && lectureOk && matchesSearch) {
+            block.style.display = "block";
+            if (term !== "") highlight(block, term);
+        } else {
+            block.style.display = "none";
+        }
+    });
+    updateSectionHeading();
+}
+
+function resetBlock(block) {
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+    qText.innerHTML = qText.dataset.original;
+    opts.forEach(li => li.innerHTML = li.dataset.original);
+    block.classList.remove('revealed');
+    const btn = block.querySelector('.ans-btn');
+    if (btn && btn.dataset.answer) btn.textContent = 'Answer';
+}
+
+function highlight(block, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    block.querySelector('.q-text').innerHTML = block.querySelector('.q-text').innerHTML.replace(regex, '<mark>$1</mark>');
+    block.querySelectorAll('li').forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+}
+
+function toggleAnswer(btn) {
+    const block = btn.closest('.q-block');
+    const isRevealed = block.classList.toggle('revealed');
+    btn.textContent = isRevealed ? btn.dataset.answer : 'Answer';
+}
+
+function toggleTheme() {
+    const isLight = document.body.getAttribute('data-theme') === 'light';
+    const newTheme = isLight ? '' : 'light';
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.getElementById('theme-icon').innerHTML = isLight 
+        ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
+        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+}
+
+(function () {
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+        document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+    // Restore saved subject (default: Biochemistry)
+    const saved = localStorage.getItem('selectedSubject');
+    if (saved && lectureFilters[saved]) {
+        currentSubjectFilter = saved;
+    }
+    // Mark the correct dropdown item as selected
+    document.querySelectorAll('.subject-dropdown-item').forEach(item => {
+        if (item.dataset.subject === currentSubjectFilter) {
+            item.classList.add('selected');
+        } else {
+            item.classList.remove('selected');
+        }
+    });
+}());
+
+renderFilterBar();
+renderQuiz();
+</script>
+</body>
+</html>
