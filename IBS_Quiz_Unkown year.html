@@ -395,9 +395,11 @@
             <div class="subject-dropdown" id="subject-dropdown">
                 <div class="subject-dropdown-header">Subject</div>
               
+                <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
              
                
                 <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
+                <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
               
         </div>
         </div>
@@ -453,8 +455,74 @@ const allQuestions = [
 
   { n: 16, s: "Pathology", l: 1, q: "The recovery of normal tensile strength of a tissue at site of wound is gained after?", o: ["A. One week", "B. Two week", "C. One month", "D. Two month", "E. Six month"], a: "E" },
 
-  { n: 17, s: "Pathology", l: 1, q: "Which of the following is most likely seen at first week of wound healing process?", o: ["A. Wound strength is about 80%", "B. Wound healing is completed", "C. Granulation tissue at its peak", "D. Collagen synthesis at its peak", "E. Wound contraction at its peak"], a: "C" }
+  { n: 17, s: "Pathology", l: 1, q: "Which of the following is most likely seen at first week of wound healing process?", o: ["A. Wound strength is about 80%", "B. Wound healing is completed", "C. Granulation tissue at its peak", "D. Collagen synthesis at its peak", "E. Wound contraction at its peak"], a: "C" },
 
+
+  {
+    "n": 18,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "Neostigmine used in treatment of Myasthenia gravis acts by:",
+    "o": [
+      "A. Increasing the number of receptors for ACh.",
+      "B. Increasing synthesis of ACh.",
+      "C. Decreasing breakdown of ACh.",
+      "D. increasing degradation of Ach."
+    ],
+    "a": "C"
+  },
+  {
+    "n": 19,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "A patient presented to the ER with signs and symptoms of organophosphate poisoning. Pralidoxime was one of the drugs that were given to treat the patient. What is the mechanism of action of this drug?",
+    "o": [
+      "A. Stimulation of ACh receptors",
+      "B. Inhibition of breakdown of ACh",
+      "C. Blockade of ACh receptors",
+      "D. Reactivation of AChE enzyme"
+    ],
+    "a": "D"
+  },
+  {
+    "n": 20,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "A 45 years old patient presents with muscle weakness. Myasthenia gravis is suspected. Which of the following is used for its diagnosis?",
+    "o": [
+      "A. Edrophonium",
+      "B. Neostigmine",
+      "C. Galantamine",
+      "D. Methacholine"
+    ],
+    "a": "A"
+  },
+  {
+    "n": 21,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "In Alzheimer's disease, there is usually a deficiency of cholinergic neuronal function in the brain. Theoretically which one of these is useful in treating symptoms of the disease?",
+    "o": [
+      "A. Inhibiting cholinergic receptors in the brain.",
+      "B. Inhibiting release of Ach in the brain.",
+      "C. Inhibiting acetylcholinesterase enzyme in the brain.",
+      "D. Activating acetylcholinesterase enzyme in the brain."
+    ],
+    "a": "C"
+  },
+  {
+    "n": 22,
+    "s": "Pharmacology",
+    "l": 1,
+    "q": "A 70 years old male patient presented with dry mouth after receiving radiation to the neck for treatment of a cancerous mass. Which of the following drugs is the useful for treating this condition?",
+    "o": [
+      "A. Acetylcholine",
+      "B. Pilocarpine",
+      "C. Carbachol",
+      "D. Ecothiophate"
+    ],
+    "a": "B"
+  }
 
 ];
 
@@ -471,7 +539,7 @@ const lectures = {
 };
   
 const lectureFilters = {
-    
+       "All": [],
 
 "Pathology": [
         { label: "All",               val: "All" },
@@ -486,8 +554,8 @@ const lectureFilters = {
 };
 
 
-let currentSubjectFilter = "Pathology";  // default
-let currentLecture = "All";  // default
+let currentSubjectFilter = "All";  
+let currentLecture = "All";  
 
 const container = document.getElementById('quiz-content');
 const filterBar = document.getElementById('filter-bar');
@@ -502,7 +570,7 @@ function renderFilterBar() {
 function getLectureLabel(val) {
     if (val === "All" && currentSubjectFilter === "All") return "All";
     if (val === "All") {
-        const subjectLabels = { "Biochemistry": "Biochemistry 🧪", "Pathology": "Pathology 🔬" };
+        const subjectLabels = { "Pharmacology": "Pharmacology 💊", "Pathology": "Pathology 🔬" };
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
     return lectures[val] || val;
