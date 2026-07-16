@@ -217,7 +217,7 @@ const ALL_SECTIONS = [
 
       { title: '2023-2024 Year Exam',     links: [
         { label: 'End-Block _ Theory', badge: '30 MCQs',  href: 'IBS_End-Block_Theory_2023-2024.html' },
-        { label: 'End-Block _ Practice', badge: '10 Questions',  href: 'IBS_End-Block_Practice_2023-2024.html' },
+        { label: 'End-Block _ Practice', badge: '10 Qs',  href: 'IBS_End-Block_Practice_2023-2024.html' },
         { label: 'Final', badge: '88 MCQs',  href: 'IBS_Final_2023-2024.html' },
  ] },
 
@@ -301,7 +301,7 @@ const ALL_SECTIONS = [
 
  { title: '2024-2025 Year Exam',     links: [
         { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'MSD_End-Block_Theory_2024-2025.html' },
-        { label: 'End-Block _ Practice', badge: '16 Questions',  href: 'MSD_End-Block_Practice_2024-2025.html' },
+        { label: 'End-Block _ Practice', badge: '16 Qs',  href: 'MSD_End-Block_Practice_2024-2025.html' },
         { label: 'Final', badge: '106 MCQs',  href: 'MSD_Final_2024-2025.html' },
 
 
@@ -348,7 +348,7 @@ const ALL_SECTIONS = [
 
  { title: '2024-2025 Year Exam 🔥',     links: [
         { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'CVS_End-Block_Theory_2024-2025.html' },
-        { label: 'End-Block _ Practice', badge: '16 Questions',  href: 'CVS_End-Block_Practice_2024-2025.html' },
+        { label: 'End-Block _ Practice', badge: '16 Qs',  href: 'CVS_End-Block_Practice_2024-2025.html' },
         { label: 'Final', badge: '106 MCQs',  href: 'CVS_Final_2024-2025.html' },
 
 
@@ -357,7 +357,7 @@ const ALL_SECTIONS = [
 
      { title: '2025-2026 Year Exam 🔥',     links: [
       { label: 'End-Block _ Theory', badge: '29 MCQs',  href: 'CVS_End-Block_Theory_2025-2026.html' },
-      { label: 'End-Block _ Practice', badge: '12 Questions',  href: 'CVS_End-Block_Practice_2025-2026.html' },
+      { label: 'End-Block _ Practice', badge: '12 Qs',  href: 'CVS_End-Block_Practice_2025-2026.html' },
       { label: 'Final', badge: '54 MCQs',  href: 'CVS_Final_2025-2026.html' }
     
     ] },
@@ -392,7 +392,7 @@ const ALL_SECTIONS = [
 
  { title: '2024-2025 Year Exam',     links: [
         { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'MSD_End-Block_Theory_2024-2025.html' },
-        { label: 'End-Block _ Practice', badge: '16 Questions',  href: 'MSD_End-Block_Practice_2024-2025.html' },
+        { label: 'End-Block _ Practice', badge: '16 Qs',  href: 'MSD_End-Block_Practice_2024-2025.html' },
         { label: 'Final', badge: '106 MCQs',  href: 'MSD_Final_2024-2025.html' },
 
 
