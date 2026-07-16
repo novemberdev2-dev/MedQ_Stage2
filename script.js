@@ -275,7 +275,7 @@ const ALL_SECTIONS = [
     ] },
 
      { title: 'Unknown Year Exam',     links: [
-      { label: 'Quiz', badge: '161 MCQs',  href: 'MSD_Quiz_Unkown Year.html' },
+      { label: 'Quiz', badge: '0 MCQs',  href: 'MSD_Quiz_Unkown Year.html' },
     
     ] },
     ]
