@@ -203,7 +203,7 @@ const ALL_SECTIONS = [
 
       ]},
       { title: '2020-2021 Year Exam', links: [
-        { label: 'Final',   badge: '62 MCQs',     href: 'IBS_Final_2020-2021.html' },
+        { label: 'Final',   badge: '61 MCQs',     href: 'IBS_Final_2020-2021.html' },
         
       ]},
       { title: '2021-2022 Year Exam',   links: [
@@ -233,64 +233,94 @@ const ALL_SECTIONS = [
     
     ] },
 
-     { title: 'Unkown Year Exam',     links: [
+     { title: 'Unknown Year Exam',     links: [
       { label: 'Quiz', badge: '17 MCQs',  href: 'IBS_Quiz_Unkown year.html' },
     
     ] },
     ]
   },
+
+
   {
-    type: 'Musculoskeletal system and dermatology 🦴',
+    type: 'Musculoskeletal System And Dermatology 🦴',
     cards: [
-      { title: 'Anatomy 🦴', links: [
-        { label: 'Theory',   badge: '196 MCQs',    href: 'Anatomy.html' },
-        { label: 'Practice', badge: '70 Questions', href: 'Anatomylabs.html' }
-      ]},
-      { title: 'Biochemistry 🧪', links: [
-        { label: 'Theory',   badge: '131 MCQs',    href: 'Microbiology.html' },
-        { label: 'Practice', badge: '32 Questions', href: 'Microbiology labs.html' }
-      ]},
-      { title: 'Dermatology ', links: [
-        { label: 'Theory',   badge: '82 MCQs',     href: 'Molecular biology.html' },
-        { label: 'Practice', badge: '4 Questions',  href: 'M.biology-practical.html' }
-      ]},
-      { title: 'Genetics 🧬',   links: [{ label: 'Theory', badge: '204 MCQs', href: 'Physiology.html' }] },
-      { title: 'Histology 🫁',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Medical education 📕',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Microbiology 🦠',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Pathology ',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Pharmacology 💊',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Physiology ⚡',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Radiology ☢️',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
+     
+     
+
+      { title: '2021-2022 Year Exam',   links: [
+        { label: 'Final _ 1st Term', badge: '31 MCQs', href: 'MSD_Final_2021-2022.html' },
+        { label: 'Final _ 2nd Term', badge: '31 MCQs', href: 'MSD_Final2_2021-2022.html' },
+
+     ]},
+      { title: '2023-2024 Year Exam',   links: [
+        { label: 'Practice', badge: '13 Qs', href: 'MSD_End_Block_Practice_2023-2024.html' },
+
+     ]},
+     
+
+
+ { title: '2024-2025 Year Exam',     links: [
+        { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'MSD_End-Block_Theory_2024-2025.html' },
+        { label: 'End-Block _ Practice', badge: '16 Qs',  href: 'MSD_End-Block_Practice_2024-2025.html' },
+        { label: 'Final', badge: '106 MCQs',  href: 'MSD_Final_2024-2025.html' },
+
+
+      ] },
+
+
+     { title: '2025-2026 Year Exam',     links: [
+      { label: 'End-Block _ Theory', badge: '29 MCQs',  href: 'MSD_End-Block_Theory_2025-2026.html' },
+      { label: 'Final', badge: '54 MCQs',  href: 'MSD_Final_2025-2026.html' }
     
+    ] },
+
+     { title: 'Unknown Year Exam',     links: [
+      { label: 'Quiz', badge: '161 MCQs',  href: 'MSD_Quiz_Unkown Year.html' },
+    
+    ] },
     ]
   },
-  {
+
+   {
     type: 'Hematopoetic 🩸',
     cards: [
-      { title: 'Bioethics', links: [
-        { label: 'Theory',   badge: '196 MCQs',    href: 'Anatomy.html' },
-        { label: 'Practice', badge: '70 Questions', href: 'Anatomylabs.html' }
-      ]},
-      { title: 'Biochemistry 🧪', links: [
-        { label: 'Theory',   badge: '131 MCQs',    href: 'Microbiology.html' },
-        { label: 'Practice', badge: '32 Questions', href: 'Microbiology labs.html' }
-      ]},
-      { title: 'Community medicine ', links: [
-        { label: 'Theory',   badge: '82 MCQs',     href: 'Molecular biology.html' },
-        { label: 'Practice', badge: '4 Questions',  href: 'M.biology-practical.html' }
-      ]},
-      { title: 'Genetics 🧬',   links: [{ label: 'Theory', badge: '204 MCQs', href: 'Physiology.html' }] },
-      { title: 'Histology 🫁',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Medicine',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Microbiology 🦠',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Pathology ',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Pharmacology 💊',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Physiology ⚡',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      
+     
+     
+
+      { title: '2021-2022 Year Exam',   links: [
+        { label: 'Final _ 1st Term', badge: '31 MCQs', href: 'MSD_Final_2021-2022.html' },
+        { label: 'Final _ 2nd Term', badge: '31 MCQs', href: 'MSD_Final2_2021-2022.html' },
+
+     ]},
+      { title: '2023-2024 Year Exam',   links: [
+        { label: 'Practice', badge: '13 Qs', href: 'MSD_Final_2023-2024.html' },
+
+     ]},
+     
+
+
+ { title: '2024-2025 Year Exam',     links: [
+        { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'MSD_End-Block_Theory_2024-2025.html' },
+        { label: 'End-Block _ Practice', badge: '16 Questions',  href: 'MSD_End-Block_Practice_2024-2025.html' },
+        { label: 'Final', badge: '106 MCQs',  href: 'MSD_Final_2024-2025.html' },
+
+
+      ] },
+
+
+     { title: '2025-2026 Year Exam',     links: [
+      { label: 'End-Block _ Theory', badge: '29 MCQs',  href: 'MSD_End-Block_Theory_2025-2026.html' },
+      { label: 'Final', badge: '54 MCQs',  href: 'MSD_Final_2025-2026.html' }
     
+    ] },
+
+     { title: 'Unknown Year Exam',     links: [
+      { label: 'Quiz', badge: '161 MCQs',  href: 'MSD_Quiz_Unkown Year.html' },
+    
+    ] },
     ]
   },
+  
   
    {
     type: 'Cardiovascular System 🫀',
@@ -332,38 +362,56 @@ const ALL_SECTIONS = [
     
     ] },
 
-     { title: 'Unkown Year Exam',     links: [
+     { title: 'Unknown Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '6 MCQs',  href: 'CVS_End-Block_Theory_Unkown Year.html' },
       { label: 'Final', badge: '44 MCQs',  href: 'CVS_Final_Unknown Year.html' },
-      { label: 'Quiz', badge: '161 MCQs',  href: 'CVS_Quiz_Unknown Year.html' },
+      { label: 'Quiz', badge: '161 MCQs',  href: 'CVS_Quiz_Unkown Year.html' },
     
     ] },
     ]
   },
-  {
-    type: 'Respiratory system 🫁',
+
+  
+   {
+    type: 'Respiratory System 🫁',
     cards: [
-      { title: 'Anatomy 🦴', links: [
-        { label: 'Theory',   badge: '196 MCQs',    href: 'Anatomy.html' },
-        { label: 'Practice', badge: '70 Questions', href: 'Anatomylabs.html' }
-      ]},
-      
-      { title: 'Genetics 🧬 ', links: [
-        { label: 'Theory',   badge: '82 MCQs',     href: 'Molecular biology.html' },
-        { label: 'Practice', badge: '4 Questions',  href: 'M.biology-practical.html' }
-      ]},
-      { title: 'Histology 🫁',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      
-       { title: 'Medical education 📕',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-    { title: 'Medicine',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Microbiology 🦠',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Pathology ',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Pharmacology 💊',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Physiology ⚡',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
-      { title: 'Radiology ☢️',     links: [{ label: 'Theory', badge: '54 MCQs',  href: 'Genetics.html' }] },
+     
+     
+
+      { title: '2021-2022 Year Exam',   links: [
+        { label: 'Final _ 1st Term', badge: '31 MCQs', href: 'MSD_Final_2021-2022.html' },
+        { label: 'Final _ 2nd Term', badge: '31 MCQs', href: 'MSD_Final2_2021-2022.html' },
+
+     ]},
+      { title: '2023-2024 Year Exam',   links: [
+        { label: 'Practice', badge: '13 Qs', href: 'MSD_Final_2023-2024.html' },
+
+     ]},
+     
+
+
+ { title: '2024-2025 Year Exam',     links: [
+        { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'MSD_End-Block_Theory_2024-2025.html' },
+        { label: 'End-Block _ Practice', badge: '16 Questions',  href: 'MSD_End-Block_Practice_2024-2025.html' },
+        { label: 'Final', badge: '106 MCQs',  href: 'MSD_Final_2024-2025.html' },
+
+
+      ] },
+
+
+     { title: '2025-2026 Year Exam',     links: [
+      { label: 'End-Block _ Theory', badge: '29 MCQs',  href: 'MSD_End-Block_Theory_2025-2026.html' },
+      { label: 'Final', badge: '54 MCQs',  href: 'MSD_Final_2025-2026.html' }
     
+    ] },
+
+     { title: 'Unknown Year Exam',     links: [
+      { label: 'Quiz', badge: '161 MCQs',  href: 'MSD_Quiz_Unkown Year.html' },
+    
+    ] },
     ]
   },
+ 
 
 
   
