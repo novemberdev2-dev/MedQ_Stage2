@@ -248,12 +248,12 @@ const ALL_SECTIONS = [
      
 
       { title: '2021-2022 Year Exam',   links: [
-        { label: 'Final _ 1st Term', badge: '31 MCQs', href: 'MSD_Final_2021-2022.html' },
-        { label: 'Final _ 2nd Term', badge: '31 MCQs', href: 'MSD_Final2_2021-2022.html' },
+        { label: 'Final _ 1st Term', badge: '0 MCQs', href: 'MSD_Final_2021-2022.html' },
+        { label: 'Final _ 2nd Term', badge: '0 MCQs', href: 'MSD_Final2_2021-2022.html' },
 
      ]},
       { title: '2023-2024 Year Exam',   links: [
-        { label: 'Practice', badge: '13 Qs', href: 'MSD_End_Block_Practice_2023-2024.html' },
+        { label: 'Practice', badge: '14 Qs', href: 'MSD_End_Block_Practice_2023-2024.html' },
 
      ]},
      
@@ -261,16 +261,16 @@ const ALL_SECTIONS = [
 
  { title: '2024-2025 Year Exam',     links: [
         { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'MSD_End-Block_Theory_2024-2025.html' },
-        { label: 'End-Block _ Practice', badge: '16 Qs',  href: 'MSD_End-Block_Practice_2024-2025.html' },
-        { label: 'Final', badge: '106 MCQs',  href: 'MSD_Final_2024-2025.html' },
+        { label: 'End-Block _ Practice', badge: '0 Qs',  href: 'MSD_End-Block_Practice_2024-2025.html' },
+        { label: 'Final', badge: '0 MCQs',  href: 'MSD_Final_2024-2025.html' },
 
 
       ] },
 
 
      { title: '2025-2026 Year Exam',     links: [
-      { label: 'End-Block _ Theory', badge: '29 MCQs',  href: 'MSD_End-Block_Theory_2025-2026.html' },
-      { label: 'Final', badge: '54 MCQs',  href: 'MSD_Final_2025-2026.html' }
+      { label: 'End-Block _ Theory', badge: '0 MCQs',  href: 'MSD_End-Block_Theory_2025-2026.html' },
+      { label: 'Final', badge: '0 MCQs',  href: 'MSD_Final_2025-2026.html' }
     
     ] },
 
