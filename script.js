@@ -275,7 +275,7 @@ const ALL_SECTIONS = [
     ] },
 
      { title: 'Unknown Year Exam',     links: [
-      { label: 'Quiz', badge: '0 MCQs',  href: 'MSD_Quiz_Unkown Year.html' },
+      { label: 'Final', badge: '88 MCQs',  href: 'MSD_Final_Unknown Year.html' },
     
     ] },
     ]
@@ -288,34 +288,34 @@ const ALL_SECTIONS = [
      
 
       { title: '2021-2022 Year Exam',   links: [
-        { label: 'Final _ 1st Term', badge: '31 MCQs', href: 'MSD_Final_2021-2022.html' },
-        { label: 'Final _ 2nd Term', badge: '31 MCQs', href: 'MSD_Final2_2021-2022.html' },
+        { label: 'Final _ 1st Term', badge: '0 MCQs', href: 'HP_Final_2021-2022.html' },
+        { label: 'Final _ 2nd Term', badge: '0 MCQs', href: 'HP_Final2_2021-2022.html' },
 
      ]},
       { title: '2023-2024 Year Exam',   links: [
-        { label: 'Practice', badge: '13 Qs', href: 'MSD_Final_2023-2024.html' },
+        { label: 'Practice', badge: '0 Qs', href: 'HP_Final_2023-2024.html' },
 
      ]},
      
 
 
  { title: '2024-2025 Year Exam',     links: [
-        { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'MSD_End-Block_Theory_2024-2025.html' },
-        { label: 'End-Block _ Practice', badge: '16 Qs',  href: 'MSD_End-Block_Practice_2024-2025.html' },
-        { label: 'Final', badge: '106 MCQs',  href: 'MSD_Final_2024-2025.html' },
+        { label: 'End-Block _ Theory', badge: '0 MCQs',  href: 'HP_End-Block_Theory_2024-2025.html' },
+        { label: 'End-Block _ Practice', badge: '0 Qs',  href: 'HP_End-Block_Practice_2024-2025.html' },
+        { label: 'Final', badge: '0 MCQs',  href: 'HP_Final_2024-2025.html' },
 
 
       ] },
 
 
      { title: '2025-2026 Year Exam',     links: [
-      { label: 'End-Block _ Theory', badge: '29 MCQs',  href: 'MSD_End-Block_Theory_2025-2026.html' },
-      { label: 'Final', badge: '54 MCQs',  href: 'MSD_Final_2025-2026.html' }
+      { label: 'End-Block _ Theory', badge: '0 MCQs',  href: 'HP_End-Block_Theory_2025-2026.html' },
+      { label: 'Final', badge: '0 MCQs',  href: 'HP_Final_2025-2026.html' }
     
     ] },
 
      { title: 'Unknown Year Exam',     links: [
-      { label: 'Quiz', badge: '161 MCQs',  href: 'MSD_Quiz_Unkown Year.html' },
+      { label: 'Final', badge: '34 MCQs',  href: 'HP_Final_Unknown-Year.html' },
     
     ] },
     ]
@@ -379,34 +379,34 @@ const ALL_SECTIONS = [
      
 
       { title: '2021-2022 Year Exam',   links: [
-        { label: 'Final _ 1st Term', badge: '31 MCQs', href: 'MSD_Final_2021-2022.html' },
-        { label: 'Final _ 2nd Term', badge: '31 MCQs', href: 'MSD_Final2_2021-2022.html' },
+        { label: 'Final _ 1st Term', badge: '0 MCQs', href: 'RS_Final_2021-2022.html' },
+        { label: 'Final _ 2nd Term', badge: '0 MCQs', href: 'RS_Final2_2021-2022.html' },
 
      ]},
       { title: '2023-2024 Year Exam',   links: [
-        { label: 'Practice', badge: '13 Qs', href: 'MSD_Final_2023-2024.html' },
+        { label: 'Practice', badge: '0 Qs', href: 'RS_Final_2023-2024.html' },
 
      ]},
      
 
 
  { title: '2024-2025 Year Exam',     links: [
-        { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'MSD_End-Block_Theory_2024-2025.html' },
-        { label: 'End-Block _ Practice', badge: '16 Qs',  href: 'MSD_End-Block_Practice_2024-2025.html' },
-        { label: 'Final', badge: '106 MCQs',  href: 'MSD_Final_2024-2025.html' },
+        { label: 'End-Block _ Theory', badge: '0 MCQs',  href: 'RS_End-Block_Theory_2024-2025.html' },
+        { label: 'End-Block _ Practice', badge: '0 Qs',  href: 'RS_End-Block_Practice_2024-2025.html' },
+        { label: 'Final', badge: '0 MCQs',  href: 'RS_Final_2024-2025.html' },
 
 
       ] },
 
 
      { title: '2025-2026 Year Exam',     links: [
-      { label: 'End-Block _ Theory', badge: '29 MCQs',  href: 'MSD_End-Block_Theory_2025-2026.html' },
-      { label: 'Final', badge: '54 MCQs',  href: 'MSD_Final_2025-2026.html' }
+      { label: 'End-Block _ Theory', badge: '0 MCQs',  href: 'RS_End-Block_Theory_2025-2026.html' },
+      { label: 'Final', badge: '0 MCQs',  href: 'RS_Final_2025-2026.html' }
     
     ] },
 
      { title: 'Unknown Year Exam',     links: [
-      { label: 'Quiz', badge: '161 MCQs',  href: 'MSD_Quiz_Unkown Year.html' },
+      { label: 'Final', badge: '41 MCQs',  href: 'RS_Final_Unknown-Year.html' },
     
     ] },
     ]
