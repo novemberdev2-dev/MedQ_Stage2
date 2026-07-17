@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSD_Final_Unknown-Year</title>
+
+    <style>
+       :root {
+            --bg-body: #121212;
+            --text-main: #f1f5f9;
+            --text-opts: #f1f5f9;
+            --header-bg: #1e293b;
+            --header-text: #38bdf8;
+            --border-color: #26292b;
+            --input-bg: #1a1c1e;
+            --input-border: #2a2f36;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --filter-bg: transparent;
+            
+        }
+
+        [data-theme="light"] {
+            --bg-body: #ffffff;
+            --text-main: #000000;
+            --text-opts: #333333;
+            --header-bg: #333333;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --input-bg: #ffffff;
+            --input-border: #cccccc;
+            --ans-bg: #eef6e4;
+            --ans-text: #2e7d32;
+            --filter-bg: transparent;
+            
+        }
+
+        .filter-btn.active {
+            background-color: #728fcf;
+            color: #fff;
+            border-color:  #728fcf;
+        }
+
+        body {
+            -webkit-user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1150px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 15px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 50px;
+           min-height: 35px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 10px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 10px 10px 10px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 7px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .filter-container {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-wrap: nowrap;
+            max-width: 100%;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .filter-container::-webkit-scrollbar { display: none; }
+
+        /* Subject picker dropdown */
+        .subject-toggle-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .subject-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 42px;
+            height: 42px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .subject-toggle svg {
+            stroke: none !important;
+            fill: var(--text-main);
+            pointer-events: none;
+        }
+
+        .subject-toggle.dropdown-open {
+            border-color: rgba(255,255,255,0.3);
+            background: rgba(40, 42, 45, 0.9);
+        }
+
+        .subject-toggle.dropdown-open svg { fill: var(--text-main); }
+
+        [data-theme="light"] .subject-toggle.dropdown-open {
+            border-color: #121212;
+            background: rgba(255,255,255,1);
+        }
+
+        .subject-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: #111111;
+            border: 1px solid rgba(255,255,255,0.13);
+            border-radius: 14px;
+            overflow: hidden;
+            min-width: 210px;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-6px) scale(0.97);
+            transition: opacity 0.22s ease, transform 0.22s ease;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.65);
+        }
+
+        .subject-dropdown.open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        [data-theme="light"] .subject-dropdown {
+            background: #ffffff;
+            border-color: rgba(0,0,0,0.13);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+        }
+
+        .subject-dropdown-header {
+            padding: 14px 16px 10px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #555;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        [data-theme="light"] .subject-dropdown-header {
+            border-bottom-color: rgba(0,0,0,0.08);
+            color: #999;
+        }
+
+        .subject-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 13px 16px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #aaa;
+            transition: background 0.15s ease, color 0.15s ease;
+            user-select: none;
+            cursor: pointer;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        [data-theme="light"] .subject-dropdown-item { color: #666; }
+
+        .subject-dropdown-item:not(:last-child) {
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        [data-theme="light"] .subject-dropdown-item:not(:last-child) {
+            border-bottom-color: rgba(0,0,0,0.06);
+        }
+
+        .subject-dropdown-item:hover {
+            background: rgba(255,255,255,0.06);
+            color: #e2e8f0;
+        }
+
+        [data-theme="light"] .subject-dropdown-item:hover {
+            background: rgba(0,0,0,0.04);
+            color: #111;
+        }
+
+        .subject-dropdown-item.selected { color: #f1f5f9; }
+
+        [data-theme="light"] .subject-dropdown-item.selected { color: #111; }
+
+        .filter-option-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.25);
+            flex-shrink: 0;
+            transition: background 0.15s ease, border-color 0.15s ease;
+        }
+
+        [data-theme="light"] .filter-option-dot { border-color: rgba(0,0,0,0.2); }
+
+        .subject-dropdown-item.selected .filter-option-dot {
+            background: #f1f5f9;
+            border-color: #f1f5f9;
+        }
+
+        [data-theme="light"] .subject-dropdown-item.selected .filter-option-dot {
+            background: #111;
+            border-color: #111;
+        }
+
+        .controls-row { position: relative; }
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin-bottom: 10px;
+            margin-top: 6px;
+        }
+
+        .divider { border: none; margin-bottom: 12px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+
+        .ans-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .ans-row--multi {
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 8px;
+        }
+
+        .ans-btn {
+            background-color: #728fcf;
+            color: #fff;
+            border: none;
+            padding: 7px 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-weight: 650;
+            font-size: 16px;
+            transition: background-color 0.2s, color 0.2s;
+
+        }
+
+        .ans-btn.revealed {
+            background-color: var(--ans-bg);
+            color: var(--ans-text);
+            font-weight: 700;
+            padding: 7px 12px;
+            font-size: 16px;
+            white-space: pre-line;
+            text-align: left;
+        }
+
+        mark { background-color: #f0cf6a; color: #000; }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 14px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-opts);
+            font-size: 1.15rem;
+            font-weight: 500;
+            opacity: 0.6;
+            box-sizing: border-box;
+            width: 100%;
+            display: block; 
+        }
+
+        .section-heading-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .mcq-count-badge {
+            font-size: 0.70rem;
+            font-weight: 700;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            padding: 2px 5px;
+            border-radius: 3px;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+
+<body oncontextmenu="return false;">
+
+<div class="container">
+    <div class="header" style="padding: 9px 14px; margin-bottom: 15px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            
+            <span style="font-size: 0.90rem; font-weight: 800; color: var(--header-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">MSD 🦴 &nbsp;·&nbsp; Final &nbsp;·&nbsp; Unknown Year</span>
+        </div>
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+        
+        <div class="subject-toggle-wrapper">
+            <div class="subject-toggle" id="subject-toggle-btn" onclick="toggleSubjectDropdown()" title="Filter by subject">
+                <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.90693 3.9999C9.93791 3.99996 9.96894 4.00001 10 4.00001C10.0311 4.00001 10.0621 3.99996 10.0931 3.9999C10.4618 3.99929 10.8242 3.99869 11.147 4.08519C12.0098 4.31636 12.6836 4.99023 12.9148 5.85296C13.0013 6.1758 13.0007 6.53821 13.0001 6.90693C13.0001 6.93792 13 6.96895 13 7.00001H21C21.5523 7.00001 22 7.44772 22 8.00001C22 8.55229 21.5523 9.00001 21 9.00001H13C13 9.03107 13.0001 9.0621 13.0001 9.09309C13.0007 9.46181 13.0013 9.82422 12.9148 10.1471C12.6836 11.0098 12.0098 11.6837 11.147 11.9148C10.8242 12.0013 10.4618 12.0007 10.0931 12.0001C10.0621 12.0001 10.0311 12 10 12C9.96894 12 9.93791 12.0001 9.90692 12.0001C9.5382 12.0007 9.17579 12.0013 8.85295 11.9148C7.99022 11.6837 7.31635 11.0098 7.08519 10.1471C6.99868 9.82421 6.99928 9.46181 6.9999 9.09308C6.99995 9.0621 7 9.03106 7 9.00001H5C4.44772 9.00001 4 8.55229 4 8.00001C4 7.44772 4.44772 7.00001 5 7.00001H7C7 6.96895 6.99995 6.93792 6.9999 6.90693C6.99928 6.53821 6.99868 6.1758 7.08519 5.85296C7.31635 4.99023 7.99022 4.31636 8.85295 4.08519C9.17579 3.99869 9.5382 3.99929 9.90693 3.9999ZM9.49861 6.00536C9.39195 6.01022 9.36685 6.01805 9.37059 6.01704C9.19804 6.06328 9.06327 6.19805 9.01704 6.3706C9.0162 6.37411 9.00963 6.40483 9.00535 6.49861C9.00024 6.61064 9 6.75845 9 7.00001V9.00001C9 9.24156 9.00024 9.38937 9.00535 9.5014C9.01021 9.60806 9.01804 9.63315 9.01704 9.62942C9.06327 9.80196 9.19804 9.93674 9.37059 9.98297C9.36685 9.98197 9.39195 9.98979 9.49861 9.99466C9.61063 9.99977 9.75844 10 10 10C10.2416 10 10.3894 9.99977 10.5014 9.99466C10.608 9.98979 10.6331 9.98197 10.6294 9.98297C10.802 9.93674 10.9367 9.80196 10.983 9.62942C10.982 9.63315 10.9898 9.60806 10.9946 9.5014C10.9998 9.38937 11 9.24156 11 9.00001V7.00001C11 6.75845 10.9998 6.61064 10.9946 6.49861C10.9898 6.39196 10.982 6.36686 10.983 6.3706M9.49861 6.00536C9.61063 6.00025 9.75844 6.00001 10 6.00001L9.49861 6.00536ZM10 6.00001C10.2416 6.00001 10.3894 6.00025 10.5014 6.00536L10 6.00001ZM10.5014 6.00536C10.5952 6.00963 10.6259 6.0162 10.6294 6.01704L10.5014 6.00536ZM10.6298 6.01713C10.6298 6.01713 10.6296 6.0171 10.6294 6.01704L10.6298 6.01713ZM15.9069 11.9999C15.9379 12 15.9689 12 16 12C16.0311 12 16.0621 12 16.0931 11.9999C16.4618 11.9993 16.8242 11.9987 17.147 12.0852C18.0098 12.3164 18.6836 12.9902 18.9148 13.853C19.0013 14.1758 19.0007 14.5382 19.0001 14.9069C19.0001 14.9379 19 14.9689 19 15H21C21.5523 15 22 15.4477 22 16C22 16.5523 21.5523 17 21 17H19C19 17.0311 19.0001 17.0621 19.0001 17.0931C19.0007 17.4618 19.0013 17.8242 18.9148 18.1471C18.6836 19.0098 18.0098 19.6837 17.147 19.9148C16.8242 20.0013 16.4618 20.0007 16.0931 20.0001C16.0621 20.0001 16.0311 20 16 20C15.9689 20 15.9379 20.0001 15.9069 20.0001C15.5382 20.0007 15.1758 20.0013 14.853 19.9148C13.9902 19.6837 13.3164 19.0098 13.0852 18.1471C12.9987 17.8242 12.9993 17.4618 12.9999 17.0931C12.9999 17.0621 13 17.0311 13 17H5C4.44772 17 4 16.5523 4 16C4 15.4477 4.44772 15 5 15H13C13 14.969 12.9999 14.9379 12.9999 14.9069C12.9993 14.5382 12.9987 14.1758 13.0852 13.853C13.3164 12.9902 13.9902 12.3164 14.853 12.0852C15.1758 11.9987 15.5382 11.9993 15.9069 11.9999ZM15.4986 14.0054C15.392 14.0102 15.3669 14.018 15.3706 14.017C15.198 14.0633 15.0633 14.1981 15.017 14.3706C15.018 14.3669 15.0102 14.392 15.0054 14.4986C15.0002 14.6106 15 14.7585 15 15V17C15 17.2416 15.0002 17.3894 15.0054 17.5014C15.0102 17.6081 15.018 17.6332 15.017 17.6294C15.0633 17.802 15.198 17.9367 15.3706 17.983C15.3669 17.982 15.392 17.9898 15.4986 17.9947C15.6106 17.9998 15.7584 18 16 18C16.2416 18 16.3894 17.9998 16.5014 17.9947C16.608 17.9898 16.6331 17.982 16.6294 17.983C16.802 17.9367 16.9367 17.802 16.983 17.6294C16.982 17.6332 16.9898 17.6081 16.9946 17.5014C16.9998 17.3894 17 17.2416 17 17V15C17 14.7585 16.9998 14.6106 16.9946 14.4986C16.9898 14.392 16.982 14.3669 16.983 14.3706C16.9367 14.1981 16.802 14.0633 16.6294 14.017C16.6331 14.018 16.608 14.0102 16.5014 14.0054C16.3894 14.0002 16.2416 14 16 14C15.7584 14 15.6106 14.0002 15.4986 14.0054Z"/></svg>
+            </div>
+            <div class="subject-dropdown" id="subject-dropdown">
+                <div class="subject-dropdown-header">Subject</div>
+              
+                <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
+             
+                <div class="subject-dropdown-item" data-subject="Anatomy" onclick="selectSubjectFilter('Anatomy', this)"><span class="filter-option-dot"></span>Anatomy 🦴</div>
+                <div class="subject-dropdown-item" data-subject="Physiology" onclick="selectSubjectFilter('Physiology', this)"><span class="filter-option-dot"></span>Physiology ⚡</div>
+                <div class="subject-dropdown-item" data-subject="Microbiology" onclick="selectSubjectFilter('Microbiology', this)"><span class="filter-option-dot"></span>Microbiology 🦠</div>
+                <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
+                <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
+                <div class="subject-dropdown-item" data-subject="Genetics" onclick="selectSubjectFilter('Genetics', this)"><span class="filter-option-dot"></span>Genetics 🧬</div>
+                <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🫁</div>
+                <div class="subject-dropdown-item" data-subject="Radiology" onclick="selectSubjectFilter('Radiology', this)"><span class="filter-option-dot"></span>Radiology ☢️</div>
+                <div class="subject-dropdown-item" data-subject="Dermatology" onclick="selectSubjectFilter('Dermatology', this)"><span class="filter-option-dot"></span>Dermatology ✨ </div>
+
+
+
+
+
+        </div>
+        </div>
+
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="filter-container" id="filter-bar"></div>
+
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+<script>
+
+const allQuestions = [
+ 
+
+  
+  {
+    n: 1,
+    s: "Radiology",
+    l: 1,
+    q: "A 60-year-old male with a history of prostatic carcinoma presents with severe, generalized body aches. Bone metastasis is suspected. Which radiological investigation is recommended to diagnose this condition?",
+    o: [
+      "A. Plain radiograph of the pelvis",
+      "B. CT scan",
+      "C. MRI",
+      "D. Bone scan",
+      "E. PET-CT scan"
+    ],
+    a: "D"
+  },
+  {
+    n: 2,
+    s: "Radiology",
+    l: 1,
+    q: "A 12-year-old child presents with a history of a fall from a height, loss of consciousness, and suspected cervical spine fracture or dislocation. What is the best radiological investigation?",
+    o: [
+      "A. MRI",
+      "B. Ultrasound of the neck",
+      "C. Plain radiograph of the cervical spine",
+      "D. Bone scan",
+      "E. CT scan",
+    ],
+    a: "E"
+  },
+  {
+    n: 3,
+    s: "Radiology",
+    l: 1,
+    q: "A 65-year-old female presents with backache and a loss of height of more than 2 inches. Her plain radiograph of the lumbar spine shows multiple collapsed vertebrae. Laboratory tests show vitamin D deficiency, and osteoporosis is suspected. What is the most accurate investigation to diagnose this?",
+    o: [
+      "A. Quantitative CT scan",
+      "B. DEXA scan",
+      "C. MRI of the lumbar spine",
+      "D. Bone scan",
+      "E. Biochemical bone markers"
+    ],
+    a: "B"
+  },
+  {
+    n: 4,
+    s: "Radiology",
+    l: 1,
+    q: "A young male presents with sudden, severe lower backache after lifting heavy objects. The pain radiates to the buttock and the posterior and lateral parts of his leg, and is aggravated by movement. Clinical examination suggests a disc prolapse. What is the best radiological investigation of choice?",
+    o: [
+      "A. Plain radiograph of the lumbar spine",
+      "B. CT scan of the lumbar spine",
+      "C. MRI of the lumbar spine",
+      "D. Myelography",
+      "E. Ultrasound of the lumbar spine"
+    ],
+    a: "C"
+  },
+  {
+    n: 5,
+    s: "Radiology",
+    l: 1,
+    q: "A patient presents with hand pain. An X-ray shows no signs of a carpal bone fracture. The physician requests another cross-sectional, tomographic imaging modality that provides more soft tissue detail without using contrast. Which of the following was requested?",
+    o: [
+      "A. CT scan with no contrast, sagittal view",
+      "B. CT scan, axial view, no contrast",
+      "C. CT scan, T1, no contrast",
+      "D. MRI, soft tissue window, axial",
+      "E. MRI, bone window, sagittal"
+    ],
+    a: "B"
+  },
+  {
+    n: 6,
+    s: "Radiology",
+    l: 1,
+    q: "A patient suffers a trauma to the foot. An X-ray shows a lateral cuneiform fracture, but the fracture is not obvious. The physician requests a CT scan. Which plane and window setting is the best choice for this evaluation?",
+    o: [
+      "A. CT scan, bone window, laterally, where the cuneiform bone can be completely seen",
+      "B. CT scan, bone window, centrally, where the cuneiform bone is partially seen",
+      "C. CT scan, medially, bone window, where the cuneiform bone cannot be seen",
+      "D. CT scan, soft tissue window",
+      "E. CT scan, sagittal view, soft tissue window"
+    ],
+    a: "A"
+  },
+  {
+    n: 7,
+    s: "Radiology",
+    l: 1,
+    q: "Which of the following is a bony projection located posterolaterally on both sides of a vertebra that serves as a bridge between the body and the lamina, directing forces toward the spinal canal?",
+    o: [
+      "A. Transverse process",
+      "B. Spinous process",
+      "C. Pedicle",
+      "D. Superior articular process",
+      "E. Vertebral body"
+    ],
+    a: "C"
+  },
+  {
+    n: 8,
+    s: "Radiology",
+    l: 1,
+    q: "A patient with a lumbar spine injury requires imaging because the cerebrospinal fluid-spinal cord interface is not clearly visualized. Which imaging modality and view would be most appropriate for optimal assessment?",
+    o: [
+      "A. T1-weighted axial MRI of the lumbar spine",
+      "B. T1-weighted sagittal MRI of the lumbar spine",
+      "C. T2-weighted sagittal MRI of the lumbar spine",
+      "D. CT myelogram, coronal view",
+      "E. Contrast-enhanced CT, sagittal view"
+    ],
+    a: "C"
+  },
+  {
+    n: 9,
+    s: "Radiology",
+    l: 1,
+    q: "What is the most appropriate imaging modality to evaluate developmental hip dislocation in a child less than 8 months of age?",
+    o: [
+      "A. Plain radiograph",
+      "B. CT scan",
+      "C. MRI",
+      "D. Ultrasound",
+      "E. Fluoroscopy"
+    ],
+    a: "D"
+  },
+  {
+    n: 10,
+    s: "Radiology",
+    l: 1,
+    q: "A patient who requires a detailed magnetic resonance scan has claustrophobia. What is the most appropriate radiological option?",
+    o: [
+      "A. High-field closed MRI",
+      "B. Open MRI",
+      "C. Multi-detector CT scan",
+      "D. Fluoroscopy",
+      "E. Ultrasound"
+    ],
+    a: "B"
+  },
+  {
+    n: 11,
+    s: "Radiology",
+    l: 1,
+    q: "A patient presents with a suspected joint ligament problem. Which of the following is the best imaging modality to evaluate this injury?",
+    o: [
+      "A. CT scan",
+      "B. Plain radiograph",
+      "C. MRI",
+      "D. Ultrasound",
+      "E. Bone scan"
+    ],
+    a: "C"
+  },
+  {
+    n: 12,
+    s: "Radiology",
+    l: 1,
+    q: "An emergency patient is admitted after a motor vehicle accident, having fallen from a height with a loss of consciousness. What is the standard initial imaging modality of choice?",
+    o: [
+      "A. MRI scan",
+      "B. Ultrasound",
+      "C. CT scan",
+      "D. Radionuclide imaging",
+      "E. PET scan"
+    ],
+    a: "C"
+  },
+  {
+    n: 13,
+    s: "Radiology",
+    l: 1,
+    q: "An elderly patient is suspected of having osteoporosis. Which of the following is the standard diagnostic imaging modality used to confirm the diagnosis?",
+    o: [
+      "A. Plain radiography",
+      "B. Bone scintigraphy",
+      "C. Quantitative CT",
+      "D. MRI",
+      "E. DEXA scan"
+    ],
+    a: "E"
+  },
+  {
+    n: 14,
+    s: "Radiology",
+    l: 1,
+    q: "Which of the following is NOT a classic radiological feature of rheumatoid arthritis?",
+    o: [
+      "A. Increase in joint space",
+      "B. Subchondral sclerosis",
+      "C. Osteophyte formation",
+      "D. Periarticular osteopenia",
+      "E. Marginal bone erosions"
+    ],
+    a: "A"
+  },
+  {
+    n: 15,
+    s: "Radiology",
+    l: 1,
+    q: "A child fell and presents with knee pain. On a plain radiograph, there is a radiolucent line between the epiphysis and metaphysis. What does this line indicate?",
+    o: [
+      "A. Epiphyseal growth plate",
+      "B. Salter-Harris Type I fracture",
+      "C. Nutrient artery canal",
+      "D. Subperiosteal hematoma",
+      "E. Osteolytic lesion"
+    ],
+    a: "A"
+  },
+  {
+    n: 16,
+    s: "Radiology",
+    l: 1,
+    q: "During a disc herniation, which structure leaks out to cause irritation to surrounding tissues, presenting as dark on T1-weighted and bright on T2-weighted MRI?",
+    o: [
+      "A. Ligamentum flavum",
+      "B. Annulus fibrosus",
+      "C. Posterior longitudinal ligament",
+      "D. Nucleus pulposus",
+      "E. CSF fluid"
+    ],
+    a: "D"
+  },
+ 
+  { n: 17, s: "Genetics", l: 1, q: "Which mode of inheritance is associated with Marfan syndrome?", o: ["A. Autosomal recessive", "B. X-linked dominant", "C. Autosomal dominant", "D. X-linked recessive", "E. Mitochondrial"], a: "C" },
+  { n: 18, s: "Genetics", l: 1, q: "After revealing male gender by non-invasive prenatal testing (NIPT), invasive testing is required to identify which of the following?", o: ["A. Huntington disease", "B. Cystic fibrosis", "C. Duchenne muscular dystrophy (DMD)", "D. Down syndrome", "E. Tay-Sachs disease"], a: "C" },
+  { n: 19, s: "Genetics", l: 1, q: "Which of the following conditions requires invasive testing after a male fetus is proven by non-invasive procedures?", o: ["A. Duchenne muscular dystrophy", "B. Hemophilia B", "C. Spinal muscular atrophy", "D. Fragile X syndrome", "E. Marfan syndrome"], a: "A" },
+  { n: 20, s: "Pathology", l: 1, q: "A 15-year-old boy is in his third year playing on his high school football team. He sat out most of last season after fracturing his humerus in the first full-contact practice. Yesterday was the first full-contact practice of this season, for which he was very excited to finally be able to play but again, he suffered a fractured clavicle. Physical examination shows very poor dentition and slightly blue sclera. Which of the following connective tissue protein is most likely defective with his genetic condition?", o: ["A. Type IV collagen", "B. Elastin", "C. Type II collagen", "D. Type I collagen", "E. Type III collagen"], a: "D" },
+  { n: 21, s: "Pathology", l: 1, q: "A six-year-old boy with a history of multiple bone fractures is brought to the physician by his parents with right leg pain. X-ray of the right leg shows a right tibial fracture. Ophthalmic examination shows blue-tinged sclerae, extraocular movements are intact, and pupils are equally round and reactive to light. A hereditary defect in which of the following is the most likely underlying cause of this patient's problems?", o: ["A. Type I collagen", "B. Elastin", "C. Cilia", "D. Fibrillin", "E. Laminin"], a: "A" },
+  { n: 22, s: "Pathology", l: 1, q: "A 5-week-old boy is seen at the pediatrics department after experiencing multiple long bone fractures. The parents explain that the patient has been seen by multiple pediatric orthopedists after three fractures in the past week. Child abuse is ruled out, and physical examination is otherwise normal, but a hearing test reveals significant hearing loss. Which of the following is the most likely diagnosis in this patient?", o: ["A. Alport syndrome", "B. Rickets", "C. Osteomalacia", "D. Schwannoma", "E. Osteogenesis imperfecta"], a: "E" },
+  { n: 23, s: "Pathology", l: 1, q: "Achondroplasia is characterized by all of the following EXCEPT:", o: ["A. Autosomal dominant inheritance", "B. Gain-of-function mutation in FGFR3", "C. Impaired endochondral bone formation", "D. Normal intelligence and lifespan", "E. Thin, fragile bones prone to fractures"], a: "E" },
+  { n: 24, s: "Pathology", l: 1, q: "In Osteogenesis Imperfecta, blue sclera is due to:", o: ["A. Deposition of abnormal collagen in the sclera", "B. Increased vascularity of the sclera", "C. Thinning of the sclera allowing underlying choroid to show", "D. Scleral calcification", "E. Inflammation of the episcleral tissue"], a: "C" },
+  { n: 25, s: "Pathology", l: 1, q: "Osteopetrosis results from:", o: ["A. Excessive osteoblast activity", "B. Defective osteoclast function", "C. Mutation in type I collagen gene", "D. Autoimmune destruction of bone tissue", "E. Deficiency of vitamin D"], a: "B" },
+  { n: 26, s: "Pathology", l: 1, q: "Duchenne Muscular Dystrophy (DMD) differs from Becker Muscular Dystrophy (BMD) in that DMD:", o: ["A. Is caused by a mutation in the dystrophin gene", "B. Shows complete absence of dystrophin on immunohistochemistry", "C. Has later onset and slower progression", "D. Is autosomal recessive", "E. Commonly presents with cardiac involvement early in the disease"], a: "B" },
+  { n: 27, s: "Pathology", l: 1, q: "Dermatomyositis is characterized histologically by:", o: ["A. Endomysial CD8+ T cell infiltration", "B. Rimmed vacuoles in myofibers", "C. Perifascicular atrophy", "D. Diffuse fatty replacement of muscle", "E. Granulomatous inflammation"], a: "C" },
+  { n: 28, s: "Pathology", l: 1, q: "A patient presents with swelling of the lower knees with tenderness and leukocytosis. What is the most probable disease?", o: ["A. Osteoarthritis", "B. Gouty arthritis", "C. Osteomyelitis", "D. Rheumatoid arthritis", "E. Osteosarcoma"], a: "C" },
+  { n: 29, s: "Pathology", l: 1, q: "A 45-year-old female presented with hand stiffness in the morning. Laboratory tests showed elevated ESR and anti-CCP positive. What is the most likely diagnosis?", o: ["A. Osteoarthritis", "B. Rheumatoid arthritis", "C. Gouty arthritis", "D. Psoriatic arthritis", "E. Systemic lupus erythematosus"], a: "B" },
+  { n: 30, s: "Pathology", l: 1, q: "A person presented with pink papules and plaques with silvery scales and chronic hip arthritis. What is the most likely diagnosis?", o: ["A. Lichen planus", "B. Osteoarthritis", "C. Rheumatoid arthritis", "D. Psoriasis", "E. Gout"], a: "D" },
+  { n: 31, s: "Pathology", l: 1, q: "The main ion for neurotransmitter release is:", o: ["A. Sodium", "B. Potassium", "C. Calcium", "D. Chloride", "E. Magnesium"], a: "C" },
+  { n: 32, s: "Pathology", l: 1, q: "A patient presents with intensely itchy blisters. Immunofluorescence microscopy reveals linear deposits of IgG and C3 along the basement membrane. What is the most likely diagnosis? (case question)", o: ["A. Pemphigus vulgaris", "B. Dermatitis herpetiformis", "C. Bullous pemphigoid", "D. Erythema multiforme", "E. Epidermolysis bullosa"], a: "C" },
+  { n: 33, s: "Dermatology", l: 1, q: "A 72-year-old male presents with a gradually enlarging lesion on his scalp. On examination, the lesion is a flesh-colored or pearly pink nodule with central ulceration and a rolled border ('rodent ulcer'). The patient reports occasional bleeding and crusting but denies pain. How would this lesion appear under the microscope?", o: ["A. Keratin pearls with squamous atypia", "B. Nests of basaloid cells with peripheral palisading, peritumoral cleft, and a fibromyxoid stroma", "C. Dysplastic melanocytes extending along the dermal-epidermal junction", "D. Sheets of lipid-laden histiocytes in the dermis", "E. Hyperkeratosis, papillomatosis, and koilocytosis"], a: "B" },
+  { n: 34, s: "Pathology", l: 1, q: "A patient presents with needle-shaped uric acid crystals under polarized light from synovial fluid, with numerous neutrophils in the background. What is the most likely diagnosis?", o: ["A. Gout", "B. Pseudogout", "C. Rheumatoid arthritis", "D. Septic arthritis", "E. Osteoarthritis"], a: "A" },
+  { n: 35, s: "Pathology", l: 1, q: "A tumor grows intramedullary as a destructive lytic tumor with permeative margins that extend into surrounding soft tissues. It is composed of sheets of undifferentiated uniform small, round cells with an onion-skin periosteum. What is the classic translocation associated with this tumor?", o: ["A. t(11;22) producing EWS-FLI1", "B. t(9;22) producing BCR-ABL", "C. t(14;18) producing BCL2", "D. t(15;17) producing PML-RARA", "E. t(8;14) producing MYC"], a: "A" },
+  { n: 36, s: "Pathology", l: 1, q: "In a case of melanoma presenting as a dark-colored lesion with irregular borders, what is the most important prognostic factor to know?", o: ["A. Width of the lesion", "B. Location of the lesion", "C. Patient's age", "D. Depth of the lesion", "E. Cellular pleomorphism"], a: "D" },
+  { n: 37, s: "Pathology", l: 1, q: "The retention of nuclei in the stratum corneum of the skin is known as:", o: ["A. Hyperkeratosis", "B. Acanthosis", "C. Parakeratosis", "D. Spongiosis", "E. Dyskeratosis"], a: "C" },
+  { n: 38, s: "Pathology", l: 1, q: "Multiple enchondromas (enchondromatosis) are associated with which of the following?", o: ["A. Ollier disease", "B. Maffucci syndrome", "C. McCune-Albright syndrome", "D. Paget disease", "E. Alport syndrome"], a: "A" },
+  { n: 39, s: "Anatomy", l: 1, q: "Damage to the medial epicondyle of the humerus may result in paralysis of which muscle?", o: ["A. Flexor carpi radialis", "B. Flexor digitorum superficialis", "C. Flexor carpi ulnaris", "D. Palmaris longus", "E. Pronator teres"], a: "C" },
+  { n: 40, s: "Pathology", l: 1, q: "Which of the following represents the primary inorganic structure of bone?", o: ["A. Collagen fibers", "B. Hydroxyapatite", "C. Proteoglycans", "D. Osteoid", "E. Chondroitin sulfate"], a: "B" },
+  { n: 41, s: "Pathology", l: 1, q: "Which of the following is WRONG about giant cell tumor of the bone?", o: ["A. It is a benign but aggressive tumor", "B. It occurs in the epiphysis", "C. It occurs in middle age", "D. It classically occurs around the knee", "E. It contains multinucleated giant cells"], a: "C" },
+  { n: 42, s: "Pathology", l: 1, q: "A 2.1-cm, pigmented lesion is excised from the back of a 39-year-old female, who noticed that this lesion has become more nodular in appearance within the past 2 months. Microscopic examination of this lesion reveals a malignant melanoma, composed of epithelioid cells, that extends 2 mm down to the reticular dermis. There is a band of lymphocytes beneath the melanoma. Which of the following statements is most appropriate to make to this patient?", o: ["A. Your body's immune system will prevent metastases.", "B. The prognosis is poor.", "C. Other family members are at risk for this condition.", "D. The primary site for this lesion is probably the eye.", "E. Nevi elsewhere on your body may become malignant."], a: "B" },
+  { n: 43, s: "Pathology", l: 1, q: "Regarding osteoarthritis, which of the following is correct?", o: ["A. Incidence increases linearly with advancing age", "B. Hips are characteristically involved in women", "C. Characteristic pathological features include subchondral microcysts and subcutaneous nodules", "D. Synovial inflammation is a predominant feature", "E. Chondrocytes elaborate mediators such as TNFa and IL-1"], a: "E" },
+  { n: 44, s: "Pathology", l: 1, q: "In osteoarthritis, which of the following occurs?", o: ["A. There is a marked synovial reaction", "B. Chondrocytes play a role in cartilage destruction", "C. Osteophytes develop on top of articular surface", "D. Subchondral cysts are caused by collagenase", "E. Chondrocytes excrete digestive enzymes into the matrix in active forms"], a: "B" },
+  { n: 45, s: "Pathology", l: 1, q: "With regards to rheumatoid arthritis, which of the following is correct?", o: ["A. In the joint it is confined to the synovium and does not involve the articular cartilage", "B. Xrays of joints reveal marginal erosions", "C. Caseous necrosis is typical of rheumatoid nodules", "D. There is decreased vascularity in the pannus", "E. It is confined to the joints and skin"], a: "B" },
+  { n: 46, s: "Pathology", l: 1, q: "Secondary causes of osteoporosis include the following EXCEPT:", o: ["A. Type 2 diabetes", "B. Hyperparathyroidism", "C. Hypogonadism", "D. Vitamin C deficiency", "E. Multiple myeloma"], a: "A" },
+  { n: 47, s: "Pathology", l: 1, q: "Of the following, the most likely cause of a metastatic bone tumour in an adult is:", o: ["A. Osteosarcoma", "B. Pancreatic carcinoma", "C. Seminoma", "D. Thyroid carcinoma", "E. Renal cell carcinoma"], a: "E" },
+  { n: 48, s: "Pathology", l: 1, q: "Regarding osteoarthritis, which of the following is correct?", o: ["A. Osteoblasts are stimulated to produce IL1 and TNF", "B. Lipase stimulation results in bony cysts", "C. Articular fracture indicates coexisting osteoporosis", "D. Water content of the bone matrix decreases", "E. Sclerosis is a common finding"], a: "E" },
+{ n: 49, s: "Anatomy", l: 1, q: "A fracture of the humerus is most commonly associated with injury to which nerve?", o: ["A. Radial nerve", "B. Ulnar nerve", "C. Median nerve", "D. Axillary nerve", "E. Musculocutaneous nerve"], a: "A" },
+{ n: 50, s: "Anatomy", l: 1, q: "Inversion of the foot is mainly performed by which muscles?", o: ["A. Fibularis longus and brevis", "B. Tibialis anterior and tibialis posterior", "C. Gastrocnemius and soleus", "D. Extensor digitorum longus and fibularis tertius", "E. Flexor hallucis longus and flexor digitorum longus"], a: "B" },
+{ n: 51, s: "Anatomy", l: 1, q: "A patient is unable to abduct the arm during the first 15 degrees. Which muscle is most likely injured?", o: ["A. Deltoid", "B. Teres minor", "C. Infraspinatus", "D. Supraspinatus", "E. Subscapularis"], a: "D" },
+{ n: 52, s: "Anatomy", l: 1, q: "The hamstring muscles originate from which anatomical structure?", o: ["A. Ischial tuberosity", "B. Iliac crest", "C. Pubic tubercle", "D. Greater trochanter", "E. Sacrum"], a: "A" },
+{ n: 53, s: "Anatomy", l: 1, q: "Which tendon lies most medially beneath the extensor retinaculum at the ankle?", o: ["A. Extensor hallucis longus", "B. Tibialis anterior", "C. Extensor digitorum longus", "D. Fibularis tertius", "E. Tibialis posterior"], a: "B" },
+{ n: 54, s: "Anatomy", l: 1, q: "The lumbrical muscles primarily act as flexors at which joint?", o: ["A. Proximal interphalangeal joint", "B. Distal interphalangeal joint", "C. Wrist joint", "D. Metacarpophalangeal joint", "E. Carpometacarpal joint"], a: "D" },
+{ n: 55, s: "Pharmacology", l: 1, q: "Which drug is associated with pyloric stenosis when given to infants?", o: ["A. Azithromycin", "B. Clarithromycin", "C. Ciprofloxacin", "D. Erythromycin", "E. Doxycycline"], a: "D" },
+{ n: 56, s: "Pharmacology", l: 1, q: "Which drug should not be given during the third trimester because it may cause premature closure of the ductus arteriosus?", o: ["A. Aspirin", "B. Paracetamol", "C. Ibuprofen gel", "D. Codeine", "E. Penicillin"], a: "A" },
+{ n: 57, s: "Pharmacology", l: 1, q: "Which NSAID is commonly used in the treatment of gout?", o: ["A. Celecoxib", "B. Diclofenac", "C. Piroxicam", "D. Meloxicam", "E. Aspirin"], a: "C" },
+{ n: 58, s: "Pharmacology", l: 1, q: "Which drug is commonly used as bridge therapy until DMARDs become effective?", o: ["A. Methotrexate", "B. Hydrocortisone", "C. Sulfasalazine", "D. Leflunomide", "E. Hydroxychloroquine"], a: "B" },
+{ n: 59, s: "Pharmacology", l: 1, q: "Which drug is used in postmenopausal women with osteoporosis who do not respond adequately to other therapies?", o: ["A. Teriparatide", "B. Calcitonin", "C. Alendronate", "D. Denosumab", "E. Raloxifene"], a: "D" },
+{ n: 60, s: "Pharmacology", l: 1, q: "Which drug is used to reverse the effect of rocuronium?", o: ["A. Neostigmine", "B. Atropine", "C. Pyridostigmine", "D. Edrophonium", "E. Sugammadex"], a: "E" },
+{ n: 61, s: "Pharmacology", l: 1, q: "Allopurinol potentiates the toxicity of which drug?", o: ["A. Azathioprine", "B. Methotrexate", "C. Cyclosporine", "D. Prednisolone", "E. Sulfasalazine"], a: "A" },
+{ n: 62, s: "Physiology", l: 1, q: "Which part of the sarcomere shortens during muscle contraction?", o: ["A. A band", "B. H zone", "C. M line", "D. Thick filament", "E. I band"], a: "E" },
+{ n: 63, s: "Physiology", l: 1, q: "Which layer of the epidermis undergoes mitosis?", o: ["A. Stratum basale", "B. Stratum corneum", "C. Stratum lucidum", "D. Stratum granulosum", "E. Stratum reticulare"], a: "A" },
+{ n: 64, s: "Physiology", l: 1, q: "Melanocytes are primarily found in which layers of the epidermis?", o: ["A. Stratum corneum and lucidum", "B. Stratum granulosum and corneum", "C. Stratum basale and spinosum", "D. Stratum spinosum and granulosum", "E. Stratum reticulare and papillare"], a: "C" },
+{ n: 65, s: "Physiology", l: 1, q: "Which cells are responsible for bone formation?", o: ["A. Osteoclasts", "B. Osteocytes", "C. Osteoblasts", "D. Chondrocytes", "E. Fibroblasts"], a: "C" },
+{ n: 66, s: "Physiology", l: 1, q: "Which cellular structure serves as the major storage site for calcium in muscle cells?", o: ["A. Golgi apparatus", "B. T tubules", "C. Sarcoplasmic reticulum", "D. Mitochondria", "E. Sarcolemma"], a: "C" },
+{ n: 67, s: "Physiology", l: 1, q: "Which sweat glands are responsible for producing foul-smelling odor?", o: ["A. Eccrine glands", "B. Sebaceous glands", "C. Ceruminous glands", "D. Mammary glands", "E. Apocrine glands"], a: "E" },
+{ n: 68, s: "Physiology", l: 1, q: "Which statement regarding vitamin B12 is incorrect?", o: ["A. It is essential for DNA synthesis", "B. It is stored in the liver", "C. It requires intrinsic factor for absorption", "D. It is heat unstable", "E. Deficiency may cause megaloblastic anemia"], a: "D" },
+{ n: 69, s: "Pathology", l: 1, q: "False cyanosis may occur due to deposition of which pigment?", o: ["A. Melanin", "B. Bilirubin", "C. Hemosiderin", "D. Silver", "E. Lipofuscin"], a: "D" },
+{ n: 70, s: "Pathology", l: 1, q: "A patient presents with numbness and tingling in the hand due to median nerve compression at the wrist. What is the most likely diagnosis?", o: ["A. Cubital tunnel syndrome", "B. Thoracic outlet syndrome", "C. Guyon's canal syndrome", "D. Carpal tunnel syndrome", "E. Radial tunnel syndrome"], a: "D" },
+{ n: 71, s: "Pathology", l: 1, q: "A patient develops episodic pallor and cyanosis of the fingers in response to cold exposure. What is the most likely diagnosis?", o: ["A. Buerger disease", "B. Raynaud disease", "C. Polyarteritis nodosa", "D. Takayasu arteritis", "E. Temporal arteritis"], a: "B" },
+{ n: 72, s: "Pathology", l: 1, q: "Pain in the knee without associated signs of inflammation is best described as which condition?", o: ["A. Arthritis", "B. Arthropathy", "C. Arthralgia", "D. Osteomyelitis", "E. Synovitis"], a: "C" },
+{ n: 73, s: "Pathology", l: 1, q: "Two sisters presenting with growth retardation and coarse facial features are most likely suffering from which disorder?", o: ["A. Phenylketonuria", "B. Tay-Sachs disease", "C. Mucopolysaccharidosis", "D. Gaucher disease", "E. Niemann-Pick disease"], a: "C" },
+{ n: 74, s: "Pathology", l: 1, q: "Achondroplasia is inherited in which pattern?", o: ["A. Autosomal dominant", "B. X-linked recessive", "C. Autosomal recessive", "D. X-linked dominant", "E. Mitochondrial inheritance"], a: "A" },
+{ n: 75, s: "Pathology", l: 1, q: "The prognosis of melanoma is most closely related to which feature?", o: ["A. Color variation", "B. Ulceration", "C. Diameter", "D. Presence of hair", "E. Vertical growth phase"], a: "E" },
+{ n: 76, s: "Pathology", l: 1, q: "Which biochemical profile is most consistent with rickets?", o: ["A. Increased calcium, increased phosphate, decreased ALP", "B. Normal calcium, increased phosphate, decreased ALP, increased PTH", "C. Decreased calcium, decreased phosphate, increased ALP and increased PTH", "D. Increased calcium, decreased phosphate, decreased ALP", "E. Normal calcium, normal phosphate and normal ALP"], a: "C" },
+{ n: 77, s: "Microbiology", l: 1, q: "Keratotic warts are most commonly caused by infection with which virus?", o: ["A. Epstein-Barr virus", "B. Human papillomavirus", "C. Cytomegalovirus", "D. Varicella-zoster virus", "E. Molluscum contagiosum virus"], a: "B" },
+{ n: 78, s: "Microbiology", l: 1, q: "Common warts are most commonly caused by which virus?", o: ["A. HSV-1", "B. EBV", "C. HPV", "D. CMV", "E. Adenovirus"], a: "C" },
+{ n: 79, s: "Radiology", l: 1, q: "A patient falls from a significant height and is suspected to have a cervical spine injury. Which imaging modality should be performed first?", o: ["A. MRI cervical spine", "B. CT cervical spine", "C. Cervical ultrasound", "D. Bone scan", "E. Plain skull X-ray"], a: "B" },
+{ n: 80, s: "Radiology", l: 1, q: "Which imaging modality is considered the gold standard for diagnosing osteoporosis?", o: ["A. CT scan", "B. MRI", "C. Plain radiography", "D. DEXA scan", "E. Ultrasound"], a: "D" },
+{ n: 81, s: "Radiology", l: 1, q: "Which imaging modality is most useful for assessing a suspected knee ligament injury?", o: ["A. Plain X-ray", "B. CT scan", "C. Ultrasound", "D. MRI", "E. Bone scintigraphy"], a: "D" },
+{ n: 82, s: "Radiology", l: 1, q: "An elderly woman with a pelvic injury requires detailed soft tissue evaluation. Which imaging modality is most appropriate?", o: ["A. Open MRI", "B. Ultrasound", "C. DEXA", "D. Fluoroscopy", "E. Mammography"], a: "A" },
+{ n: 83, s: "Public Health", l: 1, q: "Which gas is commonly referred to as the green gas?", o: ["A. Carbon monoxide", "B. Nitrogen dioxide", "C. Sulfur dioxide", "D. Chlorine", "E. Methane"], a: "D" },
+{ n: 84, s: "Anatomy", l: 1, q: "Which bone undergoes intramembranous ossification?", o: ["A. Femur", "B. Tibia", "C. Mandible", "D. Fibula", "E. Humerus"], a: "C" },
+{ n: 85, s: "Histology", l: 1, q: "Bone trabeculae formation during endochondral ossification occurs primarily in which region?", o: ["A. Resting zone", "B. Proliferative zone", "C. Hypertrophic zone", "D. Calcification zone", "E. Zona spongiosa"], a: "E" },
+{ n: 86, s: "Radiology", l: 1, q: "Which of the following findings suggests incorrect patient positioning on a chest radiograph?", o: ["A. Visible vertebral bodies", "B. Equal clavicular distances from the spinous process", "C. Rotation of the clavicles relative to the spine", "D. Clear costophrenic angles", "E. Adequate inspiration"], a: "C" },
+{ n: 87, s: "Pathology", l: 1, q: "A child presents with leg pain, fever, and leukocytosis on CBC. What is the next most appropriate investigation?", o: ["A. Serum calcium measurement", "B. Bone marrow examination", "C. Thyroid function test", "D. Urinalysis", "E. Stool examination"], a: "B" },
+{ n: 88, s: "Pathology", l: 1, q: "Which of the following conditions is least commonly associated with anemia of chronic disease?", o: ["A. HIV infection", "B. Cancer", "C. Hemolytic anemia", "D. Chronic renal failure", "E. Chronic inflammatory disease"], a: "C" },
+
+
+];
+
+
+const lectures = {
+   1:  "Blood vessels of the thorax",
+   2:  "Blood vessels of head and neck",
+};
+  
+const lectureFilters = {
+    "All": [],
+    "Anatomy": [
+        { label: "All",       val: "All" },
+        
+        { label: "Blood vessels of the thorax",     val: 1 },
+        { label: "Blood vessels of head and neck",     val: 2 },
+       
+ ],
+
+ 
+ 
+
+
+
+
+};
+let currentSubjectFilter = "All";  // default
+let currentLecture = "All";
+
+const container = document.getElementById('quiz-content');
+const filterBar = document.getElementById('filter-bar');
+
+function renderFilterBar() {
+    const filters = lectureFilters[currentSubjectFilter] || lectureFilters["All"];
+    filterBar.innerHTML = filters.map(f =>
+        `<button class="filter-btn${f.val === currentLecture ? " active" : ""}" onclick="filterByLecture('${f.val}', this)">${f.label}</button>`
+    ).join('');
+}
+
+function getLectureLabel(val) {
+    if (val === "All" && currentSubjectFilter === "All") return "All";
+    if (val === "All") {
+        const subjectLabels = {
+    "Anatomy": "Anatomy 🦴",
+    "Physiology": "Physiology ⚡",
+    "Microbiology": "Microbiology 🦠",
+    "Pharmacology": "Pharmacology 💊",
+    "Biochemistry": "Biochemistry 🧪",
+    "Pathology": "Pathology 🔬",
+    "Genetics": "Genetics 🧬",
+    "Medical Education": "Medical Education 📘",
+    "Histology": "Histology 🫁",
+    "Embryology": "Embryology 👶",
+    "Radiology": "Radiology ☢️",
+    "Dermatology": "Dermatology ✨"
+};
+        return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
+    }
+    return lectures[val] || val;
+}
+
+function updateSectionHeading() {
+    const existing = document.getElementById('section-heading');
+    const visibleBlocks = [...document.querySelectorAll('.q-block')].filter(b => b.style.display !== "none");
+    const count = visibleBlocks.length;
+
+    let noResultsMsg = document.getElementById('no-results-msg');
+    if (count === 0) {
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.id = 'no-results-msg';
+            noResultsMsg.className = 'no-results';
+            noResultsMsg.textContent = "No questions found.";
+            container.appendChild(noResultsMsg);
+        }
+    } else if (noResultsMsg) {
+        noResultsMsg.remove();
+    }
+
+    const label = getLectureLabel(currentLecture);
+    const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
+
+    if (existing) {
+        existing.style.display = (count === 0) ? "none" : "flex";
+        existing.querySelector('.section-heading-title').textContent = label;
+        existing.querySelector('.mcq-count-badge').textContent = badgeText;
+    } else if (count > 0) {
+        const heading = document.createElement('div');
+        heading.id = 'section-heading';
+        heading.className = 'section-heading';
+        heading.innerHTML = `<span class="section-heading-title">${label}</span><span class="mcq-count-badge">${badgeText}</span>`;
+        container.insertBefore(heading, container.firstChild);
+    }
+}
+
+function renderQuiz() {
+    container.innerHTML = '';
+    allQuestions.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.subject = item.s;
+        div.dataset.lecture = item.l ?? "";
+        div.dataset.searchText = (item.q + " " + item.o.join(" ")).toLowerCase();
+
+        div.style.display = matchesFilters(item) ? "block" : "none";
+
+        // If item.a is an array, render one button per element (Answer A, Answer B, ...).
+        // If item.a is a plain string, render the normal single "Answer" button.
+        // This is purely structural -- no need for "A."/"B." text in the answer itself.
+        const isMulti = Array.isArray(item.a);
+        const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+        // Essay questions have no real options (o is empty or just [""]).
+        // For those, show just the answer text -- no "Answer:" prefix.
+        const isEssay = !item.o || item.o.length === 0 || (item.o.length === 1 && item.o[0].trim() === "");
+
+        const answerButtonsHtml = isMulti
+            ? item.a.map((part, i) => {
+                const label = `Answer ${letters[i] || (i + 1)}`;
+                const revealText = isEssay ? part : `Answer: ${part}`;
+                return `<button class="ans-btn" data-label="${label}" data-answer="${escapeAttr(revealText)}" onclick="toggleAnswer(this)">${label}</button>`;
+              }).join('')
+            : `<button class="ans-btn" data-label="Answer" data-answer="${escapeAttr(isEssay ? item.a : 'Answer: ' + item.a)}" onclick="toggleAnswer(this)">Answer</button>`;
+
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row${isMulti ? ' ans-row--multi' : ''}">
+                ${answerButtonsHtml}
+            </div>
+        `;
+        container.appendChild(div);
+    });
+    updateSectionHeading();
+}
+
+function matchesFilters(item) {
+    const subjectOk = currentSubjectFilter === "All" || item.s === currentSubjectFilter;
+    const lectureOk = currentLecture === "All" || item.l === currentLecture;
+    return subjectOk && lectureOk;
+}
+
+function filterByLecture(val, btn) {
+    currentLecture = val;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    handleSearch();
+}
+
+// Subject dropdown logic
+function toggleSubjectDropdown() {
+    const dd = document.getElementById('subject-dropdown');
+    const btn = document.getElementById('subject-toggle-btn');
+    const isOpen = dd.classList.contains('open');
+    if (isOpen) {
+        dd.classList.remove('open');
+        btn.classList.remove('dropdown-open');
+    } else {
+        dd.classList.add('open');
+        btn.classList.add('dropdown-open');
+    }
+}
+
+function selectSubjectFilter(subject, el) {
+    currentSubjectFilter = subject;
+    currentLecture = "All";
+    localStorage.setItem('selectedSubject', subject);
+    // update selected state in dropdown
+    document.querySelectorAll('.subject-dropdown-item').forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+    // keep dropdown open — do NOT close it
+    // re-render filter bar and quiz
+    renderFilterBar();
+    handleSearch();
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+    const wrapper = document.querySelector('.subject-toggle-wrapper');
+    if (wrapper && !wrapper.contains(e.target)) {
+        document.getElementById('subject-dropdown').classList.remove('open');
+        document.getElementById('subject-toggle-btn').classList.remove('dropdown-open');
+    }
+});
+
+function handleSearch() {
+    const term = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+    blocks.forEach(block => {
+        resetBlock(block);
+        const subjectOk = currentSubjectFilter === "All" || block.dataset.subject === currentSubjectFilter;
+        const lectureOk = currentLecture === "All" || String(block.dataset.lecture) === String(currentLecture);
+        const matchesSearch = term === "" || block.dataset.searchText.includes(term);
+        if (subjectOk && lectureOk && matchesSearch) {
+            block.style.display = "block";
+            if (term !== "") highlight(block, term);
+        } else {
+            block.style.display = "none";
+        }
+    });
+    updateSectionHeading();
+}
+
+function resetBlock(block) {
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+    qText.innerHTML = qText.dataset.original;
+    opts.forEach(li => li.innerHTML = li.dataset.original);
+    block.querySelectorAll('.ans-btn').forEach(btn => {
+        btn.classList.remove('revealed');
+        if (btn.dataset.answer) btn.textContent = btn.dataset.label;
+    });
+}
+
+function highlight(block, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    block.querySelector('.q-text').innerHTML = block.querySelector('.q-text').innerHTML.replace(regex, '<mark>$1</mark>');
+    block.querySelectorAll('li').forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+}
+
+function escapeAttr(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+
+function toggleAnswer(btn) {
+    const isRevealed = btn.classList.toggle('revealed');
+    btn.textContent = isRevealed ? btn.dataset.answer : btn.dataset.label;
+}
+
+function toggleTheme() {
+    const isLight = document.body.getAttribute('data-theme') === 'light';
+    const newTheme = isLight ? '' : 'light';
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.getElementById('theme-icon').innerHTML = isLight 
+        ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
+        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+}
+
+(function () {
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+        document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+    // Restore saved subject (default: Biochemistry)
+    const saved = localStorage.getItem('selectedSubject');
+    if (saved && lectureFilters[saved]) {
+        currentSubjectFilter = saved;
+    }
+    // Mark the correct dropdown item as selected
+    document.querySelectorAll('.subject-dropdown-item').forEach(item => {
+        if (item.dataset.subject === currentSubjectFilter) {
+            item.classList.add('selected');
+        } else {
+            item.classList.remove('selected');
+        }
+    });
+}());
+
+renderFilterBar();
+renderQuiz();
+</script>
+</body>
+</html>
