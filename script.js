@@ -252,7 +252,7 @@ const ALL_SECTIONS = [
         { label: 'Final _ 2nd Term', badge: '0 MCQs', href: 'MSD_Final2_2021-2022.html' },
 
      ]},
-      { title: '2023-2024 Year Exam',   links: [
+      { title: '2023-2024 Year Exam 🔥',   links: [
         { label: 'Practice', badge: '14 Qs', href: 'MSD_End_Block_Practice_2023-2024.html' },
 
      ]},
