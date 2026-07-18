@@ -419,7 +419,6 @@
                 <div class="subject-dropdown-item" data-subject="Medical Education" onclick="selectSubjectFilter('Medical Education', this)"><span class="filter-option-dot"></span>Medical education 📘</div>
                 <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🫁</div>
                 <div class="subject-dropdown-item" data-subject="Radiology" onclick="selectSubjectFilter('Radiology', this)"><span class="filter-option-dot"></span>Radiology ☢️</div>
-                <div class="subject-dropdown-item" data-subject="Embryology" onclick="selectSubjectFilter('Embryology', this)"><span class="filter-option-dot"></span>Embryology 👶</div>
                 <div class="subject-dropdown-item" data-subject="Dermatology" onclick="selectSubjectFilter('Dermatology', this)"><span class="filter-option-dot"></span>Dermatology ✨ </div>
 
                 <div class="subject-dropdown-item" data-subject="Medical education" onclick="selectSubjectFilter('Essay Questions', this)"><span class="filter-option-dot"></span>Essay Questions</div>
@@ -466,12 +465,12 @@ const allQuestions = [
   { n: 15, s: "Biochemistry", l: 1, q: "Which of the following is an example of a plasma-derivative mediator?", o: ["A. Histamine", "B. Leukotriene B4", "C. Bradykinin", "D. Prostaglandin E2", "E. Serotonin"], a: "C" },
   { n: 16, s: "Biochemistry", l: 1, q: "All of the following are true about magnesium EXCEPT:", o: ["A. It acts as a cofactor for more than 300 enzymatic reactions.", "B. Loop diuretics can increase its urinary excretion.", "C. It plays a key role in ATP-dependent biochemical pathways.", "D. Hyperinsulinemia causes hypermagnesemia.", "E. Hypomagnesemia can exacerbate hypokalemia."], a: "D" },
   { n: 17, s: "Biochemistry", l: 1, q: "Which of the following is correct about minerals?", o: ["A. Vitamin D inhibits the absorption of calcium and magnesium.", "B. Iron absorption is decreased by vitamin C.", "C. The symptoms of hypomagnesemia are very similar to those of hypocalcemia.", "D. Zinc deficiency causes Wilson's disease.", "E. Sodium is the major intracellular cation."], a: "C" },
-  { n: 18, s: "Medical education", l: 1, q: "All of the following are universal values EXCEPT:", o: ["A. Friendship", "B. Honesty", "C. Justice", "D. Respect", "E. Responsibility"], a: "A" },
+  { n: 18, s: "Medical Education", l: 1, q: "All of the following are universal values EXCEPT:", o: ["A. Friendship", "B. Honesty", "C. Justice", "D. Respect", "E. Responsibility"], a: "A" },
   { n: 19, s: "Histology", l: 1, q: "Which type of bone cells are responsible for building new bones?", o: ["A. Osteoclasts", "B. Osteocytes", "C. Chondrocytes", "D. Fibroblasts", "E. Osteoblasts"], a: "E" },
   { n: 20, s: "Pathology", l: 1, q: "A patient's synovial fluid analysis reveals needle-shaped uric acid crystals under polarized light, with numerous neutrophils seen in the background. What is the diagnosis? (case question)", o: ["A. Pseudogout", "B. Gout", "C. Rheumatoid arthritis", "D. Septic arthritis", "E. Osteoarthritis"], a: "B" },
   { n: 21, s: "Pathology", l: 1, q: "A tumor grows intramedullary as a destructive lytic tumor with permeative margins that extend into surrounding soft tissues. It is composed of sheets of undifferentiated uniform small, round cells with an onion-skin periosteal reaction. Which of the following is true regarding this tumor?", o: ["A. The classic translocation is t(11;22) which produces EWS-FLI1 fusion protein.", "B. It is characteristically associated with an MDM2 gene amplification.", "C. It arises from mature osteoblasts producing malignant osteoid.", "D. The characteristic mutation involves the IDH1 or IDH2 genes.", "E. It is highly resistant to both chemotherapy and radiation therapy."], a: "A" },
   { n: 22, s: "Dermatology", l: 1, q: "A patient presents with pruritic skin lesions described as 'wheals'. What does a wheal mean? (case question)", o: ["A. It is a chronic, hyperkeratotic plaque with silvery scales.", "B. It is a transient, raised, well-circumscribed area of dermal edema.", "C. It is a fluid-filled blister smaller than 1 cm in diameter.", "D. It is a deep, solid, palpable lesion greater than 2 cm.", "E. It is a permanent dilation of superficial blood vessels."], a: "B" },
-  { n: 23, s: "Medical genetics", l: 1, q: "Which of the following requires invasive testing after a male fetus is proven by non-invasive procedures?", o: ["A. Down syndrome", "B. Klinefelter syndrome", "C. Turner syndrome", "D. Duchenne muscular dystrophy", "E. Edwards syndrome"], a: "D" },
+  { n: 23, s: "Genetics", l: 1, q: "Which of the following requires invasive testing after a male fetus is proven by non-invasive procedures?", o: ["A. Down syndrome", "B. Klinefelter syndrome", "C. Turner syndrome", "D. Duchenne muscular dystrophy", "E. Edwards syndrome"], a: "D" },
   { n: 24, s: "Radiology", l: 1, q: "A child fell down and had knee pain. On radiography, there was a radiolucent line between the epiphysis and metaphysis. What does the line indicate?", o: ["A. A non-displaced fracture line", "B. An osteolytic bone tumor", "C. The epiphyseal growth plate", "D. Nutrient artery canal", "E. Periosteal reaction"], a: "C" },
   { n: 25, s: "Radiology", l: 1, q: "Which structure leaked out, causing irritation to the surrounding structures and a herniated disc, appearing dark in T1 and light in T2 MRI sequences?", o: ["A. Ligamentum flavum", "B. Annulus fibrosus", "C. Posterior longitudinal ligament", "D. Cauda equina", "E. Nucleus pulposus"], a: "E" },
 
@@ -505,16 +504,12 @@ const allQuestions = [
   a: "Mechanism of Action:\n\n- Decreases osteoclastic bone resorption by:\n\n 1. Decreasing osteoclastic formation and activation.\n  2. Increasing osteoclastic apoptosis.\n\nExamples & Routes of Administration:\n\n- Oral Preparations:\n  1. Alendronate\n  2. Risedronate\n  3. Etidronate\n  4. Ibandronate\n\n- Intravenous (IV) Preparations:\n  1. Pamidronate\n  2. Zoledronic acid\n  3. Ibandronate (given every 3 months)" 
 },
   
-
-
-
-
 ];
 
 
 const lectures = {
-   1:  "Blood vessels of the thorax",
-   2:  "Blood vessels of head and neck",
+   1:  "Fascia and regions of upper limb",
+   2:  "Forearm and hand",
 };
   
 const lectureFilters = {
@@ -522,8 +517,8 @@ const lectureFilters = {
     "Anatomy": [
         { label: "All",       val: "All" },
         
-        { label: "Blood vessels of the thorax",     val: 1 },
-        { label: "Blood vessels of head and neck",     val: 2 },
+        { label: "Fascia and regions of upper limb",     val: 1 },
+        { label: "Forearm and hand",     val: 2 },
        
  ],
 
