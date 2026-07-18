@@ -269,7 +269,7 @@ const ALL_SECTIONS = [
 
 
      { title: '2025-2026 Year Exam',     links: [
-      { label: 'End-Block _ Theory', badge: '0 MCQs',  href: 'MSD_End-Block_Theory_2025-2026.html' },
+      { label: 'End-Block _ Theory', badge: '28 MCQs',  href: 'MSD_End-Block_Theory_2025-2026.html' },
       { label: 'Final', badge: '0 MCQs',  href: 'MSD_Final_2025-2026.html' }
     
     ] },
