@@ -249,7 +249,7 @@ const ALL_SECTIONS = [
 
       { title: '2021-2022 Year Exam',   links: [
         { label: 'Final _ 1st Term', badge: '38 MCQs', href: 'MSD_Final_2021-2022.html' },
-        { label: 'Final _ 2nd Term', badge: '0 MCQs', href: 'MSD_Final2_2021-2022.html' },
+        { label: 'Final _ 2nd Term', badge: '36 MCQs', href: 'MSD_Final2_2021-2022.html' },
 
      ]},
       { title: '2023-2024 Year Exam 🔥',   links: [
@@ -289,7 +289,7 @@ const ALL_SECTIONS = [
 
       { title: '2021-2022 Year Exam',   links: [
         { label: 'Final _ 1st Term', badge: '33 MCQs', href: 'HP_Final_2021-2022.html' },
-        { label: 'Final _ 2nd Term', badge: '0 MCQs', href: 'HP_Final2_2021-2022.html' },
+        { label: 'Final _ 2nd Term', badge: '29 MCQs', href: 'HP_Final2_2021-2022.html' },
 
      ]},
       { title: '2023-2024 Year Exam',   links: [
@@ -380,7 +380,7 @@ const ALL_SECTIONS = [
 
       { title: '2021-2022 Year Exam',   links: [
         { label: 'Final _ 1st Term', badge: '44 MCQs', href: 'RS_Final_2021-2022.html' },
-        { label: 'Final _ 2nd Term', badge: '0 MCQs', href: 'RS_Final2_2021-2022.html' },
+        { label: 'Final _ 2nd Term', badge: '38 MCQs', href: 'RS_Final2_2021-2022.html' },
 
      ]},
       { title: '2023-2024 Year Exam',   links: [
