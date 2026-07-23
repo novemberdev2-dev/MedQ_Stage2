@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MSD_End_Block_Practice_2023-2024</title>
+    <title>MSD_End_Block_Practice_2024-2025</title>
     
     <style>
           :root {
@@ -16,7 +16,8 @@
                --ans-bg: #1e293b;
             --ans-text: #f0cf6a;
             --ans-border: #2e7d32;
-            --input-border: #26292b;
+            --input-bg: #1a1c1e;
+            --input-border: #2a2f36;
         
         }
 
@@ -31,6 +32,7 @@
            --ans-bg: #eef6e4;
             --ans-text: #2e7d32;
           
+            --input-bg: #fcfcfc;
             --input-border: #cccccc;
         }
 
@@ -52,18 +54,75 @@
 
         .header { 
             text-align: center; 
-            background-color: var(--header-bg);
-            color: var(--header-text);
-            padding: 16px;
+            margin-bottom: 15px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 6px 10px;
+            min-height: 28px;
             border-radius: 7px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            min-height: 30px;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
         }
 
-        .header { flex-direction: row; align-items: center; text-align: left; gap: 12px; }
+        .header-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .header-title {
+            font-size: 0.90rem;
+            font-weight: 800;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                align-items: center;
+            }
+            .header-title-wrap {
+                align-items: center;
+            }
+            .header-title {
+                font-size: 0.80rem;
+                white-space: normal;
+                overflow: visible;
+                text-overflow: clip;
+                word-break: break-word;
+                line-height: 1.4;
+                text-align: left;
+            }
+            .title-line1,
+            .title-line2 {
+                display: block;
+            }
+            .title-sep-2 {
+                display: none;
+            }
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .icon-divider {
+            width: 1px;
+            height: 24px;
+            background-color: var(--input-border);
+            flex-shrink: 0;
+        }
 
         .controls-row {
             display: flex;
@@ -101,18 +160,18 @@
         }
 
         .theme-toggle {
-            flex-shrink: 0;
-            background-color: var(--card-bg);
-            border: 1px solid var(--input-border);
+            background-color: transparent;
+            border: none;
             color: var(--text-main);
-            width: 48px;
-            height: 48px;
-            border-radius: 8px;
-            
+            width: 36px;
+            height: 36px;
+            border-radius: 7px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
+            flex-shrink: 0;
+            
         }
         
         .site-footer {
@@ -230,7 +289,6 @@ button.ans-btn.revealed {
         @media (max-width: 700px) {
             .quiz-card { flex-direction: column-reverse; }
             .image-section { border-left: none; border-bottom: 1px solid var(--card-border); }
-            .header { flex-direction: column; gap: 12px; }
             .filter-btn { padding: 8px 8px; font-size: 0.75rem; }
         }
     </style>
@@ -238,10 +296,17 @@ button.ans-btn.revealed {
 <body oncontextmenu="return false;">
 
 <div class="container">
-    <div class="header" style="padding: 9px 14px; margin-bottom: 15px;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-           
-            <span style="font-size: 0.90rem; font-weight: 800; color: var(--header-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">MSD 🦴 &nbsp;·&nbsp; Practical Exam &nbsp;·&nbsp; 2023-2024</span>
+    <div class="header" id="header">
+        <div class="header-title-wrap">
+            <span class="header-title"><span class="title-line1">MSD 🦴&nbsp;·&nbsp; Practical Exam</span><span class="title-sep-2">&nbsp;·&nbsp;</span><span class="title-line2">2024-2025</span></span>
+        </div>
+
+        <div class="header-actions">
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <svg id="theme-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
         </div>
     </div>
 
@@ -253,15 +318,8 @@ button.ans-btn.revealed {
 
             <button class="filter-btn" onclick="filterLabs('Lab3', this)">Histology 🫁 </button>
             <button class="filter-btn" onclick="filterLabs('Lab4', this)">Pharmacology 💊</button>
-            <button class="filter-btn" onclick="filterLabs('Lab5', this)">Physiology ⚡</button>
             
         </div>
-        
-        <button class="theme-toggle" onclick="toggleTheme()">
-    <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-    </svg>
-</button>
     </div>
 
     <div id="main-content"></div>
@@ -373,21 +431,23 @@ const questions = [
         ],
           img: 'https://i.imgur.com/TQ8wiWX.png'
     },
-    {
-        id: 'q12', lab: 'Lab3',
-        question: "<strong>12. The microscopic findings shows several histiocytes and… <br>The case presented with fever and other symptoms, what is the diagnosis?</strong>",
-        answer: "Osteomyelitis.",
-        img: 'https://i.imgur.com/cWOZ6b2.png'
-       
-    },
-    {
-        id: 'q13', lab: 'Lab2', number: '13',
+
+     {
+        id: 'q12', lab: 'Lab2', number: '12',
         parts: [
             { question: "<strong>A.</strong> What is the name of the test?", answer: 'Electromyography test.' },
             { question: "<strong>B.</strong> It is used for 1. …………………………. and 2. …………………………..", answer: 'The answer is not mentioned.' }
         ],
         img: ' https://i.imgur.com/trYzFkf.png'
     },
+    {
+        id: 'q13', lab: 'Lab3',
+        question: "<strong>13. The microscopic findings shows several histiocytes and… <br>The case presented with fever and other symptoms, what is the diagnosis?</strong>",
+        answer: "Osteomyelitis.",
+        img: 'https://i.imgur.com/cWOZ6b2.png'
+       
+    },
+   
     {
         id: 'q14', lab: 'Lab4', number: '14',
         case: "The drug prescription is :<br>Rx<br>Ibuprofen ____ mg<br>Gentamicin ____ mg",
