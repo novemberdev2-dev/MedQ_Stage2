@@ -268,13 +268,13 @@ const ALL_SECTIONS = [
       ] },
 
 
-     { title: '2025-2026 Year Exam',     links: [
+     { title: '2025-2026 Year Exam 🔥',     links: [
       { label: 'End-Block _ Theory', badge: '28 MCQs',  href: 'MSD_End-Block_Theory_2025-2026.html' },
-      { label: 'Final', badge: '0 MCQs',  href: 'MSD_Final_2025-2026.html' }
+      { label: 'Final', badge: '38 MCQs',  href: 'MSD_Final_2025-2026.html' }
     
     ] },
 
-     { title: 'Unknown Year Exam',     links: [
+     { title: 'Unknown Year Exam 🔥',     links: [
       { label: 'Final', badge: '112 MCQs',  href: 'MSD_Final_Unknown Year.html' },
     
     ] },
@@ -310,7 +310,7 @@ const ALL_SECTIONS = [
 
      { title: '2025-2026 Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '0 MCQs',  href: 'HP_End-Block_Theory_2025-2026.html' },
-      { label: 'Final', badge: '0 MCQs',  href: 'HP_Final_2025-2026.html' }
+      { label: 'Final', badge: '31 MCQs',  href: 'HP_Final_2025-2026.html' }
     
     ] },
 
@@ -401,7 +401,7 @@ const ALL_SECTIONS = [
 
      { title: '2025-2026 Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '0 MCQs',  href: 'RS_End-Block_Theory_2025-2026.html' },
-      { label: 'Final', badge: '0 MCQs',  href: 'RS_Final_2025-2026.html' }
+      { label: 'Final', badge: '49 MCQs',  href: 'RS_Final_2025-2026.html' }
     
     ] },
 
