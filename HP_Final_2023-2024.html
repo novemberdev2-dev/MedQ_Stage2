@@ -691,13 +691,13 @@ const allQuestions = [
   
   { "n": 1, "s": "Physiology", "l": 1, "q": "Which of the following cells have a role in phagocytosis?", "o": ["A. Monocytes", "B. Lymphocytes only", "C. Erythrocytes", "D. Platelets", "E. Plasma cells"], "a": "A" },
   { "n": 2, "s": "Physiology", "l": 1, "q": "Which of the following is NOT true about Red Blood Cells (RBC)?", "o": ["A. They contain hemoglobin.", "B. They contain myoglobin.", "C. They have a biconcave shape.", "D. They transport oxygen.", "E. They lack a nucleus in mammals."], "a": "B" },
-  { "n": 3, "s": "Physiology", "l": 1, "q": "What of the following is TRUE about the biconcave shape of RBCs?", "o": ["A. It decreases internal volume.", "B. It increases the surface area.", "C. It reduces flexibility in capillaries.", "D. It enhances white blood cell adhesion.", "E. It prevents hemolysis."], "a": "B" },
-  { "n": 4, "s": "Physiology", "l": 1, "q": "Which of the following is NOT true about thrombocythemia?", "o": ["A. It involves an elevated platelet count.", "B. It increases production of erythropoietin.", "C. It can be primary or secondary.", "D. It may lead to clotting abnormalities.", "E. Platelet production is abnormally regulated."], "a": "B" },
-  { "n": 5, "s": "Physiology", "l": 1, "q": "Deoxygenated RBCs in the capillaries have increased affinity for which of the following?", "o": ["A. Sodium ions (Na+)", "B. Hydrogen ions (H+)", "C. Calcium ions (Ca+2)", "D. Hydroxide ions (OH-)", "E. Potassium ions (K+)"], "a": "B" },
-  { "n": 6, "s": "Physiology", "l": 1, "q": "Which enzyme transforms carbon dioxide and water into bicarbonate?", "o": ["A. Carbonic anhydrase", "B. Amylase", "C. Pepsin", "D. Lipase", "E. Cytochrome oxidase"], "a": "A" },
-  { "n": 7, "s": "Physiology", "l": 1, "q": "Polycythemia will not occur in which of the following conditions?", "o": ["A. Pregnancy", "B. High altitude adaptation", "C. Chronic hypoxia", "D. Dehydration", "E. Polycythemia vera"], "a": "A" },
+  { "n": 3, "s": "Physiology", "l": 1, "q": "What of the following is TRUE about the biconcave shape of RBCs?", "o": ["A. It decreases internal volume.", "B. It prevents hemolysis. ", "C. It reduces flexibility in capillaries.", "D. It enhances white blood cell adhesion.", "E. It increases the surface area."], "a": "E" },
+  { "n": 4, "s": "Physiology", "l": 1, "q": "Which of the following is NOT true about thrombocythemia?", "o": ["A. It involves an elevated platelet count.", "B. It can be primary or secondary.", "C. It increases production of erythropoietin.", "D. It may lead to clotting abnormalities.", "E. Platelet production is abnormally regulated."], "a": "C" },
+  { "n": 5, "s": "Physiology", "l": 1, "q": "Deoxygenated RBCs in the capillaries have increased affinity for which of the following?", "o": ["A. Sodium ions (Na+)", "B. Potassium ions (K+)", "C. Calcium ions (Ca+2)", "D. Hydroxide ions (OH-)", "E. Hydrogen ions (H+)"], "a": "E" },
+  { "n": 6, "s": "Physiology", "l": 1, "q": "Which enzyme transforms carbon dioxide and water into bicarbonate?", "o": ["A. Lipase", "B. Amylase", "C. Pepsin", "D. Carbonic anhydrase", "E. Cytochrome oxidase"], "a": "D" },
+  { "n": 7, "s": "Physiology", "l": 1, "q": "Polycythemia will not occur in which of the following conditions?", "o": ["A. High altitude adaptation", "B. Pregnancy", "C. Chronic hypoxia", "D. Dehydration", "E. Polycythemia vera"], "a": "B" },
   { "n": 8, "s": "Physiology", "l": 1, "q": "White blood cells (WBC) exit blood vessels due to which process?", "o": ["A. Chemotaxis", "B. Diapedesis", "C. Defensin", "D. Phagocytosis", "E. Immunoglobulin production"], "a": "B" },
-  { "n": 9, "s": "Physiology", "l": 1, "q": "The first vascular response to injury is:", "o": ["A. Slowing of the circulation", "B. Arteriolar vasoconstriction", "C. Capillary engorgement", "D. Recruitment of vascular beds", "E. Venular dilation"], "a": "B" },
+  { "n": 9, "s": "Physiology", "l": 1, "q": "The first vascular response to injury is:", "o": ["A. Arteriolar vasoconstriction", "B. Slowing of the circulation", "C. Capillary engorgement", "D. Recruitment of vascular beds", "E. Venular dilation"], "a": "A" },
   { "n": 10, "s": "Physiology", "l": 1, "q": "An increased eosinophil count is most commonly associated with which condition?", "o": ["A. Viral infection", "B. Bacterial sepsis", "C. Parasitic infection", "D. Iron deficiency anemia", "E. Aplastic anemia"], "a": "C" },
   { "n": 11, "s": "Physiology", "l": 1, "q": "What is the normal white blood cell (WBC) count range per microliter of blood?", "o": ["A. 1,000 - 3,000", "B. 4,000 - 11,000", "C. 15,000 - 20,000", "D. 25,000 - 30,000", "E. 50,000 - 100,000"], "a": "B" }
 
@@ -812,16 +812,8 @@ function getLectureLabel(val) {
     if (val === "All" && currentSubjectFilter === "All") return "All";
     if (val === "All") {
         const subjectLabels = {
-            "Anatomy": "Anatomy 🦴",
             "Physiology": "Physiology ⚡",
-            "Microbiology": "Microbiology 🦠",
-            "Pharmacology": "Pharmacology 💊",
-            "Medicine": "Medicine 📘",
-            "Pathology": "Pathology 🔬",
-            "Genetics": "Genetics 🧬",
-            "Medical Education": "Medical Education 📗",
-            "Histology": "Histology 🫁",
-            "Radiology": "Radiology ☢️"
+           
         };
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
