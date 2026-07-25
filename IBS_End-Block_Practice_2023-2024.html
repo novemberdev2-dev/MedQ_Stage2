@@ -13,7 +13,7 @@
             --header-text: #38bdf8;
             --card-bg: #1a1c1e;
             --card-border: #26292b;
-            --ans-bg: #1e293b;
+               --ans-bg: #1e293b;
             --ans-text: #f0cf6a;
             --ans-border: #2e7d32;
             --input-bg: #1a1c1e;
@@ -30,12 +30,26 @@
             --header-text: #ffffff;
             --card-bg: #ffffff;
             --card-border: #cccccc;
-            --ans-bg: #eef6e4;
+           --ans-bg: #eef6e4;
             --ans-text: #2e7d32;
+          
             --input-bg: #fcfcfc;
             --input-border: #cccccc;
             --correct-color: #2e7d32;
-            
+        }
+
+        @media print {
+            body * {
+                visibility: hidden !important;
+            }
+            body::before {
+                content: "Printing is disabled for this document.";
+                visibility: visible;
+                display: block;
+                text-align: center;
+                margin-top: 40vh;
+                font-size: 1.2rem;
+            }
         }
 
         body {
@@ -53,6 +67,8 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* Kill the mobile tap-flash on every clickable control while keeping
+           the desktop hand cursor (cursor: pointer stays untouched below) */
         .theme-toggle,
         .subject-toggle,
         .subject-dropdown-item,
@@ -553,10 +569,10 @@
                 <div class="subject-dropdown" id="subject-dropdown">
                     <div class="subject-dropdown-header">Subject</div>
                     <div class="subject-dropdown-item selected" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
-                    <div class="subject-dropdown-item" data-subject="Lab1" onclick="selectSubjectFilter('Lab1', this)"><span class="filter-option-dot"></span>Biochemistry ⚗️</div>
+                   <div class="subject-dropdown-item" data-subject="Lab1" onclick="selectSubjectFilter('Lab1', this)"><span class="filter-option-dot"></span>Biochemistry ⚗️</div>
                     <div class="subject-dropdown-item" data-subject="Lab2" onclick="selectSubjectFilter('Lab2', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
-
                     <div class="subject-dropdown-item" data-subject="Lab3" onclick="selectSubjectFilter('Lab3', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
+                
                 </div>
             </div>
 
@@ -670,12 +686,7 @@ const questions = [
 const labGroups = [
     { key: 'Lab1', label: 'Biochemistry ⚗️' },
     { key: 'Lab2', label: 'Pathology 🔬' },
-    { key: 'Lab3', label: 'Pharmacology 💊' },
-
-
-
-
-   
+    { key: 'Lab3', label: 'Pharmacology 💊' },  
    
 ];
 const EYE_SHOW_SVG = `<svg width="20px" height="20px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M0 0h48v48H0z" fill="none"></path> <g id="Shopicon"> <path d="M24,38c12,0,20-14,20-14s-8-14-20-14S4,24,4,24S12,38,24,38z M24,14c7.072,0,12.741,6.584,15.201,9.992 C36.728,27.396,31.024,34,24,34c-7.072,0-12.741-6.584-15.201-9.992C11.272,20.604,16.976,14,24,14z"></path> <path d="M24,32c4.418,0,8-3.582,8-8s-3.582-8-8-8s-8,3.582-8,8S19.582,32,24,32z M24,20c2.206,0,4,1.794,4,4c0,2.206-1.794,4-4,4 s-4-1.794-4-4C20,21.794,21.794,20,24,20z"></path> </g> </g></svg>`;
@@ -1119,6 +1130,37 @@ if (localStorage.getItem('theme') === 'light') {
 
 reorderQuestions();
 renderContent();
+
+/* ---- Block quick-save and quick-print ---- */
+document.addEventListener('keydown', function (e) {
+    const key = e.key ? e.key.toLowerCase() : '';
+    const ctrlOrCmd = e.ctrlKey || e.metaKey;
+
+    // Ctrl/Cmd + S (Save)
+    if (ctrlOrCmd && key === 's') {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    // Ctrl/Cmd + P (Print)
+    if (ctrlOrCmd && key === 'p') {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+});
+
+// Catch printing triggered via the browser's Print menu / window.print()
+window.addEventListener('beforeprint', function (e) {
+    document.title = 'Printing disabled';
+});
+
+// Block right-click context menu (which also offers Save As / Print)
+document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+});
+
 </script>
 </body>
 </html>
