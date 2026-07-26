@@ -300,7 +300,7 @@ const ALL_SECTIONS = [
      
 
 
- { title: '2024-2025 Year Exam',     links: [
+ { title: '2024-2025 Year Exam 🔥',     links: [
         { label: 'End-Block _ Theory', badge: '22 MCQs',  href: 'HP_End-Block_Theory_2024-2025.html' },
         { label: 'End-Block _ Practice', badge: '12 Qs',  href: 'HP_End-Block_Practice_2024-2025.html' },
         { label: 'Final', badge: '29 MCQs',  href: 'HP_Final_2024-2025.html' },
@@ -309,8 +309,8 @@ const ALL_SECTIONS = [
       ] },
 
 
-     { title: '2025-2026 Year Exam',     links: [
-      { label: 'End-Block _ Theory', badge: '22 MCQs',  href: 'HP_End-Block_Theory_2025-2026.html' },
+     { title: '2025-2026 Year Exam 🔥',     links: [
+      { label: 'End-Block _ Theory', badge: '27 MCQs',  href: 'HP_End-Block_Theory_2025-2026.html' },
       { label: 'End-Block _ Practice', badge: '12 Qs',  href: 'HP_End-Block_Practice_2025-2026.html' },
       { label: 'Final', badge: '31 MCQs',  href: 'HP_Final_2025-2026.html' }
        
