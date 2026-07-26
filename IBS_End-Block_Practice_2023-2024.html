@@ -5,22 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IBS_End_Block_Practice_2023-2024</title>
 
-    <script>
-        // Blank out the content unless this is a normal web page load (http/https).
-        // Covers file://, content:// (Android's local-file scheme), blob:, etc. —
-        // any way a saved copy might be reopened outside its original web address.
-        if (location.protocol !== 'http:' && location.protocol !== 'https:') {
-            document.documentElement.style.display = 'none';
-            window.addEventListener('DOMContentLoaded', function () {
-                document.body.innerHTML =
-                    '<div style="display:flex;align-items:center;justify-content:center;' +
-                    'height:100vh;font-family:sans-serif;text-align:center;padding:20px;' +
-                    'background:#0c0d0e;color:#f1f5f9;">' +
-                    'This page must be opened from its original web address.</div>';
-                document.documentElement.style.display = '';
-            });
-        }
-    </script>
     
     <style>
           :root {
@@ -394,7 +378,7 @@
             align-items: center;
             gap: 6px;
             flex-wrap: wrap;
-            margin-top: 14px;
+            margin-top: 25px;
             position: relative;
             z-index: 10;
         }
@@ -468,9 +452,9 @@
             display: inline-block;
             background-color: var(--ans-bg);
             color: var(--ans-text);
-            font-weight: 700;
+            font-weight: 650;
             border-radius: 5px;
-            padding: 3px 8px;
+            padding: 1px 8px;
             margin: 2px -8px;
         }
 
@@ -481,7 +465,7 @@
 
         .copied-tooltip {
             position: absolute;
-            bottom: 60%;
+            bottom: 90%;
             left: 50%;
             transform: translateX(-50%) translateY(-2px);
             background-color: var(--input-bg);
@@ -586,10 +570,10 @@
                 <div class="subject-dropdown" id="subject-dropdown">
                     <div class="subject-dropdown-header">Subject</div>
                     <div class="subject-dropdown-item selected" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
-                    <div class="subject-dropdown-item" data-subject="Lab1" onclick="selectSubjectFilter('Lab1', this)"><span class="filter-option-dot"></span>Physiology ⚡</div>
-                    <div class="subject-dropdown-item" data-subject="Lab2" onclick="selectSubjectFilter('Lab2', this)"><span class="filter-option-dot"></span>Microbiology 🦠</div>
-                    <div class="subject-dropdown-item" data-subject="Lab3" onclick="selectSubjectFilter('Lab3', this)"><span class="filter-option-dot"></span>Medicine 📘</div>
-                    <div class="subject-dropdown-item" data-subject="Lab4" onclick="selectSubjectFilter('Lab4', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
+                    <div class="subject-dropdown-item" data-subject="Lab1" onclick="selectSubjectFilter('Lab1', this)"><span class="filter-option-dot"></span>Biochemistry ⚗️</div>
+                    <div class="subject-dropdown-item" data-subject="Lab2" onclick="selectSubjectFilter('Lab2', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
+                    <div class="subject-dropdown-item" data-subject="Lab3" onclick="selectSubjectFilter('Lab3', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
+                
                 </div>
             </div>
 
@@ -701,14 +685,9 @@ const questions = [
 
 
 const labGroups = [
-    { key: 'Lab1', label: 'Physiology ⚡' },
-    { key: 'Lab2', label: 'Microbiology 🦠' },
-    { key: 'Lab3', label: 'Medicine 📘' },
-    { key: 'Lab4', label: 'Pathology 🔬' },
-
-
-
-   
+    { key: 'Lab1', label: 'Biochemistry ⚗️' },
+    { key: 'Lab2', label: 'Pathology 🔬' },
+    { key: 'Lab3', label: 'Pharmacology 💊' },  
    
 ];
 const EYE_SHOW_SVG = `<svg width="20px" height="20px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M0 0h48v48H0z" fill="none"></path> <g id="Shopicon"> <path d="M24,38c12,0,20-14,20-14s-8-14-20-14S4,24,4,24S12,38,24,38z M24,14c7.072,0,12.741,6.584,15.201,9.992 C36.728,27.396,31.024,34,24,34c-7.072,0-12.741-6.584-15.201-9.992C11.272,20.604,16.976,14,24,14z"></path> <path d="M24,32c4.418,0,8-3.582,8-8s-3.582-8-8-8s-8,3.582-8,8S19.582,32,24,32z M24,20c2.206,0,4,1.794,4,4c0,2.206-1.794,4-4,4 s-4-1.794-4-4C20,21.794,21.794,20,24,20z"></path> </g> </g></svg>`;
