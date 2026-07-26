@@ -18,11 +18,10 @@
             --ans-bg: #1e293b;
             --ans-text: #f0cf6a;
             --filter-bg: transparent;
-            --correct-color: #2e7d32;
+            --correct-color: #f0cf6a;
             --btn-bg: #f8fafc; 
             --btn-text: #0f172a;
-            --opts-bg: #141414;
-            
+            --opts-bg: #1a1c1e;
         }
 
         [data-theme="light"] {
@@ -37,11 +36,25 @@
             --ans-bg: #eef6e4;
             --ans-text: #2e7d32;
             --filter-bg: transparent;
-            --correct-color: #e53935;
+            --correct-color: #2e7d32;
             --btn-bg: #52525b; 
             --btn-text: #ffffff;
             --opts-bg: #eef6e4;
-            
+        }
+
+        
+        @media print {
+            body * {
+                visibility: hidden !important;
+            }
+            body::before {
+                content: "Printing is disabled for this document.";
+                visibility: visible;
+                display: block;
+                text-align: center;
+                margin-top: 40vh;
+                font-size: 1.2rem;
+            }
         }
 
       .filter-btn.active {
@@ -52,6 +65,8 @@
 
         body {
             -webkit-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
             background-color: var(--bg-body);
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -60,6 +75,39 @@
             justify-content: center;
             transition: background-color 0.3s ease;
             overflow-x: hidden;
+        }
+
+          .theme-toggle,
+        .subject-toggle,
+        .subject-dropdown-item,
+        .eye-btn,
+        .icon-btn,
+        .copy-btn,
+        .pin-btn,
+        .draw-btn,
+        .answer-text,
+        .filter-btn,
+        .search-toggle-btn,
+        .search-close-btn,
+        button {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Show the hand/pointer cursor on every clickable control so it
+           doesn't fall back to the default Windows arrow on hover */
+        button,
+        .theme-toggle,
+        .subject-toggle,
+        .subject-dropdown-item,
+        .eye-btn,
+        .icon-btn,
+        .copy-btn,
+        .pin-btn,
+        .draw-btn,
+        .filter-btn,
+        .search-toggle-btn,
+        .search-close-btn {
+            cursor: pointer;
         }
 
         .container {
@@ -180,7 +228,6 @@
             justify-content: center;
             transition: all 0.3s;
             flex-shrink: 0;
-            
         }
 
         .search-toggle-btn {
@@ -195,7 +242,6 @@
             justify-content: center;
             transition: all 0.3s;
             flex-shrink: 0;
-            
         }
 
         /* Takeover styles */
@@ -221,7 +267,6 @@
             justify-content: center;
             transition: all 0.3s;
             flex-shrink: 0;
-            
         }
 
         .filter-container {
@@ -259,7 +304,6 @@
             justify-content: center;
             transition: all 0.3s;
             flex-shrink: 0;
-            
         }
 
         .subject-toggle svg {
@@ -334,7 +378,6 @@
             color: #aaa;
             transition: background 0.15s ease, color 0.15s ease;
             user-select: none;
-            
             text-align: left;
             white-space: nowrap;
         }
@@ -439,7 +482,6 @@
         .ans-btn.revealed {
             background-color: var(--ans-bg);
             color: var(--ans-text);
-            font-weight: 500;
             padding: 7px 12px;
             font-size: 16px;
             white-space: pre-line;
@@ -447,7 +489,7 @@
         }
 
         mark { background-color: #f0cf6a; color: #000; }
-        .opts li.correct-option { color: #2e7d32; font-weight: 650; background-color: var(--opts-bg); display: inline-block; padding: 0 7px 0 0.5px; border-radius: 4px;}
+        .opts li.correct-option { color: var(--correct-color); font-weight: 650; background-color: var( --opts-bg); display: inline-block; padding: 0 7px 0 1px; border-radius: 4px;}
         
         .section-heading {
             display: flex;
@@ -497,7 +539,6 @@
         .icon-btn, .eye-btn {
             background: transparent;
             border: none;
-    
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -530,11 +571,11 @@
         }
 
         .eye-btn[data-revealed="true"] {
-            color: #2e7d32;
+            color: var(--correct-color);
         }
 
         .pin-btn[data-pinned="true"] {
-            color: #2e7d32;
+             color: var(--correct-color);
         }
 
         .eye-part-row {
@@ -557,11 +598,16 @@
             width: 100%;
             box-sizing: border-box;
             background-color: var(--opts-bg);
-            color: #2e7d32;
-            font-weight: 700;
+            color: var(--correct-color);
+            font-weight: 800;
             font-size: 15px;
             padding: 7px 12px;
             border-radius: 5px;
+        }
+
+        .case-block .answer-text {
+            width: auto;
+            max-width: 100%;
             white-space: pre-line;
             text-align: left;
             margin-top: 10px;
@@ -578,7 +624,7 @@
             left: 50%;
             transform: translateX(-50%) translateY(-2px);
             background-color: var(--input-bg);
-            color: #2e7d32;
+            color: var(--correct-color);
             font-size: 0.7rem;
             font-weight: 700;
             padding: 4px 9px;
@@ -599,7 +645,6 @@
             position: relative;
             margin-top: 22px;
             padding-top: 18px;
-
         }
 
         .case-block:first-of-type {
@@ -728,8 +773,6 @@
 const allQuestions = [
   
 
-
-
   { "n": 1, "s": "Pharmacology", "l": 1, "q": "A 3-year-old child ingests iron tablets, mistaking them for candy. What is the hallmark of severe iron toxicity?", "o": ["A. Severe necrotizing gastritis", "B. Acute renal failure", "C. Fulminant hepatic necrosis", "D. Pulmonary edema", "E. Cerebral hemorrhage"], "a": "A" },
   { "n": 2, "s": "Pharmacology", "l": 1, "q": "What is the specific antidote for Rivaroxaban overdose?", "o": ["A. Protamine sulfate", "B. Fresh frozen plasma", "C. Idarucizumab", "D. Vitamin K", "E. Andexanet alfa"], "a": "E" },
   { "n": 3, "s": "Histology", "l": 1, "q": "The stroma is primarily a meshwork of which of the following?", "o": ["A. Elastin fibers and smooth muscle.", "B. Collagen type I and fibroblasts.", "C. Reticular cells and reticular fibers.", "D. Adipocytes and endothelial cells.", "E. Keratinocytes and melanocytes."], "a": "C" },
@@ -771,6 +814,7 @@ const allQuestions = [
       { text: "B. Name the phases of CML and their blast cell percentage.", o: [""], a: "1. Chronic phase (<5%)\n\n2. Accelerated phase (5-20%)\n\n3. Blast crisis (>20%)"},
     ]
   },
+  
   
  
 ];
@@ -1119,15 +1163,34 @@ function renderQuiz() {
 }
 
 document.addEventListener("keydown", function(e) {
-    if (e.ctrlKey && e.key.toLowerCase() === "s") {
+    const key = e.key ? e.key.toLowerCase() : '';
+    const ctrlOrCmd = e.ctrlKey || e.metaKey;
+
+    // Ctrl/Cmd + S (Save)
+    if (ctrlOrCmd && key === 's') {
         e.preventDefault();
+        e.stopPropagation();
+        return false;
     }
+
+    // Ctrl/Cmd + P (Print)
+    if (ctrlOrCmd && key === 'p') {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
     if (e.key === "Escape") {
         const takeover = document.getElementById('search-takeover-wrap');
         if (takeover && takeover.classList.contains('open')) {
             closeSearchBar();
         }
     }
+});
+
+// Catch printing triggered via the browser's Print menu / window.print()
+window.addEventListener('beforeprint', function (e) {
+    document.title = 'Printing disabled';
 });
 
 function matchesFilters(item) {
@@ -1265,8 +1328,9 @@ function toggleAnswer(btn) {
     if (btn.dataset.essay === "true") {
         const textEl = scope.querySelector('.answer-text');
         if (textEl) {
+            const isCase = !!btn.closest('.case-block');
             textEl.textContent = isRevealed ? btn.dataset.answer : '';
-            textEl.style.display = isRevealed ? 'block' : 'none';
+            textEl.style.display = isRevealed ? (isCase ? 'inline-block' : 'block') : 'none';
         }
         return;
     }
@@ -1316,6 +1380,9 @@ function toggleTheme() {
 reorderQuestions();
 renderFilterBar();
 renderQuiz();
+
+
+
 </script>
 </body>
 </html>
