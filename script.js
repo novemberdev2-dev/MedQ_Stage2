@@ -388,9 +388,11 @@ const ALL_SECTIONS = [
 
      ]},
       { title: '2023-2024 Year Exam',   links: [
-        { label: 'Practice', badge: '0 Qs', href: 'RS_Final_2023-2024.html' },
+        { label: 'End-Block _ Practice', badge: '0 Qs', href: 'RS_End-Block_Practice_2023-2024.html' },
+        { label: 'Final', badge: '25 MCQs', href: 'RS_Final_2023-2024.html' },
 
      ]},
+     
      
 
 
