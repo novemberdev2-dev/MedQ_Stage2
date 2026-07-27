@@ -189,6 +189,13 @@
             flex-shrink: 0;
         }
 
+        /* Remove the divider lines between the search / subject / theme
+           icons in the header, without affecting the one used in the
+           active-search state (between the search box and close button). */
+        #header-normal-right .icon-divider {
+            display: none;
+        }
+
         .controls-row { display: flex; gap: 12px; margin-bottom: 10px; }
 
         .search-wrapper {
@@ -242,6 +249,12 @@
             justify-content: center;
             transition: all 0.3s;
             flex-shrink: 0;
+        }
+
+        .theme-toggle:hover,
+        .search-toggle-btn:hover,
+        .subject-toggle:hover {
+            background-color: var(--icon-hover-bg);
         }
 
         /* Takeover styles */
@@ -349,6 +362,38 @@
         [data-theme="light"] .subject-dropdown-header {
             border-bottom-color: rgba(0,0,0,0.08);
             color: #999;
+        }
+
+        /* Cap the list to ~8 rows tall (incl. All); the rest scrolls inside
+           the dropdown, and overscroll-behavior stops that scroll from
+           chaining into the page once it reaches the end. */
+        .subject-dropdown-items {
+            max-height: 348px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.25) transparent;
+        }
+
+        [data-theme="light"] .subject-dropdown-items {
+            scrollbar-color: rgba(0,0,0,0.25) transparent;
+        }
+
+        .subject-dropdown-items::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .subject-dropdown-items::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .subject-dropdown-items::-webkit-scrollbar-thumb {
+            background-color: rgba(255,255,255,0.25);
+            border-radius: 6px;
+        }
+
+        [data-theme="light"] .subject-dropdown-items::-webkit-scrollbar-thumb {
+            background-color: rgba(0,0,0,0.25);
         }
 
         .subject-dropdown-item {
@@ -498,6 +543,37 @@
         [data-theme="light"] .lecture-dropdown-header {
             color: #999;
             border-bottom-color: rgba(0,0,0,0.13);
+        }
+
+        /* Cap the list to ~7 rows tall; anything beyond that scrolls
+           inside the dropdown instead of growing the page. */
+        .lecture-dropdown-items {
+            max-height: 329px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.25) transparent;
+        }
+
+        [data-theme="light"] .lecture-dropdown-items {
+            scrollbar-color: rgba(0,0,0,0.25) transparent;
+        }
+
+        .lecture-dropdown-items::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .lecture-dropdown-items::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .lecture-dropdown-items::-webkit-scrollbar-thumb {
+            background-color: rgba(255,255,255,0.25);
+            border-radius: 6px;
+        }
+
+        [data-theme="light"] .lecture-dropdown-items::-webkit-scrollbar-thumb {
+            background-color: rgba(0,0,0,0.25);
         }
 
         .lecture-dropdown-item {
@@ -885,7 +961,7 @@
                 </div>
                 <div class="subject-dropdown" id="subject-dropdown">
                     <div class="subject-dropdown-header">Subject</div>
-                  
+                    <div class="subject-dropdown-items">
                     <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
                  
                     <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
@@ -898,8 +974,7 @@
                     <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
                     <div class="subject-dropdown-item" data-subject="Medical Education" onclick="selectSubjectFilter('Medical Education', this)"><span class="filter-option-dot"></span>Medical Education 📗</div>
                     <div class="subject-dropdown-item" data-subject="Essay Questions" onclick="selectSubjectFilter('Essay Questions', this)"><span class="filter-option-dot"></span>Essay Questions</div>
-
-                    
+                    </div>
                 </div>
             </div>
 
@@ -1294,7 +1369,7 @@ function updateSectionHeading() {
                 <span class="section-heading-title">${label}</span>
                 ${LECTURE_CHEVRON_SVG}
             </button>
-            <div class="lecture-dropdown" id="lecture-dropdown"><div class="lecture-dropdown-header">Lectures</div>${renderLectureDropdownItems()}</div>
+            <div class="lecture-dropdown" id="lecture-dropdown"><div class="lecture-dropdown-header">Lectures</div><div class="lecture-dropdown-items">${renderLectureDropdownItems()}</div></div>
         </div>
         <span class="mcq-count-badge">${badgeText}</span>
     ` : `
