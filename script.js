@@ -1,4 +1,38 @@
 // ===== EARLY INIT (runs before DOM is ready) =====
+
+// ----- PROTECTION: block the app from running when the file is saved
+// locally and opened straight from disk (file:// protocol) -----
+if (location.protocol === 'file:') {
+  document.documentElement.classList.add('file-blocked');
+  document.addEventListener('DOMContentLoaded', function () {
+    document.body.innerHTML = '';
+    var msg = document.createElement('div');
+    msg.id = 'file-block-overlay';
+    msg.style.cssText = 'position:fixed;inset:0;display:flex;align-items:center;' +
+      'justify-content:center;text-align:center;padding:24px;background:#0c0d0e;' +
+      'color:#f1f5f9;font-family:Segoe UI,Roboto,sans-serif;z-index:99999;';
+    msg.innerHTML = '<div><h2 style="margin:0 0 10px;font-size:1.2rem;">This app can\'t run from a local file</h2>' +
+      '<p style="margin:0;opacity:0.7;font-size:0.9rem;">Please open it through its official website link instead.</p></div>';
+    document.body.appendChild(msg);
+  });
+}
+
+// ----- PROTECTION: disable print & save keyboard shortcuts -----
+document.addEventListener('keydown', function (e) {
+  const key = e.key ? e.key.toLowerCase() : '';
+  const ctrlOrCmd = e.ctrlKey || e.metaKey;
+  if (ctrlOrCmd && (key === 's' || key === 'p')) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }
+});
+
+// ----- PROTECTION: catch printing triggered via the browser's Print menu -----
+window.addEventListener('beforeprint', function () {
+  document.title = 'Printing disabled';
+});
+
 if (localStorage.getItem('medq_theme') === 'light') {
   document.documentElement.classList.add('light-mode-pre');
 }
@@ -191,6 +225,7 @@ function cancelFilter() {
 const ALL_SECTIONS = [
   {
     type: 'Introduction To Basic Science 🧪',
+    key: 'ibs',
     cards: [
       { title: '2017-2018 Year Exam', links: [
         { label: 'Quiz',   badge: '107 MCQs',    href: 'IBS_2017-2018.html' },
@@ -243,11 +278,12 @@ const ALL_SECTIONS = [
 
   {
     type: 'Musculoskeletal System And Dermatology 🦴',
+    key: 'msd',
     cards: [
      
      
 
-      { title: '2021-2022 Year Exam 🔥',   links: [
+      { title: '2021-2022 Year Exam',   links: [
         { label: 'Final _ 1st Term', badge: '38 MCQs', href: 'MSD_Final_2021-2022.html' },
         { label: 'Final _ 2nd Term', badge: '36 MCQs', href: 'MSD_Final2_2021-2022.html' },
 
@@ -268,14 +304,15 @@ const ALL_SECTIONS = [
       ] },
 
 
-     { title: '2025-2026 Year Exam 🔥',     links: [
+     { title: '2025-2026 Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '28 MCQs',  href: 'MSD_End-Block_Theory_2025-2026.html' },
       { label: 'End-Block _ Practice', badge: '10 Qs',  href: 'MSD_End-Block_Practice_2025-2026.html' },
       { label: 'Final', badge: '38 MCQs',  href: 'MSD_Final_2025-2026.html' }
+      
     
     ] },
 
-     { title: 'Unknown Year Exam 🔥',     links: [
+     { title: 'Unknown Year Exam',     links: [
       { label: 'Final', badge: '112 MCQs',  href: 'MSD_Final_Unknown Year.html' },
     
     ] },
@@ -284,23 +321,24 @@ const ALL_SECTIONS = [
 
    {
     type: 'Hematopoetic 🩸',
+    key: 'hp',
     cards: [
      
      
 
-      { title: '2021-2022 Year Exam 🔥',   links: [
+      { title: '2021-2022 Year Exam',   links: [
         { label: 'Final _ 1st Term', badge: '33 MCQs', href: 'HP_Final_2021-2022.html' },
         { label: 'Final _ 2nd Term', badge: '29 MCQs', href: 'HP_Final2_2021-2022.html' },
 
      ]},
-      { title: '2023-2024 Year Exam 🔥',   links: [
+      { title: '2023-2024 Year Exam',   links: [
         { label: 'Final', badge: '11 MCQs', href: 'HP_Final_2023-2024.html' },
 
      ]},
      
 
 
- { title: '2024-2025 Year Exam 🔥',     links: [
+ { title: '2024-2025 Year Exam',     links: [
         { label: 'End-Block _ Theory', badge: '22 MCQs',  href: 'HP_End-Block_Theory_2024-2025.html' },
         { label: 'End-Block _ Practice', badge: '12 Qs',  href: 'HP_End-Block_Practice_2024-2025.html' },
         { label: 'Final', badge: '29 MCQs',  href: 'HP_Final_2024-2025.html' },
@@ -309,11 +347,10 @@ const ALL_SECTIONS = [
       ] },
 
 
-     { title: '2025-2026 Year Exam 🔥',     links: [
+     { title: '2025-2026 Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '27 MCQs',  href: 'HP_End-Block_Theory_2025-2026.html' },
       { label: 'End-Block _ Practice', badge: '12 Qs',  href: 'HP_End-Block_Practice_2025-2026.html' },
       { label: 'Final', badge: '31 MCQs',  href: 'HP_Final_2025-2026.html' }
-       
     
     ] },
 
@@ -328,6 +365,7 @@ const ALL_SECTIONS = [
   
    {
     type: 'Cardiovascular System 🫀',
+    key: 'cvs',
     cards: [
      
       { title: '2018-2019 Year Exam', links: [
@@ -353,7 +391,7 @@ const ALL_SECTIONS = [
  { title: '2024-2025 Year Exam 🔥',     links: [
         { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'CVS_End-Block_Theory_2024-2025.html' },
         { label: 'End-Block _ Practice', badge: '16 Qs',  href: 'CVS_End-Block_Practice_2024-2025.html' },
-        { label: 'Final', badge: '47 MCQs',  href: 'CVS_Final_2024-2025.html' },
+        { label: 'Final', badge: '106 MCQs',  href: 'CVS_Final_2024-2025.html' },
 
 
       ] },
@@ -378,17 +416,19 @@ const ALL_SECTIONS = [
   
    {
     type: 'Respiratory System 🫁',
+    key: 'rs',
     cards: [
      
      
 
-      { title: '2021-2022 Year Exam 🔥',   links: [
+      { title: '2021-2022 Year Exam',   links: [
         { label: 'Final _ 1st Term', badge: '44 MCQs', href: 'RS_Final_2021-2022.html' },
         { label: 'Final _ 2nd Term', badge: '38 MCQs', href: 'RS_Final2_2021-2022.html' },
 
      ]},
+
       { title: '2022-2023 Year Exam',   links: [
-        { label: 'End-Block _ Practice', badge: '5 Qs', href: 'RS_End-Block_Practice_2022-2023.html' },
+        { label: 'End-Block _ Practice', badge: '5 Qs', href: 'RS_End-Block_Practice_2023-2024.html' },
         { label: 'Final or End-Block', badge: '0 MCQs', href: 'RS_FinalorEndblock_2022-2023.html' },
 
       
@@ -396,10 +436,9 @@ const ALL_SECTIONS = [
 
 
       { title: '2023-2024 Year Exam',   links: [
-        { label: 'Final', badge: '25 MCQs', href: 'RS_Final_2023-2024.html' },
+        { label: 'Final', badge: '0 MCQs', href: 'RS_Final_2023-2024.html' },
 
      ]},
-     
      
 
 
@@ -431,16 +470,76 @@ const ALL_SECTIONS = [
 
 ];
 
+// ===== COLLAPSIBLE SECTIONS (persisted) =====
+const CHEVRON_SVG = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z" fill="currentColor"></path></svg>';
+
+function getCollapsedSections() {
+  return JSON.parse(localStorage.getItem('medq_collapsed_sections') || '[]');
+}
+
+function setCollapsedSections(arr) {
+  localStorage.setItem('medq_collapsed_sections', JSON.stringify(arr));
+}
+
+function toggleSection(key) {
+  const wrapper   = document.getElementById(`gridwrap-${key}`);
+  const sectionEl = document.getElementById(`section-${key}`);
+  const btn       = document.getElementById(`toggle-${key}`);
+  if (!wrapper || !sectionEl || !btn) return;
+
+  const collapsed = getCollapsedSections();
+  const idx = collapsed.indexOf(key);
+
+  if (idx > -1) {
+    // Currently hidden -> show cards again
+    collapsed.splice(idx, 1);
+    wrapper.classList.remove('collapsed');
+    sectionEl.classList.remove('collapsed');
+    btn.classList.remove('collapsed');
+  } else {
+    // Currently shown -> hide cards
+    collapsed.push(key);
+    wrapper.classList.add('collapsed');
+    sectionEl.classList.add('collapsed');
+    btn.classList.add('collapsed');
+  }
+
+  setCollapsedSections(collapsed);
+}
+
 // ===== BUILD FUNCTIONS =====
 function buildSection(section) {
+  const key = section.key || section.type;
+  const isCollapsed = getCollapsedSections().includes(key);
+
   const sectionEl = document.createElement('div');
-  sectionEl.className = 'section-container';
-  sectionEl.id = `section-${section.type}`;
+  sectionEl.className = 'section-container' + (isCollapsed ? ' collapsed' : '');
+  sectionEl.id = `section-${key}`;
 
   const title = document.createElement('h2');
   title.className = 'category-title';
-  title.textContent = section.type;
+
+  const titleText = document.createElement('span');
+  titleText.className = 'category-title-text';
+  titleText.textContent = section.type;
+  title.appendChild(titleText);
+
+  const toggleBtn = document.createElement('span');
+  toggleBtn.className = 'category-toggle-btn' + (isCollapsed ? ' collapsed' : '');
+  toggleBtn.id = `toggle-${key}`;
+  toggleBtn.title = 'Show/Hide cards';
+  toggleBtn.innerHTML = CHEVRON_SVG;
+  toggleBtn.onclick = (e) => { e.stopPropagation(); toggleSection(key); };
+  title.appendChild(toggleBtn);
+
   sectionEl.appendChild(title);
+
+  const gridWrap = document.createElement('div');
+  gridWrap.className = 'subject-grid-wrap' + (isCollapsed ? ' collapsed' : '');
+  gridWrap.id = `gridwrap-${key}`;
+
+  const gridInner = document.createElement('div');
+  gridInner.className = 'subject-grid-inner';
 
   const grid = document.createElement('div');
   grid.className = 'subject-grid';
@@ -462,7 +561,9 @@ function buildSection(section) {
     grid.appendChild(cardEl);
   });
 
-  sectionEl.appendChild(grid);
+  gridInner.appendChild(grid);
+  gridWrap.appendChild(gridInner);
+  sectionEl.appendChild(gridWrap);
   return sectionEl;
 }
 
