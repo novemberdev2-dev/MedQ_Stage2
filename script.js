@@ -444,7 +444,7 @@ const ALL_SECTIONS = [
 
  { title: '2024-2025 Year Exam',     links: [
         { label: 'End-Block _ Theory', badge: '40 MCQs',  href: 'RS_End-Block_Theory_2024-2025.html' },
-        { label: 'End-Block _ Practice', badge: '0 Qs',  href: 'RS_End-Block_Practice_2024-2025.html' },
+        { label: 'End-Block _ Practice', badge: '10 Qs',  href: 'RS_End-Block_Practice_2024-2025.html' },
         { label: 'Final', badge: '43 MCQs',  href: 'RS_Final_2024-2025.html' },
 
 
