@@ -238,7 +238,7 @@ const ALL_SECTIONS = [
 
       ]},
       { title: '2020-2021 Year Exam', links: [
-        { label: 'Final',   badge: '61 MCQs',     href: 'IBS_Final_2020-2021.html' },
+        { label: 'Final',   badge: '62 MCQs',     href: 'IBS_Final_2020-2021.html' },
         
       ]},
       { title: '2021-2022 Year Exam',   links: [
@@ -259,7 +259,7 @@ const ALL_SECTIONS = [
 
 { title: '2024-2025 Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '32 MCQs',  href: 'IBS_End-Block_2024-2025.html' },
-      { label: 'Final', badge: '74 MCQs',  href: 'IBS_Final_2024-2025.html' }
+      { label: 'Final', badge: '61 MCQs',  href: 'IBS_Final_2024-2025.html' }
     
     ] },
      { title: '2025-2026 Year Exam',     links: [
@@ -269,7 +269,7 @@ const ALL_SECTIONS = [
     ] },
 
      { title: 'Unknown Year Exam',     links: [
-      { label: 'Quiz', badge: '17 MCQs',  href: 'IBS_Quiz_Unkown year.html' },
+      { label: 'Quiz', badge: '22 MCQs',  href: 'IBS_Quiz_Unkown year.html' },
     
     ] },
     ]
@@ -393,7 +393,7 @@ const ALL_SECTIONS = [
  { title: '2024-2025 Year Exam 🔥',     links: [
         { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'CVS_End-Block_Theory_2024-2025.html' },
         { label: 'End-Block _ Practice', badge: '16 Qs',  href: 'CVS_End-Block_Practice_2024-2025.html' },
-        { label: 'Final', badge: '106 MCQs',  href: 'CVS_Final_2024-2025.html' },
+        { label: 'Final', badge: '47 MCQs',  href: 'CVS_Final_2024-2025.html' },
 
 
       ] },
