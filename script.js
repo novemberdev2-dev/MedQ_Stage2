@@ -227,7 +227,7 @@ const ALL_SECTIONS = [
     type: 'Introduction To Basic Science 🧪',
     key: 'ibs',
     cards: [
-      { title: '2017-2018 Year Exam', links: [
+      { title: '2017-2018 Year Exam ✅', links: [
         { label: 'Past Paper or Quiz',   badge: '107 MCQs',    href: 'IBS_2017-2018.html' },
         
       ]},
