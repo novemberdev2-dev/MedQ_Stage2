@@ -7,7 +7,6 @@
     <title>RS_FinalorEndblock_2023-2024</title>
 
 
-
     <style>
        :root {
             --bg-body: #121212;
@@ -872,7 +871,6 @@
 
 const allQuestions = [
   
-  
   { "n": 1, "s": "Microbiology", "l": 1, "q": "Which organism is commonly transmitted between children sharing toys?", "o": ["A. Streptococcus pyogenes", "B. Staphylococcus aureus", "C. H. influenza", "D. Pseudomonas aeruginosa", "E. Escherichia coli"], "a": "C" },
   { "n": 2, "s": "Microbiology", "l": 1, "q": "H. Influenza is dangerous, one of the causes because it is:", "o": ["A. Encapsulated", "B. Spore-forming", "C. Gram-positive", "D. Motile", "E. Acid-fast"], "a": "A" },
   { "n": 3, "s": "Microbiology", "l": 1, "q": "Which pathogen has over 150 different antigens and causes the common cold?", "o": ["A. Coronavirus", "B. Rhinovirus", "C. Adenovirus", "D. Influenza virus", "E. Parainfluenza virus"], "a": "B" },
@@ -964,7 +962,6 @@ const allQuestions = [
   { "n": 72, "s": "Microbiology", "l": 1, "q": "The paramyxoviruses include the most important causes of respiratory infections in infants and young children. Which of the following is not characteristic of paramyxoviruses?", "o": ["A. Genome is negative-sense RNA.", "B. Envelope contains a glycoprotein with fusion activity.", "C. Paramyxoviruses do not undergo genetic reassortment.", "D. Replication cycle occurs in cytoplasm of susceptible cells.", "E. Genome is segmented."], "a": "E" },
   { "n": 73, "s": "Microbiology", "l": 1, "q": "Reverse transcription polymerase chain reaction (RT-PCR) assays are useful in diagnosis of paramyxovirus infections. Which of the following statements about RT-PCR is not accurate?", "o": ["A. More sensitive assay than virus isolation.", "B. Can identify virus strains.", "C. More rapid assay than antigen detection.", "D. Can provide data about genetic variation for molecular epidemiology studies.", "E. More specific assay for parainfluenza viruses than serology."], "a": "C" },
  
-
  
 ];
 
@@ -1200,8 +1197,7 @@ const lectureFilters = {
     ]
 };
 
-
-let currentSubjectFilter = "Microbiology";
+let currentSubjectFilter = "Microbiology";  
 let currentLecture = "All";
 
 const container = document.getElementById('quiz-content');
@@ -1215,6 +1211,18 @@ function renderLectureDropdownItems() {
     ).join('');
 }
 
+function scrollLectureDropdownToSelected() {
+    const wrap = document.querySelector('#lecture-dropdown .lecture-dropdown-items');
+    if (!wrap) return;
+    const selected = wrap.querySelector('.lecture-dropdown-item.selected');
+    if (selected) {
+        const target = selected.offsetTop - (wrap.clientHeight / 2) + (selected.clientHeight / 2);
+        wrap.scrollTop = Math.max(0, target);
+    } else {
+        wrap.scrollTop = 0;
+    }
+}
+
 function toggleLectureDropdown() {
     const dd = document.getElementById('lecture-dropdown');
     const btn = document.getElementById('lecture-select-btn');
@@ -1226,21 +1234,8 @@ function toggleLectureDropdown() {
     } else {
         dd.classList.add('open');
         btn.classList.add('dropdown-open');
-        scrollSelectedLectureIntoView();
+        scrollLectureDropdownToSelected();
     }
-}
-
-function scrollSelectedLectureIntoView() {
-    // Wait a tick so the dropdown is laid out before measuring scroll positions.
-    requestAnimationFrame(() => {
-        const list = document.querySelector('#lecture-dropdown .lecture-dropdown-items');
-        const selected = list ? list.querySelector('.lecture-dropdown-item.selected') : null;
-        if (!list || !selected) return;
-        const listRect = list.getBoundingClientRect();
-        const itemRect = selected.getBoundingClientRect();
-        const offset = (itemRect.top - listRect.top) - (list.clientHeight / 2) + (itemRect.height / 2);
-        list.scrollTop += offset;
-    });
 }
 
 function closeLectureDropdown() {
@@ -1264,16 +1259,7 @@ document.addEventListener('click', function(e) {
 });
 
 function getLectureLabel(val) {
-    if (val === "All" && currentSubjectFilter === "All") return "All";
-    if (val === "All") {
-        const subjectLabels = {
-            
-            "Microbiology": "Microbiology 🦠",
-          
-            
-        };
-        return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
-    }
+    if (val === "All") return "Microbiology 🦠";
     return lectures[val] || val;
 }
 
@@ -1487,9 +1473,8 @@ window.addEventListener('beforeprint', function (e) {
 });
 
 function matchesFilters(item) {
-    const subjectOk = currentSubjectFilter === "All" || item.s === currentSubjectFilter;
     const lectureOk = currentLecture === "All" || item.l === currentLecture;
-    return subjectOk && lectureOk;
+    return lectureOk;
 }
 
 /* Premium Full Header Takeover Functions */
@@ -1525,10 +1510,9 @@ function handleSearch() {
     const blocks = document.querySelectorAll('.q-block');
     blocks.forEach(block => {
         resetBlock(block);
-        const subjectOk = currentSubjectFilter === "All" || block.dataset.subject === currentSubjectFilter;
         const lectureOk = currentLecture === "All" || String(block.dataset.lecture) === String(currentLecture);
         const matchesSearch = term === "" || block.dataset.searchText.includes(term);
-        if (subjectOk && lectureOk && matchesSearch) {
+        if (lectureOk && matchesSearch) {
             block.style.display = "block";
             if (term !== "") highlight(block, term);
         } else {
@@ -1642,3 +1626,10 @@ renderQuiz();
 </script>
 </body>
 </html>
+    
+
+
+
+  
+  
+  
