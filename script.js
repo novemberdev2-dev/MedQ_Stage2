@@ -228,7 +228,7 @@ const ALL_SECTIONS = [
     key: 'ibs',
     cards: [
       { title: '2017-2018 Year Exam', links: [
-        { label: 'Quiz',   badge: '107 MCQs',    href: 'IBS_2017-2018.html' },
+        { label: 'Past Paper or Quiz',   badge: '107 MCQs',    href: 'IBS_2017-2018.html' },
         
       ]},
       { title: '2018-2019 Year Exam', links: [
