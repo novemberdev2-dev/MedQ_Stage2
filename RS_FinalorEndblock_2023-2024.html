@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1225,7 +1226,21 @@ function toggleLectureDropdown() {
     } else {
         dd.classList.add('open');
         btn.classList.add('dropdown-open');
+        scrollSelectedLectureIntoView();
     }
+}
+
+function scrollSelectedLectureIntoView() {
+    // Wait a tick so the dropdown is laid out before measuring scroll positions.
+    requestAnimationFrame(() => {
+        const list = document.querySelector('#lecture-dropdown .lecture-dropdown-items');
+        const selected = list ? list.querySelector('.lecture-dropdown-item.selected') : null;
+        if (!list || !selected) return;
+        const listRect = list.getBoundingClientRect();
+        const itemRect = selected.getBoundingClientRect();
+        const offset = (itemRect.top - listRect.top) - (list.clientHeight / 2) + (itemRect.height / 2);
+        list.scrollTop += offset;
+    });
 }
 
 function closeLectureDropdown() {
