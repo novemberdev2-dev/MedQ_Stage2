@@ -7,6 +7,7 @@
     <title>IBS_Final_2018-2019</title>
 
 
+
     <style>
        :root {
             --bg-body: #121212;
@@ -1043,7 +1044,7 @@
     <div class="header" id="header">
         <!-- NORMAL HEADER STATE -->
         <div cla+ss="header-title-wrap" id="header-normal-left">
-            <span class="header-title"><span class="title-line1">IBS 🧪&nbsp;·&nbsp; Final</span><span class="title-sep-2">&nbsp;·&nbsp;</span><span class="title-line2">2018-2019</span></span>
+      <span class="header-title"><span class="title-line1">IBS 🧪&nbsp;·&nbsp; Final</span><span class="title-sep-2">&nbsp;·&nbsp;</span><span class="title-line2">2018-2019</span></span>
         </div>
 
         <div class="header-actions" id="header-normal-right">
@@ -1067,7 +1068,7 @@
                     <div class="subject-dropdown-items">
                     <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
                     
-                     
+                          
                 <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
                 <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
                 <div class="subject-dropdown-item" data-subject="Immunology" onclick="selectSubjectFilter('Immunology', this)"><span class="filter-option-dot"></span>Immunology 🛡️</div>
@@ -1114,6 +1115,7 @@
 
 
 const allQuestions = [
+  
   
    { n: 1, s: "Biochemistry", l: 1, q: "Deficiency of the enzyme alpha antitrypsin cause:", o: ["A. Hyperammonemia type 1", "B. Citrullinemia", "C. Alkaptonuria", "D. Tyrosinosis", "E. Tyrosinemia", "F. Albinism", "G. Hartnups disease", "H. Branched chain ketonuria", "I. Phenyl ketonuria", "J. Homocystinuria", "K. Kwashiorkor", "L. Marasmus", "M. Emphysema", "N. Nephritis", "O. Diabetes mellitus"], a: "M" },
 { n: 2, s: "Biochemistry", l: 1, q: "Edema is the most important symptom of:", o: ["A. Hyperammonemia type 1", "B. Citrullinemia", "C. Alkaptonuria", "D. Tyrosinosis", "E. Tyrosinemia", "F. Albinism", "G. Hartnups disease", "H. Branched chain ketonuria", "I. Phenyl ketonuria", "J. Homocystinuria", "K. Kwashiorkor", "L. Marasmus", "M. Emphysema", "N. Nephritis", "O. Diabetes mellitus"], a: "K" },
@@ -1503,6 +1505,9 @@ const allQuestions = [
 { n: 149, s: "Pathology", l: 1, q: "Which of the following is NOT a morphological feature of malignant neoplasm?", o: ["A. Pleomorphism", "B. Hyperchromatism", "C. Increased nuclear-cytoplasmic ratio", "D. Abnormal mitotic figures", "E. Cellular swelling"], a: "E" },
 { n: 150, s: "Pathology", l: 1, q: "Barrett esophagus is an example of:", o: ["A. Hyperplasia", "B. Dysplasia", "C. Metaplasia", "D. Neoplasia", "E. Hypertrophy"], a: "C" }
 
+
+
+ 
 ];
 
 
@@ -1541,8 +1546,15 @@ function togglePin(n) {
     }
     localStorage.setItem('pinnedQuestions', JSON.stringify([...pinnedQuestions]));
     reorderQuestions();
-    renderQuiz();
-    handleSearch();
+    try {
+        renderQuiz();
+    } finally {
+        // handleSearch() re-applies the current subject/lecture/search filters
+        // to the freshly rendered questions. Running it in a finally block
+        // guarantees the list is always re-shown correctly, even if something
+        // above throws, instead of getting stuck on "No questions found".
+        handleSearch();
+    }
 }
 
 function copyTextToClipboard(text, btn) {
@@ -1699,8 +1711,7 @@ function fallbackCopy(text) {
     document.body.removeChild(ta);
 }
 
-
-    const lectures = {
+  const lectures = {
    1:  "Protein Metabolism 🥩",
    2:  "Lipid Metabolism 🥑",
    3:  "Enzymology🧪",
@@ -1725,7 +1736,6 @@ const lectureFilters = {
 
  ]
 };
-
 let currentSubjectFilter = "All";  
 let currentLecture = "All";
 let lectureDropdownOpen = false;
@@ -1797,7 +1807,7 @@ function getLectureLabel(val) {
     if (val === "All" && currentSubjectFilter === "All") return "All";
     if (val === "All") {
         const subjectLabels = {
-            "Biochemistry": "Biochemistry 🧪",
+              "Biochemistry": "Biochemistry 🧪",
             "Pathology": "Pathology 🔬",
             "Immunology": "Immunology 🛡️",
             
@@ -2022,7 +2032,7 @@ window.addEventListener('beforeprint', function (e) {
 
 function matchesFilters(item) {
     const subjectOk = currentSubjectFilter === "All" || item.s === currentSubjectFilter;
-    const lectureOk = currentLecture === "All" || item.l === currentLecture;
+    const lectureOk = currentLecture === "All" || String(item.l) === String(currentLecture);
     return subjectOk && lectureOk;
 }
 
@@ -2237,5 +2247,4 @@ renderQuiz();
 </script>
 </body>
 </html>
-</head>
-
+  
