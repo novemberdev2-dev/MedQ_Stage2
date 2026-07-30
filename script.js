@@ -373,8 +373,8 @@ const ALL_SECTIONS = [
         { label: 'Quiz', badge: '0 MCQs', href: 'IBS_Quiz_2018-2019.html' }
 
       ]},
-      { title: '2020-2021 Year Exam 🔥', links: [
-        { label: 'Final',   badge: '45 MCQs',     href: 'CVS_Final_2020-2021.html' },
+      { title: '2020-2021 Year Exam ✅', links: [
+        { label: 'Final',   badge: '42 MCQs',     href: 'CVS_Final_2020-2021.html' },
         
       ]},
       { title: '2021-2022 Year Exam 🔥',   links: [
