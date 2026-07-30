@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IBS_PastpaperorQuiz_2017-2018</title>
 
-
     <style>
        :root {
             --bg-body: #121212;
@@ -75,6 +74,8 @@
         }
 
           .theme-toggle,
+        .subject-toggle,
+        .subject-dropdown-item,
         .eye-btn,
         .icon-btn,
         .copy-btn,
@@ -93,6 +94,8 @@
            doesn't fall back to the default Windows arrow on hover */
         button,
         .theme-toggle,
+        .subject-toggle,
+        .subject-dropdown-item,
         .eye-btn,
         .icon-btn,
         .copy-btn,
@@ -184,6 +187,9 @@
             flex-shrink: 0;
         }
 
+        /* Remove the divider lines between the search / subject / theme
+           icons in the header, without affecting the one used in the
+           active-search state (between the search box and close button). */
         #header-normal-right .icon-divider {
             display: none;
         }
@@ -244,7 +250,8 @@
         }
 
         .theme-toggle:hover,
-        .search-toggle-btn:hover {
+        .search-toggle-btn:hover,
+        .subject-toggle:hover {
             background-color: var(--icon-hover-bg);
         }
 
@@ -284,6 +291,183 @@
 .search-close-btn:focus {
     outline: none;
 }
+
+        /* Subject picker dropdown */
+        .subject-toggle-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .subject-toggle {
+            background-color: transparent;
+            border: none;
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .subject-toggle svg {
+            stroke: none !important;
+            fill: var(--text-main);
+            pointer-events: none;
+        }
+
+        .subject-toggle.dropdown-open {
+            border-color: rgba(255,255,255,0.3);
+            background: rgba(40, 42, 45, 0.9);
+        }
+
+        .subject-toggle.dropdown-open svg { fill: var(--text-main); }
+
+        [data-theme="light"] .subject-toggle.dropdown-open {
+            border-color: #121212;
+            background: rgba(255,255,255,1);
+        }
+
+        .subject-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: #111111;
+            border: 1px solid rgba(255,255,255,0.13);
+            border-radius: 14px;
+            overflow: hidden;
+            min-width: 210px;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-6px) scale(0.97);
+            transition: opacity 0.22s ease, transform 0.22s ease;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.65);
+        }
+
+        .subject-dropdown.open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        [data-theme="light"] .subject-dropdown {
+            background: #ffffff;
+            border-color: rgba(0,0,0,0.13);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+        }
+
+        .subject-dropdown-header {
+            padding: 10px 10px 10px 16px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #555;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
+        }
+
+        [data-theme="light"] .subject-dropdown-header {
+            border-bottom-color: rgba(0,0,0,0.08);
+            color: #999;
+        }
+
+        /* Cap the list to ~8 rows tall (incl. All); the rest scrolls inside
+           the dropdown, and overscroll-behavior stops that scroll from
+           chaining into the page once it reaches the end. */
+        .subject-dropdown-items {
+            max-height: 348px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.25) transparent;
+        }
+
+        [data-theme="light"] .subject-dropdown-items {
+            scrollbar-color: rgba(0,0,0,0.25) transparent;
+        }
+
+        .subject-dropdown-items::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .subject-dropdown-items::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .subject-dropdown-items::-webkit-scrollbar-thumb {
+            background-color: rgba(255,255,255,0.25);
+            border-radius: 6px;
+        }
+
+        [data-theme="light"] .subject-dropdown-items::-webkit-scrollbar-thumb {
+            background-color: rgba(0,0,0,0.25);
+        }
+
+        .subject-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 13px 16px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #aaa;
+            transition: background 0.15s ease, color 0.15s ease;
+            user-select: none;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        [data-theme="light"] .subject-dropdown-item { color: #666; }
+
+        .subject-dropdown-item:not(:last-child) {
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        [data-theme="light"] .subject-dropdown-item:not(:last-child) {
+            border-bottom-color: rgba(0,0,0,0.06);
+        }
+
+        .subject-dropdown-item:hover {
+            background: rgba(255,255,255,0.06);
+            color: #e2e8f0;
+        }
+
+        [data-theme="light"] .subject-dropdown-item:hover {
+            background: rgba(0,0,0,0.04);
+            color: #111;
+        }
+
+        .subject-dropdown-item.selected { color: #f1f5f9; }
+
+        [data-theme="light"] .subject-dropdown-item.selected { color: #111; }
+
+        .filter-option-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.25);
+            flex-shrink: 0;
+            transition: background 0.15s ease, border-color 0.15s ease;
+        }
+
+        [data-theme="light"] .filter-option-dot { border-color: rgba(0,0,0,0.2); }
+
+        .subject-dropdown-item.selected .filter-option-dot {
+            background: #f1f5f9;
+            border-color: #f1f5f9;
+        }
+
+        [data-theme="light"] .subject-dropdown-item.selected .filter-option-dot {
+            background: #111;
+            border-color: #111;
+        }
 
         .controls-row { position: relative; }
 
@@ -331,13 +515,13 @@
 
         .lecture-dropdown {
             position: absolute;
-            top: calc(100% + 8px);
+            top: calc(100% + 13px);
             left: 0;
             background: #111111;
             border: 1px solid rgba(255,255,255,0.13);
             border-radius: 14px;
             overflow: hidden;
-            width: 230px;
+            width: 290px;
             max-width: 80vw;
             z-index: 50;
             opacity: 0;
@@ -347,10 +531,13 @@
             box-shadow: 0 16px 48px rgba(0,0,0,0.65);
         }
 
+        
+
         .lecture-dropdown.open {
             opacity: 1;
             transform: translateY(0) scale(1);
             pointer-events: all;
+
         }
 
         [data-theme="light"] .lecture-dropdown {
@@ -360,19 +547,53 @@
         }
 
         .lecture-dropdown-header {
-            padding: 12px 16px;
+            padding: 10px 10px 10px 16px;
             font-size: 0.70rem;
             font-weight: 700;
             letter-spacing: 0.09em;
             text-transform: uppercase;
             color: #777;
-            text-align: center;
+            text-align: left;
             border-bottom: 1px solid rgba(255,255,255,0.13);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         [data-theme="light"] .lecture-dropdown-header {
             color: #999;
             border-bottom-color: rgba(0,0,0,0.13);
+        }
+
+        .dropdown-close-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: #888;
+            flex-shrink: 0;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+
+        .dropdown-close-btn svg {
+            width: 13px;
+            height: 13px;
+            pointer-events: none;
+        }
+
+        .dropdown-close-btn:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: #f1f5f9;
+        }
+
+        [data-theme="light"] .dropdown-close-btn:hover {
+            background-color: rgba(0,0,0,0.06);
+            color: #111;
         }
 
         /* Cap the list to ~7 rows tall; anything beyond that scrolls
@@ -526,7 +747,7 @@
             flex-direction: column;
             gap: 10px;
             padding-bottom: 14px;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             border-bottom: 1px solid var(--border-color);
         }
 
@@ -574,14 +795,8 @@
             white-space: nowrap;
         }
 
-        /* Two versions of the lecture/subject name are rendered together:
-           .label-full (complete text, used on larger screens) and
-           .label-short (hard-capped to 25 characters + "…", used on small
-           screens). Only one is shown at a time via the media query below. */
         .label-short { display: none; }
 
-        /* Subject names (e.g. "Microbiology 🦠") are shown a bit larger
-           than individual lecture names (e.g. "Trachea, bronch..."). */
         .section-heading-title.subject-title {
             font-size: 1.22rem;
         }
@@ -867,7 +1082,7 @@
 
 const allQuestions = [
   
-  { n: 1, s: "Biochemistry", l: 1, q: "Proteins contain all the following elements EXCEPT:", o: ["A. C", "B. H", "C. O", "D. N", "E. Se"], a: "E" },
+{ n: 1, s: "Biochemistry", l: 1, q: "Proteins contain all the following elements EXCEPT:", o: ["A. C", "B. H", "C. O", "D. N", "E. Se"], a: "E" },
   { n: 2, s: "Biochemistry", l: 1, q: "Amino acids are bind together by:", o: ["A. Glycosidic bonds", "B. Hydrogen bonds", "C. Peptide bonds", "D. Amide bonds", "E. C&D are correct"], a: "E" },
   { n: 3, s: "Biochemistry", l: 1, q: "Insulin is ________ protein.", o: ["A. Monomer", "B. Dimmer", "C. Trimmer", "D. Tetramer", "E. Pentamer"], a: "B" },
   { n: 4, s: "Biochemistry", l: 1, q: "Pick up the function of HCl in stomach:", o: ["A. Cause denature of dietary proteins", "B. Cause hydrolysis of dietary proteins to amino acids", "C. Cause hydrolysis of starch", "D. Cause hydrolysis of triglycerides", "E. Stimulate absorption of amino acids"], a: "A" },
@@ -976,6 +1191,7 @@ const allQuestions = [
 { n: 106, s: "Biochemistry", l: 1, q: "____________ is a globular, oligomeric, and water soluble protein, and act as hormone.", o: ["A. Insulin", "B. Glucagon", "C. Myoglobin", "D. Collagen", "E. Phenyl-alanine", "F. Selenoprotein P", "G. Myosin", "H. Tyrosine", "I. Peptone", "J. Cysteine", "K. Methionine", "L. Pyruvate", "M. Lactate", "N. Oxaloacetate", "O. Citrulline", "P. Proline"], a: "B" },
 { n: 107, s: "Biochemistry", l: 1, q: "____________ is a protein used for movement of muscles.", o: ["A. Insulin", "B. Glucagon", "C. Myoglobin", "D. Collagen", "E. Phenyl-alanine", "F. Selenoprotein P", "G. Myosin", "H. Tyrosine", "I. Peptone", "J. Cysteine", "K. Methionine", "L. Pyruvate", "M. Lactate", "N. Oxaloacetate", "O. Citrulline", "P. Proline"], a: "G" }
 
+
  
 ];
 
@@ -1015,8 +1231,15 @@ function togglePin(n) {
     }
     localStorage.setItem('pinnedQuestions', JSON.stringify([...pinnedQuestions]));
     reorderQuestions();
-    renderQuiz();
-    handleSearch();
+    try {
+        renderQuiz();
+    } finally {
+        // handleSearch() re-applies the current subject/lecture/search filters
+        // to the freshly rendered questions. Running it in a finally block
+        // guarantees the list is always re-shown correctly, even if something
+        // above throws, instead of getting stuck on "No questions found".
+        handleSearch();
+    }
 }
 
 function copyTextToClipboard(text, btn) {
@@ -1189,6 +1412,9 @@ const lectureFilters = {
 
 let currentSubjectFilter = "Biochemistry";  
 let currentLecture = "All";
+let lectureDropdownOpen = false;
+
+const CLOSE_ICON_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
 
 const container = document.getElementById('quiz-content');
 
@@ -1197,7 +1423,7 @@ const LECTURE_CHEVRON_SVG = `<svg class="lecture-chevron" width="18" height="18"
 function renderLectureDropdownItems() {
     const filters = lectureFilters[currentSubjectFilter] || [];
     return filters.map(f =>
-        `<div class="lecture-dropdown-item${String(f.val) === String(currentLecture) ? " selected" : ""}" onclick="selectLecture('${f.val}')"><span class="lecture-dot"></span><span class="lecture-item-text">${f.label}</span></div>`
+    `<div class="lecture-dropdown-item${String(f.val) === String(currentLecture) ? " selected" : ""}" onclick="selectLecture('${f.val}', event)"><span class="lecture-dot"></span><span class="lecture-item-text">${f.label}</span></div>`
     ).join('');
 }
 
@@ -1221,9 +1447,11 @@ function toggleLectureDropdown() {
     if (isOpen) {
         dd.classList.remove('open');
         btn.classList.remove('dropdown-open');
+        lectureDropdownOpen = false;
     } else {
         dd.classList.add('open');
         btn.classList.add('dropdown-open');
+        lectureDropdownOpen = true;
         scrollLectureDropdownToSelected();
     }
 }
@@ -1233,11 +1461,12 @@ function closeLectureDropdown() {
     const btn = document.getElementById('lecture-select-btn');
     if (dd) dd.classList.remove('open');
     if (btn) btn.classList.remove('dropdown-open');
+    lectureDropdownOpen = false;
 }
 
-function selectLecture(val) {
+function selectLecture(val, ev) {
+    if (ev) ev.stopPropagation();
     currentLecture = val;
-    closeLectureDropdown();
     handleSearch();
 }
 
@@ -1249,7 +1478,15 @@ document.addEventListener('click', function(e) {
 });
 
 function getLectureLabel(val) {
-    if (val === "All") return "Biochemistry 🧪";
+    if (val === "All" && currentSubjectFilter === "All") return "All";
+    if (val === "All") {
+        const subjectLabels = {
+            "Biochemistry": "Biochemistry 🧪",
+           
+            
+        };
+        return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
+    }
     return lectures[val] || val;
 }
 
@@ -1284,14 +1521,16 @@ function updateSectionHeading() {
     const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
     const filters = lectureFilters[currentSubjectFilter] || [];
     const hasLectures = filters.some(f => f.val !== "All");
+    if (!hasLectures) lectureDropdownOpen = false;
 
+    const showLectureDropdownOpen = hasLectures && lectureDropdownOpen;
     const headingHtml = hasLectures ? `
         <div class="lecture-select-wrapper" id="lecture-select-wrapper">
-            <button class="lecture-select-btn" id="lecture-select-btn" onclick="toggleLectureDropdown()" title="Filter by lecture">
+            <button class="lecture-select-btn${showLectureDropdownOpen ? ' dropdown-open' : ''}" id="lecture-select-btn" onclick="toggleLectureDropdown()" title="Filter by lecture">
                 <span class="${titleClass}">${labelHtml}</span>
                 ${LECTURE_CHEVRON_SVG}
             </button>
-            <div class="lecture-dropdown" id="lecture-dropdown"><div class="lecture-dropdown-header">Lectures</div><div class="lecture-dropdown-items">${renderLectureDropdownItems()}</div></div>
+            <div class="lecture-dropdown${showLectureDropdownOpen ? ' open' : ''}" id="lecture-dropdown"><div class="lecture-dropdown-header"><span>Lectures</span><button type="button" class="dropdown-close-btn" onclick="closeLectureDropdown()" title="Close" aria-label="Close">${CLOSE_ICON_SVG}</button></div><div class="lecture-dropdown-items">${renderLectureDropdownItems()}</div></div>
         </div>
         <span class="mcq-count-badge">${badgeText}</span>
     ` : `
@@ -1313,6 +1552,8 @@ function updateSectionHeading() {
         heading.innerHTML = headingRowHtml;
         container.insertBefore(heading, container.firstChild);
     }
+
+    if (showLectureDropdownOpen) scrollLectureDropdownToSelected();
 
     // Show the optional note only on the default "All" view (no subject or
     // lecture filter applied) — i.e. what you see when the file first opens.
@@ -1463,8 +1704,9 @@ window.addEventListener('beforeprint', function (e) {
 });
 
 function matchesFilters(item) {
-    const lectureOk = currentLecture === "All" || item.l === currentLecture;
-    return lectureOk;
+    const subjectOk = currentSubjectFilter === "All" || item.s === currentSubjectFilter;
+    const lectureOk = currentLecture === "All" || String(item.l) === String(currentLecture);
+    return subjectOk && lectureOk;
 }
 
 /* Premium Full Header Takeover Functions */
@@ -1500,9 +1742,10 @@ function handleSearch() {
     const blocks = document.querySelectorAll('.q-block');
     blocks.forEach(block => {
         resetBlock(block);
+        const subjectOk = currentSubjectFilter === "All" || block.dataset.subject === currentSubjectFilter;
         const lectureOk = currentLecture === "All" || String(block.dataset.lecture) === String(currentLecture);
         const matchesSearch = term === "" || block.dataset.searchText.includes(term);
-        if (lectureOk && matchesSearch) {
+        if (subjectOk && lectureOk && matchesSearch) {
             block.style.display = "block";
             if (term !== "") highlight(block, term);
         } else {
