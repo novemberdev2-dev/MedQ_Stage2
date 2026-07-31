@@ -332,7 +332,10 @@ const ALL_SECTIONS = [
 
      ]},
       { title: '2023-2024 Year Exam',   links: [
+        { label: 'End-Block _ Theory', badge: '20 MCQs',  href: 'HP_End-Block_Theory_2023-or-2024.html' },
+        
         { label: 'Final', badge: '11 MCQs', href: 'HP_Final_2023-2024.html' },
+        
 
      ]},
      
