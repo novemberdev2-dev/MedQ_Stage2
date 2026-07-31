@@ -247,7 +247,13 @@ const ALL_SECTIONS = [
 
      ]},
      
-       { title: '2022-2023 Year Exam',     links: [{ label: 'End-Block _ Practice', badge: '10 Questions',  href: 'IBS_Practical_exam_2022-2023.html' }] },
+       { title: '2022-2023 Year Exam',     links: [
+         
+         { label: 'End-Block _ Practice', badge: '10 Questions',  href: 'IBS_Practical_exam_2022-2023.html' },
+        { label: 'Final',   badge: '70 MCQs',     href: 'IBS_Finall_2023-2024.html' },
+         
+       
+       ] },
 
 
       { title: '2023-2024 Year Exam',     links: [
