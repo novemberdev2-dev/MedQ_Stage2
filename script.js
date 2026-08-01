@@ -253,13 +253,13 @@ const ALL_SECTIONS = [
       { label: 'Final', badge: '61 MCQs',  href: 'IBS_Final_2024-2025.html' }
     
     ] },
-     { title: '2025-2026 Year Exam',     links: [
+     { title: '2025-2026 Year Exam ✅',     links: [
       { label: 'End-Block _ Theory', badge: '30 MCQs',  href: 'IBS_End-Block_2025-2026.html' },
       { label: 'Final', badge: '66 MCQs',  href: 'IBS_Final_2025-2026.html' }
     
     ] },
 
-     { title: 'Unknown Year Exam',     links: [
+     { title: 'Unknown Year Exam ✅',     links: [
       { label: 'Quiz', badge: '22 MCQs',  href: 'IBS_Quiz_Unkown year.html' },
     
     ] },
