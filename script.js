@@ -228,7 +228,7 @@ const ALL_SECTIONS = [
         { label: 'Final',   badge: '64 MCQs',     href: 'IBS_Final_2020-2021.html' },
         
       ]},
-      { title: '2021-2022 Year Exam',   links: [
+      { title: '2021-2022 Year Exam ✅',   links: [
         { label: 'End-Block', badge: '30 MCQs', href: 'IBS_End-Module_2021-2022.html' },
         { label: 'Final', badge: '87 MCQs', href: 'IBS_Final_2021-2022.html' }
 
