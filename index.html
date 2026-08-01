@@ -50,18 +50,19 @@
     </div>
   </div>
 
-  <!-- Top Bar -->
-  <div class="top-bar">
-    <div class="top-bar-left">
-      <div class="profile-area" onclick="openProfileModal()" title="Edit profile">
-        <div class="app-icon" id="app-icon-el">
-          <img id="profile-img" src="https://i.imgur.com/AXJmZwo.png" alt="Med-Q">
-        </div>
+  <!-- Unified Header -->
+  <header class="main-header">
+    <div class="header-left" onclick="openProfileModal()" title="Edit profile">
+      <div class="app-icon" id="app-icon-el">
+        <img id="profile-img" src="https://i.imgur.com/AXJmZwo.png" alt="Med-Q">
+      </div>
+      <div class="header-text">
         <span class="app-name" id="app-name-el">Med-Q</span>
+        <span class="header-sub">STAGE 2</span>
       </div>
     </div>
 
-    <div class="top-bar-right">
+    <div class="header-right">
 
       <!-- Filter Button -->
       <div class="filter-dropdown-wrapper">
@@ -71,7 +72,15 @@
           </svg>
         </div>
         <div class="filter-dropdown" id="filter-dropdown">
-          <div class="filter-dropdown-header">Filter</div>
+          <div class="filter-dropdown-header">
+            Filter
+            <div class="settings-close-btn" onclick="cancelFilter()">
+              <svg viewBox="0 0 12 12">
+                <line x1="1" y1="1" x2="11" y2="11"/>
+                <line x1="11" y1="1" x2="1" y2="11"/>
+              </svg>
+            </div>
+          </div>
           <div class="filter-options-list">
             <div class="filter-option-pill" id="fpill-all" onclick="toggleFilterPill('all')">
               <span class="filter-pill-check"></span> Show All
@@ -153,14 +162,6 @@
         </div>
       </div>
 
-    </div>
-  </div>
-
-  <!-- Page Header -->
-  <header class="main-header">
-    <div class="header-info">
-      <h3>Final &amp; End-Block</h3>
-      <p>Stage 2</p>
     </div>
   </header>
 
