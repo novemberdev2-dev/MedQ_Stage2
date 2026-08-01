@@ -274,19 +274,19 @@ const ALL_SECTIONS = [
      
      
 
-      { title: '2021-2022 Year Exam',   links: [
+      { title: '2021-2022 Year Exam ✅',   links: [
         { label: 'Final _ 1st Term', badge: '38 MCQs', href: 'MSD_Final_2021-2022.html' },
         { label: 'Final _ 2nd Term', badge: '36 MCQs', href: 'MSD_Final2_2021-2022.html' },
 
      ]},
-      { title: '2023-2024 Year Exam 🔥',   links: [
+      { title: '2023-2024 Year Exam ✅',   links: [
         { label: 'Practice', badge: '14 Qs', href: 'MSD_End_Block_Practice_2023-2024.html' },
 
      ]},
      
 
 
- { title: '2024-2025 Year Exam',     links: [
+ { title: '2024-2025 Year Exam ✅',     links: [
         { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'MSD_End-Block_Theory_2024-2025.html' },
         { label: 'End-Block _ Practice', badge: '14 Qs',  href: 'MSD_End-Block_Practice_2024-2025.html' },
         { label: 'Final', badge: '37 MCQs',  href: 'MSD_Final_2024-2025.html' },
