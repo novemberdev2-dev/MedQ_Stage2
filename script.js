@@ -2,20 +2,7 @@
 
 // ----- PROTECTION: block the app from running when the file is saved
 // locally and opened straight from disk (file:// protocol) -----
-if (location.protocol === 'file:') {
-  document.documentElement.classList.add('file-blocked');
-  document.addEventListener('DOMContentLoaded', function () {
-    document.body.innerHTML = '';
-    var msg = document.createElement('div');
-    msg.id = 'file-block-overlay';
-    msg.style.cssText = 'position:fixed;inset:0;display:flex;align-items:center;' +
-      'justify-content:center;text-align:center;padding:24px;background:#0c0d0e;' +
-      'color:#f1f5f9;font-family:Segoe UI,Roboto,sans-serif;z-index:99999;';
-    msg.innerHTML = '<div><h2 style="margin:0 0 10px;font-size:1.2rem;">This app can\'t run from a local file</h2>' +
-      '<p style="margin:0;opacity:0.7;font-size:0.9rem;">Please open it through its official website link instead.</p></div>';
-    document.body.appendChild(msg);
-  });
-}
+
 
 // ----- PROTECTION: disable print & save keyboard shortcuts -----
 document.addEventListener('keydown', function (e) {
@@ -248,12 +235,10 @@ const ALL_SECTIONS = [
      ]},
      
        { title: '2022-2023 Year Exam',     links: [
-         
-         { label: 'End-Block _ Practice', badge: '10 Questions',  href: 'IBS_Practical_exam_2022-2023.html' },
-        { label: 'Final',   badge: '70 MCQs',     href: 'IBS_Finall_2023-2024.html' },
-         
-       
-       ] },
+        { label: 'End-Block _ Practice', badge: '10 Questions',  href: 'IBS_Practical_exam_2022-2023.html' },
+        { label: 'Final', badge: '70 MCQs', href: 'IBS_Finall_2023-2024.html' }
+      
+      ] },
 
 
       { title: '2023-2024 Year Exam',     links: [
@@ -339,9 +324,8 @@ const ALL_SECTIONS = [
      ]},
       { title: '2023-2024 Year Exam',   links: [
         { label: 'End-Block _ Theory', badge: '20 MCQs',  href: 'HP_End-Block_Theory_2023-or-2024.html' },
-        
+
         { label: 'Final', badge: '11 MCQs', href: 'HP_Final_2023-2024.html' },
-        
 
      ]},
      
@@ -382,7 +366,7 @@ const ALL_SECTIONS = [
         { label: 'Quiz', badge: '0 MCQs', href: 'IBS_Quiz_2018-2019.html' }
 
       ]},
-      { title: '2020-2021 Year Exam ✅', links: [
+      { title: '2020-2021 Year Exam 🔥', links: [
         { label: 'Final',   badge: '42 MCQs',     href: 'CVS_Final_2020-2021.html' },
         
       ]},
@@ -392,7 +376,7 @@ const ALL_SECTIONS = [
      ]},
       { title: '2023-2024 Year Exam 🔥',   links: [
         { label: 'Final', badge: '43 MCQs', href: 'CVS_Final_2023-2024.html' },
-        { label: 'Final or End-Block', badge: '20 MCQs', href: 'CVS_FinalorEndblock_2023.2024.html' },
+        { label: 'Final or End-Block', badge: '20 MCQs', href: 'CVS_FinalorEndblock_2023-2024.html' },
 
 
      ]},
@@ -418,7 +402,7 @@ const ALL_SECTIONS = [
      { title: 'Unknown Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '6 MCQs',  href: 'CVS_End-Block_Theory_Unkown Year.html' },
       { label: 'Final', badge: '44 MCQs',  href: 'CVS_Final_Unknown Year.html' },
-      { label: 'Quiz', badge: '161 MCQs',  href: 'CVS_Quiz_Unknown Year.html' },
+      { label: 'Quiz', badge: '161 MCQs',  href: 'CVS_Quiz_Unkown Year.html' },
     
     ] },
     ]
@@ -439,7 +423,7 @@ const ALL_SECTIONS = [
      ]},
 
       { title: '2022-2023 Year Exam',   links: [
-        { label: 'End-Block _ Practice', badge: '5 Qs', href: 'RS_End-Block_Practice_2022-2023.html' },
+        { label: 'End-Block _ Practice', badge: '5 Qs', href: 'RS_End-Block_Practice_2023-2024.html' },
         { label: 'Final or End-Block', badge: '31 MCQs', href: 'RS_FinalorEndblock_2022-2023.html' },
 
       
@@ -472,8 +456,9 @@ const ALL_SECTIONS = [
     ] },
 
      { title: 'Unknown Year Exam',     links: [
-      { label: 'Final', badge: '41 MCQs',  href: 'RS_Final_Unknown-Year.html' },
       { label: 'End-Block _ Theory', badge: '19 MCQs',  href: 'RS_End-Block_Theory_Unknown-Year.html' },
+
+      { label: 'Final', badge: '41 MCQs',  href: 'RS_Final_Unknown-Year.html' },
     
     ] },
     ]
