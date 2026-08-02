@@ -227,8 +227,8 @@
             background-color: transparent;
             border: none;
             color: var(--text-main);
-            width: 36px;
-            height: 36px;
+            width: 33px;
+            height: 33px;
             border-radius: 7px;
             display: flex;
             align-items: center;
@@ -281,6 +281,18 @@
             transition: all 0.3s;
             flex-shrink: 0;
         }
+
+        .search-close-btn:hover {
+    background-color: rgba(255,255,255,0.08);
+}
+
+[data-theme="light"] .search-close-btn:hover {
+    background-color: rgba(0,0,0,0.06);
+}
+
+.search-close-btn:focus {
+    outline: none;
+}
 
         /* Subject picker dropdown */
         .subject-toggle-wrapper {
@@ -350,13 +362,17 @@
         }
 
         .subject-dropdown-header {
-            padding: 14px 16px 10px;
+            padding: 10px 10px 10px 16px;
             font-size: 0.72rem;
             font-weight: 700;
             color: #555;
             letter-spacing: 0.09em;
             text-transform: uppercase;
             border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
         }
 
         [data-theme="light"] .subject-dropdown-header {
@@ -501,13 +517,13 @@
 
         .lecture-dropdown {
             position: absolute;
-            top: calc(100% + 8px);
+            top: calc(100% + 13px);
             left: 0;
             background: #111111;
             border: 1px solid rgba(255,255,255,0.13);
             border-radius: 14px;
             overflow: hidden;
-            width: 230px;
+            width: 290px;
             max-width: 80vw;
             z-index: 50;
             opacity: 0;
@@ -517,10 +533,13 @@
             box-shadow: 0 16px 48px rgba(0,0,0,0.65);
         }
 
+        
+
         .lecture-dropdown.open {
             opacity: 1;
             transform: translateY(0) scale(1);
             pointer-events: all;
+
         }
 
         [data-theme="light"] .lecture-dropdown {
@@ -530,19 +549,53 @@
         }
 
         .lecture-dropdown-header {
-            padding: 12px 16px;
+            padding: 10px 10px 10px 16px;
             font-size: 0.70rem;
             font-weight: 700;
             letter-spacing: 0.09em;
             text-transform: uppercase;
             color: #777;
-            text-align: center;
+            text-align: left;
             border-bottom: 1px solid rgba(255,255,255,0.13);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         [data-theme="light"] .lecture-dropdown-header {
             color: #999;
             border-bottom-color: rgba(0,0,0,0.13);
+        }
+
+        .dropdown-close-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: #888;
+            flex-shrink: 0;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+
+        .dropdown-close-btn svg {
+            width: 13px;
+            height: 13px;
+            pointer-events: none;
+        }
+
+        .dropdown-close-btn:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: #f1f5f9;
+        }
+
+        [data-theme="light"] .dropdown-close-btn:hover {
+            background-color: rgba(0,0,0,0.06);
+            color: #111;
         }
 
         /* Cap the list to ~7 rows tall; anything beyond that scrolls
@@ -693,12 +746,33 @@
         
         .section-heading {
             display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-bottom: 14px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-heading-row {
+            display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 16px;
-            padding-bottom: 14px;
-            margin-bottom: 40px;
-            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Optional small note shown under the "All" heading on first open,
+           above the divider line. Not every file needs one — to remove it,
+           just clear the CONTENT_NOTE constant near the top of the script
+           (or delete it). */
+        .section-note {
+            font-size: 0.80rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #999;
+        }
+
+        [data-theme="light"] .section-note {
+            color: #9a9a9a;
         }
 
         .no-results {
@@ -714,13 +788,25 @@
         }
 
         .section-heading-title {
-            font-size: 1.25rem;
+            font-size: 1.10rem;
             font-weight: 700;
             color: var(--text-main);
             min-width: 0;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+
+        /* Two versions of the lecture/subject name are rendered together:
+           .label-full (complete text, used on larger screens) and
+           .label-short (hard-capped to 25 characters + "…", used on small
+           screens). Only one is shown at a time via the media query below. */
+        .label-short { display: none; }
+
+        /* Subject names (e.g. "Microbiology 🦠") are shown a bit larger
+           than individual lecture names (e.g. "Trachea, bronch..."). */
+        .section-heading-title.subject-title {
+            font-size: 1.22rem;
         }
 
         .mcq-count-badge {
@@ -732,6 +818,18 @@
             border-radius: 3px;
             letter-spacing: 0.05em;
             white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 480px) {
+            .section-heading-title {
+                font-size: 1rem;
+            }
+            .section-heading-title.subject-title {
+                font-size: 1.12rem;
+            }
+            .label-full { display: none; }
+            .label-short { display: inline; }
         }
 
         /* Eye / Copy / Pin icon buttons */
@@ -960,10 +1058,15 @@
                     <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.90693 3.9999C9.93791 3.99996 9.96894 4.00001 10 4.00001C10.0311 4.00001 10.0621 3.99996 10.0931 3.9999C10.4618 3.99929 10.8242 3.99869 11.147 4.08519C12.0098 4.31636 12.6836 4.99023 12.9148 5.85296C13.0013 6.1758 13.0007 6.53821 13.0001 6.90693C13.0001 6.93792 13 6.96895 13 7.00001H21C21.5523 7.00001 22 7.44772 22 8.00001C22 8.55229 21.5523 9.00001 21 9.00001H13C13 9.03107 13.0001 9.0621 13.0001 9.09309C13.0007 9.46181 13.0013 9.82422 12.9148 10.1471C12.6836 11.0098 12.0098 11.6837 11.147 11.9148C10.8242 12.0013 10.4618 12.0007 10.0931 12.0001C10.0621 12.0001 10.0311 12 10 12C9.96894 12 9.93791 12.0001 9.90692 12.0001C9.5382 12.0007 9.17579 12.0013 8.85295 11.9148C7.99022 11.6837 7.31635 11.0098 7.08519 10.1471C6.99868 9.82421 6.99928 9.46181 6.9999 9.09308C6.99995 9.0621 7 9.03106 7 9.00001H5C4.44772 9.00001 4 8.55229 4 8.00001C4 7.44772 4.44772 7.00001 5 7.00001H7C7 6.96895 6.99995 6.93792 6.9999 6.90693C6.99928 6.53821 6.99868 6.1758 7.08519 5.85296C7.31635 4.99023 7.99022 4.31636 8.85295 4.08519C9.17579 3.99869 9.5382 3.99929 9.90693 3.9999ZM9.49861 6.00536C9.39195 6.01022 9.36685 6.01805 9.37059 6.01704C9.19804 6.06328 9.06327 6.19805 9.01704 6.3706C9.0162 6.37411 9.00963 6.40483 9.00535 6.49861C9.00024 6.61064 9 6.75845 9 7.00001V9.00001C9 9.24156 9.00024 9.38937 9.00535 9.5014C9.01021 9.60806 9.01804 9.63315 9.01704 9.62942C9.06327 9.80196 9.19804 9.93674 9.37059 9.98297C9.36685 9.98197 9.39195 9.98979 9.49861 9.99466C9.61063 9.99977 9.75844 10 10 10C10.2416 10 10.3894 9.99977 10.5014 9.99466C10.608 9.98979 10.6331 9.98197 10.6294 9.98297C10.802 9.93674 10.9367 9.80196 10.983 9.62942C10.982 9.63315 10.9898 9.60806 10.9946 9.5014C10.9998 9.38937 11 9.24156 11 9.00001V7.00001C11 6.75845 10.9998 6.61064 10.9946 6.49861C10.9898 6.39196 10.982 6.36686 10.983 6.3706M9.49861 6.00536C9.61063 6.00025 9.75844 6.00001 10 6.00001L9.49861 6.00536ZM10 6.00001C10.2416 6.00001 10.3894 6.00025 10.5014 6.00536L10 6.00001ZM10.5014 6.00536C10.5952 6.00963 10.6259 6.0162 10.6294 6.01704L10.5014 6.00536ZM10.6298 6.01713C10.6298 6.01713 10.6296 6.0171 10.6294 6.01704L10.6298 6.01713ZM15.9069 11.9999C15.9379 12 15.9689 12 16 12C16.0311 12 16.0621 12 16.0931 11.9999C16.4618 11.9993 16.8242 11.9987 17.147 12.0852C18.0098 12.3164 18.6836 12.9902 18.9148 13.853C19.0013 14.1758 19.0007 14.5382 19.0001 14.9069C19.0001 14.9379 19 14.9689 19 15H21C21.5523 15 22 15.4477 22 16C22 16.5523 21.5523 17 21 17H19C19 17.0311 19.0001 17.0621 19.0001 17.0931C19.0007 17.4618 19.0013 17.8242 18.9148 18.1471C18.6836 19.0098 18.0098 19.6837 17.147 19.9148C16.8242 20.0013 16.4618 20.0007 16.0931 20.0001C16.0621 20.0001 16.0311 20 16 20C15.9689 20 15.9379 20.0001 15.9069 20.0001C15.5382 20.0007 15.1758 20.0013 14.853 19.9148C13.9902 19.6837 13.3164 19.0098 13.0852 18.1471C12.9987 17.8242 12.9993 17.4618 12.9999 17.0931C12.9999 17.0621 13 17.0311 13 17H5C4.44772 17 4 16.5523 4 16C4 15.4477 4.44772 15 5 15H13C13 14.969 12.9999 14.9379 12.9999 14.9069C12.9993 14.5382 12.9987 14.1758 13.0852 13.853C13.3164 12.9902 13.9902 12.3164 14.853 12.0852C15.1758 11.9987 15.5382 11.9993 15.9069 11.9999ZM15.4986 14.0054C15.392 14.0102 15.3669 14.018 15.3706 14.017C15.198 14.0633 15.0633 14.1981 15.017 14.3706C15.018 14.3669 15.0102 14.392 15.0054 14.4986C15.0002 14.6106 15 14.7585 15 15V17C15 17.2416 15.0002 17.3894 15.0054 17.5014C15.0102 17.6081 15.018 17.6332 15.017 17.6294C15.0633 17.802 15.198 17.9367 15.3706 17.983C15.3669 17.982 15.392 17.9898 15.4986 17.9947C15.6106 17.9998 15.7584 18 16 18C16.2416 18 16.3894 17.9998 16.5014 17.9947C16.608 17.9898 16.6331 17.982 16.6294 17.983C16.802 17.9367 16.9367 17.802 16.983 17.6294C16.982 17.6332 16.9898 17.6081 16.9946 17.5014C16.9998 17.3894 17 17.2416 17 17V15C17 14.7585 16.9998 14.6106 16.9946 14.4986C16.9898 14.392 16.982 14.3669 16.983 14.3706C16.9367 14.1981 16.802 14.0633 16.6294 14.017C16.6331 14.018 16.608 14.0102 16.5014 14.0054C16.3894 14.0002 16.2416 14 16 14C15.7584 14 15.6106 14.0002 15.4986 14.0054Z"/></svg>
                 </div>
                 <div class="subject-dropdown" id="subject-dropdown">
-                    <div class="subject-dropdown-header">Subject</div>
+                    <div class="subject-dropdown-header">
+                        <span>Subject</span>
+                        <button type="button" class="dropdown-close-btn" onclick="closeSubjectDropdown()" title="Close" aria-label="Close">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                    </div>
                     <div class="subject-dropdown-items">
                     <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
-                 
+                    
                     <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
                     <div class="subject-dropdown-item" data-subject="Physiology" onclick="selectSubjectFilter('Physiology', this)"><span class="filter-option-dot"></span>Physiology ⚡</div>
                     <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
@@ -973,8 +1076,9 @@
                     <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🫁</div>
                     <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
                     <div class="subject-dropdown-item" data-subject="Medical Education" onclick="selectSubjectFilter('Medical Education', this)"><span class="filter-option-dot"></span>Medical Education 📗</div>
-                    <div class="subject-dropdown-item" data-subject="Essay Questions" onclick="selectSubjectFilter('Essay Questions', this)"><span class="filter-option-dot"></span>Essay Questions</div>
-                    </div>
+                    <div class="subject-dropdown-item" data-subject="Essay Questions" onclick="selectSubjectFilter('Essay Questions', this)"><span class="filter-option-dot"></span>Essay Questions 📝</div>
+                  
+                </div>
                 </div>
             </div>
 
@@ -1016,8 +1120,8 @@
 
 const allQuestions = [
   
-
-  { "n": 1, "s": "Pharmacology", "l": 1, "q": "A 3-year-old child ingests iron tablets, mistaking them for candy. What is the hallmark of severe iron toxicity?", "o": ["A. Severe necrotizing gastritis", "B. Acute renal failure", "C. Fulminant hepatic necrosis", "D. Pulmonary edema", "E. Cerebral hemorrhage"], "a": "A" },
+ 
+   { "n": 1, "s": "Pharmacology", "l": 1, "q": "A 3-year-old child ingests iron tablets, mistaking them for candy. What is the hallmark of severe iron toxicity?", "o": ["A. Severe necrotizing gastritis", "B. Acute renal failure", "C. Fulminant hepatic necrosis", "D. Pulmonary edema", "E. Cerebral hemorrhage"], "a": "A" },
   { "n": 2, "s": "Pharmacology", "l": 1, "q": "What is the specific antidote for Rivaroxaban overdose?", "o": ["A. Protamine sulfate", "B. Fresh frozen plasma", "C. Idarucizumab", "D. Vitamin K", "E. Andexanet alfa"], "a": "E" },
   { "n": 3, "s": "Histology", "l": 1, "q": "The stroma is primarily a meshwork of which of the following?", "o": ["A. Elastin fibers and smooth muscle.", "B. Collagen type I and fibroblasts.", "C. Reticular cells and reticular fibers.", "D. Adipocytes and endothelial cells.", "E. Keratinocytes and melanocytes."], "a": "C" },
   { "n": 4, "s": "Physiology", "l": 1, "q": "Which of the following is CORRECT regarding Eosinophils?", "o": ["A. They play a primary role against parasitic infections.", "B. They are the most abundant leukocyte in normal peripheral blood.", "C. They primarily produce antibodies during viral infections.", "D. They contain heparin and histamine similar to mast cells.", "E. They lack a lobulated nucleus."], "a": "A" },
@@ -1059,7 +1163,6 @@ const allQuestions = [
     ]
   },
   
-  
  
 ];
 
@@ -1099,8 +1202,15 @@ function togglePin(n) {
     }
     localStorage.setItem('pinnedQuestions', JSON.stringify([...pinnedQuestions]));
     reorderQuestions();
-    renderQuiz();
-    handleSearch();
+    try {
+        renderQuiz();
+    } finally {
+        // handleSearch() re-applies the current subject/lecture/search filters
+        // to the freshly rendered questions. Running it in a finally block
+        // guarantees the list is always re-shown correctly, even if something
+        // above throws, instead of getting stuck on "No questions found".
+        handleSearch();
+    }
 }
 
 function copyTextToClipboard(text, btn) {
@@ -1258,23 +1368,26 @@ function fallbackCopy(text) {
 }
 
 const lectures = {
-   1:  "Haemopoiesis 🔥",
-   2:  "Megaloblastic Anemia 🦴",
+    1: " Introduction and classification",
+    2: "Metabolic bone diseases",
    
 };
   
 const lectureFilters = {
     "All": [],
     "Pathology": [
-        { label: "All",    val: "All" },
-        
-        { label: "Haemopoiesis",     val: 1 },
-        { label: "Megaloblastic Anemia",     val: 2 },
+        { label: "All", val: "All" },
+        { label: " Introduction and classification", val: 1 },
+        { label: "Metabolic bone diseases", val: 2 },
+       
     ]
 };
 
 let currentSubjectFilter = "All";  
 let currentLecture = "All";
+let lectureDropdownOpen = false;
+
+const CLOSE_ICON_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
 
 const container = document.getElementById('quiz-content');
 
@@ -1283,8 +1396,20 @@ const LECTURE_CHEVRON_SVG = `<svg class="lecture-chevron" width="18" height="18"
 function renderLectureDropdownItems() {
     const filters = lectureFilters[currentSubjectFilter] || [];
     return filters.map(f =>
-        `<div class="lecture-dropdown-item${String(f.val) === String(currentLecture) ? " selected" : ""}" onclick="selectLecture('${f.val}')"><span class="lecture-dot"></span><span class="lecture-item-text">${f.label}</span></div>`
+    `<div class="lecture-dropdown-item${String(f.val) === String(currentLecture) ? " selected" : ""}" onclick="selectLecture('${f.val}', event)"><span class="lecture-dot"></span><span class="lecture-item-text">${f.label}</span></div>`
     ).join('');
+}
+
+function scrollLectureDropdownToSelected() {
+    const wrap = document.querySelector('#lecture-dropdown .lecture-dropdown-items');
+    if (!wrap) return;
+    const selected = wrap.querySelector('.lecture-dropdown-item.selected');
+    if (selected) {
+        const target = selected.offsetTop - (wrap.clientHeight / 2) + (selected.clientHeight / 2);
+        wrap.scrollTop = Math.max(0, target);
+    } else {
+        wrap.scrollTop = 0;
+    }
 }
 
 function toggleLectureDropdown() {
@@ -1295,9 +1420,12 @@ function toggleLectureDropdown() {
     if (isOpen) {
         dd.classList.remove('open');
         btn.classList.remove('dropdown-open');
+        lectureDropdownOpen = false;
     } else {
         dd.classList.add('open');
         btn.classList.add('dropdown-open');
+        lectureDropdownOpen = true;
+        scrollLectureDropdownToSelected();
     }
 }
 
@@ -1306,11 +1434,12 @@ function closeLectureDropdown() {
     const btn = document.getElementById('lecture-select-btn');
     if (dd) dd.classList.remove('open');
     if (btn) btn.classList.remove('dropdown-open');
+    lectureDropdownOpen = false;
 }
 
-function selectLecture(val) {
+function selectLecture(val, ev) {
+    if (ev) ev.stopPropagation();
     currentLecture = val;
-    closeLectureDropdown();
     handleSearch();
 }
 
@@ -1328,16 +1457,25 @@ function getLectureLabel(val) {
             "Physiology": "Physiology ⚡",
             "Microbiology": "Microbiology 🦠",
             "Pharmacology": "Pharmacology 💊",
-            "Biochemistry": "Biochemistry 🧪",
+            "Anatomy": "Anatomy 🦴",
             "Pathology": "Pathology 🔬",
             "Genetics": "Genetics 🧬",
             "Medical Education": "Medical Education 📗",
             "Histology": "Histology 🫁",
             "Medicine": "Medicine 📘",
+            "Radiology": "Radiology ☢️",
+            "Community Medicine": "Community Medicine 👥",
+            "Biochemistry": "Biochemistry 🧪",
+            "Essay Questions": "Essay Questions 📝"
         };
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
     return lectures[val] || val;
+}
+
+function truncateLabel(str, maxLen) {
+    const s = String(str);
+    return s.length > maxLen ? s.slice(0, maxLen) + "..." : s;
 }
 
 function updateSectionHeading() {
@@ -1359,33 +1497,58 @@ function updateSectionHeading() {
     }
 
     const label = getLectureLabel(currentLecture);
+    const shortLabel = truncateLabel(label, 25);
+    const labelHtml = `<span class="label-full">${label}</span><span class="label-short">${shortLabel}</span>`;
+    const isSubjectLabel = currentLecture === "All";
+    const titleClass = "section-heading-title" + (isSubjectLabel ? " subject-title" : "");
     const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
     const filters = lectureFilters[currentSubjectFilter] || [];
     const hasLectures = filters.some(f => f.val !== "All");
+    if (!hasLectures) lectureDropdownOpen = false;
 
+    const showLectureDropdownOpen = hasLectures && lectureDropdownOpen;
     const headingHtml = hasLectures ? `
         <div class="lecture-select-wrapper" id="lecture-select-wrapper">
-            <button class="lecture-select-btn" id="lecture-select-btn" onclick="toggleLectureDropdown()" title="Filter by lecture">
-                <span class="section-heading-title">${label}</span>
+            <button class="lecture-select-btn${showLectureDropdownOpen ? ' dropdown-open' : ''}" id="lecture-select-btn" onclick="toggleLectureDropdown()" title="Filter by lecture">
+                <span class="${titleClass}">${labelHtml}</span>
                 ${LECTURE_CHEVRON_SVG}
             </button>
-            <div class="lecture-dropdown" id="lecture-dropdown"><div class="lecture-dropdown-header">Lectures</div><div class="lecture-dropdown-items">${renderLectureDropdownItems()}</div></div>
+            <div class="lecture-dropdown${showLectureDropdownOpen ? ' open' : ''}" id="lecture-dropdown"><div class="lecture-dropdown-header"><span>Lectures</span><button type="button" class="dropdown-close-btn" onclick="closeLectureDropdown()" title="Close" aria-label="Close">${CLOSE_ICON_SVG}</button></div><div class="lecture-dropdown-items">${renderLectureDropdownItems()}</div></div>
         </div>
         <span class="mcq-count-badge">${badgeText}</span>
     ` : `
-        <span class="section-heading-title">${label}</span>
+        <span class="${titleClass}">${labelHtml}</span>
         <span class="mcq-count-badge">${badgeText}</span>
     `;
 
+    const headingRowHtml = `<div class="section-heading-row">${headingHtml}</div>`;
+
+    let heading;
     if (existing) {
         existing.style.display = "flex";
-        existing.innerHTML = headingHtml;
+        existing.innerHTML = headingRowHtml;
+        heading = existing;
     } else {
-        const heading = document.createElement('div');
+        heading = document.createElement('div');
         heading.id = 'section-heading';
         heading.className = 'section-heading';
-        heading.innerHTML = headingHtml;
+        heading.innerHTML = headingRowHtml;
         container.insertBefore(heading, container.firstChild);
+    }
+
+    if (showLectureDropdownOpen) scrollLectureDropdownToSelected();
+
+    // Show the optional note only on the default "All" view (no subject or
+    // lecture filter applied) — i.e. what you see when the file first opens.
+    // It sits inside the heading block, below the title and above the
+    // divider line underneath it.
+    const showNote = !!CONTENT_NOTE && currentSubjectFilter === "All" && currentLecture === "All";
+    if (showNote) {
+        const noteEl = document.createElement('div');
+        noteEl.id = 'section-note';
+        noteEl.className = 'section-note';
+        noteEl.textContent = CONTENT_NOTE;
+        heading.appendChild(noteEl);
     }
 }
 
@@ -1525,8 +1688,20 @@ window.addEventListener('beforeprint', function (e) {
 
 function matchesFilters(item) {
     const subjectOk = currentSubjectFilter === "All" || item.s === currentSubjectFilter;
-    const lectureOk = currentLecture === "All" || item.l === currentLecture;
+    const lectureOk = currentLecture === "All" || String(item.l) === String(currentLecture);
     return subjectOk && lectureOk;
+}
+
+function scrollSubjectDropdownToSelected() {
+    const wrap = document.querySelector('#subject-dropdown .subject-dropdown-items');
+    if (!wrap) return;
+    const selected = wrap.querySelector('.subject-dropdown-item.selected');
+    if (selected) {
+        const target = selected.offsetTop - (wrap.clientHeight / 2) + (selected.clientHeight / 2);
+        wrap.scrollTop = Math.max(0, target);
+    } else {
+        wrap.scrollTop = 0;
+    }
 }
 
 function toggleSubjectDropdown() {
@@ -1539,7 +1714,15 @@ function toggleSubjectDropdown() {
     } else {
         dd.classList.add('open');
         btn.classList.add('dropdown-open');
+        scrollSubjectDropdownToSelected();
     }
+}
+
+function closeSubjectDropdown() {
+    const dd = document.getElementById('subject-dropdown');
+    const btn = document.getElementById('subject-toggle-btn');
+    if (dd) dd.classList.remove('open');
+    if (btn) btn.classList.remove('dropdown-open');
 }
 
 function selectSubjectFilter(subject, el) {
@@ -1720,3 +1903,5 @@ renderQuiz();
 </script>
 </body>
 </html>
+    
+                
