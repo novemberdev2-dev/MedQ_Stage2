@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RS_FinalorEndblock_2022-2023</title>
 
-
-
     <style>
        :root {
             --bg-body: #121212;
@@ -282,6 +280,18 @@
             flex-shrink: 0;
         }
 
+        .search-close-btn:hover {
+    background-color: rgba(255,255,255,0.08);
+}
+
+[data-theme="light"] .search-close-btn:hover {
+    background-color: rgba(0,0,0,0.06);
+}
+
+.search-close-btn:focus {
+    outline: none;
+}
+
         /* Subject picker dropdown */
         .subject-toggle-wrapper {
             position: relative;
@@ -350,13 +360,17 @@
         }
 
         .subject-dropdown-header {
-            padding: 14px 16px 10px;
+            padding: 10px 10px 10px 16px;
             font-size: 0.72rem;
             font-weight: 700;
             color: #555;
             letter-spacing: 0.09em;
             text-transform: uppercase;
             border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
         }
 
         [data-theme="light"] .subject-dropdown-header {
@@ -501,13 +515,13 @@
 
         .lecture-dropdown {
             position: absolute;
-            top: calc(100% + 8px);
+            top: calc(100% + 13px);
             left: 0;
             background: #111111;
             border: 1px solid rgba(255,255,255,0.13);
             border-radius: 14px;
             overflow: hidden;
-            width: 230px;
+            width: 290px;
             max-width: 80vw;
             z-index: 50;
             opacity: 0;
@@ -517,10 +531,13 @@
             box-shadow: 0 16px 48px rgba(0,0,0,0.65);
         }
 
+        
+
         .lecture-dropdown.open {
             opacity: 1;
             transform: translateY(0) scale(1);
             pointer-events: all;
+
         }
 
         [data-theme="light"] .lecture-dropdown {
@@ -530,19 +547,53 @@
         }
 
         .lecture-dropdown-header {
-            padding: 12px 16px;
+            padding: 10px 10px 10px 16px;
             font-size: 0.70rem;
             font-weight: 700;
             letter-spacing: 0.09em;
             text-transform: uppercase;
             color: #777;
-            text-align: center;
+            text-align: left;
             border-bottom: 1px solid rgba(255,255,255,0.13);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         [data-theme="light"] .lecture-dropdown-header {
             color: #999;
             border-bottom-color: rgba(0,0,0,0.13);
+        }
+
+        .dropdown-close-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: #888;
+            flex-shrink: 0;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+
+        .dropdown-close-btn svg {
+            width: 13px;
+            height: 13px;
+            pointer-events: none;
+        }
+
+        .dropdown-close-btn:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: #f1f5f9;
+        }
+
+        [data-theme="light"] .dropdown-close-btn:hover {
+            background-color: rgba(0,0,0,0.06);
+            color: #111;
         }
 
         /* Cap the list to ~7 rows tall; anything beyond that scrolls
@@ -693,12 +744,33 @@
         
         .section-heading {
             display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-bottom: 14px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-heading-row {
+            display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 16px;
-            padding-bottom: 14px;
-            margin-bottom: 40px;
-            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Optional small note shown under the "All" heading on first open,
+           above the divider line. Not every file needs one — to remove it,
+           just clear the CONTENT_NOTE constant near the top of the script
+           (or delete it). */
+        .section-note {
+            font-size: 0.80rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #999;
+        }
+
+        [data-theme="light"] .section-note {
+            color: #9a9a9a;
         }
 
         .no-results {
@@ -714,13 +786,19 @@
         }
 
         .section-heading-title {
-            font-size: 1.25rem;
+            font-size: 1.10rem;
             font-weight: 700;
             color: var(--text-main);
             min-width: 0;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+
+        .label-short { display: none; }
+
+        .section-heading-title.subject-title {
+            font-size: 1.22rem;
         }
 
         .mcq-count-badge {
@@ -732,6 +810,18 @@
             border-radius: 3px;
             letter-spacing: 0.05em;
             white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 480px) {
+            .section-heading-title {
+                font-size: 1rem;
+            }
+            .section-heading-title.subject-title {
+                font-size: 1.12rem;
+            }
+            .label-full { display: none; }
+            .label-short { display: inline; }
         }
 
         /* Eye / Copy / Pin icon buttons */
@@ -989,10 +1079,10 @@
 
 <script>
 
+
 const allQuestions = [
   
-
-  {
+    {
     "n": 1,
     "s": "Microbiology",
     "l": 1,
@@ -1430,6 +1520,7 @@ const allQuestions = [
   }
 
  
+
 ];
 
 
@@ -1468,8 +1559,15 @@ function togglePin(n) {
     }
     localStorage.setItem('pinnedQuestions', JSON.stringify([...pinnedQuestions]));
     reorderQuestions();
-    renderQuiz();
-    handleSearch();
+    try {
+        renderQuiz();
+    } finally {
+        // handleSearch() re-applies the current subject/lecture/search filters
+        // to the freshly rendered questions. Running it in a finally block
+        // guarantees the list is always re-shown correctly, even if something
+        // above throws, instead of getting stuck on "No questions found".
+        handleSearch();
+    }
 }
 
 function copyTextToClipboard(text, btn) {
@@ -1626,9 +1724,10 @@ function fallbackCopy(text) {
     document.body.removeChild(ta);
 }
 
+
 const lectures = {
-   1:  "Haemopoiesis 🔥",
-   2:  "Megaloblastic Anemia 🦴",
+   1:  "Haemopoiesis",
+   2:  "Megaloblastic Anemia",
    
 };
   
@@ -1639,12 +1738,15 @@ const lectureFilters = {
         
         { label: "Haemopoiesis",     val: 1 },
         { label: "Megaloblastic Anemia",     val: 2 },
-       
+    
     ]
 };
 
 let currentSubjectFilter = "Microbiology";  
 let currentLecture = "All";
+let lectureDropdownOpen = false;
+
+const CLOSE_ICON_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
 
 const container = document.getElementById('quiz-content');
 
@@ -1653,8 +1755,20 @@ const LECTURE_CHEVRON_SVG = `<svg class="lecture-chevron" width="18" height="18"
 function renderLectureDropdownItems() {
     const filters = lectureFilters[currentSubjectFilter] || [];
     return filters.map(f =>
-        `<div class="lecture-dropdown-item${String(f.val) === String(currentLecture) ? " selected" : ""}" onclick="selectLecture('${f.val}')"><span class="lecture-dot"></span><span class="lecture-item-text">${f.label}</span></div>`
+    `<div class="lecture-dropdown-item${String(f.val) === String(currentLecture) ? " selected" : ""}" onclick="selectLecture('${f.val}', event)"><span class="lecture-dot"></span><span class="lecture-item-text">${f.label}</span></div>`
     ).join('');
+}
+
+function scrollLectureDropdownToSelected() {
+    const wrap = document.querySelector('#lecture-dropdown .lecture-dropdown-items');
+    if (!wrap) return;
+    const selected = wrap.querySelector('.lecture-dropdown-item.selected');
+    if (selected) {
+        const target = selected.offsetTop - (wrap.clientHeight / 2) + (selected.clientHeight / 2);
+        wrap.scrollTop = Math.max(0, target);
+    } else {
+        wrap.scrollTop = 0;
+    }
 }
 
 function toggleLectureDropdown() {
@@ -1665,9 +1779,12 @@ function toggleLectureDropdown() {
     if (isOpen) {
         dd.classList.remove('open');
         btn.classList.remove('dropdown-open');
+        lectureDropdownOpen = false;
     } else {
         dd.classList.add('open');
         btn.classList.add('dropdown-open');
+        lectureDropdownOpen = true;
+        scrollLectureDropdownToSelected();
     }
 }
 
@@ -1676,11 +1793,12 @@ function closeLectureDropdown() {
     const btn = document.getElementById('lecture-select-btn');
     if (dd) dd.classList.remove('open');
     if (btn) btn.classList.remove('dropdown-open');
+    lectureDropdownOpen = false;
 }
 
-function selectLecture(val) {
+function selectLecture(val, ev) {
+    if (ev) ev.stopPropagation();
     currentLecture = val;
-    closeLectureDropdown();
     handleSearch();
 }
 
@@ -1695,19 +1813,18 @@ function getLectureLabel(val) {
     if (val === "All" && currentSubjectFilter === "All") return "All";
     if (val === "All") {
         const subjectLabels = {
-            "Physiology": "Physiology ⚡",
             "Microbiology": "Microbiology 🦠",
-            "Pharmacology": "Pharmacology 💊",
-            "Biochemistry": "Biochemistry 🧪",
-            "Pathology": "Pathology 🔬",
-            "Genetics": "Genetics 🧬",
-            "Medical Education": "Medical Education 📗",
-            "Histology": "Histology 🫁",
-            "Medicine": "Medicine 📘",
+           
+            
         };
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
     return lectures[val] || val;
+}
+
+function truncateLabel(str, maxLen) {
+    const s = String(str);
+    return s.length > maxLen ? s.slice(0, maxLen) + "..." : s;
 }
 
 function updateSectionHeading() {
@@ -1729,33 +1846,58 @@ function updateSectionHeading() {
     }
 
     const label = getLectureLabel(currentLecture);
+    const shortLabel = truncateLabel(label, 25);
+    const labelHtml = `<span class="label-full">${label}</span><span class="label-short">${shortLabel}</span>`;
+    const isSubjectLabel = currentLecture === "All";
+    const titleClass = "section-heading-title" + (isSubjectLabel ? " subject-title" : "");
     const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
     const filters = lectureFilters[currentSubjectFilter] || [];
     const hasLectures = filters.some(f => f.val !== "All");
+    if (!hasLectures) lectureDropdownOpen = false;
 
+    const showLectureDropdownOpen = hasLectures && lectureDropdownOpen;
     const headingHtml = hasLectures ? `
         <div class="lecture-select-wrapper" id="lecture-select-wrapper">
-            <button class="lecture-select-btn" id="lecture-select-btn" onclick="toggleLectureDropdown()" title="Filter by lecture">
-                <span class="section-heading-title">${label}</span>
+            <button class="lecture-select-btn${showLectureDropdownOpen ? ' dropdown-open' : ''}" id="lecture-select-btn" onclick="toggleLectureDropdown()" title="Filter by lecture">
+                <span class="${titleClass}">${labelHtml}</span>
                 ${LECTURE_CHEVRON_SVG}
             </button>
-            <div class="lecture-dropdown" id="lecture-dropdown"><div class="lecture-dropdown-header">Lectures</div><div class="lecture-dropdown-items">${renderLectureDropdownItems()}</div></div>
+            <div class="lecture-dropdown${showLectureDropdownOpen ? ' open' : ''}" id="lecture-dropdown"><div class="lecture-dropdown-header"><span>Lectures</span><button type="button" class="dropdown-close-btn" onclick="closeLectureDropdown()" title="Close" aria-label="Close">${CLOSE_ICON_SVG}</button></div><div class="lecture-dropdown-items">${renderLectureDropdownItems()}</div></div>
         </div>
         <span class="mcq-count-badge">${badgeText}</span>
     ` : `
-        <span class="section-heading-title">${label}</span>
+        <span class="${titleClass}">${labelHtml}</span>
         <span class="mcq-count-badge">${badgeText}</span>
     `;
 
+    const headingRowHtml = `<div class="section-heading-row">${headingHtml}</div>`;
+
+    let heading;
     if (existing) {
         existing.style.display = "flex";
-        existing.innerHTML = headingHtml;
+        existing.innerHTML = headingRowHtml;
+        heading = existing;
     } else {
-        const heading = document.createElement('div');
+        heading = document.createElement('div');
         heading.id = 'section-heading';
         heading.className = 'section-heading';
-        heading.innerHTML = headingHtml;
+        heading.innerHTML = headingRowHtml;
         container.insertBefore(heading, container.firstChild);
+    }
+
+    if (showLectureDropdownOpen) scrollLectureDropdownToSelected();
+
+    // Show the optional note only on the default "All" view (no subject or
+    // lecture filter applied) — i.e. what you see when the file first opens.
+    // It sits inside the heading block, below the title and above the
+    // divider line underneath it.
+    const showNote = !!CONTENT_NOTE && currentLecture === "All";
+    if (showNote) {
+        const noteEl = document.createElement('div');
+        noteEl.id = 'section-note';
+        noteEl.className = 'section-note';
+        noteEl.textContent = CONTENT_NOTE;
+        heading.appendChild(noteEl);
     }
 }
 
@@ -1895,39 +2037,9 @@ window.addEventListener('beforeprint', function (e) {
 
 function matchesFilters(item) {
     const subjectOk = currentSubjectFilter === "All" || item.s === currentSubjectFilter;
-    const lectureOk = currentLecture === "All" || item.l === currentLecture;
+    const lectureOk = currentLecture === "All" || String(item.l) === String(currentLecture);
     return subjectOk && lectureOk;
 }
-
-function toggleSubjectDropdown() {
-    const dd = document.getElementById('subject-dropdown');
-    const btn = document.getElementById('subject-toggle-btn');
-    const isOpen = dd.classList.contains('open');
-    if (isOpen) {
-        dd.classList.remove('open');
-        btn.classList.remove('dropdown-open');
-    } else {
-        dd.classList.add('open');
-        btn.classList.add('dropdown-open');
-    }
-}
-
-function selectSubjectFilter(subject, el) {
-    currentSubjectFilter = subject;
-    currentLecture = "All";
-    localStorage.setItem('selectedSubject', subject);
-    document.querySelectorAll('.subject-dropdown-item').forEach(i => i.classList.remove('selected'));
-    el.classList.add('selected');
-    handleSearch();
-}
-
-document.addEventListener('click', function(e) {
-    const wrapper = document.querySelector('.subject-toggle-wrapper');
-    if (wrapper && !wrapper.contains(e.target)) {
-        document.getElementById('subject-dropdown').classList.remove('open');
-        document.getElementById('subject-toggle-btn').classList.remove('dropdown-open');
-    }
-});
 
 /* Premium Full Header Takeover Functions */
 function toggleSearchBar() {
@@ -2069,17 +2181,6 @@ function toggleTheme() {
         document.body.setAttribute('data-theme', 'light');
         document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
     }
-    const saved = localStorage.getItem('selectedSubject');
-    if (saved && lectureFilters[saved]) {
-        currentSubjectFilter = saved;
-    }
-    document.querySelectorAll('.subject-dropdown-item').forEach(item => {
-        if (item.dataset.subject === currentSubjectFilter) {
-            item.classList.add('selected');
-        } else {
-            item.classList.remove('selected');
-        }
-    });
 }());
 
 reorderQuestions();
