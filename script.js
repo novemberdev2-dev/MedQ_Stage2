@@ -366,7 +366,7 @@ const ALL_SECTIONS = [
         { label: 'Final',   badge: '42 MCQs',     href: 'CVS_Final_2020-2021.html' },
         
       ]},
-      { title: '2021-2022 Year Exam',   links: [
+      { title: '2021-2022 Year Exam ✅',   links: [
         { label: 'Final', badge: '31 MCQs', href: 'CVS_Final_2021-2022.html' },
 
      ]},
