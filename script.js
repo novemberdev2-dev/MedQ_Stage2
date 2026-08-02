@@ -370,7 +370,7 @@ const ALL_SECTIONS = [
         { label: 'Final', badge: '31 MCQs', href: 'CVS_Final_2021-2022.html' },
 
      ]},
-      { title: '2023-2024 Year Exam',   links: [
+      { title: '2023-2024 Year Exam ✅',   links: [
         { label: 'Final', badge: '43 MCQs', href: 'CVS_Final_2023-2024.html' },
         { label: 'Final or End-Block', badge: '20 MCQs', href: 'CVS_FinalorEndblock_2023-2024.html' },
 
