@@ -455,6 +455,8 @@ const ALL_SECTIONS = [
       { label: 'End-Block _ Theory', badge: '19 MCQs',  href: 'RS_End-Block_Theory_Unknown-Year.html' },
 
       { label: 'Final', badge: '41 MCQs',  href: 'RS_Final_Unknown-Year.html' },
+      { label: 'Final or End-Block', badge: '57 MCQs',  href: 'RS_FinalorEndblock_Unknown-Year.html' },
+       
     
     ] },
     ]
