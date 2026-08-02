@@ -295,7 +295,7 @@ const ALL_SECTIONS = [
       ] },
 
 
-     { title: '2025-2026 Year Exam',     links: [
+     { title: '2025-2026 Year Exam ✅',     links: [
       { label: 'End-Block _ Theory', badge: '28 MCQs',  href: 'MSD_End-Block_Theory_2025-2026.html' },
       { label: 'End-Block _ Practice', badge: '10 Qs',  href: 'MSD_End-Block_Practice_2025-2026.html' },
       { label: 'Final', badge: '38 MCQs',  href: 'MSD_Final_2025-2026.html' }
@@ -303,7 +303,7 @@ const ALL_SECTIONS = [
     
     ] },
 
-     { title: 'Unknown Year Exam',     links: [
+     { title: 'Unknown Year Exam ✅',     links: [
       { label: 'Final', badge: '112 MCQs',  href: 'MSD_Final_Unknown Year.html' },
     
     ] },
