@@ -5,20 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CVS_Final_2025-2026</title>
 
+
     <style>
        :root {
             --bg-body: #121212;
             --text-main: #f1f5f9;
             --text-opts: #f1f5f9;
-            --header-bg: #1e293b;
-            --header-text: #38bdf8;
+            --header-bg: #f1f5f9;
+            --header-text: #0f172a;
             --border-color: #26292b;
             --input-bg: #1a1c1e;
             --input-border: #2a2f36;
             --ans-bg: #1e293b;
             --ans-text: #f0cf6a;
             --filter-bg: transparent;
-            
+            --correct-color: #f0cf6a;
+            --btn-bg: #f8fafc; 
+            --btn-text: #0f172a;
+            --opts-bg: #1a1c1e;
+            --icon-hover-bg: rgba(255,255,255,0.08);
         }
 
         [data-theme="light"] {
@@ -28,22 +33,37 @@
             --header-bg: #333333;
             --header-text: #ffffff;
             --border-color: #e0e0e0;
-            --input-bg: #ffffff;
+            --input-bg: #fcfcfc;
             --input-border: #cccccc;
             --ans-bg: #eef6e4;
             --ans-text: #2e7d32;
             --filter-bg: transparent;
-            
+            --correct-color: #2e7d32;
+            --btn-bg: #52525b; 
+            --btn-text: #ffffff;
+            --opts-bg: #eef6e4;
+            --icon-hover-bg: rgba(0,0,0,0.06);
         }
 
-        .filter-btn.active {
-            background-color: #728fcf;
-            color: #fff;
-            border-color:  #728fcf;
+        
+        @media print {
+            body * {
+                visibility: hidden !important;
+            }
+            body::before {
+                content: "Printing is disabled for this document.";
+                visibility: visible;
+                display: block;
+                text-align: center;
+                margin-top: 40vh;
+                font-size: 1.2rem;
+            }
         }
 
         body {
             -webkit-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
             background-color: var(--bg-body);
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -52,6 +72,41 @@
             justify-content: center;
             transition: background-color 0.3s ease;
             overflow-x: hidden;
+        }
+
+          .theme-toggle,
+        .subject-toggle,
+        .subject-dropdown-item,
+        .eye-btn,
+        .icon-btn,
+        .copy-btn,
+        .pin-btn,
+        .draw-btn,
+        .answer-text,
+        .lecture-select-btn,
+        .lecture-dropdown-item,
+        .search-toggle-btn,
+        .search-close-btn,
+        button {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Show the hand/pointer cursor on every clickable control so it
+           doesn't fall back to the default Windows arrow on hover */
+        button,
+        .theme-toggle,
+        .subject-toggle,
+        .subject-dropdown-item,
+        .eye-btn,
+        .icon-btn,
+        .copy-btn,
+        .pin-btn,
+        .draw-btn,
+        .lecture-select-btn,
+        .lecture-dropdown-item,
+        .search-toggle-btn,
+        .search-close-btn {
+            cursor: pointer;
         }
 
         .container {
@@ -64,14 +119,80 @@
         .header { 
             text-align: center; 
             margin-bottom: 15px;
-            background-color: var(--header-bg);
-            color: var(--header-text);
-            padding: 50px;
-           min-height: 35px;
-            border-radius: 8px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 8px 12px;
+            min-height: 28px;
+            border-radius: 7px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+        }
+
+        .header-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .header-title {
+            font-size: 0.90rem;
+            font-weight: 800;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                align-items: center;
+            }
+            .header-title-wrap {
+                align-items: center;
+            }
+            .header-title {
+                font-size: 0.80rem;
+                white-space: normal;
+                overflow: visible;
+                text-overflow: clip;
+                word-break: break-word;
+                line-height: 1.4;
+                text-align: left;
+            }
+            .title-line1,
+            .title-line2 {
+                display: block;
+            }
+            .title-sep-2 {
+                display: none;
+            }
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .icon-divider {
+            width: 1px;
+            height: 24px;
+            background-color: var(--input-border);
+            flex-shrink: 0;
+        }
+
+        /* Remove the divider lines between the search / subject / theme
+           icons in the header, without affecting the one used in the
+           active-search state (between the search box and close button). */
+        #header-normal-right .icon-divider {
+            display: none;
         }
 
         .controls-row { display: flex; gap: 12px; margin-bottom: 10px; }
@@ -92,21 +213,21 @@
 
         #search-input {
             width: 100%;
-            padding: 10px 10px 10px 40px;
-            font-size: 1.1rem;
-            border: 1px solid var(--input-border);
-            background-color: var(--input-bg);
+            padding: 8px 10px 8px 40px;
+            font-size: 1rem;
+            border: none;
+            background-color: transparent;
             color: var(--text-main);
             border-radius: 7px;
             outline: none;
         }
 
         .theme-toggle {
-            background-color: var(--input-bg);
-            border: 1px solid var(--input-border);
+            background-color: transparent;
+            border: none;
             color: var(--text-main);
-            width: 44px;
-            height: 44px;
+            width: 33px;
+            height: 33px;
             border-radius: 7px;
             display: flex;
             align-items: center;
@@ -115,22 +236,62 @@
             flex-shrink: 0;
         }
 
-        .filter-container {
-            background: transparent;
+        .search-toggle-btn {
+            background-color: transparent;
             border: none;
-            padding: 0;
-            margin-bottom: 10px;
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 7px;
             display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            overflow-y: hidden;
-            flex-wrap: nowrap;
-            max-width: 100%;
-            box-sizing: border-box;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
         }
-        .filter-container::-webkit-scrollbar { display: none; }
+
+        .theme-toggle:hover,
+        .search-toggle-btn:hover,
+        .subject-toggle:hover {
+            background-color: var(--icon-hover-bg);
+        }
+
+        /* Takeover styles */
+        .search-takeover-wrap {
+            display: none;
+            width: 100%;
+            align-items: center;
+        }
+
+        .search-takeover-wrap.open {
+            display: flex;
+        }
+
+        .search-close-btn {
+            background-color: transparent;
+            border: none;
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .search-close-btn:hover {
+    background-color: rgba(255,255,255,0.08);
+}
+
+[data-theme="light"] .search-close-btn:hover {
+    background-color: rgba(0,0,0,0.06);
+}
+
+.search-close-btn:focus {
+    outline: none;
+}
 
         /* Subject picker dropdown */
         .subject-toggle-wrapper {
@@ -139,11 +300,11 @@
         }
 
         .subject-toggle {
-            background-color: var(--input-bg);
-            border: 1px solid var(--input-border);
+            background-color: transparent;
+            border: none;
             color: var(--text-main);
-            width: 42px;
-            height: 42px;
+            width: 36px;
+            height: 36px;
             border-radius: 7px;
             display: flex;
             align-items: center;
@@ -200,18 +361,54 @@
         }
 
         .subject-dropdown-header {
-            padding: 14px 16px 10px;
+            padding: 10px 10px 10px 16px;
             font-size: 0.72rem;
             font-weight: 700;
             color: #555;
             letter-spacing: 0.09em;
             text-transform: uppercase;
             border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
         }
 
         [data-theme="light"] .subject-dropdown-header {
             border-bottom-color: rgba(0,0,0,0.08);
             color: #999;
+        }
+
+        /* Cap the list to ~8 rows tall (incl. All); the rest scrolls inside
+           the dropdown, and overscroll-behavior stops that scroll from
+           chaining into the page once it reaches the end. */
+        .subject-dropdown-items {
+            max-height: 348px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.25) transparent;
+        }
+
+        [data-theme="light"] .subject-dropdown-items {
+            scrollbar-color: rgba(0,0,0,0.25) transparent;
+        }
+
+        .subject-dropdown-items::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .subject-dropdown-items::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .subject-dropdown-items::-webkit-scrollbar-thumb {
+            background-color: rgba(255,255,255,0.25);
+            border-radius: 6px;
+        }
+
+        [data-theme="light"] .subject-dropdown-items::-webkit-scrollbar-thumb {
+            background-color: rgba(0,0,0,0.25);
         }
 
         .subject-dropdown-item {
@@ -224,7 +421,6 @@
             color: #aaa;
             transition: background 0.15s ease, color 0.15s ease;
             user-select: none;
-            cursor: pointer;
             text-align: left;
             white-space: nowrap;
         }
@@ -276,24 +472,234 @@
 
         .controls-row { position: relative; }
 
-        .filter-btn {
-            background-color: var(--input-bg);
-            border: 1px solid var(--input-border);
-            color: var(--text-main);
-            padding: 9px 16px;
+        .lecture-select-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            min-width: 0;
+            flex: 1 1 auto;
+        }
+
+        .lecture-select-btn {
+            background: transparent;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 0;
+            max-width: 100%;
+            padding: 4px 6px;
+            margin: -4px -6px;
             border-radius: 6px;
-            font-size: 0.84rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .lecture-select-btn:hover {
+            background-color: rgba(255,255,255,0.06);
+        }
+
+        [data-theme="light"] .lecture-select-btn:hover {
+            background-color: rgba(0,0,0,0.04);
+        }
+
+        .lecture-chevron {
+            flex-shrink: 0;
+            color: var(--text-main);
+            transition: transform 0.2s ease;
+            position: relative;
+            top: 2px;
+        }
+
+        .lecture-select-btn.dropdown-open .lecture-chevron {
+            transform: rotate(180deg);
+        }
+
+        .lecture-dropdown {
+            position: absolute;
+            top: calc(100% + 13px);
+            left: 0;
+            background: #111111;
+            border: 1px solid rgba(255,255,255,0.13);
+            border-radius: 14px;
+            overflow: hidden;
+            width: 290px;
+            max-width: 80vw;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-6px) scale(0.97);
+            transition: opacity 0.22s ease, transform 0.22s ease;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.65);
+        }
+
+        
+
+        .lecture-dropdown.open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+
+        }
+
+        [data-theme="light"] .lecture-dropdown {
+            background: #ffffff;
+            border-color: rgba(0,0,0,0.13);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+        }
+
+        .lecture-dropdown-header {
+            padding: 10px 10px 10px 16px;
+            font-size: 0.70rem;
             font-weight: 700;
-            transition: all 0.2s;
-            flex: 0 0 auto;
-            white-space: nowrap;
-            margin-bottom: 10px;
-            margin-top: 6px;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: #777;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.13);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        [data-theme="light"] .lecture-dropdown-header {
+            color: #999;
+            border-bottom-color: rgba(0,0,0,0.13);
+        }
+
+        .dropdown-close-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: #888;
+            flex-shrink: 0;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+
+        .dropdown-close-btn svg {
+            width: 13px;
+            height: 13px;
+            pointer-events: none;
+        }
+
+        .dropdown-close-btn:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: #f1f5f9;
+        }
+
+        [data-theme="light"] .dropdown-close-btn:hover {
+            background-color: rgba(0,0,0,0.06);
+            color: #111;
+        }
+
+        /* Cap the list to ~7 rows tall; anything beyond that scrolls
+           inside the dropdown instead of growing the page. */
+        .lecture-dropdown-items {
+            max-height: 329px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.25) transparent;
+        }
+
+        [data-theme="light"] .lecture-dropdown-items {
+            scrollbar-color: rgba(0,0,0,0.25) transparent;
+        }
+
+        .lecture-dropdown-items::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .lecture-dropdown-items::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .lecture-dropdown-items::-webkit-scrollbar-thumb {
+            background-color: rgba(255,255,255,0.25);
+            border-radius: 6px;
+        }
+
+        [data-theme="light"] .lecture-dropdown-items::-webkit-scrollbar-thumb {
+            background-color: rgba(0,0,0,0.25);
+        }
+
+        .lecture-dropdown-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            padding: 13px 16px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #aaa;
+            transition: background 0.15s ease, color 0.15s ease;
+            user-select: none;
+            text-align: left;
+        }
+
+        [data-theme="light"] .lecture-dropdown-item { color: #666; }
+
+        .lecture-dropdown-item:not(:last-child) {
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        [data-theme="light"] .lecture-dropdown-item:not(:last-child) {
+            border-bottom-color: rgba(0,0,0,0.06);
+        }
+
+        .lecture-dropdown-item:hover {
+            background: rgba(255,255,255,0.06);
+            color: #e2e8f0;
+        }
+
+        [data-theme="light"] .lecture-dropdown-item:hover {
+            background: rgba(0,0,0,0.04);
+            color: #111;
+        }
+
+        .lecture-dropdown-item.selected { color: #f1f5f9; }
+
+        [data-theme="light"] .lecture-dropdown-item.selected { color: #111; }
+
+        .lecture-item-text {
+            flex: 1;
+            min-width: 0;
+            line-height: 1.4;
+            white-space: normal;
+            word-break: break-word;
+            padding-top: 1px;
+        }
+
+        .lecture-dot {
+            width: 8px;
+            height: 8px;
+            margin-top: 5px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.25);
+            flex-shrink: 0;
+            transition: background 0.15s ease, border-color 0.15s ease;
+        }
+
+        [data-theme="light"] .lecture-dot { border-color: rgba(0,0,0,0.2); }
+
+        .lecture-dropdown-item.selected .lecture-dot {
+            background: #f1f5f9;
+            border-color: #f1f5f9;
+        }
+
+        [data-theme="light"] .lecture-dropdown-item.selected .lecture-dot {
+            background: #111;
+            border-color: #111;
         }
 
         .divider { border: none; margin-bottom: 12px; }
 
         .q-block {
+            position: relative;
             margin-bottom: 40px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 30px;
@@ -307,38 +713,65 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .ans-btn {
-            background-color: #728fcf;
-            color: #fff;
-            border: none;
-            padding: 7px 20px;
-            border-radius: 4px;
-            margin-top: 20px;
-            font-weight: 650;
-            font-size: 16px;
-            transition: background-color 0.2s, color 0.2s;
-
+        .ans-row--multi {
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 8px;
+        }
+        
+        .ans-btn:hover {
+            opacity: 0.9;
+        }
+        .ans-btn:active {
+            transform: scale(0.98);
         }
 
-        .q-block.revealed .ans-btn {
+        .ans-btn.revealed {
             background-color: var(--ans-bg);
             color: var(--ans-text);
-            font-weight: 700;
             padding: 7px 12px;
             font-size: 16px;
+            white-space: pre-line;
+            text-align: left;
         }
 
         mark { background-color: #f0cf6a; color: #000; }
-
+        .opts li.correct-option { color: var(--correct-color); font-weight: 650; background-color: var( --opts-bg); display: inline-block; padding: 0 7px 0 1px; border-radius: 4px;}
+        
         .section-heading {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-bottom: 14px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-heading-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 14px;
-            margin-bottom: 40px;
-            border-bottom: 1px solid var(--border-color);
+            gap: 16px;
+        }
+
+        /* Optional small note shown under the "All" heading on first open,
+           above the divider line. Not every file needs one — to remove it,
+           just clear the CONTENT_NOTE constant near the top of the script
+           (or delete it). */
+        .section-note {
+            font-size: 0.80rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #999;
+        }
+
+        [data-theme="light"] .section-note {
+            color: #9a9a9a;
         }
 
         .no-results {
@@ -354,9 +787,25 @@
         }
 
         .section-heading-title {
-            font-size: 1.25rem;
+            font-size: 1.10rem;
             font-weight: 700;
             color: var(--text-main);
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Two versions of the lecture/subject name are rendered together:
+           .label-full (complete text, used on larger screens) and
+           .label-short (hard-capped to 25 characters + "…", used on small
+           screens). Only one is shown at a time via the media query below. */
+        .label-short { display: none; }
+
+        /* Subject names (e.g. "Microbiology 🦠") are shown a bit larger
+           than individual lecture names (e.g. "Trachea, bronch..."). */
+        .section-heading-title.subject-title {
+            font-size: 1.22rem;
         }
 
         .mcq-count-badge {
@@ -368,7 +817,222 @@
             border-radius: 3px;
             letter-spacing: 0.05em;
             white-space: nowrap;
+            flex-shrink: 0;
         }
+
+        @media (max-width: 480px) {
+            .section-heading-title {
+                font-size: 1rem;
+            }
+            .section-heading-title.subject-title {
+                font-size: 1.12rem;
+            }
+            .label-full { display: none; }
+            .label-short { display: inline; }
+        }
+
+        /* Eye / Copy / Pin icon buttons */
+        .ans-row {
+            justify-content: flex-start !important;
+            position: relative;
+            z-index: 10;
+        }
+
+        .icon-btn, .eye-btn {
+            background: transparent;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            padding: 6px;
+            border-radius: 6px;
+            transition: background-color 0.2s ease, opacity 0.2s ease, color 0.2s ease;
+            margin-top: 20px;
+        }
+
+        .icon-btn:hover, .eye-btn:hover {
+            background-color: var(--icon-hover-bg);
+        }
+
+        .icon-btn svg, .eye-btn svg {
+            width: 20px;
+            height: 20px;
+            display: block;
+            fill: currentColor;
+        }
+
+        .eye-btn svg.icon-eye-open {
+            width: 22px;
+            height: 22px;
+        }
+
+        .eye-btn[data-revealed="true"] {
+            color: var(--correct-color);
+        }
+
+        .pin-btn[data-pinned="true"] {
+             color: var(--correct-color);
+        }
+
+        .eye-part-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .eye-part-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-opts);
+            opacity: 0.7;
+            min-width: 12px;
+            text-align: center;
+        }
+
+        .answer-text {
+            display: none;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: var(--opts-bg);
+            color: var(--correct-color);
+            font-weight: 800;
+            font-size: 15px;
+            padding: 7px 12px;
+            border-radius: 5px;
+            white-space: pre-line;
+        }
+
+        .case-block .answer-text {
+            width: auto;
+            max-width: 100%;
+            white-space: pre-line;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .copy-wrap {
+            position: relative;
+            display: inline-flex;
+        }
+
+        .copy-btn svg {
+            transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+
+        .copy-btn.copied {
+            color: var(--correct-color);
+        }
+
+        .copy-btn.copied svg {
+            animation: copy-check-pop 0.3s ease;
+        }
+
+        @keyframes copy-check-pop {
+            0% { transform: scale(0.6); opacity: 0; }
+            60% { transform: scale(1.15); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Multi-case questions (e.g. Q29 style) */
+        .case-block {
+            position: relative;
+            margin-top: 14px;
+            padding-top: 10px;
+        }
+
+        .case-block:first-of-type {
+            margin-top: 16px;
+        }
+
+        .case-eye-row {
+            margin-top: 2px;
+        }
+
+        .case-eye-row .eye-btn {
+            margin-top: 6px;
+        }
+
+        /* Case questions (Q21, Q22): the reveal button itself turns into
+           the answer box, instead of showing an open-eye icon plus a
+           separate answer box. */
+        .case-eye-row .eye-btn.case-answer-revealed {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            background-color: var(--opts-bg);
+            color: var(--correct-color);
+            font-weight: 800;
+            font-size: 15px;
+            padding: 7px 12px;
+            border-radius: 5px;
+            white-space: pre-line;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .case-actions-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px dashed var(--border-color);
+            position: relative;
+            z-index: 10;
+        }
+
+        .case-actions-row .icon-btn {
+            margin-top: 0;
+        }
+
+        .case-text {
+            font-size: 1.02rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        
+        .draw-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
+            touch-action: none;
+        }
+
+        .draw-overlay.draw-overlay--outer {
+            top: -40px;
+            height: calc(100% + 40px);
+        }
+
+        .draw-overlay.active {
+            pointer-events: auto;
+            cursor: crosshair;
+            touch-action: none;
+        }
+
+        /* While any question's drawing mode is on, block page scrolling so a
+           stylus/finger stroke never gets interpreted as a scroll gesture.
+           Buttons remain clickable since taps don't trigger this. */
+        html.drawing-lock,
+        body.drawing-lock {
+            touch-action: none;
+            overscroll-behavior: none;
+        }
+
+        .draw-overlay .draw-path {
+            stroke: #ff0000;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
     </style>
 
 </head>
@@ -376,48 +1040,81 @@
 <body oncontextmenu="return false;">
 
 <div class="container">
-    <div class="header" style="padding: 9px 14px; margin-bottom: 15px;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-           
-            <span style="font-size: 0.90rem; font-weight: 800; color: var(--header-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">CVS 🫀 &nbsp;·&nbsp; Final &nbsp;·&nbsp; 2025-2026</span>
-        </div>
-    </div>
+    <div class="header" id="header">
+        <!-- NORMAL HEADER STATE -->
+        <div cla+ss="header-title-wrap" id="header-normal-left">
+            <span class="header-title"><span class="title-line1">CVS 🫀&nbsp;·&nbsp; Final</span><span class="title-sep-2">&nbsp;·&nbsp;</span><span class="title-line2">2025-2026</span></span>
 
-    <div class="controls-row">
-        <div class="search-wrapper">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
         </div>
-        
-        <div class="subject-toggle-wrapper">
-            <div class="subject-toggle" id="subject-toggle-btn" onclick="toggleSubjectDropdown()" title="Filter by subject">
-                <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.90693 3.9999C9.93791 3.99996 9.96894 4.00001 10 4.00001C10.0311 4.00001 10.0621 3.99996 10.0931 3.9999C10.4618 3.99929 10.8242 3.99869 11.147 4.08519C12.0098 4.31636 12.6836 4.99023 12.9148 5.85296C13.0013 6.1758 13.0007 6.53821 13.0001 6.90693C13.0001 6.93792 13 6.96895 13 7.00001H21C21.5523 7.00001 22 7.44772 22 8.00001C22 8.55229 21.5523 9.00001 21 9.00001H13C13 9.03107 13.0001 9.0621 13.0001 9.09309C13.0007 9.46181 13.0013 9.82422 12.9148 10.1471C12.6836 11.0098 12.0098 11.6837 11.147 11.9148C10.8242 12.0013 10.4618 12.0007 10.0931 12.0001C10.0621 12.0001 10.0311 12 10 12C9.96894 12 9.93791 12.0001 9.90692 12.0001C9.5382 12.0007 9.17579 12.0013 8.85295 11.9148C7.99022 11.6837 7.31635 11.0098 7.08519 10.1471C6.99868 9.82421 6.99928 9.46181 6.9999 9.09308C6.99995 9.0621 7 9.03106 7 9.00001H5C4.44772 9.00001 4 8.55229 4 8.00001C4 7.44772 4.44772 7.00001 5 7.00001H7C7 6.96895 6.99995 6.93792 6.9999 6.90693C6.99928 6.53821 6.99868 6.1758 7.08519 5.85296C7.31635 4.99023 7.99022 4.31636 8.85295 4.08519C9.17579 3.99869 9.5382 3.99929 9.90693 3.9999ZM9.49861 6.00536C9.39195 6.01022 9.36685 6.01805 9.37059 6.01704C9.19804 6.06328 9.06327 6.19805 9.01704 6.3706C9.0162 6.37411 9.00963 6.40483 9.00535 6.49861C9.00024 6.61064 9 6.75845 9 7.00001V9.00001C9 9.24156 9.00024 9.38937 9.00535 9.5014C9.01021 9.60806 9.01804 9.63315 9.01704 9.62942C9.06327 9.80196 9.19804 9.93674 9.37059 9.98297C9.36685 9.98197 9.39195 9.98979 9.49861 9.99466C9.61063 9.99977 9.75844 10 10 10C10.2416 10 10.3894 9.99977 10.5014 9.99466C10.608 9.98979 10.6331 9.98197 10.6294 9.98297C10.802 9.93674 10.9367 9.80196 10.983 9.62942C10.982 9.63315 10.9898 9.60806 10.9946 9.5014C10.9998 9.38937 11 9.24156 11 9.00001V7.00001C11 6.75845 10.9998 6.61064 10.9946 6.49861C10.9898 6.39196 10.982 6.36686 10.983 6.3706M9.49861 6.00536C9.61063 6.00025 9.75844 6.00001 10 6.00001L9.49861 6.00536ZM10 6.00001C10.2416 6.00001 10.3894 6.00025 10.5014 6.00536L10 6.00001ZM10.5014 6.00536C10.5952 6.00963 10.6259 6.0162 10.6294 6.01704L10.5014 6.00536ZM10.6298 6.01713C10.6298 6.01713 10.6296 6.0171 10.6294 6.01704L10.6298 6.01713ZM15.9069 11.9999C15.9379 12 15.9689 12 16 12C16.0311 12 16.0621 12 16.0931 11.9999C16.4618 11.9993 16.8242 11.9987 17.147 12.0852C18.0098 12.3164 18.6836 12.9902 18.9148 13.853C19.0013 14.1758 19.0007 14.5382 19.0001 14.9069C19.0001 14.9379 19 14.9689 19 15H21C21.5523 15 22 15.4477 22 16C22 16.5523 21.5523 17 21 17H19C19 17.0311 19.0001 17.0621 19.0001 17.0931C19.0007 17.4618 19.0013 17.8242 18.9148 18.1471C18.6836 19.0098 18.0098 19.6837 17.147 19.9148C16.8242 20.0013 16.4618 20.0007 16.0931 20.0001C16.0621 20.0001 16.0311 20 16 20C15.9689 20 15.9379 20.0001 15.9069 20.0001C15.5382 20.0007 15.1758 20.0013 14.853 19.9148C13.9902 19.6837 13.3164 19.0098 13.0852 18.1471C12.9987 17.8242 12.9993 17.4618 12.9999 17.0931C12.9999 17.0621 13 17.0311 13 17H5C4.44772 17 4 16.5523 4 16C4 15.4477 4.44772 15 5 15H13C13 14.969 12.9999 14.9379 12.9999 14.9069C12.9993 14.5382 12.9987 14.1758 13.0852 13.853C13.3164 12.9902 13.9902 12.3164 14.853 12.0852C15.1758 11.9987 15.5382 11.9993 15.9069 11.9999ZM15.4986 14.0054C15.392 14.0102 15.3669 14.018 15.3706 14.017C15.198 14.0633 15.0633 14.1981 15.017 14.3706C15.018 14.3669 15.0102 14.392 15.0054 14.4986C15.0002 14.6106 15 14.7585 15 15V17C15 17.2416 15.0002 17.3894 15.0054 17.5014C15.0102 17.6081 15.018 17.6332 15.017 17.6294C15.0633 17.802 15.198 17.9367 15.3706 17.983C15.3669 17.982 15.392 17.9898 15.4986 17.9947C15.6106 17.9998 15.7584 18 16 18C16.2416 18 16.3894 17.9998 16.5014 17.9947C16.608 17.9898 16.6331 17.982 16.6294 17.983C16.802 17.9367 16.9367 17.802 16.983 17.6294C16.982 17.6332 16.9898 17.6081 16.9946 17.5014C16.9998 17.3894 17 17.2416 17 17V15C17 14.7585 16.9998 14.6106 16.9946 14.4986C16.9898 14.392 16.982 14.3669 16.983 14.3706C16.9367 14.1981 16.802 14.0633 16.6294 14.017C16.6331 14.018 16.608 14.0102 16.5014 14.0054C16.3894 14.0002 16.2416 14 16 14C15.7584 14 15.6106 14.0002 15.4986 14.0054Z"/></svg>
-            </div>
-            <div class="subject-dropdown" id="subject-dropdown">
-                <div class="subject-dropdown-header">Subject</div>
-              
-                <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
-                <div class="subject-dropdown-item" data-subject="Anatomy" onclick="selectSubjectFilter('Anatomy', this)"><span class="filter-option-dot"></span>Anatomy 🦴</div>
-             
-                <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
+
+        <div class="header-actions" id="header-normal-right">
+            <button class="search-toggle-btn" id="search-toggle-btn" onclick="toggleSearchBar()" title="Search">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.9536 14.9458L21 21M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </button>
+
+            <div class="icon-divider"></div>
+
+            <div class="subject-toggle-wrapper">
+                <div class="subject-toggle" id="subject-toggle-btn" onclick="toggleSubjectDropdown()" title="Filter by subject">
+                    <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.90693 3.9999C9.93791 3.99996 9.96894 4.00001 10 4.00001C10.0311 4.00001 10.0621 3.99996 10.0931 3.9999C10.4618 3.99929 10.8242 3.99869 11.147 4.08519C12.0098 4.31636 12.6836 4.99023 12.9148 5.85296C13.0013 6.1758 13.0007 6.53821 13.0001 6.90693C13.0001 6.93792 13 6.96895 13 7.00001H21C21.5523 7.00001 22 7.44772 22 8.00001C22 8.55229 21.5523 9.00001 21 9.00001H13C13 9.03107 13.0001 9.0621 13.0001 9.09309C13.0007 9.46181 13.0013 9.82422 12.9148 10.1471C12.6836 11.0098 12.0098 11.6837 11.147 11.9148C10.8242 12.0013 10.4618 12.0007 10.0931 12.0001C10.0621 12.0001 10.0311 12 10 12C9.96894 12 9.93791 12.0001 9.90692 12.0001C9.5382 12.0007 9.17579 12.0013 8.85295 11.9148C7.99022 11.6837 7.31635 11.0098 7.08519 10.1471C6.99868 9.82421 6.99928 9.46181 6.9999 9.09308C6.99995 9.0621 7 9.03106 7 9.00001H5C4.44772 9.00001 4 8.55229 4 8.00001C4 7.44772 4.44772 7.00001 5 7.00001H7C7 6.96895 6.99995 6.93792 6.9999 6.90693C6.99928 6.53821 6.99868 6.1758 7.08519 5.85296C7.31635 4.99023 7.99022 4.31636 8.85295 4.08519C9.17579 3.99869 9.5382 3.99929 9.90693 3.9999ZM9.49861 6.00536C9.39195 6.01022 9.36685 6.01805 9.37059 6.01704C9.19804 6.06328 9.06327 6.19805 9.01704 6.3706C9.0162 6.37411 9.00963 6.40483 9.00535 6.49861C9.00024 6.61064 9 6.75845 9 7.00001V9.00001C9 9.24156 9.00024 9.38937 9.00535 9.5014C9.01021 9.60806 9.01804 9.63315 9.01704 9.62942C9.06327 9.80196 9.19804 9.93674 9.37059 9.98297C9.36685 9.98197 9.39195 9.98979 9.49861 9.99466C9.61063 9.99977 9.75844 10 10 10C10.2416 10 10.3894 9.99977 10.5014 9.99466C10.608 9.98979 10.6331 9.98197 10.6294 9.98297C10.802 9.93674 10.9367 9.80196 10.983 9.62942C10.982 9.63315 10.9898 9.60806 10.9946 9.5014C10.9998 9.38937 11 9.24156 11 9.00001V7.00001C11 6.75845 10.9998 6.61064 10.9946 6.49861C10.9898 6.39196 10.982 6.36686 10.983 6.3706M9.49861 6.00536C9.61063 6.00025 9.75844 6.00001 10 6.00001L9.49861 6.00536ZM10 6.00001C10.2416 6.00001 10.3894 6.00025 10.5014 6.00536L10 6.00001ZM10.5014 6.00536C10.5952 6.00963 10.6259 6.0162 10.6294 6.01704L10.5014 6.00536ZM10.6298 6.01713C10.6298 6.01713 10.6296 6.0171 10.6294 6.01704L10.6298 6.01713ZM15.9069 11.9999C15.9379 12 15.9689 12 16 12C16.0311 12 16.0621 12 16.0931 11.9999C16.4618 11.9993 16.8242 11.9987 17.147 12.0852C18.0098 12.3164 18.6836 12.9902 18.9148 13.853C19.0013 14.1758 19.0007 14.5382 19.0001 14.9069C19.0001 14.9379 19 14.9689 19 15H21C21.5523 15 22 15.4477 22 16C22 16.5523 21.5523 17 21 17H19C19 17.0311 19.0001 17.0621 19.0001 17.0931C19.0007 17.4618 19.0013 17.8242 18.9148 18.1471C18.6836 19.0098 18.0098 19.6837 17.147 19.9148C16.8242 20.0013 16.4618 20.0007 16.0931 20.0001C16.0621 20.0001 16.0311 20 16 20C15.9689 20 15.9379 20.0001 15.9069 20.0001C15.5382 20.0007 15.1758 20.0013 14.853 19.9148C13.9902 19.6837 13.3164 19.0098 13.0852 18.1471C12.9987 17.8242 12.9993 17.4618 12.9999 17.0931C12.9999 17.0621 13 17.0311 13 17H5C4.44772 17 4 16.5523 4 16C4 15.4477 4.44772 15 5 15H13C13 14.969 12.9999 14.9379 12.9999 14.9069C12.9993 14.5382 12.9987 14.1758 13.0852 13.853C13.3164 12.9902 13.9902 12.3164 14.853 12.0852C15.1758 11.9987 15.5382 11.9993 15.9069 11.9999ZM15.4986 14.0054C15.392 14.0102 15.3669 14.018 15.3706 14.017C15.198 14.0633 15.0633 14.1981 15.017 14.3706C15.018 14.3669 15.0102 14.392 15.0054 14.4986C15.0002 14.6106 15 14.7585 15 15V17C15 17.2416 15.0002 17.3894 15.0054 17.5014C15.0102 17.6081 15.018 17.6332 15.017 17.6294C15.0633 17.802 15.198 17.9367 15.3706 17.983C15.3669 17.982 15.392 17.9898 15.4986 17.9947C15.6106 17.9998 15.7584 18 16 18C16.2416 18 16.3894 17.9998 16.5014 17.9947C16.608 17.9898 16.6331 17.982 16.6294 17.983C16.802 17.9367 16.9367 17.802 16.983 17.6294C16.982 17.6332 16.9898 17.6081 16.9946 17.5014C16.9998 17.3894 17 17.2416 17 17V15C17 14.7585 16.9998 14.6106 16.9946 14.4986C16.9898 14.392 16.982 14.3669 16.983 14.3706C16.9367 14.1981 16.802 14.0633 16.6294 14.017C16.6331 14.018 16.608 14.0102 16.5014 14.0054C16.3894 14.0002 16.2416 14 16 14C15.7584 14 15.6106 14.0002 15.4986 14.0054Z"/></svg>
+                </div>
+                <div class="subject-dropdown" id="subject-dropdown">
+                    <div class="subject-dropdown-header">
+                        <span>Subject</span>
+                        <button type="button" class="dropdown-close-btn" onclick="closeSubjectDropdown()" title="Close" aria-label="Close">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                    </div>
+                    <div class="subject-dropdown-items">
+                     <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
+                
                 <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
-                <div class="subject-dropdown-item" data-subject="Physiology" onclick="selectSubjectFilter('Physiology', this)"><span class="filter-option-dot"></span>Physiology ⚡</div>
+                 <div class="subject-dropdown-item" data-subject="Physiology" onclick="selectSubjectFilter('Physiology', this)"><span class="filter-option-dot"></span>Physiology ⚡</div>
                 <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
+               
+                 <div class="subject-dropdown-item" data-subject="Anatomy" onclick="selectSubjectFilter('Anatomy', this)"><span class="filter-option-dot"></span>Anatomy 🦴</div>
                 <div class="subject-dropdown-item" data-subject="Medical education" onclick="selectSubjectFilter('Medical Education', this)"><span class="filter-option-dot"></span>Medical Education 📘</div>
-                <div class="subject-dropdown-item" data-subject="Radiology" onclick="selectSubjectFilter('Radiology', this)"><span class="filter-option-dot"></span>Radiology ☢️</div>
-                <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🫁</div>
               
-        </div>
+                 <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
+               
+                <div class="subject-dropdown-item" data-subject="Radiology" onclick="selectSubjectFilter('Radiology', this)"><span class="filter-option-dot"></span>Radiology 🩻</div>
+                <div class="subject-dropdown-item" data-subject="Histology" onclick="selectSubjectFilter('Histology', this)"><span class="filter-option-dot"></span>Histology 🫁</div>
+        
+
+
+                </div>
+                </div>
+            </div>
+
+            <div class="icon-divider"></div>
+
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <svg id="theme-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
         </div>
 
-        <button class="theme-toggle" onclick="toggleTheme()">
-            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-        </button>
+        <!-- ACTIVE SEARCH STATE (TAKEOVER WRAPPER WITH X ICON & DIVIDER ON THE RIGHT) -->
+        <div class="search-takeover-wrap" id="search-takeover-wrap">
+            <div class="search-wrapper">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.9536 14.9458L21 21M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+            </div>
+            
+            <div class="icon-divider" style="margin: 0 4px 0 8px;"></div>
+            
+            <button class="search-close-btn" onclick="closeSearchBar()" title="Close Search">
+                <!-- Premium Minimal X Close Icon -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
     </div>
-
-    <div class="filter-container" id="filter-bar"></div>
 
     <hr class="divider">
     <div id="quiz-content"></div>
@@ -425,9 +1122,9 @@
 
 <script>
 
+
 const allQuestions = [
- 
- 
+  
   {
     "n": 1,
     "s": "Pharmacology",
@@ -885,59 +1582,326 @@ const allQuestions = [
     "a": "C"
   }
 
-
 ];
 
 
-const lectures = {
+const EYE_SHOW_SVG = `<svg class="icon-eye-open" <svg width="25px" height="25px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M0 0h48v48H0z" fill="none"></path> <g id="Shopicon"> <path d="M24,38c12,0,20-14,20-14s-8-14-20-14S4,24,4,24S12,38,24,38z M24,14c7.072,0,12.741,6.584,15.201,9.992 C36.728,27.396,31.024,34,24,34c-7.072,0-12.741-6.584-15.201-9.992C11.272,20.604,16.976,14,24,14z"></path> <path d="M24,32c4.418,0,8-3.582,8-8s-3.582-8-8-8s-8,3.582-8,8S19.582,32,24,32z M24,20c2.206,0,4,1.794,4,4c0,2.206-1.794,4-4,4 s-4-1.794-4-4C20,21.794,21.794,20,24,20z"></path> </g> </g></svg>`;
+const EYE_HIDE_SVG = `<svg fill="#000000" width="20px" height="20px" viewBox="0 0 32 32" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M5.112,18.784l-2.153,2.156c-0.585,0.586 -0.585,1.536 0.001,2.121c0.586,0.585 1.536,0.585 2.121,-0.001l2.666,-2.668c1.898,0.983 4.19,1.806 6.773,2.041l0,3.567c0,0.828 0.672,1.5 1.5,1.5c0.828,-0 1.5,-0.672 1.5,-1.5l0,-3.571c2.147,-0.201 4.091,-0.806 5.774,-1.571l3.199,3.202c0.585,0.586 1.535,0.586 2.121,0.001c0.586,-0.585 0.586,-1.535 0.001,-2.121l-2.579,-2.581c2.59,-1.665 4.091,-3.369 4.091,-3.369c0.546,-0.622 0.485,-1.57 -0.137,-2.117c-0.622,-0.546 -1.57,-0.485 -2.117,0.137c0,-0 -4.814,5.49 -11.873,5.49c-7.059,0 -11.873,-5.49 -11.873,-5.49c-0.547,-0.622 -1.495,-0.683 -2.117,-0.137c-0.622,0.547 -0.683,1.495 -0.137,2.117c0,0 1.175,1.334 3.239,2.794Z"></path><g id="Icon"></g></g></svg>`;
+
+const COPY_SVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="9" y="9" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="2"></path></svg>`;
+const CHECK_SVG = `<svg fill="currentColor" width="20" height="20" viewBox="0 0 335.765 335.765" xmlns="http://www.w3.org/2000/svg"><polygon points="311.757,41.803 107.573,245.96 23.986,162.364 0,186.393 107.573,293.962 335.765,65.795 "></polygon></svg>`;
+
+const PEN_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11 4H7.2C6.0799 4 5.51984 4 5.09202 4.21799C4.71569 4.40974 4.40973 4.7157 4.21799 5.09202C4 5.51985 4 6.0799 4 7.2V16.8C4 17.9201 4 18.4802 4.21799 18.908C4.40973 19.2843 4.71569 19.5903 5.09202 19.782C5.51984 20 6.0799 20 7.2 20H16.8C17.9201 20 18.4802 20 18.908 19.782C19.2843 19.5903 19.5903 19.2843 19.782 18.908C20 18.4802 20 17.9201 20 16.8V12.5M15.5 5.5L18.3284 8.32843M10.7627 10.2373L17.411 3.58902C18.192 2.80797 19.4584 2.80797 20.2394 3.58902C21.0205 4.37007 21.0205 5.6364 20.2394 6.41745L13.3774 13.2794C12.6158 14.0411 12.235 14.4219 11.8012 14.7247C11.4162 14.9936 11.0009 15.2162 10.564 15.3882C10.0717 15.582 9.54378 15.6885 8.48793 15.9016L8 16L8.04745 15.6678C8.21536 14.4925 8.29932 13.9048 8.49029 13.3561C8.65975 12.8692 8.89125 12.4063 9.17906 11.9786C9.50341 11.4966 9.92319 11.0768 10.7627 10.2373Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`;
+const ERASER_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M17.9995 13L10.9995 6.00004M20.9995 21H7.99955M10.9368 20.0628L19.6054 11.3941C20.7935 10.2061 21.3875 9.61207 21.6101 8.92709C21.8058 8.32456 21.8058 7.67551 21.6101 7.07298C21.3875 6.388 20.7935 5.79397 19.6054 4.60592L19.3937 4.39415C18.2056 3.2061 17.6116 2.61207 16.9266 2.38951C16.3241 2.19373 15.675 2.19373 15.0725 2.38951C14.3875 2.61207 13.7935 3.2061 12.6054 4.39415L4.39366 12.6059C3.20561 13.794 2.61158 14.388 2.38902 15.073C2.19324 15.6755 2.19324 16.3246 2.38902 16.9271C2.61158 17.6121 3.20561 18.2061 4.39366 19.3941L5.06229 20.0628C5.40819 20.4087 5.58114 20.5816 5.78298 20.7053C5.96192 20.815 6.15701 20.8958 6.36108 20.9448C6.59126 21 6.83585 21 7.32503 21H8.67406C9.16324 21 9.40784 21 9.63801 20.9448C9.84208 20.8958 10.0372 20.815 10.2161 20.7053C10.418 20.5816 10.5909 20.4087 10.9368 20.0628Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`;
+
+const PIN_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.1218 1.87023C15.7573 0.505682 13.4779 0.76575 12.4558 2.40261L9.61062 6.95916C9.61033 6.95965 9.60913 6.96167 9.6038 6.96549C9.59728 6.97016 9.58336 6.97822 9.56001 6.9848C9.50899 6.99916 9.44234 6.99805 9.38281 6.97599C8.41173 6.61599 6.74483 6.22052 5.01389 6.87251C4.08132 7.22378 3.61596 8.03222 3.56525 8.85243C3.51687 9.63502 3.83293 10.4395 4.41425 11.0208L7.94975 14.5563L1.26973 21.2363C0.879206 21.6269 0.879206 22.26 1.26973 22.6506C1.66025 23.0411 2.29342 23.0411 2.68394 22.6506L9.36397 15.9705L12.8995 19.5061C13.4808 20.0874 14.2853 20.4035 15.0679 20.3551C15.8881 20.3044 16.6966 19.839 17.0478 18.9065C17.6998 17.1755 17.3043 15.5086 16.9444 14.5375C16.9223 14.478 16.9212 14.4114 16.9355 14.3603C16.9421 14.337 16.9502 14.3231 16.9549 14.3165C16.9587 14.3112 16.9606 14.31 16.9611 14.3098L21.5177 11.4645C23.1546 10.4424 23.4147 8.16307 22.0501 6.79853L17.1218 1.87023ZM14.1523 3.46191C14.493 2.91629 15.2528 2.8296 15.7076 3.28445L20.6359 8.21274C21.0907 8.66759 21.0041 9.42737 20.4584 9.76806L15.9019 12.6133C14.9572 13.2032 14.7469 14.3637 15.0691 15.2327C15.3549 16.0037 15.5829 17.1217 15.1762 18.2015C15.1484 18.2752 15.1175 18.3018 15.0985 18.3149C15.0743 18.3316 15.0266 18.3538 14.9445 18.3589C14.767 18.3699 14.5135 18.2916 14.3137 18.0919L5.82846 9.6066C5.62872 9.40686 5.55046 9.15333 5.56144 8.97583C5.56651 8.8937 5.58877 8.84605 5.60548 8.82181C5.61855 8.80285 5.64516 8.7719 5.71886 8.74414C6.79869 8.33741 7.91661 8.56545 8.68762 8.85128C9.55668 9.17345 10.7171 8.96318 11.3071 8.01845L14.1523 3.46191Z" fill="currentColor"></path></svg>`;
+
+const UNPIN_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.1218 1.87023C15.7573 0.505682 13.4779 0.76575 12.4558 2.40261L9.75191 6.73289L11.1969 8.17793C11.2355 8.1273 11.2723 8.07415 11.3071 8.01845L14.1523 3.46191C14.493 2.91629 15.2528 2.8296 15.7076 3.28445L20.6359 8.21274C21.0907 8.66759 21.0041 9.42737 20.4584 9.76806L15.9019 12.6133C15.8462 12.6481 15.793 12.6848 15.7424 12.7234L17.1874 14.1684L21.5177 11.4645C23.1546 10.4424 23.4147 8.16307 22.0501 6.79852L17.1218 1.87023Z" fill="currentColor"></path><path d="M3.56525 8.85242C3.6015 8.26612 3.84962 7.68582 4.32883 7.27422L5.77735 8.72274C5.75784 8.72967 5.73835 8.7368 5.71886 8.74414C5.64516 8.7719 5.61855 8.80285 5.60548 8.82181C5.58877 8.84604 5.56651 8.8937 5.56144 8.97583C5.55046 9.15333 5.62872 9.40686 5.82846 9.6066L14.3137 18.0919C14.5135 18.2916 14.767 18.3699 14.9445 18.3589C15.0266 18.3538 15.0743 18.3316 15.0985 18.3149C15.1175 18.3018 15.1484 18.2752 15.1762 18.2015C15.1835 18.182 15.1907 18.1625 15.1976 18.143L16.6461 19.5915C16.2345 20.0707 15.6542 20.3188 15.0679 20.3551C14.2853 20.4035 13.4808 20.0874 12.8995 19.5061L9.36397 15.9705L2.68394 22.6506C2.29342 23.0411 1.66025 23.0411 1.26973 22.6506C0.879206 22.26 0.879206 21.6269 1.26973 21.2363L7.94975 14.5563L4.41425 11.0208C3.83293 10.4395 3.51687 9.63502 3.56525 8.85242Z" fill="currentColor"></path><path d="M2.00789 2.00786C1.61736 2.39838 1.61736 3.03155 2.00789 3.42207L20.5862 22.0004C20.9767 22.3909 21.6099 22.3909 22.0004 22.0004C22.391 21.6099 22.391 20.9767 22.0004 20.5862L3.4221 2.00786C3.03158 1.61733 2.39841 1.61733 2.00789 2.00786Z" fill="currentColor"></path></svg>`;
+
+let pinnedQuestions = new Set(JSON.parse(localStorage.getItem('pinnedQuestions') || '[]'));
+const originalQuestionsOrder = allQuestions.slice();
+
+function isPinned(n) {
+    return pinnedQuestions.has(n);
+}
+
+function reorderQuestions() {
+    const pinned = originalQuestionsOrder.filter(q => pinnedQuestions.has(q.n));
+    const rest = originalQuestionsOrder.filter(q => !pinnedQuestions.has(q.n));
+    allQuestions.length = 0;
+    allQuestions.push(...pinned, ...rest);
+}
+
+function togglePin(n) {
+    if (pinnedQuestions.has(n)) {
+        pinnedQuestions.delete(n);
+    } else {
+        pinnedQuestions.add(n);
+    }
+    localStorage.setItem('pinnedQuestions', JSON.stringify([...pinnedQuestions]));
+    reorderQuestions();
+    try {
+        renderQuiz();
+    } finally {
+        // handleSearch() re-applies the current subject/lecture/search filters
+        // to the freshly rendered questions. Running it in a finally block
+        // guarantees the list is always re-shown correctly, even if something
+        // above throws, instead of getting stuck on "No questions found".
+        handleSearch();
+    }
+}
+
+function copyTextToClipboard(text, btn) {
+    function showCopied() {
+        if (btn.dataset.copiedTimer) {
+            clearTimeout(Number(btn.dataset.copiedTimer));
+        }
+        btn.classList.add('copied');
+        btn.innerHTML = CHECK_SVG;
+        const timer = setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.innerHTML = COPY_SVG;
+            delete btn.dataset.copiedTimer;
+        }, 1000);
+        btn.dataset.copiedTimer = String(timer);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(showCopied).catch(() => {
+            fallbackCopy(text);
+            showCopied();
+        });
+    } else {
+        fallbackCopy(text);
+        showCopied();
+    }
+}
+
+function copyQuestion(btn) {
+    const block = btn.closest('.q-block');
+    const qTextEl = block.querySelector('.q-text');
+    const optEls = block.querySelectorAll(':scope > .opts li');
+    const qText = (qTextEl.dataset.original || qTextEl.textContent).trim();
+    const opts = Array.from(optEls)
+        .map(li => (li.dataset.original || li.textContent).trim())
+        .filter(Boolean);
+    const fullText = opts.length ? `${qText}\n${opts.join('\n')}` : qText;
+    copyTextToClipboard(fullText, btn);
+}
+
+
+function copyCase(btn) {
+    const qBlock = btn.closest('.q-block');
+    const stemEl = qBlock.querySelector('.q-text');
+    const stemText = (stemEl.dataset.original || stemEl.textContent).trim();
+
+    const caseBlocks = qBlock.querySelectorAll('.case-block');
+    const casesText = Array.from(caseBlocks).map(caseBlock => {
+        const caseTextEl = caseBlock.querySelector('.case-text');
+        const caseText = (caseTextEl.dataset.original || caseTextEl.textContent).trim();
+        const caseOpts = Array.from(caseBlock.querySelectorAll('.opts li'))
+            .map(li => (li.dataset.original || li.textContent).trim())
+            .filter(Boolean);
+        return caseOpts.length ? `${caseText}\n${caseOpts.join('\n')}` : caseText;
+    }).join('\n\n');
+
+    const fullText = `${stemText}\n${casesText}`;
+    copyTextToClipboard(fullText, btn);
+}
+
+/* ---- Per-question pen/eraser drawing ---- */
+let activeDrawState = null;
+let activeDrawOverlaysCount = 0;
+
+function updateGlobalScrollLock() {
+    const locked = activeDrawOverlaysCount > 0;
+    document.documentElement.classList.toggle('drawing-lock', locked);
+    document.body.classList.toggle('drawing-lock', locked);
+}
+
+// Belt-and-braces: even with CSS touch-action:none on the overlay, some
+// tablet browsers can still start a page scroll from a stylus/finger drag.
+// While drawing mode is on for any question, swallow touchmove so nothing
+// but the drawing itself responds to the movement. Taps on buttons are
+// unaffected since they don't rely on touchmove.
+document.addEventListener('touchmove', function (e) {
+    if (activeDrawOverlaysCount > 0) {
+        e.preventDefault();
+    }
+}, { passive: false });
+
+function toggleDraw(btn) {
+    const container = btn.closest('.case-block') || btn.closest('.q-block');
+    if (!container) return;
+    const overlay = container.querySelector(':scope > .draw-overlay');
+    const isDrawing = btn.dataset.drawing === "true";
+
+    if (!isDrawing) {
+        // Enter drawing mode: pen -> eraser. Other buttons on this question stay usable.
+        btn.dataset.drawing = "true";
+        btn.innerHTML = ERASER_SVG;
+        btn.title = "Erase drawing";
+        if (overlay) overlay.classList.add('active');
+        activeDrawOverlaysCount++;
+        updateGlobalScrollLock();
+    } else {
+        // Erase: clear the drawing, eraser -> pen
+        if (overlay) {
+            overlay.innerHTML = '';
+            overlay.classList.remove('active');
+        }
+        btn.dataset.drawing = "false";
+        btn.innerHTML = PEN_SVG;
+        btn.title = "Draw";
+        if (activeDrawState && activeDrawState.svg === overlay) activeDrawState = null;
+        activeDrawOverlaysCount = Math.max(0, activeDrawOverlaysCount - 1);
+        updateGlobalScrollLock();
+    }
+}
+
+function getDrawPoint(svg, evt) {
+    const rect = svg.getBoundingClientRect();
+    return { x: evt.clientX - rect.left, y: evt.clientY - rect.top };
+}
+
+function startDraw(evt) {
+    const svg = evt.currentTarget;
+    if (!svg.classList.contains('active')) return;
+    evt.preventDefault();
+    const pt = getDrawPoint(svg, evt);
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('class', 'draw-path');
+    path.setAttribute('d', `M ${pt.x} ${pt.y}`);
+    svg.appendChild(path);
+    activeDrawState = { svg, path, points: [pt] };
+    if (svg.setPointerCapture) {
+        try { svg.setPointerCapture(evt.pointerId); } catch (e) {}
+    }
+}
+
+function moveDraw(evt) {
+    if (!activeDrawState || activeDrawState.svg !== evt.currentTarget) return;
+    evt.preventDefault();
+    const pt = getDrawPoint(activeDrawState.svg, evt);
+    activeDrawState.points.push(pt);
+    const d = activeDrawState.points.map((p, i) => (i === 0 ? `M ${p.x} ${p.y}` : `L ${p.x} ${p.y}`)).join(' ');
+    activeDrawState.path.setAttribute('d', d);
+}
+
+function endDraw(evt) {
+    if (activeDrawState && activeDrawState.svg === evt.currentTarget) {
+        activeDrawState = null;
+    }
+}
+
+function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+}
+
+  const lectures = {
    1:  "Blood vessels of the thorax",
    2:  "Blood vessels of head and neck",
-   
 };
   
 const lectureFilters = {
     "All": [],
-    "Anatomy": [
-        { label: "All",                            val: "All" },
+   
+    
+ 
+"Anatomy": [
+        { label: "All",               val: "All" },
         
         { label: "Blood vessels of the thorax",     val: 1 },
         { label: "Blood vessels of head and neck",     val: 2 },
-       
- ],
+      
+],
+
+
 
 };
-let currentSubjectFilter = "All";  // default
+let currentSubjectFilter = "All";  
 let currentLecture = "All";
+let lectureDropdownOpen = false;
+
+const CLOSE_ICON_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
 
 const container = document.getElementById('quiz-content');
-const filterBar = document.getElementById('filter-bar');
 
-function renderFilterBar() {
-    const filters = lectureFilters[currentSubjectFilter] || lectureFilters["All"];
-    filterBar.innerHTML = filters.map(f =>
-        `<button class="filter-btn${f.val === currentLecture ? " active" : ""}" onclick="filterByLecture('${f.val}', this)">${f.label}</button>`
+const LECTURE_CHEVRON_SVG = `<svg class="lecture-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z" fill="currentColor"></path></svg>`;
+
+function renderLectureDropdownItems() {
+    const filters = lectureFilters[currentSubjectFilter] || [];
+    return filters.map(f =>
+    `<div class="lecture-dropdown-item${String(f.val) === String(currentLecture) ? " selected" : ""}" onclick="selectLecture('${f.val}', event)"><span class="lecture-dot"></span><span class="lecture-item-text">${f.label}</span></div>`
     ).join('');
 }
+
+function scrollLectureDropdownToSelected() {
+    const wrap = document.querySelector('#lecture-dropdown .lecture-dropdown-items');
+    if (!wrap) return;
+    const selected = wrap.querySelector('.lecture-dropdown-item.selected');
+    if (selected) {
+        const target = selected.offsetTop - (wrap.clientHeight / 2) + (selected.clientHeight / 2);
+        wrap.scrollTop = Math.max(0, target);
+    } else {
+        wrap.scrollTop = 0;
+    }
+}
+
+function toggleLectureDropdown() {
+    const dd = document.getElementById('lecture-dropdown');
+    const btn = document.getElementById('lecture-select-btn');
+    if (!dd || !btn) return;
+    const isOpen = dd.classList.contains('open');
+    if (isOpen) {
+        dd.classList.remove('open');
+        btn.classList.remove('dropdown-open');
+        lectureDropdownOpen = false;
+    } else {
+        dd.classList.add('open');
+        btn.classList.add('dropdown-open');
+        lectureDropdownOpen = true;
+        scrollLectureDropdownToSelected();
+    }
+}
+
+function closeLectureDropdown() {
+    const dd = document.getElementById('lecture-dropdown');
+    const btn = document.getElementById('lecture-select-btn');
+    if (dd) dd.classList.remove('open');
+    if (btn) btn.classList.remove('dropdown-open');
+    lectureDropdownOpen = false;
+}
+
+function selectLecture(val, ev) {
+    if (ev) ev.stopPropagation();
+    currentLecture = val;
+    handleSearch();
+}
+
+document.addEventListener('click', function(e) {
+    const wrapper = document.getElementById('lecture-select-wrapper');
+    if (wrapper && !wrapper.contains(e.target)) {
+        closeLectureDropdown();
+    }
+});
 
 function getLectureLabel(val) {
     if (val === "All" && currentSubjectFilter === "All") return "All";
     if (val === "All") {
-         const subjectLabels = {
-    "Anatomy": "Anatomy 🦴",
-    "Physiology": "Physiology ⚡",
-    "Microbiology": "Microbiology 🦠",
-    "Pharmacology": "Pharmacology 💊",
-    "Biochemistry": "Biochemistry 🧪",
-    "Pathology": "Pathology 🔬",
-    "Genetics": "Genetics 🧬",
-    "Medical Education": "Medical Education 📘",
-    "Histology": "Histology 🫁",
-    "Community Medicine": "Community Medicine 📕",
-    "Radiology": "Radiology ☢️"
-};
+        const subjectLabels = { 
+            "Medicine": "Medicine 📘", 
+            "Pharmacology": "Pharmacology 💊", 
+            "Anatomy": "Anatomy 🦴", 
+            "Histology": "Histology 🫁", 
+            "Community Medicine": "Community Medicine 👥",
+             "Pathology": "Pathology 🔬" ,
+              "Microbiology": "Microbiology 🦠" ,
+               "Physiology": "Physiology ⚡" ,
+                "Embryology": "Embryology 👶",
+                "Biochemistry": "Biochemistry 🧪",
+                "Radiology": "Radiology 🩻",
+                "Medical Education": "Medical Education 📗",
+                "Essay Questions": "Essay Questions 📝",
+                "Genetics": "Genetics 🧬"
+            
+            };
+       
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
     return lectures[val] || val;
+}
+
+function truncateLabel(str, maxLen) {
+    const s = String(str);
+    return s.length > maxLen ? s.slice(0, maxLen) + "..." : s;
 }
 
 function updateSectionHeading() {
@@ -959,60 +1923,213 @@ function updateSectionHeading() {
     }
 
     const label = getLectureLabel(currentLecture);
+    const shortLabel = truncateLabel(label, 25);
+    const labelHtml = `<span class="label-full">${label}</span><span class="label-short">${shortLabel}</span>`;
+    const isSubjectLabel = currentLecture === "All";
+    const titleClass = "section-heading-title" + (isSubjectLabel ? " subject-title" : "");
     const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
+    const filters = lectureFilters[currentSubjectFilter] || [];
+    const hasLectures = filters.some(f => f.val !== "All");
+    if (!hasLectures) lectureDropdownOpen = false;
 
+    const showLectureDropdownOpen = hasLectures && lectureDropdownOpen;
+    const headingHtml = hasLectures ? `
+        <div class="lecture-select-wrapper" id="lecture-select-wrapper">
+            <button class="lecture-select-btn${showLectureDropdownOpen ? ' dropdown-open' : ''}" id="lecture-select-btn" onclick="toggleLectureDropdown()" title="Filter by lecture">
+                <span class="${titleClass}">${labelHtml}</span>
+                ${LECTURE_CHEVRON_SVG}
+            </button>
+            <div class="lecture-dropdown${showLectureDropdownOpen ? ' open' : ''}" id="lecture-dropdown"><div class="lecture-dropdown-header"><span>Lectures</span><button type="button" class="dropdown-close-btn" onclick="closeLectureDropdown()" title="Close" aria-label="Close">${CLOSE_ICON_SVG}</button></div><div class="lecture-dropdown-items">${renderLectureDropdownItems()}</div></div>
+        </div>
+        <span class="mcq-count-badge">${badgeText}</span>
+    ` : `
+        <span class="${titleClass}">${labelHtml}</span>
+        <span class="mcq-count-badge">${badgeText}</span>
+    `;
+
+    const headingRowHtml = `<div class="section-heading-row">${headingHtml}</div>`;
+
+    let heading;
     if (existing) {
-        existing.style.display = (count === 0) ? "none" : "flex";
-        existing.querySelector('.section-heading-title').textContent = label;
-        existing.querySelector('.mcq-count-badge').textContent = badgeText;
-    } else if (count > 0) {
-        const heading = document.createElement('div');
+        existing.style.display = "flex";
+        existing.innerHTML = headingRowHtml;
+        heading = existing;
+    } else {
+        heading = document.createElement('div');
         heading.id = 'section-heading';
         heading.className = 'section-heading';
-        heading.innerHTML = `<span class="section-heading-title">${label}</span><span class="mcq-count-badge">${badgeText}</span>`;
+        heading.innerHTML = headingRowHtml;
         container.insertBefore(heading, container.firstChild);
     }
+
+    if (showLectureDropdownOpen) scrollLectureDropdownToSelected();
+
+    // Show the optional note only on the default "All" view (no subject or
+    // lecture filter applied) — i.e. what you see when the file first opens.
+    // It sits inside the heading block, below the title and above the
+    // divider line underneath it.
+    const showNote = !!CONTENT_NOTE && currentSubjectFilter === "All" && currentLecture === "All";
+    if (showNote) {
+        const noteEl = document.createElement('div');
+        noteEl.id = 'section-note';
+        noteEl.className = 'section-note';
+        noteEl.textContent = CONTENT_NOTE;
+        heading.appendChild(noteEl);
+    }
+}
+
+function renderCaseHtml(caseItem, mainN) {
+    const isEssay = !caseItem.o || caseItem.o.length === 0 || (caseItem.o.length === 1 && caseItem.o[0].trim() === "");
+
+    return `
+        <div class="case-block">
+            <div class="case-text" data-original="${caseItem.text}">${caseItem.text}</div>
+            ${caseItem.o && caseItem.o.length ? `
+            <ul class="opts">
+                ${caseItem.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>` : ''}
+            ${isEssay ? `<div class="answer-text"></div>` : ''}
+            <div class="ans-row case-eye-row">
+                <button class="eye-btn" data-label="Answer" data-answer="${escapeAttr(isEssay ? caseItem.a : '')}" data-essay="${isEssay}" data-correct="${escapeAttr(caseItem.a)}" data-revealed="false" onclick="toggleAnswer(this)" title="Show answer">${EYE_HIDE_SVG}</button>
+            </div>
+        </div>`;
+}
+
+function renderCaseActionsHtml(mainN) {
+    return `
+        <div class="case-actions-row">
+            <div class="copy-wrap">
+                <button class="icon-btn copy-btn" onclick="copyCase(this)" title="Copy question">${COPY_SVG}</button>
+            </div>
+            <button class="icon-btn pin-btn" data-pinned="${isPinned(mainN)}" onclick="togglePin(${mainN})" title="${isPinned(mainN) ? 'Unpin question' : 'Pin question'}">${isPinned(mainN) ? UNPIN_SVG : PIN_SVG}</button>
+            <button class="icon-btn draw-btn" data-drawing="false" onclick="toggleDraw(this)" title="Draw">${PEN_SVG}</button>
+        </div>
+        <svg class="draw-overlay draw-overlay--outer" onpointerdown="startDraw(event)" onpointermove="moveDraw(event)" onpointerup="endDraw(event)" onpointerleave="endDraw(event)" onpointercancel="endDraw(event)"></svg>`;
 }
 
 function renderQuiz() {
     container.innerHTML = '';
+    activeDrawState = null;
+    activeDrawOverlaysCount = 0;
+    updateGlobalScrollLock();
     allQuestions.forEach(item => {
         const div = document.createElement('div');
         div.className = 'q-block';
         div.dataset.subject = item.s;
         div.dataset.lecture = item.l ?? "";
-        div.dataset.searchText = (item.q + " " + item.o.join(" ")).toLowerCase();
+
+        const isCaseQuestion = Array.isArray(item.cases) && item.cases.length > 0;
+
+        div.dataset.searchText = isCaseQuestion
+            ? (item.q + " " + item.cases.map(c => c.text + " " + (c.o || []).join(" ")).join(" ")).toLowerCase()
+            : (item.q + " " + item.o.join(" ")).toLowerCase();
 
         div.style.display = matchesFilters(item) ? "block" : "none";
+
+        if (isCaseQuestion) {
+            div.innerHTML = `
+                <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+                ${item.cases.map(c => renderCaseHtml(c, item.n)).join('')}
+                ${renderCaseActionsHtml(item.n)}
+            `;
+            container.appendChild(div);
+            return;
+        }
+
+        const isMulti = Array.isArray(item.a);
+        const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+        const isEssay = !item.o || item.o.length === 0 || (item.o.length === 1 && item.o[0].trim() === "");
+
+        const iconsRowHtml = isMulti
+            ? item.a.map((part, i) => {
+                const label = `Answer ${letters[i] || (i + 1)}`;
+                const revealText = isEssay ? part : '';
+                return `
+                <div class="eye-part-row">
+                    <span class="eye-part-label">${letters[i] || (i + 1)}</span>
+                    <button class="eye-btn" data-label="${label}" data-answer="${escapeAttr(revealText)}" data-essay="${isEssay}" data-correct="${escapeAttr(part)}" data-revealed="false" onclick="toggleAnswer(this)" title="${label}">${EYE_HIDE_SVG}</button>
+                </div>`;
+              }).join('') + `
+                <div class="eye-part-row">
+                    <div class="copy-wrap">
+                        <button class="icon-btn copy-btn" onclick="copyQuestion(this)" title="Copy question">${COPY_SVG}</button>
+                    </div>
+                    <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button>
+                    <button class="icon-btn draw-btn" data-drawing="false" onclick="toggleDraw(this)" title="Draw">${PEN_SVG}</button>
+                </div>`
+            : `
+                <button class="eye-btn" data-label="Answer" data-answer="${escapeAttr(isEssay ? item.a : '')}" data-essay="${isEssay}" data-correct="${escapeAttr(item.a)}" data-revealed="false" onclick="toggleAnswer(this)" title="Show answer">${EYE_HIDE_SVG}</button>
+                <div class="copy-wrap">
+                    <button class="icon-btn copy-btn" onclick="copyQuestion(this)" title="Copy question">${COPY_SVG}</button>
+                </div>
+                <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button>
+                <button class="icon-btn draw-btn" data-drawing="false" onclick="toggleDraw(this)" title="Draw">${PEN_SVG}</button>`;
 
         div.innerHTML = `
             <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
             <ul class="opts">
                 ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
             </ul>
-            <div class="ans-row">
-                <button class="ans-btn" data-answer="Answer: ${item.a}" onclick="toggleAnswer(this)">Answer</button>
+            ${isEssay ? `<div class="answer-text"></div>` : ''}
+            <div class="ans-row${isMulti ? ' ans-row--multi' : ''}">
+                ${iconsRowHtml}
             </div>
+            <svg class="draw-overlay draw-overlay--outer" onpointerdown="startDraw(event)" onpointermove="moveDraw(event)" onpointerup="endDraw(event)" onpointerleave="endDraw(event)" onpointercancel="endDraw(event)"></svg>
         `;
         container.appendChild(div);
     });
     updateSectionHeading();
 }
 
+document.addEventListener("keydown", function(e) {
+    const key = e.key ? e.key.toLowerCase() : '';
+    const ctrlOrCmd = e.ctrlKey || e.metaKey;
+
+    // Ctrl/Cmd + S (Save)
+    if (ctrlOrCmd && key === 's') {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    // Ctrl/Cmd + P (Print)
+    if (ctrlOrCmd && key === 'p') {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    if (e.key === "Escape") {
+        const takeover = document.getElementById('search-takeover-wrap');
+        if (takeover && takeover.classList.contains('open')) {
+            closeSearchBar();
+        }
+    }
+});
+
+// Catch printing triggered via the browser's Print menu / window.print()
+window.addEventListener('beforeprint', function (e) {
+    document.title = 'Printing disabled';
+});
+
 function matchesFilters(item) {
     const subjectOk = currentSubjectFilter === "All" || item.s === currentSubjectFilter;
-    const lectureOk = currentLecture === "All" || item.l === currentLecture;
+    const lectureOk = currentLecture === "All" || String(item.l) === String(currentLecture);
     return subjectOk && lectureOk;
 }
 
-function filterByLecture(val, btn) {
-    currentLecture = val;
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    handleSearch();
+function scrollSubjectDropdownToSelected() {
+    const wrap = document.querySelector('#subject-dropdown .subject-dropdown-items');
+    if (!wrap) return;
+    const selected = wrap.querySelector('.subject-dropdown-item.selected');
+    if (selected) {
+        const target = selected.offsetTop - (wrap.clientHeight / 2) + (selected.clientHeight / 2);
+        wrap.scrollTop = Math.max(0, target);
+    } else {
+        wrap.scrollTop = 0;
+    }
 }
 
-// Subject dropdown logic
 function toggleSubjectDropdown() {
     const dd = document.getElementById('subject-dropdown');
     const btn = document.getElementById('subject-toggle-btn');
@@ -1023,23 +2140,26 @@ function toggleSubjectDropdown() {
     } else {
         dd.classList.add('open');
         btn.classList.add('dropdown-open');
+        scrollSubjectDropdownToSelected();
     }
+}
+
+function closeSubjectDropdown() {
+    const dd = document.getElementById('subject-dropdown');
+    const btn = document.getElementById('subject-toggle-btn');
+    if (dd) dd.classList.remove('open');
+    if (btn) btn.classList.remove('dropdown-open');
 }
 
 function selectSubjectFilter(subject, el) {
     currentSubjectFilter = subject;
     currentLecture = "All";
     localStorage.setItem('selectedSubject', subject);
-    // update selected state in dropdown
     document.querySelectorAll('.subject-dropdown-item').forEach(i => i.classList.remove('selected'));
     el.classList.add('selected');
-    // keep dropdown open — do NOT close it
-    // re-render filter bar and quiz
-    renderFilterBar();
     handleSearch();
 }
 
-// Close dropdown when clicking outside
 document.addEventListener('click', function(e) {
     const wrapper = document.querySelector('.subject-toggle-wrapper');
     if (wrapper && !wrapper.contains(e.target)) {
@@ -1047,6 +2167,34 @@ document.addEventListener('click', function(e) {
         document.getElementById('subject-toggle-btn').classList.remove('dropdown-open');
     }
 });
+
+/* Premium Full Header Takeover Functions */
+function toggleSearchBar() {
+    const takeover = document.getElementById('search-takeover-wrap');
+    const normalLeft = document.getElementById('header-normal-left');
+    const normalRight = document.getElementById('header-normal-right');
+    const input = document.getElementById('search-input');
+
+    normalLeft.style.display = 'none';
+    normalRight.style.display = 'none';
+    takeover.classList.add('open');
+    
+    setTimeout(() => input.focus(), 50);
+}
+
+function closeSearchBar() {
+    const takeover = document.getElementById('search-takeover-wrap');
+    const normalLeft = document.getElementById('header-normal-left');
+    const normalRight = document.getElementById('header-normal-right');
+    const input = document.getElementById('search-input');
+
+    takeover.classList.remove('open');
+    normalLeft.style.display = 'flex';
+    normalRight.style.display = 'flex';
+    
+    input.value = '';
+    handleSearch();
+}
 
 function handleSearch() {
     const term = document.getElementById('search-input').value.toLowerCase();
@@ -1070,22 +2218,79 @@ function resetBlock(block) {
     const qText = block.querySelector('.q-text');
     const opts = block.querySelectorAll('li');
     qText.innerHTML = qText.dataset.original;
-    opts.forEach(li => li.innerHTML = li.dataset.original);
-    block.classList.remove('revealed');
-    const btn = block.querySelector('.ans-btn');
-    if (btn && btn.dataset.answer) btn.textContent = 'Answer';
+    opts.forEach(li => { li.innerHTML = li.dataset.original; li.classList.remove('correct-option'); });
+    block.querySelectorAll('.case-text').forEach(ct => {
+        ct.innerHTML = ct.dataset.original;
+    });
+    block.querySelectorAll('.eye-btn').forEach(btn => {
+        btn.dataset.revealed = "false";
+        btn.classList.remove('case-answer-revealed');
+        btn.innerHTML = EYE_HIDE_SVG;
+        btn.title = 'Show answer';
+    });
+    block.querySelectorAll('.answer-text').forEach(textEl => {
+        textEl.textContent = '';
+        textEl.style.display = 'none';
+    });
 }
 
 function highlight(block, term) {
     const regex = new RegExp(`(${term})`, 'gi');
     block.querySelector('.q-text').innerHTML = block.querySelector('.q-text').innerHTML.replace(regex, '<mark>$1</mark>');
+    block.querySelectorAll('.case-text').forEach(ct => ct.innerHTML = ct.innerHTML.replace(regex, '<mark>$1</mark>'));
     block.querySelectorAll('li').forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
 }
 
+function escapeAttr(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+
 function toggleAnswer(btn) {
-    const block = btn.closest('.q-block');
-    const isRevealed = block.classList.toggle('revealed');
-    btn.textContent = isRevealed ? btn.dataset.answer : 'Answer';
+    const isRevealed = btn.dataset.revealed !== "true";
+    btn.dataset.revealed = isRevealed ? "true" : "false";
+
+    // Scope to the case-block if this button belongs to one sub-case of a
+    // multi-case question, otherwise fall back to the whole question block.
+    const isCase = !!btn.closest('.case-block');
+    const scope = btn.closest('.case-block') || btn.closest('.q-block');
+
+    if (btn.dataset.essay === "true") {
+        if (isCase) {
+            // Case questions (Q21, Q22): the button itself becomes the
+            // answer box, without showing the open-eye icon.
+            btn.classList.toggle('case-answer-revealed', isRevealed);
+            btn.innerHTML = isRevealed ? btn.dataset.answer : EYE_HIDE_SVG;
+            btn.title = isRevealed ? '' : 'Show answer';
+            return;
+        }
+
+        btn.innerHTML = isRevealed ? EYE_SHOW_SVG : EYE_HIDE_SVG;
+        const textEl = scope.querySelector('.answer-text');
+        if (textEl) {
+            textEl.textContent = isRevealed ? btn.dataset.answer : '';
+            textEl.style.display = isRevealed ? 'block' : 'none';
+        }
+        return;
+    }
+
+    btn.innerHTML = isRevealed ? EYE_SHOW_SVG : EYE_HIDE_SVG;
+
+    const correctLetters = (btn.dataset.correct || '')
+        .split(/[,\s]+/)
+        .map(s => s.trim())
+        .filter(Boolean);
+
+    scope.querySelectorAll('.opts li').forEach(li => {
+        const original = li.dataset.original || li.textContent;
+        const letter = original.split('.')[0].trim();
+        if (correctLetters.includes(letter)) {
+            li.classList.toggle('correct-option', isRevealed);
+        }
+    });
 }
 
 function toggleTheme() {
@@ -1103,12 +2308,10 @@ function toggleTheme() {
         document.body.setAttribute('data-theme', 'light');
         document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
     }
-    // Restore saved subject (default: Biochemistry)
     const saved = localStorage.getItem('selectedSubject');
     if (saved && lectureFilters[saved]) {
         currentSubjectFilter = saved;
     }
-    // Mark the correct dropdown item as selected
     document.querySelectorAll('.subject-dropdown-item').forEach(item => {
         if (item.dataset.subject === currentSubjectFilter) {
             item.classList.add('selected');
@@ -1118,8 +2321,11 @@ function toggleTheme() {
     });
 }());
 
-renderFilterBar();
+reorderQuestions();
 renderQuiz();
+
+
+
 </script>
 </body>
-</html>
+</html>          
