@@ -412,14 +412,14 @@ const ALL_SECTIONS = [
      
      
 
-      { title: '2021-2022 Year Exam',   links: [
+      { title: '2021-2022 Year Exam ✅',   links: [
         { label: 'Final _ 1st Term', badge: '44 MCQs', href: 'RS_Final_2021-2022.html' },
         { label: 'Final _ 2nd Term', badge: '38 MCQs', href: 'RS_Final2_2021-2022.html' },
 
      ]},
 
-      { title: '2022-2023 Year Exam',   links: [
-        { label: 'End-Block _ Practice', badge: '5 Qs', href: 'RS_End-Block_Practice_2023-2024.html' },
+      { title: '2022-2023 Year Exam ✅',   links: [
+        { label: 'End-Block _ Practice', badge: '5 Qs', href: 'RS_End-Block_Practice_2022-2023.html' },
         { label: 'Final or End-Block', badge: '31 MCQs', href: 'RS_FinalorEndblock_2022-2023.html' },
 
       
