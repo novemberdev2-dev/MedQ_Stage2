@@ -1746,7 +1746,7 @@ function closeSubjectDropdown() {
 function selectSubjectFilter(subject, el) {
     currentSubjectFilter = subject;
     currentLecture = "All";
-    localStorage.setItem('selectedSubject', subject);
+    localStorage.setItem('selectedSubject_' + location.pathname, subject);
     document.querySelectorAll('.subject-dropdown-item').forEach(i => i.classList.remove('selected'));
     el.classList.add('selected');
     handleSearch();
@@ -1900,10 +1900,8 @@ function toggleTheme() {
         document.body.setAttribute('data-theme', 'light');
         document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
     }
-   const saved = localStorage.getItem('selectedSubject');
-    const subjectExistsHere = Array.from(document.querySelectorAll('.subject-dropdown-item'))
-        .some(item => item.dataset.subject === saved);
-    if (saved && subjectExistsHere) {
+   const saved = localStorage.getItem('selectedSubject_' + location.pathname);
+    if (saved) {
         currentSubjectFilter = saved;
     }
     document.querySelectorAll('.subject-dropdown-item').forEach(item => {
