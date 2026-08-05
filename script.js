@@ -323,6 +323,12 @@ const ALL_SECTIONS = [
         { label: 'Final _ 2nd Term', badge: '29 MCQs', href: 'HP_Final2_2021-2022.html' },
 
      ]},
+       { title: '2022-2023 Year Exam ✅',   links: [
+
+        { label: 'Final', badge: '44 MCQs', href: 'HP_Final_2022-2023.html' },
+
+     ]},
+     
       { title: '2023-2024 Year Exam ✅',   links: [
         { label: 'End-Block _ Theory', badge: '20 MCQs',  href: 'HP_End-Block_Theory_2023-or-2024.html' },
 
