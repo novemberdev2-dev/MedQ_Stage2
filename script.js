@@ -429,7 +429,9 @@ const ALL_SECTIONS = [
 
 
       { title: '2023-2024 Year Exam ✅',   links: [
+        { label: 'Final', badge: '36 MCQs', href: 'RS_Finall_2023-2024.html' },
         { label: 'Final', badge: '25 MCQs', href: 'RS_Final_2023-2024.html' },
+        
         { label: 'Final or End-Block', badge: '73 MCQs', href: 'RS_FinalorEndblock_2023-2024.html' },
 
 
