@@ -278,6 +278,12 @@ const ALL_SECTIONS = [
         { label: 'Final _ 1st Term', badge: '38 MCQs', href: 'MSD_Final_2021-2022.html' },
         { label: 'Final _ 2nd Term', badge: '36 MCQs', href: 'MSD_Final2_2021-2022.html' },
 
+          { title: '2022-2023 Year Exam ✅',   links: [
+        { label: 'End-Block _ Practice', badge: '5 Qs', href: 'MSD_End-Block_Practice_2022-2023.html' },
+        { label: 'Final or End-Block', badge: '31 MCQs', href: 'MSD_FinalorEndblock_2022-2023.html' },
+
+      
+     ]},
      ]},
       { title: '2023-2024 Year Exam ✅',   links: [
         { label: 'End-Block _ Practice', badge: '14 Qs', href: 'MSD_End_Block_Practice_2023-2024.html' },
@@ -426,14 +432,7 @@ const ALL_SECTIONS = [
 
      ]},
 
-      { title: '2022-2023 Year Exam ✅',   links: [
-        { label: 'End-Block _ Practice', badge: '5 Qs', href: 'RS_End-Block_Practice_2022-2023.html' },
-        { label: 'Final or End-Block', badge: '31 MCQs', href: 'RS_FinalorEndblock_2022-2023.html' },
-
-      
-     ]},
-
-
+  
       { title: '2023-2024 Year Exam ✅',   links: [
         { label: 'Final', badge: '36 MCQs', href: 'RS_Finall_2023-2024.html' },
         { label: 'Final', badge: '25 MCQs', href: 'RS_Final_2023-2024.html' },
