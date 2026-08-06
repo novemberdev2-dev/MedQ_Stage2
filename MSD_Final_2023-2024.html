@@ -1745,7 +1745,7 @@ function closeSubjectDropdown() {
 function selectSubjectFilter(subject, el) {
     currentSubjectFilter = subject;
     currentLecture = "All";
-    localStorage.setItem('selectedSubject', subject);
+    localStorage.setItem('selectedSubject_' + location.pathname, subject);
     document.querySelectorAll('.subject-dropdown-item').forEach(i => i.classList.remove('selected'));
     el.classList.add('selected');
     handleSearch();
