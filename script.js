@@ -364,7 +364,7 @@ const ALL_SECTIONS = [
 
      { title: 'Unknown Year Exam ✅',     links: [
       { label: 'Final', badge: '34 MCQs',  href: 'HP_Final_Unknown-Year.html' },
-      { label: 'End-Block', badge: '0 MCQs',  href: 'HP_End-Block_Unknown-Year.html' },
+      { label: 'Final or End-Block', badge: '112 MCQs',  href: 'HP_FinalorEndblock_Unknown-Year.html' },
     
     ] },
     ]
