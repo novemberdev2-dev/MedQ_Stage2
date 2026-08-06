@@ -1070,7 +1070,7 @@
                
                 <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
                 <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
-                <div class="subject-dropdown-item" data-subject="Radiology" onclick="selectSubjectFilter('Radiology', this)"><span class="filter-option-dot"></span>Radiology ☢️</div>
+                <div class="subject-dropdown-item" data-subject="Radiology" onclick="selectSubjectFilter('Radiology', this)"><span class="filter-option-dot"></span>Radiology 🩻</div>
                 <div class="subject-dropdown-item" data-subject="Physiology" onclick="selectSubjectFilter('Physiology', this)"><span class="filter-option-dot"></span>Physiology ⚡</div>
                   
                 <div class="subject-dropdown-item" data-subject="Anatomy" onclick="selectSubjectFilter('Anatomy', this)"><span class="filter-option-dot"></span>Anatomy 🦴</div>
@@ -1159,12 +1159,12 @@ const allQuestions = [
     q: "A 65-year-old female presents with backache and a loss of height of more than 2 inches. Her plain radiograph of the lumbar spine shows multiple collapsed vertebrae. Laboratory tests show vitamin D deficiency, and osteoporosis is suspected. What is the most accurate investigation to diagnose this?",
     o: [
       "A. Quantitative CT scan",
-      "B. DEXA scan",
+      "B. Biochemical bone markers",
       "C. MRI of the lumbar spine",
       "D. Bone scan",
-      "E. Biochemical bone markers"
+      "E. DEXA scan"
     ],
-    a: "B"
+    a: "E"
   },
   {
     n: 4,
@@ -1257,12 +1257,12 @@ const allQuestions = [
     q: "A patient who requires a detailed magnetic resonance scan has claustrophobia. What is the most appropriate radiological option?",
     o: [
       "A. High-field closed MRI",
-      "B. Open MRI",
+      "B. Fluoroscopy",
       "C. Multi-detector CT scan",
-      "D. Fluoroscopy",
+      "D. Open MRI",
       "E. Ultrasound"
     ],
-    a: "B"
+    a: "D"
   },
   {
     n: 11,
@@ -1353,14 +1353,14 @@ const allQuestions = [
   { n: 18, s: "Genetics", l: 1, q: "After revealing male gender by non-invasive prenatal testing (NIPT), invasive testing is required to identify which of the following?", o: ["A. Huntington disease", "B. Cystic fibrosis", "C. Duchenne muscular dystrophy (DMD)", "D. Down syndrome", "E. Tay-Sachs disease"], a: "C" },
   { n: 19, s: "Genetics", l: 1, q: "Which of the following conditions requires invasive testing after a male fetus is proven by non-invasive procedures?", o: ["A. Duchenne muscular dystrophy", "B. Hemophilia B", "C. Spinal muscular atrophy", "D. Fragile X syndrome", "E. Marfan syndrome"], a: "A" },
   { n: 20, s: "Pathology", l: 1, q: "A 15-year-old boy is in his third year playing on his high school football team. He sat out most of last season after fracturing his humerus in the first full-contact practice. Yesterday was the first full-contact practice of this season, for which he was very excited to finally be able to play but again, he suffered a fractured clavicle. Physical examination shows very poor dentition and slightly blue sclera. Which of the following connective tissue protein is most likely defective with his genetic condition?", o: ["A. Type IV collagen", "B. Elastin", "C. Type II collagen", "D. Type I collagen", "E. Type III collagen"], a: "D" },
-  { n: 21, s: "Pathology", l: 1, q: "A six-year-old boy with a history of multiple bone fractures is brought to the physician by his parents with right leg pain. X-ray of the right leg shows a right tibial fracture. Ophthalmic examination shows blue-tinged sclerae, extraocular movements are intact, and pupils are equally round and reactive to light. A hereditary defect in which of the following is the most likely underlying cause of this patient's problems?", o: ["A. Type I collagen", "B. Elastin", "C. Cilia", "D. Fibrillin", "E. Laminin"], a: "A" },
+  { n: 21, s: "Pathology", l: 1, q: "A six-year-old boy with a history of multiple bone fractures is brought to the physician by his parents with right leg pain. X-ray of the right leg shows a right tibial fracture. Ophthalmic examination shows blue-tinged sclerae, extraocular movements are intact, and pupils are equally round and reactive to light. A hereditary defect in which of the following is the most likely underlying cause of this patient's problems?", o: ["A. Laminin", "B. Elastin", "C. Cilia", "D. Fibrillin", "E. Type I collagen"], a: "E" },
   { n: 22, s: "Pathology", l: 1, q: "A 5-week-old boy is seen at the pediatrics department after experiencing multiple long bone fractures. The parents explain that the patient has been seen by multiple pediatric orthopedists after three fractures in the past week. Child abuse is ruled out, and physical examination is otherwise normal, but a hearing test reveals significant hearing loss. Which of the following is the most likely diagnosis in this patient?", o: ["A. Alport syndrome", "B. Rickets", "C. Osteomalacia", "D. Schwannoma", "E. Osteogenesis imperfecta"], a: "E" },
   { n: 23, s: "Pathology", l: 1, q: "Achondroplasia is characterized by all of the following EXCEPT:", o: ["A. Autosomal dominant inheritance", "B. Gain-of-function mutation in FGFR3", "C. Impaired endochondral bone formation", "D. Normal intelligence and lifespan", "E. Thin, fragile bones prone to fractures"], a: "E" },
   { n: 24, s: "Pathology", l: 1, q: "In Osteogenesis Imperfecta, blue sclera is due to:", o: ["A. Deposition of abnormal collagen in the sclera", "B. Increased vascularity of the sclera", "C. Thinning of the sclera allowing underlying choroid to show", "D. Scleral calcification", "E. Inflammation of the episcleral tissue"], a: "C" },
   { n: 25, s: "Pathology", l: 1, q: "Osteopetrosis results from:", o: ["A. Excessive osteoblast activity", "B. Defective osteoclast function", "C. Mutation in type I collagen gene", "D. Autoimmune destruction of bone tissue", "E. Deficiency of vitamin D"], a: "B" },
   { n: 26, s: "Pathology", l: 1, q: "Duchenne Muscular Dystrophy (DMD) differs from Becker Muscular Dystrophy (BMD) in that DMD:", o: ["A. Is caused by a mutation in the dystrophin gene", "B. Shows complete absence of dystrophin on immunohistochemistry", "C. Has later onset and slower progression", "D. Is autosomal recessive", "E. Commonly presents with cardiac involvement early in the disease"], a: "B" },
   { n: 27, s: "Pathology", l: 1, q: "Dermatomyositis is characterized histologically by:", o: ["A. Endomysial CD8+ T cell infiltration", "B. Rimmed vacuoles in myofibers", "C. Perifascicular atrophy", "D. Diffuse fatty replacement of muscle", "E. Granulomatous inflammation"], a: "C" },
-  { n: 28, s: "Pathology", l: 1, q: "A patient presents with swelling of the lower knees with tenderness and leukocytosis. What is the most probable disease?", o: ["A. Osteoarthritis", "B. Gouty arthritis", "C. Osteomyelitis", "D. Rheumatoid arthritis", "E. Osteosarcoma"], a: "C" },
+  { n: 28, s: "Pathology", l: 1, q: "A patient presents with swelling of the lower knees with tenderness and leukocytosis. What is the most probable disease?", o: ["A. Osteoarthritis", "B. Gouty arthritis", "C. Rheumatoid arthritis", "D. Osteomyelitis", "E. Osteosarcoma"], a: "D" },
   { n: 29, s: "Pathology", l: 1, q: "A 45-year-old female presented with hand stiffness in the morning. Laboratory tests showed elevated ESR and anti-CCP positive. What is the most likely diagnosis?", o: ["A. Osteoarthritis", "B. Rheumatoid arthritis", "C. Gouty arthritis", "D. Psoriatic arthritis", "E. Systemic lupus erythematosus"], a: "B" },
   { n: 30, s: "Pathology", l: 1, q: "A person presented with pink papules and plaques with silvery scales and chronic hip arthritis. What is the most likely diagnosis?", o: ["A. Lichen planus", "B. Osteoarthritis", "C. Rheumatoid arthritis", "D. Psoriasis", "E. Gout"], a: "D" },
   { n: 31, s: "Pathology", l: 1, q: "The main ion for neurotransmitter release is:", o: ["A. Sodium", "B. Potassium", "C. Calcium", "D. Chloride", "E. Magnesium"], a: "C" },
@@ -1415,7 +1415,7 @@ const allQuestions = [
 { n: 80, s: "Radiology", l: 1, q: "Which imaging modality is considered the gold standard for diagnosing osteoporosis?", o: ["A. CT scan", "B. MRI", "C. Plain radiography", "D. DEXA scan", "E. Ultrasound"], a: "D" },
 { n: 81, s: "Radiology", l: 1, q: "Which imaging modality is most useful for assessing a suspected knee ligament injury?", o: ["A. Plain X-ray", "B. CT scan", "C. Ultrasound", "D. MRI", "E. Bone scintigraphy"], a: "D" },
 { n: 82, s: "Radiology", l: 1, q: "An elderly woman with a pelvic injury requires detailed soft tissue evaluation. Which imaging modality is most appropriate?", o: ["A. Open MRI", "B. Ultrasound", "C. DEXA", "D. Fluoroscopy", "E. Mammography"], a: "A" },
-{ n: 83, s: "Public Health", l: 1, q: "Which gas is commonly referred to as the green gas?", o: ["A. Carbon monoxide", "B. Nitrogen dioxide", "C. Sulfur dioxide", "D. Chlorine", "E. Methane"], a: "D" },
+{ n: 83, s: "Radiology", l: 1, q: "Which gas is commonly referred to as the green gas?", o: ["A. Carbon monoxide", "B. Nitrogen dioxide", "C. Sulfur dioxide", "D. Chlorine", "E. Methane"], a: "D" },
 { n: 84, s: "Anatomy", l: 1, q: "Which bone undergoes intramembranous ossification?", o: ["A. Femur", "B. Tibia", "C. Mandible", "D. Fibula", "E. Humerus"], a: "C" },
 { n: 85, s: "Histology", l: 1, q: "Bone trabeculae formation during endochondral ossification occurs primarily in which region?", o: ["A. Resting zone", "B. Proliferative zone", "C. Hypertrophic zone", "D. Calcification zone", "E. Zona spongiosa"], a: "E" },
 { n: 86, s: "Radiology", l: 1, q: "Which of the following findings suggests incorrect patient positioning on a chest radiograph?", o: ["A. Visible vertebral bodies", "B. Equal clavicular distances from the spinous process", "C. Rotation of the clavicles relative to the spine", "D. Clear costophrenic angles", "E. Adequate inspiration"], a: "C" },
@@ -1431,7 +1431,7 @@ const allQuestions = [
 { n: 94, s: "Pharmacology", l: 1, q: "A person using treatment for rheumatoid arthritis is now having ocular problems. What is the drug?", o: ["A. Methotrexate", "B. Rituximab", "C. Sulfasalazine", "D. Hydroxychloroquine", "E. Leflunomide"], a: "D" },
 { n: 95, s: "Pharmacology", l: 1, q: "Which drug of rheumatoid arthritis becomes more potent (or interacts) with aminoglycosides?", o: ["A. Methotrexate", "B. Azathioprine", "C. Cyclosporine", "D. Tacrolimus", "E. Mycophenolate mofetil"], a: "C" },
 { n: 96, s: "Pharmacology", l: 1, q: "Which of the following drugs is used for an acute gout attack?", o: ["A. Allopurinol", "B. Colchicine", "C. Febuxostat", "D. Pegloticase", "E. Probenecid"], a: "B" },
-{ n: 97, s: "Pharmacology", l: 1, q: "What is the mechanism of action of allopurinol?", o: ["A. Decrease tubular reabsorption", "B. Inhibit conversion of xanthine to uric acid", "C. Inhibit COX-2 enzyme", "D. Block IL-1 receptors", "E. Increase uric acid excretion"], a: "B" },
+{ n: 97, s: "Pharmacology", l: 1, q: "What is the mechanism of action of allopurinol?", o: ["A. Decrease tubular reabsorption", "B. Block IL-1 receptors", "C. Inhibit COX-2 enzyme", "D. Inhibit conversion of xanthine to uric acid", "E. Increase uric acid excretion"], a: "D" },
 { n: 98, s: "Pharmacology", l: 1, q: "Which drug is used for the prevention of hyperuricemia due to chemotherapy?", o: ["A. Indomethacin", "B. Allopurinol", "C. Naproxen", "D. Rasburicase", "E. Febuxostat"], a: "D" },
 { n: 99, s: "Pharmacology", l: 1, q: "NSAIDs cannot be used in a child because they lead to which condition?", o: ["A. Toxic epidermal necrolysis", "B. Kawasaki disease", "C. Stevens-Johnson syndrome", "D. Fanconi syndrome", "E. Reye's syndrome"], a: "E" },
 { n: 100, s: "Pharmacology", l: 1, q: "Which NSAID is a weak anti-inflammatory because its action is mainly in the CNS, not peripheral?", o: ["A. Paracetamol", "B. Diclofenac", "C. Aspirin", "D. Ibuprofen", "E. Naproxen"], a: "A" },
@@ -1447,6 +1447,8 @@ const allQuestions = [
 { n: 110, s: "Physiology", l: 1, q: "The amplitude of the end plate potential decreases when ACh is removed by:", o: ["A. Acetylcholinesterase", "B. Catechol-O-methyltransferase", "C. Monoamine oxidase", "D. Carboxylesterase", "E. Pseudocholinesterase"], a: "A" },
 { n: 111, s: "Physiology", l: 1, q: "What is the result of the contraction of the Arrector pili muscle?", o: ["A. Hair follicle", "B. Sebaceous gland", "C. Goose flesh", "D. Dermal papilla", "E. Increased sebum production"], a: "C" },
 { n: 112, s: "Histology", l: 1, q: "Sweat gland ducts are lined by:", o: ["A. Stratified squamous epithelium", "B. Simple columnar epithelium", "C. Simple squamous epithelium", "D. Transitional epithelium", "E. Stratified cuboidal epithelium"], a: "E" }
+
+
 ];
 
 
@@ -1749,7 +1751,7 @@ function getLectureLabel(val) {
             "Medical Education": "Medical Education 📗",
             "Histology": "Histology 🫁",
             "Medicine": "Medicine 📘",
-            "Radiology": "Radiology ☢️",
+            "Radiology": "Radiology 🩻",
             "Genetics": "Genetics 🧬",
             "Microbiology": "Microbiology 🦠",
             "Embryology": "Embryology 👶🏻",
@@ -2173,7 +2175,7 @@ function toggleTheme() {
         document.body.setAttribute('data-theme', 'light');
         document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
     }
-   const saved = localStorage.getItem('selectedSubject_' + location.pathname);
+    const saved = localStorage.getItem('selectedSubject_' + location.pathname);
     if (saved) {
         currentSubjectFilter = saved;
     }
