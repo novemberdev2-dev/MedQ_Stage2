@@ -214,52 +214,52 @@ const ALL_SECTIONS = [
     type: 'Introduction To Basic Science 🧪',
     key: 'ibs',
     cards: [
-      { title: '2017-2018 Year Exam ✅', links: [
+      { title: '2017-2018 Year Exam', links: [
         { label: 'Past Paper or Quiz',   badge: '107 MCQs',    href: 'IBS_2017-2018.html' },
         
       ]},
-      { title: '2018-2019 Year Exam ✅', links: [
+      { title: '2018-2019 Year Exam', links: [
         { label: 'End-Block',   badge: '8 MCQs',    href: 'IBS_End-Block_2018-2019.html' },
         { label: 'Final',   badge: '150 MCQs',    href: 'IBS_Final_2018-2019.html' },
         { label: 'Quiz', badge: '20 MCQs', href: 'IBS_Quiz_2018-2019.html' }
 
       ]},
-      { title: '2020-2021 Year Exam ✅', links: [
+      { title: '2020-2021 Year Exam', links: [
         { label: 'Final',   badge: '64 MCQs',     href: 'IBS_Final_2020-2021.html' },
         
       ]},
-      { title: '2021-2022 Year Exam ✅',   links: [
+      { title: '2021-2022 Year Exam',   links: [
         { label: 'End-Block', badge: '30 MCQs', href: 'IBS_End-Module_2021-2022.html' },
         { label: 'Final', badge: '87 MCQs', href: 'IBS_Final_2021-2022.html' }
 
      ]},
      
-       { title: '2022-2023 Year Exam ✅',     links: [
+       { title: '2022-2023 Year Exam',     links: [
         { label: 'End-Block _ Practice', badge: '10 Questions',  href: 'IBS_Practical_exam_2022-2023.html' },
         { label: 'Final', badge: '70 MCQs', href: 'IBS_Final_2022-2023.html' }
       
       ] },
 
 
-      { title: '2023-2024 Year Exam ✅',     links: [
+      { title: '2023-2024 Year Exam',     links: [
         { label: 'End-Block _ Theory', badge: '30 MCQs',  href: 'IBS_End-Block_Theory_2023-2024.html' },
         { label: 'End-Block _ Practice', badge: '10 Qs',  href: 'IBS_End-Block_Practice_2023-2024.html' },
         { label: 'Final', badge: '88 MCQs',  href: 'IBS_Final_2023-2024.html' },
  ] },
 
 
-{ title: '2024-2025 Year Exam ✅',     links: [
+{ title: '2024-2025 Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '32 MCQs',  href: 'IBS_End-Block_2024-2025.html' },
       { label: 'Final', badge: '61 MCQs',  href: 'IBS_Final_2024-2025.html' }
     
     ] },
-     { title: '2025-2026 Year Exam ✅',     links: [
+     { title: '2025-2026 Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '30 MCQs',  href: 'IBS_End-Block_2025-2026.html' },
       { label: 'Final', badge: '66 MCQs',  href: 'IBS_Final_2025-2026.html' }
     
     ] },
 
-     { title: 'Unknown Year Exam ✅',     links: [
+     { title: 'Unknown Year Exam',     links: [
       { label: 'Quiz', badge: '22 MCQs',  href: 'IBS_Quiz_Unkown year.html' },
     
     ] },
@@ -274,19 +274,19 @@ const ALL_SECTIONS = [
      
      
 
-      { title: '2021-2022 Year Exam ✅',   links: [
+      { title: '2021-2022 Year Exam',   links: [
         { label: 'Final _ 1st Term', badge: '38 MCQs', href: 'MSD_Final_2021-2022.html' },
         { label: 'Final _ 2nd Term', badge: '36 MCQs', href: 'MSD_Final2_2021-2022.html' },
  ]},
       
-          { title: '2022-2023 Year Exam ✅',   links: [
+          { title: '2022-2023 Year Exam',   links: [
         { label: 'End-Block _ Practice', badge: '5 Qs', href: 'MSD_End-Block_Practice_2022-2023.html' },
         { label: 'Final or End-Block', badge: '31 MCQs', href: 'MSD_FinalorEndblock_2022-2023.html' },
 
       
      ]},
      
-      { title: '2023-2024 Year Exam ✅',   links: [
+      { title: '2023-2024 Year Exam',   links: [
         { label: 'End-Block _ Practice', badge: '14 Qs', href: 'MSD_End_Block_Practice_2023-2024.html' },
         { label: 'Final', badge: '38 MCQs',  href: 'MSD_Final_2023-2024.html' },
 
@@ -294,7 +294,7 @@ const ALL_SECTIONS = [
      
 
 
- { title: '2024-2025 Year Exam ✅',     links: [
+ { title: '2024-2025 Year Exam',     links: [
         { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'MSD_End-Block_Theory_2024-2025.html' },
         { label: 'End-Block _ Practice', badge: '14 Qs',  href: 'MSD_End-Block_Practice_2024-2025.html' },
         { label: 'Final', badge: '37 MCQs',  href: 'MSD_Final_2024-2025.html' },
@@ -303,7 +303,7 @@ const ALL_SECTIONS = [
       ] },
 
 
-     { title: '2025-2026 Year Exam ✅',     links: [
+     { title: '2025-2026 Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '28 MCQs',  href: 'MSD_End-Block_Theory_2025-2026.html' },
       { label: 'End-Block _ Practice', badge: '10 Qs',  href: 'MSD_End-Block_Practice_2025-2026.html' },
       { label: 'Final', badge: '38 MCQs',  href: 'MSD_Final_2025-2026.html' }
@@ -311,7 +311,7 @@ const ALL_SECTIONS = [
     
     ] },
 
-     { title: 'Unknown Year Exam ✅',     links: [
+     { title: 'Unknown Year Exam',     links: [
       { label: 'Final', badge: '112 MCQs',  href: 'MSD_Final_Unknown Year.html' },
     
     ] },
@@ -325,18 +325,18 @@ const ALL_SECTIONS = [
      
      
 
-      { title: '2021-2022 Year Exam ✅',   links: [
+      { title: '2021-2022 Year Exam',   links: [
         { label: 'Final _ 1st Term', badge: '33 MCQs', href: 'HP_Final_2021-2022.html' },
         { label: 'Final _ 2nd Term', badge: '29 MCQs', href: 'HP_Final2_2021-2022.html' },
 
      ]},
-       { title: '2022-2023 Year Exam ✅',   links: [
+       { title: '2022-2023 Year Exam',   links: [
 
         { label: 'Final', badge: '44 MCQs', href: 'HP_Final_2022-2023.html' },
 
      ]},
      
-      { title: '2023-2024 Year Exam ✅',   links: [
+      { title: '2023-2024 Year Exam',   links: [
         { label: 'End-Block _ Theory', badge: '20 MCQs',  href: 'HP_End-Block_Theory_2023-or-2024.html' },
 
         { label: 'Final', badge: '31 MCQs', href: 'HP_Final_2023-2024.html' },
@@ -346,7 +346,7 @@ const ALL_SECTIONS = [
      
 
 
- { title: '2024-2025 Year Exam ✅',     links: [
+ { title: '2024-2025 Year Exam',     links: [
         { label: 'End-Block _ Theory', badge: '22 MCQs',  href: 'HP_End-Block_Theory_2024-2025.html' },
         { label: 'End-Block _ Practice', badge: '12 Qs',  href: 'HP_End-Block_Practice_2024-2025.html' },
         { label: 'Final', badge: '29 MCQs',  href: 'HP_Final_2024-2025.html' },
@@ -355,14 +355,14 @@ const ALL_SECTIONS = [
       ] },
 
 
-     { title: '2025-2026 Year Exam ✅',     links: [
+     { title: '2025-2026 Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '27 MCQs',  href: 'HP_End-Block_Theory_2025-2026.html' },
       { label: 'End-Block _ Practice', badge: '12 Qs',  href: 'HP_End-Block_Practice_2025-2026.html' },
       { label: 'Final', badge: '31 MCQs',  href: 'HP_Final_2025-2026.html' }
     
     ] },
 
-     { title: 'Unknown Year Exam ✅',     links: [
+     { title: 'Unknown Year Exam',     links: [
       { label: 'Final', badge: '34 MCQs',  href: 'HP_Final_Unknown-Year.html' },
       { label: 'Final or End-Block', badge: '112 MCQs',  href: 'HP_FinalorEndblock_Unknown-Year.html' },
     
@@ -377,15 +377,15 @@ const ALL_SECTIONS = [
     cards: [
      
     
-      { title: '2020-2021 Year Exam ✅', links: [
+      { title: '2020-2021 Year Exam', links: [
         { label: 'Final',   badge: '42 MCQs',     href: 'CVS_Final_2020-2021.html' },
         
       ]},
-      { title: '2021-2022 Year Exam ✅',   links: [
+      { title: '2021-2022 Year Exam',   links: [
         { label: 'Final', badge: '31 MCQs', href: 'CVS_Final_2021-2022.html' },
 
      ]},
-      { title: '2023-2024 Year Exam ✅',   links: [
+      { title: '2023-2024 Year Exam',   links: [
         { label: 'Final', badge: '43 MCQs', href: 'CVS_Final_2023-2024.html' },
         { label: 'Final or End-Block', badge: '20 MCQs', href: 'CVS_FinalorEndblock_2023-2024.html' },
 
@@ -394,7 +394,7 @@ const ALL_SECTIONS = [
      
 
 
- { title: '2024-2025 Year Exam ✅',     links: [
+ { title: '2024-2025 Year Exam',     links: [
         { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'CVS_End-Block_Theory_2024-2025.html' },
         { label: 'End-Block _ Practice', badge: '16 Qs',  href: 'CVS_End-Block_Practice_2024-2025.html' },
         { label: 'Final', badge: '47 MCQs',  href: 'CVS_Final_2024-2025.html' },
@@ -403,14 +403,14 @@ const ALL_SECTIONS = [
       ] },
 
 
-     { title: '2025-2026 Year Exam ✅',     links: [
+     { title: '2025-2026 Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '29 MCQs',  href: 'CVS_End-Block_Theory_2025-2026.html' },
       { label: 'End-Block _ Practice', badge: '12 Qs',  href: 'CVS_End-Block_Practice_2025-2026.html' },
       { label: 'Final', badge: '54 MCQs',  href: 'CVS_Final_2025-2026.html' }
     
     ] },
 
-     { title: 'Unknown Year Exam ✅',     links: [
+     { title: 'Unknown Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '6 MCQs',  href: 'CVS_End-Block_Theory_Unkown Year.html' },
       { label: 'Final', badge: '44 MCQs',  href: 'CVS_Final_Unknown Year.html' },
       { label: 'Quiz', badge: '161 MCQs',  href: 'CVS_Quiz_Unknown Year.html' },
@@ -427,14 +427,14 @@ const ALL_SECTIONS = [
      
      
 
-      { title: '2021-2022 Year Exam ✅',   links: [
+      { title: '2021-2022 Year Exam',   links: [
         { label: 'Final _ 1st Term', badge: '44 MCQs', href: 'RS_Final_2021-2022.html' },
         { label: 'Final _ 2nd Term', badge: '38 MCQs', href: 'RS_Final2_2021-2022.html' },
 
      ]},
 
   
-      { title: '2023-2024 Year Exam ✅',   links: [
+      { title: '2023-2024 Year Exam',   links: [
         { label: 'Final', badge: '36 MCQs', href: 'RS_Finall_2023-2024.html' },
         { label: 'Final', badge: '25 MCQs', href: 'RS_Final_2023-2024.html' },
         
@@ -445,7 +445,7 @@ const ALL_SECTIONS = [
      
 
 
- { title: '2024-2025 Year Exam ✅',     links: [
+ { title: '2024-2025 Year Exam',     links: [
         { label: 'End-Block _ Theory', badge: '40 MCQs',  href: 'RS_End-Block_Theory_2024-2025.html' },
         { label: 'End-Block _ Practice', badge: '10 Qs',  href: 'RS_End-Block_Practice_2024-2025.html' },
         { label: 'Final', badge: '43 MCQs',  href: 'RS_Final_2024-2025.html' },
@@ -454,14 +454,14 @@ const ALL_SECTIONS = [
       ] },
 
 
-     { title: '2025-2026 Year Exam ✅',     links: [
+     { title: '2025-2026 Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '30 MCQs',  href: 'RS_End-Block_Theory_2025-2026.html' },
       { label: 'End-Block _ Practice', badge: '10 Qs',  href: 'RS_End-Block_Practice_2025-2026.html' },
       { label: 'Final', badge: '49 MCQs',  href: 'RS_Final_2025-2026.html' }
     
     ] },
 
-     { title: 'Unknown Year Exam ✅',     links: [
+     { title: 'Unknown Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '19 MCQs',  href: 'RS_End-Block_Theory_Unknown-Year.html' },
 
       { label: 'Final', badge: '41 MCQs',  href: 'RS_Final_Unknown-Year.html' },
