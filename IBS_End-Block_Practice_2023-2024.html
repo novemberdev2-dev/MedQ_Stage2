@@ -796,11 +796,14 @@ function renderCard(q) {
     const parts = q.parts || [{ question: q.question, answer: q.answer, options: q.options }];
     const isSingleQuestion = !q.parts;
 
-    const numberText = q.repeat ? q.repeat : (q.number ? `${q.number}.` : '');
+    const repeatHtml = q.repeat ? `<h3 class="question-number repeat-badge">${q.repeat}</h3>` : '';
+const numberText = q.number ? `${q.number}.` : '';
 
-    const headerHtml = (numberText || q.case)
-        ? `<h3 class="question-number${q.repeat ? ' repeat-badge' : ''}">${numberText} ${q.case ? q.case : ''}</h3>`
-        : '';
+const numberHtml = (numberText || q.case)
+    ? `<h3 class="question-number">${numberText} ${q.case ? q.case : ''}</h3>`
+    : '';
+
+const headerHtml = repeatHtml + numberHtml;
 
     const pinned = isPinned(q.id);
 
