@@ -250,7 +250,9 @@ const ALL_SECTIONS = [
 
 { title: '2024-2025 Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '32 MCQs',  href: 'IBS_End-Block_2024-2025.html' },
+      { label: 'End-Block _ Practice', badge: '16 Qs',  href: 'IBS_End-Block_Practice_2024-2025.html' },
       { label: 'Final', badge: '61 MCQs',  href: 'IBS_Final_2024-2025.html' }
+  
     
     ] },
      { title: '2025-2026 Year Exam',     links: [
