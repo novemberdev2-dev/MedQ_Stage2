@@ -642,8 +642,9 @@
                         
                        
                     <div class="subject-dropdown-item selected" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
-                    <div class="subject-dropdown-item" data-subject="Lab1" onclick="selectSubjectFilter('Lab1', this)"><span class="filter-option-dot"></span>Biochemistry ⚗️</div>
-                    <div class="subject-dropdown-item" data-subject="Lab2" onclick="selectSubjectFilter('Lab2', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
+                    <div class="subject-dropdown-item" data-subject="Lab1" onclick="selectSubjectFilter('Lab1', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
+                    <div class="subject-dropdown-item" data-subject="Lab2" onclick="selectSubjectFilter('Lab2', this)"><span class="filter-option-dot"></span>Biochemistry ⚗️</div>
+                    
                     <div class="subject-dropdown-item" data-subject="Lab3" onclick="selectSubjectFilter('Lab3', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
                 
                     </div>
@@ -714,13 +715,13 @@ const questions = [
 },
 
 {
-    id: 'q6', lab: 'Lab1',
+    id: 'q6', lab: 'Lab2',
     question: '<strong>6.</strong> What is Diabetes Mellitus (DM)?',
     answer: 'It is the commonest endocrine disorder, defined as a syndrome characterized by hyperglycemia due to insulin resistance and an absolute or relative lack of insulin. DM is the leading cause of adult blindness, and a major cause of renal failure, heart attacks, and strokes.'
 },
 
 {
-    id: 'q7', lab: 'Lab1',
+    id: 'q7', lab: 'Lab2',
     question: '<strong>7.</strong> Which of the following can cause Hypertriglyceridemia?',
     options: ['Nephrotic syndrome', 'Iron deficiency anemia', 'Hemophilia', 'Sickle cell anemia', 'Thalassemia'],
     answer: 'Answer: A'
@@ -728,7 +729,7 @@ const questions = [
 
 
 {
-    id: 'q8', lab: 'Lab1',
+    id: 'q8', lab: 'Lab2',
     question: '<strong>8.</strong> All of following cause Hypoproteinemia EXCEPT:',
     options: ['Malnutrition', 'Nephrotic syndrome', 'Severe liver disease', 'Protein-losing enteropathy', 'Multiple Myeloma'],
     answer: 'Answer: E'
@@ -736,28 +737,28 @@ const questions = [
 
 
 {
-    id: 'q9', lab: 'Lab1',
+    id: 'q9', lab: 'Lab2',
     question: '<strong>9.</strong> Which of the following is the most abundant component in human blood plasma?',
     options: ['Proteins', 'Glucose', 'Electrolytes', 'Lipids', 'Water'],
     answer: 'Answer: E'
 },
 
-{     id: 'q10', lab: 'Lab1',     question: '<strong>10.</strong> Which ion plays a key role in the mechanism of muscle contraction?',     options: ['Sodium', 'Potassium', 'Calcium', 'Chloride', 'All of them'],     answer: 'Answer: C' },
+{     id: 'q10', lab: 'Lab2',     question: '<strong>10.</strong> Which ion plays a key role in the mechanism of muscle contraction?',     options: ['Sodium', 'Potassium', 'Calcium', 'Chloride', 'All of them'],     answer: 'Answer: C' },
 
 {
-    id: 'q11', lab: 'Lab1',
+    id: 'q11', lab: 'Lab2',
     question: '<strong>11.</strong> Write two functions of proteins.',
     answer: '1. Protein Nutrition: Plasma proteins act as a source of protein for the tissues, whenever the need arises.\n\n2. Osmotic pressure and water balance.\n\n3. Buffering action.\n\n4. Transporting agents: A number of proteins exist for the purpose of carrying biologically active molecules in the plasma like transferrin for (Fe), ceruloplasmin for Cu and albumin for FFAs.\n\n5. In blood coagulation: Fibrinogen is an essential factor in blood coagulation. It is converted into fibrin clot on coagulation.\n\n6. Protective: γ-globulins are known as immunoglobulins. They provide mainly immunity against infections.\n\n7. As enzymes: A wide range of enzymes present in plasma are proteins like LPL and clotting factors.'
 },
 
 {
-    id: 'q12', lab: 'Lab1',
+    id: 'q12', lab: 'Lab2',
     question: '<strong>12.</strong> Uric acid is the end product of:',
     answer: 'Purine metabolism.'
 },
 
 {
-    id: 'q13', lab: 'Lab1', number:13,
+    id: 'q13', lab: 'Lab3', number:13,
     parts: [
         { question: '<strong>A.</strong> What is the name of this dosage form?', answer: 'Sustained Release Tablets.' },
         { question: '<strong>B.</strong> What are the advantages?', answer: 'Releases drug over an extended period, benefiting elderly and psychiatric patients.' }
@@ -766,7 +767,7 @@ const questions = [
 },
 
 {
-    id: 'q14', lab: 'Lab1', number:14,
+    id: 'q14', lab: 'Lab3', number:14,
     parts: [
         { question: '<strong>A.</strong> What is the route of administration?', answer: 'Inhalation.' },
         { question: '<strong>B.</strong> What are the advantages?', answer: 'Direct drug delivery to the respiratory system.\n\nMinimize systemic side effects.' }
@@ -775,7 +776,7 @@ const questions = [
 },
 
 {
-    id: 'q15', lab: 'Lab1', number:15,
+    id: 'q15', lab: 'Lab3', number:15,
     case:"Both Atropine and Tropicamide cause cycloplegia and mydriasis:",
     parts: [
         { question: '<strong>A.</strong> What type of mydriasis?', answer: 'Passive mydriasis (Cholinergic blocking agents which paralyze the sphincter pupillae muscles, leaving the dilator muscles unopposed or constricted).' },
@@ -785,7 +786,7 @@ const questions = [
 },
 
 {
-    id: 'q16', lab: 'Lab1',
+    id: 'q16', lab: 'Lab3',
     question: '<strong>16.</strong> Anya is a 6-year-old child from Hawler,\nAmoxicillin suspension 250 mg/dose (5 mL) every TID for 5 days\nAcetaminophen syrup 250 mg/dose every 8 hours as needed\n\nOrder the information in the prescription paper.',
     answer: 'Name: Anya\nSex: Female\nAddress: Hawler\nDate: ......\nAge: 6 yrs\n\nRx\n• Amoxicillin suspension 250 mg/dose 1*3 for 5 days\n• Acetaminophen syrup 250 mg/dose 1*3 as needed\n\nSignature',
     img: ""
@@ -797,8 +798,8 @@ const questions = [
 
 const labGroups = [
   
-    { key: 'Lab1', label: 'Biochemistry ⚗️' },
-    { key: 'Lab2', label: 'Pathology 🔬' },
+    { key: 'Lab1', label: 'Pathology 🔬' },
+    { key: 'Lab2', label: 'Biochemistry ⚗️' },
     { key: 'Lab3', label: 'Pharmacology 💊' },  
 ];
   
