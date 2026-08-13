@@ -1941,7 +1941,7 @@ function toggleTheme() {
     if (saved) {
         currentSubjectFilter = saved;
     }
-    }
+    
     document.querySelectorAll('.subject-dropdown-item').forEach(item => {
         if (item.dataset.subject === currentSubjectFilter) {
             item.classList.add('selected');
