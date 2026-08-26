@@ -1,4 +1,4 @@
-const CACHE_NAME = "medq-cache-v2";
+const CACHE_NAME = "medq-cache-v3";
 
 /* Core app shell — always precached so the app itself opens offline.
    Uses cache.add() per file (not addAll) so one missing/renamed file
@@ -61,7 +61,15 @@ self.addEventListener("fetch", event => {
           });
         }
         return networkResponse;
-      }).catch(() => cached);
+      }).catch(() => {
+        // Offline and this exact file was never cached.
+        // For page navigations, fall back to the cached app shell
+        // instead of returning nothing (which crashes with ERR_FAILED).
+        if (event.request.mode === "navigate") {
+          return caches.match("./index.html");
+        }
+        return new Response("", { status: 503, statusText: "Offline" });
+      });
     })
   );
 });
