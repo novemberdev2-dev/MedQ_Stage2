@@ -1011,16 +1011,15 @@
             touch-action: auto;
         }
 
-        /* touch-action: pinch-zoom blocks single-finger panning/scrolling
-           while a drawing tool is selected (so the page holds still), but
-           still lets the browser handle a genuine two-finger pinch/zoom (and
-           the panning-while-zoomed that comes with it) natively. Only a
-           pen/stylus (or the mouse) actually draws or erases — a finger
-           touch is ignored for drawing purposes in JS via pointerType, so
-           a single finger simply does nothing rather than scrolling. */
+        /* touch-action: auto keeps every native finger gesture working
+           exactly as normal — scrolling, swiping, pinch-zoom — while a
+           drawing tool is armed. Only a pen/stylus (or the mouse) actually
+           draws or erases; a finger touch is simply ignored for that
+           purpose in JS (see handleOverlayPointerDown/Move below), so it's
+           always free to scroll/swipe/zoom the page instead. */
         .draw-overlay.active {
             pointer-events: auto;
-            touch-action: pinch-zoom;
+            touch-action: auto;
         }
 
         .draw-overlay.active:not(.erase-mode) {
@@ -1385,13 +1384,68 @@ function isMultiTouch() {
 
 /* ---- Global tool switcher (dynamic-island nav: hand / draw / erase) ----
    One tool applies to the whole page via a single canvas that spans every
-   question. "hand" leaves the page in its normal state (scroll, tap
-   eye/pin/copy buttons, open dropdowns, etc). "draw" and "erase" arm that
-   canvas: single-finger touch is blocked from scrolling (touch-action:
-   pinch-zoom) but never draws/erases — only a pen/stylus (or the mouse)
-   does, filtered by pointerType in the overlay handlers below — while a
-   two-finger pinch can still zoom (and pan while zoomed) natively. */
+   question. "hand" leaves the page in its normal state — scroll, tap
+   eye/pin/copy buttons, open dropdowns, everything except drawing/erasing.
+   "draw" and "erase" arm that canvas: a finger touch is left alone (no
+   preventDefault) so it keeps scrolling/swiping/pinch-zooming exactly as
+   normal, while only a pen/stylus (or the mouse) actually draws/erases,
+   filtered by pointerType in the overlay handlers below. */
 let currentTool = 'hand';
+
+/* ---- Automatic local persistence of drawings ----
+   Every stroke is stored (as plain point arrays) in localStorage, keyed to
+   this file, so drawings survive closing the file/tab, filtering/pinning
+   re-renders, and reloads — no explicit "save" action needed. */
+const DRAW_STORAGE_KEY = 'cvsDrawStrokes_' + location.pathname;
+
+function loadStoredStrokes() {
+    try {
+        const raw = localStorage.getItem(DRAW_STORAGE_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+        return [];
+    }
+}
+
+let persistedStrokes = loadStoredStrokes(); // array of point-arrays: [{x,y}, ...]
+
+function saveStrokesNow() {
+    try {
+        localStorage.setItem(DRAW_STORAGE_KEY, JSON.stringify(persistedStrokes));
+    } catch (e) {
+        // Storage full/unavailable (e.g. private browsing) — nothing more we can do.
+    }
+}
+
+function syncPersistedStrokesFromOverlay(overlay) {
+    if (!overlay) return;
+    persistedStrokes = (overlay._strokes || []).map(s => s.points);
+    saveStrokesNow();
+}
+
+function restoreStrokesIntoOverlay(svg) {
+    svg._strokes = [];
+    persistedStrokes.forEach(points => {
+        if (!points || !points.length) return;
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('class', 'draw-path');
+        path.setAttribute('d', points.map((p, i) => (i === 0 ? `M ${p.x} ${p.y}` : `L ${p.x} ${p.y}`)).join(' '));
+        svg.appendChild(path);
+        svg._strokes.push({ el: path, points });
+    });
+}
+
+// Belt-and-braces flush: capture drawings the instant the tab is hidden,
+// closed, or navigated away from, in case a stroke somehow never reached
+// its normal pointerup (e.g. an abrupt tab close mid-stroke).
+function flushDrawingsToStorage() {
+    syncPersistedStrokesFromOverlay(document.getElementById('draw-overlay'));
+}
+document.addEventListener('visibilitychange', function () {
+    if (document.hidden) flushDrawingsToStorage();
+});
+window.addEventListener('pagehide', flushDrawingsToStorage);
 
 function buildGlobalDrawOverlay() {
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -1402,6 +1456,7 @@ function buildGlobalDrawOverlay() {
     svg.addEventListener('pointerup', handleOverlayPointerUp);
     svg.addEventListener('pointerleave', handleOverlayPointerUp);
     svg.addEventListener('pointercancel', handleOverlayPointerUp);
+    restoreStrokesIntoOverlay(svg);
     return svg;
 }
 
@@ -1480,6 +1535,7 @@ function endDraw(evt) {
             svg._strokes.push({ el: activeDrawState.path, points: activeDrawState.points });
         }
         activeDrawState = null;
+        syncPersistedStrokesFromOverlay(svg);
     }
 }
 
@@ -1556,7 +1612,9 @@ function moveErase(evt) {
 
 function endErase(evt) {
     if (activeEraseState && activeEraseState.svg === evt.currentTarget) {
+        const svg = activeEraseState.svg;
         activeEraseState = null;
+        syncPersistedStrokesFromOverlay(svg);
     }
     hideEraseCursor(evt.currentTarget);
 }
@@ -1567,9 +1625,9 @@ function endErase(evt) {
 function handleOverlayPointerDown(evt) {
     const svg = evt.currentTarget;
     if (!svg.classList.contains('active')) return;
-    // Fingers never draw/erase — while a tool is armed, single-finger touch
-    // is blocked from scrolling by touch-action: pinch-zoom on the overlay,
-    // and simply does nothing (a two-finger pinch still zooms natively).
+    // Fingers never draw/erase — while a tool is armed, a finger touch is
+    // simply left alone here (no preventDefault) so the browser handles it
+    // as a normal scroll / swipe / pinch-zoom, exactly like hand mode.
     if (evt.pointerType === 'touch') return;
     if (isMultiTouch()) return; // a second finger is already down: let it pinch-zoom
     evt.preventDefault();
@@ -1837,6 +1895,10 @@ function renderCaseActionsHtml(mainN) {
 }
 
 function renderQuiz() {
+    // In the unlikely case a stroke is mid-gesture when a re-render happens
+    // (e.g. pinning a question while drawing), capture it before the old
+    // canvas is thrown away.
+    flushDrawingsToStorage();
     container.innerHTML = '';
     activeDrawState = null;
     activeEraseState = null;
