@@ -1259,7 +1259,7 @@ function togglePin(n) {
     } else {
         pinnedQuestions.add(n);
     }
-    localStorage.setItem('pinnedQuestions', JSON.stringify([...pinnedQuestions]));
+    localStorage.setItem(PINNED_QUESTIONS_KEY, JSON.stringify([...pinnedQuestions]));
     reorderQuestions();
     try {
         renderQuiz();
