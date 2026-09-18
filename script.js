@@ -1,9 +1,5 @@
 // ===== EARLY INIT (runs before DOM is ready) =====
 
-// ----- PROTECTION: block the app from running when the file is saved
-// locally and opened straight from disk (file:// protocol) -----
-
-
 // ----- PROTECTION: disable print & save keyboard shortcuts -----
 document.addEventListener('keydown', function (e) {
   const key = e.key ? e.key.toLowerCase() : '';
@@ -480,8 +476,173 @@ const ALL_SECTIONS = [
 
 ];
 
+// ===== SUBJECT MODE (per section) =====
+// Sections that actually have subject cards ready. Others answer "Not yet".
+const SUBJECT_CARDS_BY_SECTION = {
+  ibs: [
+    { title: 'Pharmacology 💊', links: [
+      { label: 'Theory',   badge: '127 MCQs', href: 'IBS_Pharmacology_Theory.html' },
+      { label: 'Practice', badge: '0 MCQs', href: 'IBS_Pharmacology_Practice.html' }
+    ] },
+    { title: 'Pathology 🔬', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: 'IBS_Pathology_Theory.html' },
+      { label: 'Practice', badge: '0 MCQs', href: 'IBS_Pathology_Practice.html' }
+    ] },
+    { title: 'Biochemistry 🧪', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: 'IBS_Biochemistry_Theory.html' },
+      { label: 'Practice', badge: '0 MCQs', href: 'IBS_Biochemistry_Practice.html' }
+    ] },
+    { title: 'Immunology 🛡️', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: 'IBS_Immunology_Theory.html' },
+      { label: 'Practice', badge: '0 MCQs', href: 'IBS_Immunology_Practice.html' }
+    ] },
+    { title: 'Medical Education 📘', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: 'IBS_Medical_Education_Theory.html' },
+      { label: 'Practice', badge: '0 MCQs', href: 'IBS_Medical_Education_Practice.html' }
+    ] }
+  ]
+};
+
+function getSectionModes() {
+  return JSON.parse(localStorage.getItem('medq_section_modes') || '{}');
+}
+
+function getSectionMode(key) {
+  const m = getSectionModes()[key];
+  return m === 'subject' ? 'subject' : 'year';
+}
+
+function setSectionMode(key, mode) {
+  const modes = getSectionModes();
+  modes[key] = mode;
+  localStorage.setItem('medq_section_modes', JSON.stringify(modes));
+}
+
+// ----- the little FILTER box that the section chevron opens -----
+const YEAR_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19,4H17V3a1,1,0,0,0-2,0V4H9V3A1,1,0,0,0,7,3V4H5A3,3,0,0,0,2,7V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V7A3,3,0,0,0,19,4Zm1,15a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V12H20Zm0-9H4V7A1,1,0,0,1,5,6H7V7A1,1,0,0,0,9,7V6h6V7a1,1,0,0,0,2,0V6h2a1,1,0,0,1,1,1Z"/></svg>';
+const SUBJECT_ICON_SVG = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 19V6.2C4 5.0799 4 4.51984 4.21799 4.09202C4.40973 3.71569 4.71569 3.40973 5.09202 3.21799C5.51984 3 6.0799 3 7.2 3H16.8C17.9201 3 18.4802 3 18.908 3.21799C19.2843 3.40973 19.5903 3.71569 19.782 4.09202C20 4.51984 20 5.0799 20 6.2V17H6C4.89543 17 4 17.8954 4 19ZM4 19C4 20.1046 4.89543 21 6 21H20M9 7H15M9 11H15M19 17V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const BOX_CLOSE_SVG = '<svg viewBox="0 0 12 12"><line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/></svg>';
+
+function buildSectionFilterBox(key) {
+  const box = document.createElement('div');
+  box.className = 'section-filter-box';
+  box.id = 'sfbox-' + key;
+  box.onclick = (e) => e.stopPropagation();
+
+  box.innerHTML = `
+    <div class="section-filter-header">
+      Filter
+      <div class="settings-close-btn" data-close="1">${BOX_CLOSE_SVG}</div>
+    </div>
+    <div class="section-filter-list">
+      <div class="filter-mode-option" data-mode="year">
+        <span class="filter-mode-icon">${YEAR_ICON_SVG}</span>
+        <span class="filter-mode-text">By Year</span>
+        <span class="filter-mode-check"></span>
+      </div>
+      <div class="filter-mode-option" data-mode="subject">
+        <span class="filter-mode-icon filter-mode-icon-stroke">${SUBJECT_ICON_SVG}</span>
+        <span class="filter-mode-text">By Subject</span>
+        <span class="filter-mode-check"></span>
+      </div>
+    </div>
+    <div class="section-filter-note" id="sfnote-${key}">Not yet</div>
+  `;
+
+  box.querySelector('[data-close="1"]').onclick = () => closeSectionFilterBox(key);
+  box.querySelectorAll('.filter-mode-option').forEach(opt => {
+    opt.onclick = () => selectSectionMode(key, opt.getAttribute('data-mode'));
+  });
+
+  renderSectionFilterBox(key, box);
+  return box;
+}
+
+function renderSectionFilterBox(key, boxEl) {
+  const box = boxEl || document.getElementById('sfbox-' + key);
+  if (!box) return;
+  const mode = getSectionMode(key);
+  box.querySelectorAll('.filter-mode-option').forEach(opt => {
+    opt.classList.toggle('selected', opt.getAttribute('data-mode') === mode);
+  });
+}
+
+function closeAllSectionFilterBoxes() {
+  document.querySelectorAll('.section-filter-box.open').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.category-toggle-btn.box-open').forEach(b => b.classList.remove('box-open'));
+  document.querySelectorAll('.section-filter-note.show').forEach(n => n.classList.remove('show'));
+}
+
+function closeSectionFilterBox(key) {
+  const box = document.getElementById('sfbox-' + key);
+  const btn = document.getElementById('toggle-' + key);
+  if (box) box.classList.remove('open');
+  if (btn) btn.classList.remove('box-open');
+  const note = document.getElementById('sfnote-' + key);
+  if (note) note.classList.remove('show');
+}
+
+function toggleSectionFilterBox(key) {
+  const box = document.getElementById('sfbox-' + key);
+  const btn = document.getElementById('toggle-' + key);
+  if (!box) return;
+  const isOpen = box.classList.contains('open');
+  closeAllSectionFilterBoxes();
+  closeSettingsDropdown();
+  if (!isOpen) {
+    renderSectionFilterBox(key);
+    box.classList.add('open');
+    if (btn) btn.classList.add('box-open');
+  }
+}
+
+function selectSectionMode(key, mode) {
+  const note = document.getElementById('sfnote-' + key);
+  if (mode === 'subject' && !SUBJECT_CARDS_BY_SECTION[key]) {
+    if (note) note.classList.add('show');   // "Not yet"
+    return;
+  }
+  if (note) note.classList.remove('show');
+  setSectionMode(key, mode);
+  renderSectionFilterBox(key);
+  renderSectionCards(key);
+  closeSectionFilterBox(key);
+}
+
+// Re-renders just the cards of one section according to its current mode
+function renderSectionCards(key) {
+  const grid = document.getElementById('grid-' + key);
+  if (!grid) return;
+  const section = ALL_SECTIONS.find(s => (s.key || s.type) === key);
+  const mode = getSectionMode(key);
+  const cards = (mode === 'subject' && SUBJECT_CARDS_BY_SECTION[key])
+    ? SUBJECT_CARDS_BY_SECTION[key]
+    : (section ? section.cards : []);
+  grid.innerHTML = '';
+  cards.forEach(card => grid.appendChild(buildCard(card)));
+}
+
+function buildCard(card) {
+  const cardEl = document.createElement('div');
+  cardEl.className = 'subject-card';
+  cardEl.innerHTML = `<div class="card-header"><h1>${card.title}</h1></div>`;
+  const linksContainer = document.createElement('div');
+  linksContainer.className = 'links-container';
+  card.links.forEach(link => {
+    const span = document.createElement('span');
+    span.className = 'mcq-link';
+    span.innerHTML = link.badge
+      ? `${link.label} <span class="badge">${link.badge}</span>`
+      : `${link.label}`;
+    span.onclick = () => location.href = link.href;
+    linksContainer.appendChild(span);
+  });
+  cardEl.appendChild(linksContainer);
+  return cardEl;
+}
+
 // ===== COLLAPSIBLE SECTIONS (persisted) =====
-const CHEVRON_SVG = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z" fill="currentColor"></path></svg>';
+const CHEVRON_SVG = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 6H19M21 12H16M21 18H16M7 20V13.5612C7 13.3532 7 13.2492 6.97958 13.1497C6.96147 13.0615 6.93151 12.9761 6.89052 12.8958C6.84431 12.8054 6.77934 12.7242 6.64939 12.5617L3.35061 8.43826C3.22066 8.27583 3.15569 8.19461 3.10948 8.10417C3.06849 8.02393 3.03853 7.93852 3.02042 7.85026C3 7.75078 3 7.64677 3 7.43875V5.6C3 5.03995 3 4.75992 3.10899 4.54601C3.20487 4.35785 3.35785 4.20487 3.54601 4.10899C3.75992 4 4.03995 4 4.6 4H13.4C13.9601 4 14.2401 4 14.454 4.10899C14.6422 4.20487 14.7951 4.35785 14.891 4.54601C15 4.75992 15 5.03995 15 5.6V7.43875C15 7.64677 15 7.75078 14.9796 7.85026C14.9615 7.93852 14.9315 8.02393 14.8905 8.10417C14.8443 8.19461 14.7793 8.27583 14.6494 8.43826L11.3506 12.5617C11.2207 12.7242 11.1557 12.8054 11.1095 12.8958C11.0685 12.9761 11.0385 13.0615 11.0204 13.1497C11 13.2492 11 13.3532 11 13.5612V17L7 20Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
 
 function getCollapsedSections() {
   return JSON.parse(localStorage.getItem('medq_collapsed_sections') || '[]');
@@ -520,10 +681,9 @@ function toggleSection(key) {
 // ===== BUILD FUNCTIONS =====
 function buildSection(section) {
   const key = section.key || section.type;
-  const isCollapsed = getCollapsedSections().includes(key);
 
   const sectionEl = document.createElement('div');
-  sectionEl.className = 'section-container' + (isCollapsed ? ' collapsed' : '');
+  sectionEl.className = 'section-container';
   sectionEl.id = `section-${key}`;
 
   const title = document.createElement('h2');
@@ -535,17 +695,20 @@ function buildSection(section) {
   title.appendChild(titleText);
 
   const toggleBtn = document.createElement('span');
-  toggleBtn.className = 'category-toggle-btn' + (isCollapsed ? ' collapsed' : '');
+  toggleBtn.className = 'category-toggle-btn';
   toggleBtn.id = `toggle-${key}`;
-  toggleBtn.title = 'Show/Hide cards';
+  toggleBtn.title = 'Filter';
   toggleBtn.innerHTML = CHEVRON_SVG;
-  toggleBtn.onclick = (e) => { e.stopPropagation(); toggleSection(key); };
+  toggleBtn.onclick = (e) => { e.stopPropagation(); toggleSectionFilterBox(key); };
   title.appendChild(toggleBtn);
+
+  // the FILTER box lives inside the section header, under the chevron
+  title.appendChild(buildSectionFilterBox(key));
 
   sectionEl.appendChild(title);
 
   const gridWrap = document.createElement('div');
-  gridWrap.className = 'subject-grid-wrap' + (isCollapsed ? ' collapsed' : '');
+  gridWrap.className = 'subject-grid-wrap';
   gridWrap.id = `gridwrap-${key}`;
 
   const gridInner = document.createElement('div');
@@ -553,23 +716,13 @@ function buildSection(section) {
 
   const grid = document.createElement('div');
   grid.className = 'subject-grid';
+  grid.id = `grid-${key}`;
 
-  section.cards.forEach(card => {
-    const cardEl = document.createElement('div');
-    cardEl.className = 'subject-card';
-    cardEl.innerHTML = `<div class="card-header"><h1>${card.title}</h1></div>`;
-    const linksContainer = document.createElement('div');
-    linksContainer.className = 'links-container';
-    card.links.forEach(link => {
-      const span = document.createElement('span');
-      span.className = 'mcq-link';
-      span.innerHTML = `${link.label} <span class="badge">${link.badge}</span>`;
-      span.onclick = () => location.href = link.href;
-      linksContainer.appendChild(span);
-    });
-    cardEl.appendChild(linksContainer);
-    grid.appendChild(cardEl);
-  });
+  const mode = getSectionMode(key);
+  const cards = (mode === 'subject' && SUBJECT_CARDS_BY_SECTION[key])
+    ? SUBJECT_CARDS_BY_SECTION[key]
+    : section.cards;
+  cards.forEach(card => grid.appendChild(buildCard(card)));
 
   gridInner.appendChild(grid);
   gridWrap.appendChild(gridInner);
@@ -602,6 +755,7 @@ function applyFilter(activeKeys, animate) {
 
 // ===== GLOBAL CLICK OUTSIDE =====
 document.addEventListener('click', function (e) {
+  if (!e.target.closest || !e.target.closest('.category-title')) closeAllSectionFilterBoxes();
   const settingsWrapper = document.querySelector('.settings-dropdown-wrapper');
   if (settingsWrapper && !settingsWrapper.contains(e.target)) closeSettingsDropdown();
   const filterWrapper = document.querySelector('.filter-dropdown-wrapper');
