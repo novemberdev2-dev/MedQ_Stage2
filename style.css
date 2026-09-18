@@ -8,17 +8,6 @@
   --text-main: #f1f5f9;
   --text-dim: #94a3b8;
   --border-color: rgba(255, 255, 255, 0.08);
-  --transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease,
-    color 0.2s ease;
-  --dropdown-bg: #1a1c1e;
-  --dropdown-border: rgba(255,255,255,0.12);
-  --dropdown-hover: rgba(255,255,255,0.07);
-  --dropdown-active-bg: #D5D5D5;
-  --dropdown-active-color: #121212;
-  --dropdown-divider: rgba(255,255,255,0.08);
   --settings-item-icon: #fff;
   --settings-item-sub: #A2A2A2;
   --border-theory-practical: rgba(255,255,255,0.03);
@@ -34,12 +23,6 @@ html.light-mode-pre body {
   --text-main: #1a1c1e;
   --text-dim: #555e6b;
   --border-color: rgba(0, 0, 0, 0.1);
-  --dropdown-bg: #ffffff;
-  --dropdown-border: rgba(0,0,0,0.12);
-  --dropdown-hover: rgba(0,0,0,0.05);
-  --dropdown-active-bg: #2D2D2D;
-  --dropdown-active-color: #ffffff;
-  --dropdown-divider: rgba(0,0,0,0.08);
   --settings-item-icon: #2D2D2D;
   --settings-item-sub: #999;
   --border-theory-practical: rgba(0,0,0,0.04);
@@ -90,10 +73,8 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.main-header, 
-.year-selection-container, 
-.year-content, 
-.site-footer, 
+.main-header,
+.site-footer,
 #activation-overlay {
   position: relative;
   z-index: 1;
@@ -297,25 +278,8 @@ html.light-mode-pre body .top-bar-icon-btn:hover {
 .section-container { width: 100%; margin-bottom: 60px; transition: margin-bottom 0.4s ease; }
 .section-container.collapsed { margin-bottom: 24px; }
 
-.sections-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  transition: none;
-}
-
-.sections-wrapper.swapping .section-container {
-  animation: sectionSwap 0.35s ease;
-}
-
-@keyframes sectionSwap {
-  0%   { opacity: 1; transform: translateY(0); }
-  40%  { opacity: 0; transform: translateY(-8px); }
-  60%  { opacity: 0; transform: translateY(8px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
 .category-title {
+  position: relative;
   display: flex;
   justify-content: space-between;
   font-size: 1.09rem;
@@ -341,14 +305,102 @@ html.light-mode-pre body .top-bar-icon-btn:hover {
   border-radius: 6px;
   cursor: pointer;
   color: var(--category-text-color);
-  transform: rotate(180deg);
-  transition: transform 0.35s ease, background-color 0.2s ease;
+  transition: background-color 0.2s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
 .category-toggle-btn:hover { background: rgba(0, 0, 0, 0.08); }
 
-.category-toggle-btn.collapsed { transform: rotate(0deg); }
+.category-toggle-btn.box-open { background: rgba(0,0,0,0.12); }
+
+/* ===== PER-SECTION FILTER BOX (opened by the section chevron) ===== */
+.section-filter-box {
+  position: absolute;
+  top: calc(100% + 8px); right: 0;
+  background: #111111;
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 14px;
+  min-width: 220px;
+  z-index: 9998;
+  opacity: 0; pointer-events: none;
+  transform: translateY(-6px) scale(0.97);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.65);
+  text-transform: none;
+  cursor: default;
+}
+.section-filter-box.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
+
+body.light-mode .section-filter-box,
+html.light-mode-pre body .section-filter-box { background: #ffffff; border-color: rgba(0,0,0,0.13); box-shadow: 0 16px 48px rgba(0,0,0,0.15); }
+
+.section-filter-header {
+  padding: 14px 16px 10px;
+  font-size: 0.72rem; font-weight: 700; color: #555;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: space-between;
+}
+body.light-mode .section-filter-header,
+html.light-mode-pre body .section-filter-header { border-bottom-color: rgba(0,0,0,0.08); color: #999; }
+
+.section-filter-list { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 4px; }
+
+.filter-mode-option {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 12px; font-size: 0.9rem; font-weight: 700;
+  color: #aaa; border-radius: 10px;
+  transition: background 0.15s ease, color 0.15s ease;
+  user-select: none; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.filter-mode-text { flex: 1; }
+body.light-mode .filter-mode-option,
+html.light-mode-pre body .filter-mode-option { color: #666; }
+.filter-mode-option:hover { background: rgba(255,255,255,0.06); color: #e2e8f0; }
+body.light-mode .filter-mode-option:hover,
+html.light-mode-pre body .filter-mode-option:hover { background: rgba(0,0,0,0.04); color: #111; }
+.filter-mode-option.selected { color: #f1f5f9; background: rgba(255,255,255,0.08); }
+body.light-mode .filter-mode-option.selected,
+html.light-mode-pre body .filter-mode-option.selected { color: #111; background: rgba(0,0,0,0.06); }
+
+.filter-mode-icon { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.filter-mode-icon svg { width: 19px; height: 19px; fill: currentColor; stroke: none; }
+.filter-mode-icon-stroke svg { fill: none; stroke: currentColor; }
+
+.filter-mode-check {
+  width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  background: transparent; position: relative;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+body.light-mode .filter-mode-check,
+html.light-mode-pre body .filter-mode-check { border-color: rgba(0,0,0,0.25); }
+.filter-mode-option.selected .filter-mode-check { background: #f1f5f9; border-color: #f1f5f9; }
+.filter-mode-option.selected .filter-mode-check::after {
+  content: '';
+  position: absolute;
+  left: 4px; top: 1px;
+  width: 4px; height: 8px;
+  border: 2px solid #111;
+  border-top: none; border-left: none;
+  transform: rotate(45deg);
+}
+body.light-mode .filter-mode-option.selected .filter-mode-check,
+html.light-mode-pre body .filter-mode-option.selected .filter-mode-check { background: #111; border-color: #111; }
+body.light-mode .filter-mode-option.selected .filter-mode-check::after,
+html.light-mode-pre body .filter-mode-option.selected .filter-mode-check::after { border-color: #fff; }
+
+.section-filter-note {
+  margin: 0 12px 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem; font-weight: 700;
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
+  display: none;
+}
+.section-filter-note.show { display: block; }
 
 .category-toggle-btn svg { width: 20px; height: 20px; display: block; }
 
