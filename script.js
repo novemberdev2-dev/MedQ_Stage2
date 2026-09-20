@@ -231,7 +231,7 @@ const ALL_SECTIONS = [
      ]},
      
        { title: '2022-2023 Year Exam',     links: [
-        { label: 'End-Block _ Practice', badge: '10 Questions',  href: 'IBS_Practical_exam_2022-2023.html' },
+        { label: 'End-Block _ Practice', badge: '10 Qs',  href: 'IBS_Practical_exam_2022-2023.html' },
         { label: 'Final', badge: '70 MCQs', href: 'IBS_Final_2022-2023.html' }
       
       ] },
@@ -482,23 +482,23 @@ const SUBJECT_CARDS_BY_SECTION = {
   ibs: [
     { title: 'Pharmacology 💊', links: [
       { label: 'Theory',   badge: '127 MCQs', href: 'IBS_Pharmacology.html' },
-      { label: 'Practice', badge: '0 MCQs', href: 'IBS_Pharmacology_Practice.html' }
+      { label: 'Practice', badge: '0 Qs', href: 'IBS_Pharmacology_Practice.html' }
     ] },
     { title: 'Pathology 🔬', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: 'IBS_Pathology_Theory.html' },
-      { label: 'Practice', badge: '0 MCQs', href: 'IBS_Pathology_Practice.html' }
+      { label: 'Theory',   badge: '318 MCQs', href: 'IBS_Pathology.html' },
+      { label: 'Practice', badge: '0 Qs', href: 'IBS_Pathology_Practice.html' }
     ] },
     { title: 'Biochemistry 🧪', links: [
       { label: 'Theory',   badge: '0 MCQs', href: 'IBS_Biochemistry_Theory.html' },
-      { label: 'Practice', badge: '0 MCQs', href: 'IBS_Biochemistry_Practice.html' }
+      { label: 'Practice', badge: '0 Qs', href: 'IBS_Biochemistry_Practice.html' }
     ] },
     { title: 'Immunology 🛡️', links: [
       { label: 'Theory',   badge: '0 MCQs', href: 'IBS_Immunology_Theory.html' },
-      { label: 'Practice', badge: '0 MCQs', href: 'IBS_Immunology_Practice.html' }
+      { label: 'Practice', badge: '0 Qs', href: 'IBS_Immunology_Practice.html' }
     ] },
     { title: 'Medical Education 📘', links: [
       { label: 'Theory',   badge: '0 MCQs', href: 'IBS_Medical_Education_Theory.html' },
-      { label: 'Practice', badge: '0 MCQs', href: 'IBS_Medical_Education_Practice.html' }
+      { label: 'Practice', badge: '0 Qs', href: 'IBS_Medical_Education_Practice.html' }
     ] }
   ]
 };
