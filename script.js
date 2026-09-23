@@ -492,8 +492,8 @@ const SUBJECT_CARDS_BY_SECTION = {
       { label: 'Theory',   badge: '0 MCQs', href: 'IBS_Biochemistry_Theory.html' },
       { label: 'Practice', badge: '0 Qs', href: 'IBS_Biochemistry_Practice.html' }
     ] },
-    { title: 'Immunology 🛡️', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: 'IBS_Immunology_Theory.html' },
+    { title: 'Micro-Immunity 🛡️', links: [
+      { label: 'Theory',   badge: '112 MCQs', href: 'IBS_Micro-Immunity.html' },
       { label: 'Practice', badge: '0 Qs', href: 'IBS_Immunology_Practice.html' }
     ] },
     { title: 'Medical Education 📘', links: [
