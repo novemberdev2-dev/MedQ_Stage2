@@ -1842,7 +1842,7 @@ a: "C"
   { "n": 160, "s": "Pathology", "l": 1, "q": "A mass excised from the lower lobe of a lung showed an abundance of lymphocytes, plasma cells, epithelioid cells, and Langerhans-type giant cells. This lesion is a:", "o": ["A. Fibroma", "B. Squamous cell carcinoma", "C. Adenocarcinoma", "D. Bronchogenic cyst", "E. Granuloma"], "a": "E" },
   { "n": 161, "s": "Pathology", "l": 1, "q": "Which histological statement is true regarding Kaposi sarcoma?", "o": ["A. It shows purely glandular epithelial proliferation", "B. In all stages, mitoses and extravasated erythrocytes are common findings", "C. It lacks any spindle-shaped cellular components", "D. It is predominantly seen in immunocompetent young children", "E. It is caused by HPV types 16 and 18"], "a": "B" },
   
-  { "n": 162, "s": "Pathology", "l": 1, "q": "Which of the following does not describe a classic feature of an exudate?", "o": ["A. Presence of pus", "B. Specific gravity > 1.020", "C. Glucose concentration < 60 mg/dL", "D. Due to increased vascular permeability", "E. Low protein content with specific gravity < 1.012"], "a": "E" },
+  { "n": 162, "s": "Pathology", "4": 1, "q": "Which of the following does not describe a classic feature of an exudate?", "o": ["A. Presence of pus.", "B. Specific gravity > 1.020", "C. Glucose concentration < 60 mg/dL", "D. Due to increased vascular permeability.", "E. Low protein content with specific gravity < 1.012"], "a": "E" },
   { "n": 163, "s": "Pathology", "l": 1, "q": "Excessive mitosis that involves the whole thickness of the epithelium, but does not penetrate the basement membrane, is defined as:", "o": ["A. Invasive adenocarcinoma", "B. Carcinoma in situ", "C. Squamous metaplasia", "D. Severe atypical hyperplasia", "E. Fibroadenoma"], "a": "B" },
   { "n": 164, "s": "Pathology", "l": 1, "q": "A red (hemorrhagic) infarct occurs in which organ?", "o": ["A. Ovary", "B. Spleen", "C. Kidney", "D. Heart", "E. Liver"], "a": "A" },
   { "n": 165, "s": "Pathology", "l": 1, "q": "A patient with HIV developed Kaposi sarcoma. Histologically, this tumor closely resembles which of the following?", "o": ["A. Hemangiosarcoma", "B. Leiomyosarcoma", "C. Rhabdomyosarcoma", "D. Liposarcoma", "E. Osteosarcoma"], "a": "A" },
@@ -3275,7 +3275,15 @@ function fallbackCopy(text) {
 }
 
 const lectures = {
-    1: "NOT SEPARATED YET",
+    1: "Introduction to Pathology",
+    2: "Irreversible Cell Injury",
+    3: "Apoptosis",
+    4: "Acute Inflammation",
+    5: "Cellular Response to Injury",
+    6: "Intracellular Accumulations",
+    7: "Inflammation",
+    
+    20: "NOT SEPARATED YET",
    
 };
   
@@ -3283,7 +3291,14 @@ const lectureFilters = {
     "All": [],
     "Pathology": [
         { label: "All", val: "All" },
-        { label: "NOT SEPARATED YET", val: 1 },
+        { label: "Introduction to Pathology", val: 1 },
+        { label: "Irreversible Cell Injury", val: 2 },
+        { label: "Apoptosis", val: 3 },
+        { label: "Acute Inflammation", val: 4 },
+        { label: "Cellular Response to Injury", val: 5 },
+        { label: "Intracellular Accumulations", val: 6 },
+        { label: "Inflammation", val: 7 },
+        { label: "NOT SEPARATED YET", val: 20 },
        
     ]
 };
