@@ -1093,7 +1093,7 @@ const allQuestions = [
 { n: 8, s: "Pharmacology", l: 20, q: "A patient with hypertension and anxiety should receive: (case question)", o: ["A. Propranolol", "B. Amlodipine", "C. Hydralazine", "D. Furosemide", "E. Losartan"], a: "A" },
 { n: 9, s: "Pharmacology", l: 20, q: "Which drug is prohibited during lactation because it may cause jaundice in the baby?", o: ["A. Azithromycin", "B. Amoxicillin", "C. Paracetamol", "D. Ceftriaxone", "E. Sulfonamide"], a: "E" },
 { n: 10, s: "Pharmacology", l: 20, q: "Which drug is commonly used for postoperative intra-abdominal infection?", o: ["A. Doxycycline", "B. Ampicillin", "C. Ciprofloxacin", "D. Metronidazole", "E. Erythromycin"], a: "D" },
-{ n: 11, s: "Pharmacology", l: 20, q: "Phenylephrine produces which effect through α1-receptor stimulation?", o: ["A. Miosis", "B. Mydriasis", "C. Bradycardia", "D. Bronchodilation", "E. Increased salivation"], a: "B" },
+{ n: 11, s: "Pharmacology", l: 11, q: "Phenylephrine produces which effect through α1-receptor stimulation?", o: ["A. Miosis.", "B. Mydriasis.", "C. Bradycardia.", "D. Bronchodilation.", "E. Increased salivation."], a: "B" },
 { n: 12, s: "Pharmacology", l: 20, q: "Which of the following is the strongest α-adrenergic agonist?", o: ["A. Norepinephrine", "B. Epinephrine", "C. Isoproterenol", "D. Dobutamine", "E. Dopamine"], a: "A" },
 { n: 13, s: "Pharmacology", l: 7, q: "Muscarinic receptor stimulation in the eye causes:", o: ["A. Mydriasis", "B. Cycloplegia", "C. Miosis", "D. Exophthalmos", "E. Ptosis"], a: "C" },
 { n: 14, s: "Pharmacology", l: 20, q: "Infliximab is a:", o: ["A. TNF blocker", "B. IL-2 inhibitor", "C. Calcineurin inhibitor", "D. COX-2 inhibitor", "E. H1 receptor blocker"], a: "A" },
@@ -1383,7 +1383,7 @@ const allQuestions = [
   { "n": 57, "s": "Pharmacology", "l": 20, "q": "Which of the following antifungal agents is not indicated for the treatment of superficial cutaneous lesions?", "o": ["A. Clotrimazole", "B. Caspofungin", "C. Ketoconazole", "D. Terbinafine", "E. Nystatin"], "a": "B" },
   { "n": 58, "s": "Pharmacology", "l": 20, "q": "Which drug can be used to manage anxiety?", "o": ["A. Diazepam", "B. Fluoxetine", "C. Buspirone", "D. Propranolol", "E. Haloperidol"], "a": "D" },
  
-  { "n": 59, "s": "Pharmacology", "l": 20, "q": "Which adrenergic agonist is commonly used for the treatment of severe shock?", "o": ["A. Isoproterenol", "B. Albuterol", "C. Dopamine", "D. Clonidine", "E. Phenylephrine"], "a": "C" },
+  { "n": 59, "s": "Pharmacology", "l": 11, "q": "Which adrenergic agonist is commonly used for the treatment of severe shock?", "o": ["A. Isoproterenol", "B. Albuterol", "C. Dopamine", "D. Clonidine", "E. Phenylephrine"], "a": "C" },
   { "n": 60, "s": "Pharmacology", "l": 5, "q": "All of the following are characteristic features of a full agonist except:", "o": ["A. It is incapable of stimulating the receptor but prevents the receptor from being activated by the agonist", "B. It produces a maximal tissue response", "C. It binds specifically to the receptor active site", "D. It possesses high intrinsic efficacy", "E. It shifts the receptor conformation to an active state"], "a": "A" },
   { "n": 61, "s": "Pharmacology", "l": 7, "q": "Which of the following drugs is used to treat Alzheimer's disease symptoms?", "o": ["A. Levandopa", "B. Selegiline", "C. Bromocriptine", "D. Amantadine", "E. Benserazide"], "a": "E" },
   { "n": 62, "s": "Pharmacology", "l": 2, "q": "What is the definition of bioavailability in pharmacokinetics?", "o": ["A. The total time a drug remains bound to plasma albumin", "B. The fraction of unchanged drug that reaches systemic circulation", "C. The rate of drug elimination via renal clearance", "D. The minimum concentration required for a therapeutic effect", "E. The volume of fluid required to contain the total drug amount"], "a": "B" },
@@ -2240,6 +2240,7 @@ const lectures = {
     8: "Drugs Acting on the Autonomic Nervous System",
     9: "Drugs Affecting Adrenergic Neuron Transmission",
     10: "Cell Wall Synthesis Inhibitors 1",
+    11: "Sympathomimetic drugs";
     20: "NOT SEPARATED YET",
 };
   
@@ -2257,6 +2258,7 @@ const lectureFilters = {
         { label: "Drugs Acting on the Autonomic Nervous System", val: 8 },
         { label: "Drugs Affecting Adrenergic Neuron Transmission", val: 9 },
         { label: "Cell Wall Synthesis Inhibitors 1", val: 10 },
+        { label: "Sympathomimetic drugs", val: 11 },
         
         { label: "NOT SEPARATED YET", val: 20 },
     ]
