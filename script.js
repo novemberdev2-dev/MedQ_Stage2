@@ -256,6 +256,11 @@ const ALL_SECTIONS = [
       { label: 'Final', badge: '66 MCQs',  href: 'IBS_Final_2025-2026.html' }
     
     ] },
+       { title: '2026-2027 Year Exam',     links: [
+      { label: 'Quiz', badge: '5 MCQs',  href: 'IBS_Quiz_2026-2027.html' },
+      
+    
+    ] },
 
      { title: 'Unknown Year Exam',     links: [
       { label: 'Quiz', badge: '22 MCQs',  href: 'IBS_Quiz_Unkown year.html' },
