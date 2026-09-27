@@ -502,8 +502,8 @@ const SUBJECT_CARDS_BY_SECTION = {
       { label: 'Practice', badge: '0 Qs', href: 'IBS_Immunology_Practice.html' }
     ] },
     { title: 'Medical Education 📘', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: 'IBS_Medical_Education_Theory.html' },
-      { label: 'Practice', badge: '0 Qs', href: 'IBS_Medical_Education_Practice.html' }
+      { label: 'Theory',   badge: '6 MCQs', href: 'IBS_Medical-Education.html' },
+     
     ] }
   ]
 };
