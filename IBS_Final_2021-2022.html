@@ -1737,7 +1737,7 @@ a: "C"
   { 
     n: 78, 
     s: "Immunology", 
-    l: 1, 
+    l: 25, 
     q: "Adaptive immunity:", 
     o: ["A. Identical antigen antibody", "B. Lacks immunological memory", "C. Non-specific action line", "D. Mediated only by neutrophils", "E. Responds within minutes"], 
     a: "A" 
@@ -1753,17 +1753,17 @@ a: "C"
   { 
     n: 80, 
     s: "Immunology", 
-    l: 1, 
+    l: 11, 
     q: "Can act as hapten:", 
-    o: ["A. High molecular weight proteins", "B. Complex polysaccharides", "C. drugs/steroid hormone", "D. Whole bacterial cells", "E. Viral capsids"], 
+    o: ["A. High molecular weight proteins.", "B. Complex polysaccharides.", "C. Drugs and steroid hormones.", "D. Whole bacterial cells.", "E. Viral capsids."], 
     a: "C" 
   },
-  { 
+{ 
     n: 81, 
-    s: "Immunology", 
-    l: 1, 
-    q: "Which statement about innate immunity is not right?", 
-    o: ["A. Present from birth", "B. MHC restricted", "C. Lacks fine specificity", "D. Does not improve with re-exposure", "E. Utilizes anatomic barriers"], 
+    s: "Micro-Immunity", 
+    l: 9, 
+    q: "Which statement about innate immunity is NOT correct?", 
+    o: ["A. Present from birth.", "B. MHC restricted.", "C. Has no memory.", "D. Does not improve with re-exposure.", "E. Utilizes pattern recognition receptors (PRRs)."], 
     a: "B" 
   },
   { 
@@ -1785,7 +1785,7 @@ a: "C"
   { 
     n: 84, 
     s: "Immunology", 
-    l: 1, 
+    l: 10, 
     q: "Which of the following is not correct about hinge region?", 
     o: ["A. Gives flexibility to antibody", "B. Found in IgG molecules", "C. Is a part of light chain", "D. Rich in proline residues", "E. Located between CH1 and CH2 domains"], 
     a: "C" 
@@ -1809,7 +1809,7 @@ a: "C"
   { 
     n: 87, 
     s: "Immunology", 
-    l: 1, 
+    l: 27, 
     q: "Properdin stabilizes which of the following complement components?",
 o: ["A. C1", "B. C2", "C. C3b", "D. C4", "E. C5"],
 a: "C"
@@ -2028,10 +2028,10 @@ const lectures = {
    5:  "Carbohydrate Metabolism 🍞",
    6:  "Nutrition 🥗",
  7: "Inhibitors of baterial protein synthesis",
- 8: "Hypersensitivity Immune response & Related diseases",
- 9: "Complement system II",
- 10: "Cytokines and immunotherapy",
- 11: "Antibody",
+ 8: "Organs and cells of the immune system",
+ 9: "Innate Immunity",
+ 10: "Antibody",
+ 11: "Antigen",
  12: "Neoplasia",
  13: "Hemodynamic disorders shock",
  14: "Neoplasia - Molecular basis of cancer",
@@ -2045,6 +2045,9 @@ const lectures = {
  22: "Sympathomimetic drugs",
  23: "Parasympathomimetics",
  24: "Adrenergic receptor blockers",
+ 25: "Adaptive Immunity" ,
+ 26:"Complement system I",
+ 27: "Complement system II",
 };
   
 const lectureFilters = {
@@ -2077,25 +2080,19 @@ const lectureFilters = {
  "Immunology": [
         { label: "All",               val: "All" },
         
-        { label: "Hypersensitivity Immune response & Related diseases",     val: 8 },
-        { label: "Complement system II",     val: 9 },
-        { label: "Cytokines and immunotherapy",     val: 10 },
-        { label: "Antibody",     val: 11 },
+        { label: "Organs and cells of the immune system",     val: 8 },
+        { label: "Innate Immunity",     val: 9 },
+        { label: "Antibody",     val: 10 },
+        { label: "Antigen",     val: 11 },
+     { label: "Adaptive Immunity",     val: 25 },
+     { label: "Complement system I",     val: 26 },
+     { label: "Complement system II",     val: 27 },
     
 
 
 ],
 
-"Pathology": [
-        { label: "All",               val: "All" },
-        
-        { label: "Neoplasia",     val: 12 },
-        { label: "Hemodynamic disorders shock",     val: 13 },
-        { label: "Neoplasia - Molecular basis of cancer",     val: 14 },
-        {label: "Inflammation",     val: 15 },
-        {label: "Cell injury - Cellular adaptation",     val: 16 },
-        {label: "Embolism & infarction",     val: 17 },
-],
+
 };
 
 
