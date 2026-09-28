@@ -1753,7 +1753,7 @@ a: "C"
   { 
     n: 80, 
     s: "Immunology", 
-    l: 11, 
+    l: 9, 
     q: "Can act as hapten:", 
     o: ["A. High molecular weight proteins.", "B. Complex polysaccharides.", "C. Drugs and steroid hormones.", "D. Whole bacterial cells.", "E. Viral capsids."], 
     a: "C" 
@@ -1785,7 +1785,7 @@ a: "C"
   { 
     n: 84, 
     s: "Immunology", 
-    l: 10, 
+    l: 8, 
     q: "Which of the following is not correct about hinge region?", 
     o: ["A. Gives flexibility to antibody", "B. Found in IgG molecules", "C. Is a part of light chain", "D. Rich in proline residues", "E. Located between CH1 and CH2 domains"], 
     a: "C" 
@@ -2028,10 +2028,9 @@ const lectures = {
    5:  "Carbohydrate Metabolism 🍞",
    6:  "Nutrition 🥗",
  7: "Inhibitors of baterial protein synthesis",
- 8: "Organs and cells of the immune system",
- 9: "Innate Immunity",
- 10: "Antibody",
- 11: "Antigen",
+ 8: "Antibody",
+ 9: "Antigen",
+
  12: "Neoplasia",
  13: "Hemodynamic disorders shock",
  14: "Neoplasia - Molecular basis of cancer",
@@ -2080,10 +2079,9 @@ const lectureFilters = {
  "Immunology": [
         { label: "All",               val: "All" },
         
-        { label: "Organs and cells of the immune system",     val: 8 },
-        { label: "Innate Immunity",     val: 9 },
-        { label: "Antibody",     val: 10 },
-        { label: "Antigen",     val: 11 },
+        { label: "Antibody",     val: 8 },
+        { label: "Antigen",     val: 9 },
+        
      { label: "Adaptive Immunity",     val: 25 },
      { label: "Complement system I",     val: 26 },
      { label: "Complement system II",     val: 27 },
@@ -2170,14 +2168,8 @@ function getLectureLabel(val) {
             "Immunology": "Immunology 🛡️",
             "Biochemistry": "Biochemistry 🧪",
             "Pharmacology": "Pharmacology 💊",
-            "Anatomy": "Anatomy 🦴",
             "Pathology": "Pathology 🔬",
-            "Genetics": "Genetics 🧬",
-            "Medical Education": "Medical Education 📗",
-            "Histology": "Histology 🫁",
-            "Medicine": "Medicine 📘",
-            "Radiology": "Radiology ☢️",
-            "Community Medicine": "Community Medicine 👥",
+            
             
         };
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
