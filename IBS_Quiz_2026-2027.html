@@ -901,6 +901,7 @@
             font-size: 15px;
             padding: 7px 12px;
             border-radius: 5px;
+            white-space: pre-line;
         }
 
         .case-block .answer-text {
@@ -1068,6 +1069,7 @@
                     <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
                   
                 <div class="subject-dropdown-item" data-subject="Micro-Immunity" onclick="selectSubjectFilter('Micro-Immunity', this)"><span class="filter-option-dot"></span>Micro-Immunity 🛡️</div>
+                <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
         
                 </div>
                 </div>
@@ -1132,7 +1134,70 @@ const allQuestions = [
 
 { n: 10, s: "Micro-Immunity", l: 1, q: "Which immunoglobulin has the lowest concentration in serum?", o: ["A. IgG", "B. IgA", "C. IgM", "D. IgD", "E. IgE"], a: "D" },
  
- 
+ { n: 11, s: "Micro-Immunity", l: 1, q: "Which immunoglobulin is mainly involved in immediate hypersensitivity reactions?", o: ["A. IgA", "B. IgG", "C. IgE", "D. IgD", "E. IgM"], a: "C" },
+
+{ n: 12, s: "Micro-Immunity", l: 2, q: "Type I interferons, particularly IFN-α, are important in defense against:", o: ["A. Viruses", "B. Helminths", "C. Extracellular bacteria", "D. Allergens", "E. Protozoa"], a: "A" },
+
+{ n: 13, s: "Micro-Immunity", l: 2, q: "LPS-binding protein (LBP) transfers LPS to:", o: ["A. CD3", "B. CD4", "C. CD14", "D. CD8", "E. CD28"], a: "C" },
+
+{ n: 14, s: "Micro-Immunity", l: 1, q: "Which immunoglobulin has the highest molecular weight?", o: ["A. IgA", "B. IgD", "C. IgE", "D. IgG", "E. IgM"], a: "E" },
+
+{ n: 15, s: "Micro-Immunity", l: 2, q: "Which of the following is a PAMP?", o: ["A. LPS", "B. IgG", "C. C3b", "D. MHC II", "E. CD4"], a: "A" },
+
+{ n: 16, s: "Micro-Immunity", l: 1, q: "Which immunoglobulin mainly behaves as an opsonin?", o: ["A. IgA", "B. IgG", "C. IgE", "D. IgD", "E. IgM"], a: "B" },
+
+{ n: 17, s: "Micro-Immunity", l: 2, q: "Type I interferons, particularly IFN-γ, are important in activating:", o: ["A. T cells", "B. B cells", "C. Mast cells", "D. Macrophages", "E. Endothelial cells"], a: "D" },
+
+
+{ n: 18, s: "Micro-Immunity", l: 1, q: "Which immunoglobulin behaves as a coreceptor?", o: ["A. IgA", "B. IgD", "C. IgE", "D. IgG", "E. IgM"], a: "E" },
+
+{ n: 19, s: "Micro-Immunity", l: 2, q: "Which of the following is a DAMP?", o: ["A. LPS", "B. IgG", "C. C3b", "D. MHC II", "E. Nucleic acid"], a: "E" },
+{ n: 20, s: "Micro-Immunity", l: 2, q: "Which cell is most strongly associated with defense against helminthic parasites?", o: ["A. Neutrophil", "B. Eosinophil", "C. Basophil", "D. Monocyte", "E. Platelet"], a: "B" },
+
+{ n: 21, s: "Micro-Immunity", l: 1, q: "Which receptor on macrophages is involved in recognition of the Fc portion of IgA?", o: ["A. FcαRI", "B. FcεRI", "C. FcγRI", "D. CD3", "E. CD4"], a: "A" },
+
+{ n: 22, s: "Micro-Immunity", l: 2, q: "Which cell is the most important professional scavenger cell for activation of naïve T cells?", o: ["A. Neutrophil", "B. Eosinophil", "C. Dendritic cell", "D. Erythrocyte", "E. Platelet"], a: "C" },
+
+{ n: 23, s: "Micro-Immunity", l: 2, q: "Natural killer (NK) cells are particularly important for killing:", o: ["A. Extracellular bacteria", "B. Helminths", "C. Tumor cells", "D. Erythrocytes", "E. Plasma cells"], a: "C" },
+
+{ n: 24, s: "Micro-Immunity", l: 2, q: "Which of the following is a component of innate immunity?", o: ["A. Memory B cells", "B. Antibody production", "C. Skin barrier", "D. Plasma cells", "E. T-cell receptor"], a: "C" },
+
+{ 
+  n: 25, 
+  s: "Biochemistry", 
+  l: 3,
+  q: "How many ATPs are produced from converting pyruvate to acetyl-CoA?", 
+  o: [""], 
+  a: "3 ATPs"
+},
+
+{ 
+  n: 26, 
+  s: "Biochemistry", 
+  l: 3,
+  q: "Where does this process (converting pyruvate to acetyl-CoA) occur?", 
+  o: [""], 
+  a: "Mitochondria."
+},
+{ 
+  n: 27, 
+  s: "Biochemistry", 
+  l: 3,
+  q: "How many NADH molecules are produced in the Krebs cycle?", 
+  o: [""], 
+  a: "3 NADHs"
+},
+
+{ 
+  n: 28, 
+  s: "Biochemistry", 
+  l: 3,
+  q: "Write the first and end products of the Krebs cycle.", 
+  o: [""], 
+  a: "First: Citrate \n\nEnd: Oxaloacetate"
+},
+
+
 ];
 
 
@@ -1340,6 +1405,7 @@ const lectures = {
   
  1: "Antibody",
  2: "Innate Immunity",
+ 3: "Carbohydrate Metabolism",
  
 };
   
@@ -1351,6 +1417,16 @@ const lectureFilters = {
         
         { label: "Antibody",     val: 1 },
         { label: "Innate Immunity",     val: 2 },
+      
+
+
+],
+
+"Biochemistry": [
+        { label: "All",               val: "All" },
+        
+        { label: "Carbohydrate Metabolism",     val: 3 },
+       
       
 
 
