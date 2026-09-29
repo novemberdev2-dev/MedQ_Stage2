@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IBS_End_Block_Practice_2023-2024</title>
+    <title>IBS_Pharmacology_Practice_All Years</title>
 
 
     <style>
@@ -410,6 +410,10 @@
             white-space: nowrap;
         }
         .lecture-select-btn { cursor: pointer; font-family: inherit; }
+        /* Two versions of the name are rendered: .label-full (complete, large
+           screens) and .label-short (capped at 25 characters + "...", small
+           screens). Only one is visible at a time. */
+        .label-short { display: none; }
         .dropdown-close-btn, .lecture-dropdown-item { cursor: pointer; }
         #main-content > .no-results {
             flex: 1;
@@ -427,6 +431,8 @@
         }
         @media (max-width: 480px) {
             .section-heading-title { font-size: 1.12rem; }
+            .label-full { display: none; }
+            .label-short { display: inline; }
         }
 
         .theme-toggle {
@@ -654,6 +660,8 @@
   padding: 3px 5px;
   border-radius: 3px;
   color: var(--text-main);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
     
 
@@ -676,7 +684,7 @@
 <div class="container">
     <div class="header" id="header">
         <div class="header-title-wrap">
-            <span class="header-title"><span class="title-line1">IBS ⚗️&nbsp;·&nbsp; Practical Exam</span><span class="title-sep-2">&nbsp;·&nbsp;</span><span class="title-line2">2023-2024</span></span>
+            <span class="header-title"><span class="title-line1">IBS - Pharmacology 💊&nbsp;·&nbsp; Practical Exam</span><span class="title-sep-2">&nbsp;·&nbsp;</span><span class="title-line2">All Years</span></span>
         
         </div>
 
@@ -986,13 +994,15 @@ function renderContent() {
     const visible = getVisibleQuestions();
     const label = currentLecture === "All" ? SUBJECT_LABEL : ((lectureFilters.find(f => String(f.val) === String(currentLecture)) || {}).label || currentLecture);
     const open = lectureDropdownOpen;
+    const shortLabel = label.length > 25 ? label.slice(0, 25) + "..." : label;
+    const labelHtml = `<span class="label-full">${label}</span><span class="label-short">${shortLabel}</span>`;
 
     const html = `
         <div class="section-heading">
             <div class="section-heading-row">
                 <div class="lecture-select-wrapper" id="lecture-select-wrapper">
                     <button class="lecture-select-btn${open ? ' dropdown-open' : ''}" id="lecture-select-btn" onclick="toggleLectureDropdown()" title="Filter by lecture">
-                        <span class="section-heading-title">${label}</span>
+                        <span class="section-heading-title">${labelHtml}</span>
                         ${LECTURE_CHEVRON_SVG}
                     </button>
                     <div class="lecture-dropdown${open ? ' open' : ''}" id="lecture-dropdown"><div class="lecture-dropdown-header"><span>Lectures</span><button type="button" class="dropdown-close-btn" onclick="closeLectureDropdown()" title="Close" aria-label="Close">${CLOSE_ICON_SVG}</button></div><div class="lecture-dropdown-items">${renderLectureDropdownItems()}</div></div>
