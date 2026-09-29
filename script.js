@@ -487,7 +487,7 @@ const SUBJECT_CARDS_BY_SECTION = {
   ibs: [
     { title: 'Pharmacology 💊', links: [
       { label: 'Theory',   badge: '127 MCQs', href: 'IBS_Pharmacology.html' },
-      { label: 'Practice', badge: '0 Qs', href: 'IBS_Pharmacology_Practice.html' }
+      { label: 'Practice', badge: '10 Qs', href: 'IBS_Pharmacology_Practice.html' }
     ] },
     { title: 'Pathology 🔬', links: [
       { label: 'Theory',   badge: '318 MCQs', href: 'IBS_Pathology.html' },
