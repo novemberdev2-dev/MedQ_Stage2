@@ -778,7 +778,8 @@ function escapeAttr(str) {
         .replace(/>/g, '&gt;');
 }
 
-let pinnedQuestions = new Set(JSON.parse(localStorage.getItem('pinnedQuestionsPractical') || '[]'));
+const PIN_KEY = 'pinnedQuestions:' + location.pathname;
+let pinnedQuestions = new Set(JSON.parse(localStorage.getItem(PIN_KEY) || '[]'));
 
 function isPinned(id) {
     return pinnedQuestions.has(id);
@@ -1139,7 +1140,7 @@ function togglePin(id) {
     } else {
         pinnedQuestions.add(id);
     }
-    localStorage.setItem('pinnedQuestionsPractical', JSON.stringify([...pinnedQuestions]));
+    localStorage.setItem(PIN_KEY, JSON.stringify([...pinnedQuestions]));
     reorderQuestions();
     renderContent();
     applySubjectFilter(currentSubject);
