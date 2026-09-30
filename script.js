@@ -491,7 +491,7 @@ const SUBJECT_CARDS_BY_SECTION = {
     ] },
     { title: 'Pathology 🔬', links: [
       { label: 'Theory',   badge: '318 MCQs', href: 'IBS_Pathology.html' },
-      { label: 'Practice', badge: '0 Qs', href: 'IBS_Pathology_Practice.html' }
+      { label: 'Practice', badge: '11 Qs', href: 'IBS_Pathology_Practice.html' }
     ] },
     { title: 'Biochemistry 🧪', links: [
       { label: 'Theory',   badge: '301 MCQs', href: 'IBS_Biochemistry.html' },
