@@ -1195,7 +1195,7 @@ const allQuestions = [
  
   { "n": 69, "s": "Pharmacology", "l": 1, "q": "Which of the following is an example of a short-acting beta-2 agonist used for acute asthma relief?", "o": ["A. Salmeterol", "B. Sulbactam", "C. Formoterol", "D. Iratropium", "E. Fluticasone"], "a": "B" },
   { "n": 70, "s": "Pharmacology", "l": 1, "q": "Chloramphenicol can cause:", "o": ["A. Gray baby's syndrome", "B. Red man syndrome", "C. Kernicterus", "D. Teeth discoloration", "E. Ototoxicity"], "a": "A" },
- 
+ { n: 71, s: "Pathology", l: 1, q: "Coagulative necrosis is the characteristic pattern of hypoxic cell death in all tissues EXCEPT:", o: ["A. Heart", "B. Kidney", "C. Liver", "D. Brain", "E. Spleen"], a: "D" },
 
  
 ];
@@ -1315,11 +1315,6 @@ function updateGlobalScrollLock() {
     document.body.classList.toggle('drawing-lock', locked);
 }
 
-// Belt-and-braces: even with CSS touch-action:none on the overlay, some
-// tablet browsers can still start a page scroll from a stylus/finger drag.
-// While drawing mode is on for any question, swallow touchmove so nothing
-// but the drawing itself responds to the movement. Taps on buttons are
-// unaffected since they don't rely on touchmove.
 document.addEventListener('touchmove', function (e) {
     if (activeDrawOverlaysCount > 0) {
         e.preventDefault();
