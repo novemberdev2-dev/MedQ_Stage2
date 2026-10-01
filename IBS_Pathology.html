@@ -2885,7 +2885,7 @@ a: "C"
   { 
     n: 283, 
     s: "Pathology", 
-    l: 1, 
+    l: 4, 
     q: "Which of the following cardinal signs of inflammation is primarily due to increased vascular permeability?", 
     o: ["A. Rubor (redness)", "B. Calor (heat)", "C. Swelling (edema)", "D. Dolor (pain)", "E. Functio laesa (loss of function)"], 
     a: "C" 
@@ -3207,11 +3207,7 @@ function updateGlobalScrollLock() {
     document.body.classList.toggle('drawing-lock', locked);
 }
 
-// Belt-and-braces: even with CSS touch-action:none on the overlay, some
-// tablet browsers can still start a page scroll from a stylus/finger drag.
-// While drawing mode is on for any question, swallow touchmove so nothing
-// but the drawing itself responds to the movement. Taps on buttons are
-// unaffected since they don't rely on touchmove.
+
 document.addEventListener('touchmove', function (e) {
     if (activeDrawOverlaysCount > 0) {
         e.preventDefault();
