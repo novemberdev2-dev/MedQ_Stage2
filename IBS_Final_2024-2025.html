@@ -2189,18 +2189,8 @@ function fallbackCopy(text) {
 }
 
 const lectures = {
-   1:  "Protein Metabolism 🥩",
-   2:  "Lipid Metabolism 🥑",
-   3:  "Enzymology🧪",
-   4:  "Cancer 🧬",
-   5:  "Carbohydrate Metabolism 🍞",
-   6:  "Nutrition 🥗",
-   7:  "Neoplasia",
-   8:  "Hemodynamic disorders shock",
-   9:  "Neoplasia - Molecular basis of cancer",
-   10:  "Inflammation",
-   11:  "Cell injury - Cellular adaptation",
-   12:  "Embolism & infarction",
+  
+   1: "NOT SEPARATED YET", 
  
 };
   
@@ -2209,28 +2199,26 @@ const lectureFilters = {
     "Biochemistry": [
         { label: "All",                            val: "All" },
         
-        { label: "Protein Metabolism 🥩",     val: 1 },
-        { label: "Lipid Metabolism 🥑",     val: 2 },
-        { label: "Enzymology 🧪",     val: 3 },
-        { label: "Cancer 🧬",     val: 4 },
-        { label: "Carbohydrate Metabolism 🍞",     val: 5 },
-        { label: "Nutrition 🥗",     val: 6 },
-
- ],
-
- 
- 
-
-"Pathology": [
-        { label: "All",               val: "All" },
+        { label: "NOT SEPARATED YET",     val: 1 },
+      ],
         
-        { label: "Neoplasia",     val: 7 },
-        { label: "Hemodynamic disorders shock",     val: 8 },
-        { label: "Neoplasia - Molecular basis of cancer",     val: 9 },
-        {label: "Inflammation",     val: 10 },
-        {label: "Cell injury - Cellular adaptation",     val: 11 },
-        {label: "Embolism & infarction",     val: 12 },
-],
+       "Pathology": [
+        { label: "All",               val: "All" },
+         { label: "NOT SEPARATED YET",     val: 1 },
+       
+       ],
+
+      "Pharmacology": [
+        { label: "All",               val: "All" },
+         { label: "NOT SEPARATED YET",     val: 1 },
+       
+       ],
+
+      "Immunology": [
+        { label: "All",               val: "All" },
+         { label: "NOT SEPARATED YET",     val: 1 },
+       
+       ],
 
 };
 
@@ -2308,15 +2296,9 @@ function getLectureLabel(val) {
             "Immunology": "Immunology 🛡️",
             "Biochemistry": "Biochemistry 🧪",
             "Pharmacology": "Pharmacology 💊",
-            "Anatomy": "Anatomy 🦴",
             "Pathology": "Pathology 🔬",
-            "Genetics": "Genetics 🧬",
-            "Medical Education": "Medical Education 📗",
-            "Histology": "Histology 🫁",
-            "Medicine": "Medicine 📘",
-            "Radiology": "Radiology ☢️",
-            "Community Medicine": "Community Medicine 👥",
-            
+          
+           
         };
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
