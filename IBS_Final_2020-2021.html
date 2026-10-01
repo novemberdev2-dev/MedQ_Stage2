@@ -91,8 +91,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Show the hand/pointer cursor on every clickable control so it
-           doesn't fall back to the default Windows arrow on hover */
+       
         button,
         .theme-toggle,
         .subject-toggle,
@@ -188,9 +187,7 @@
             flex-shrink: 0;
         }
 
-        /* Remove the divider lines between the search / subject / theme
-           icons in the header, without affecting the one used in the
-           active-search state (between the search box and close button). */
+       
         #header-normal-right .icon-divider {
             display: none;
         }
@@ -759,10 +756,6 @@
             gap: 16px;
         }
 
-        /* Optional small note shown under the "All" heading on first open,
-           above the divider line. Not every file needs one — to remove it,
-           just clear the CONTENT_NOTE constant near the top of the script
-           (or delete it). */
         .section-note {
             font-size: 0.80rem;
             font-weight: 400;
@@ -796,14 +789,10 @@
             white-space: nowrap;
         }
 
-        /* Two versions of the lecture/subject name are rendered together:
-           .label-full (complete text, used on larger screens) and
-           .label-short (hard-capped to 25 characters + "…", used on small
-           screens). Only one is shown at a time via the media query below. */
+       
         .label-short { display: none; }
 
-        /* Subject names (e.g. "Microbiology 🦠") are shown a bit larger
-           than individual lecture names (e.g. "Trachea, bronch..."). */
+    
         .section-heading-title.subject-title {
             font-size: 1.22rem;
         }
@@ -1118,70 +1107,70 @@
 const allQuestions = [
   
   
-{ n: 1, s: "Biochemistry", l: 2, q: "Which of the following fatty acids is classified as an omega-9 fatty acid?", o: ["A. Linoleic acid", "B. Linolenic acid", "C. Arachidonic acid", "D. Palmitic acid", "E. Oleic acid"], a: "E" },
-{ n: 2, s: "Pathology", l: 1, q: "Healing by first intention is characterized by:", o: ["A. Granulation tissue formation", "B. Wound infection", "C. Closure of wound edges", "D. Excessive fibrosis", "E. Secondary wound contraction"], a: "C" },
-{ n: 3, s: "Pathology", l: 12, q: "Which one of the following does not metastasize?", o: ["A. Basal cell carcinoma", "B. Squamous cell carcinoma", "C. Adenocarcinoma", "D. Melanoma", "E. Osteosarcoma"], a: "A" },
-{ n: 4, s: "Pharmacology", l: 7, q: "Azithromycin belongs to which class of antibiotics?", o: ["A. Penicillins", "B. Cephalosporins", "C. Tetracyclines", "D. Macrolides", "E. Aminoglycosides"], a: "D" },
-{ n: 5, s: "Pathology", l: 1, q: "Burning causing blister formation is due to:", o: ["A. Hemorrhage", "B. Serous edema", "C. Fat necrosis", "D. Coagulative necrosis", "E. Fibrin deposition"], a: "B" },
-{ n: 6, s: "Pharmacology", l: 18, q: "A drug that follows zero-order kinetics is:", o: ["A. Penicillin", "B. Aspirin", "C. Digoxin", "D. Propranolol", "E. Ciprofloxacin"], a: "B" },
-{ n: 7, s: "Biochemistry", l: 1, q: "Lactoperoxidase in milk has bactericidal action as a:", o: ["A. Physical factor", "B. Mechanical factor", "C. Chemical factor", "D. Cellular factor", "E. Immunological factor"], a: "C" },
-{ n: 8, s: "Biochemistry", l: 5, q: "Gluconeogenesis can:", o: ["A. Synthesize glycogen from glucose", "B. Produce glucose from fatty acids only", "C. Resynthesize glucose from lactate after vigorous exercise", "D. Convert glucose into pyruvate", "E. Form ketone bodies"], a: "C" },
-{ n: 9, s: "Pharmacology", l: 18, q: "CYP2D6 deficiency results in:", o: ["A. Increased codeine toxicity", "B. Inability to metabolize aspirin", "C. Inability to benefit from codeine", "D. Increased morphine excretion", "E. Increased warfarin metabolism"], a: "C" },
-{ n: 10, s: "Biochemistry", l: 1, q: "Alanine is formed from:", o: ["A. Glutamate and pyruvate", "B. Aspartate and oxaloacetate", "C. Glycine and serine", "D. Glucose and lactate", "E. Acetyl-CoA and pyruvate"], a: "A" },
-{ n: 11, s: "Pathology", l: 13, q: "Blood loss causes which type of shock?", o: ["A. Septic shock", "B. Cardiogenic shock", "C. Neurogenic shock", "D. Hypovolemic shock", "E. Anaphylactic shock"], a: "D" },
-{ n: 12, s: "Pathology", l: 1, q: "A women has chronic cough, what is the pathology?", o: [""], a: "Chronic cough is a persistent cough lasting more than 8 weeks, usually caused by an underlying respiratory or systemic disease such as asthma, chronic bronchitis, tuberculosis, or gastroesophageal reflux disease." },
-{ n: 13, s: "Pharmacology", l: 19, q: "A patient with kidney dysfunction and infection should receive which antibiotic because it is safely excreted in bile?", o: ["A. Ciprofloxacin", "B. Gentamicin", "C. Amikacin", "D. Vancomycin", "E. Ceftriaxone"], a: "E" },
-{ n: 14, s: "Pharmacology", l: 20, q: "A drug that produces the maximal effect at the highest concentration is called:", o: ["A. Full agonist", "B. Partial agonist", "C. Competitive antagonist", "D. Inverse agonist", "E. Noncompetitive antagonist"], a: "A" },
-{ n: 15, s: "Pathology", l: 1, q: "The usual fate of a pulmonary embolism is:", o: ["A. Asymptomatic", "B. Sudden death", "C. Myocardial infarction", "D. Lung abscess", "E. Pulmonary fibrosis"], a: "A" },
-{ n: 16, s: "Biochemistry", l: 2, q: "The apolipoprotein present in chylomicrons is:", o: ["A. Apo A-I", "B. Apo B-48", "C. Apo B-100", "D. Apo C-II", "E. Apo E"], a: "B" },
-{ n: 17, s: "Biochemistry", l: 3, q: "Fumarase belongs to which enzyme class?", o: ["A. Oxidoreductase", "B. Transferase", "C. Hydrolase", "D. Lyase", "E. Ligase"], a: "D" },
-{ n: 18, s: "Pathology", l: 14, q: "The 'guardian of the genome' is:", o: ["A. BRCA1", "B. p53", "C. Rb", "D. MYC", "E. APC"], a: "B" },
-{ n: 19, s: "Immunology", l: 8, q: "IgE has a critical role in:", o: ["A. Type I hypersensitivity", "B. Type II hypersensitivity", "C. Type III hypersensitivity", "D. Type IV hypersensitivity", "E. Autoimmune diseases"], a: "A" },
-{ n: 20, s: "Biochemistry", l: 2, q: "Creatine kinase is a marker of:", o: ["A. Liver damage", "B. Skeletal muscle damage", "C. Kidney damage", "D. Pancreatic damage", "E. Bone disease"], a: "B" },
-{ n: 21, s: "Biochemistry", l: 1, q: "Isomers of amino acids have:", o: ["A. Different molecular weight", "B. Same molecular weight", "C. Different number of carbon atoms", "D. Same number of carbon atoms", "E. Different peptide bonds"], a: "B" },
-{ n: 22, s: "Medical Education", l: 1, q: "Stress during pregnancy is called:", o: ["A. Distress", "B. Eustress", "C. Burnout", "D. Anxiety disorder", "E. Depression"], a: "B" },
-{ n: 23, s: "Pathology", l: 1, q: "Increased acid phosphatase is associated with:", o: ["A. Lung cancer", "B. Breast cancer", "C. Prostate cancer", "D. Colon cancer", "E. Liver cancer"], a: "C" },
-{ n: 24, s: "Pharmacology", l: 21, q: "Which antifungal used for candidiasis inhibits glycan synthesis?", o: ["A. Fluconazole", "B. Amphotericin B", "C. Caspofungin", "D. Nystatin", "E. Ketoconazole"], a: "C" },
-{ n: 25, s: "Pharmacology", l: 7, q: "Which drug in the aminoglycoside class is combined with ampicillin for synergistic action?", o: ["A. Streptomycin", "B. Neomycin", "C. Gentamicin", "D. Tobramycin", "E. Amikacin"], a: "C" },
-{ n: 26, s: "Pharmacology", l: 1, q: "A patient with hypertension and anxiety should receive: (case question)", o: ["A. Propranolol", "B. Amlodipine", "C. Hydralazine", "D. Furosemide", "E. Losartan"], a: "A" },
-{ n: 27, s: "Biochemistry", l: 10, q: "Which cytokine property describes different cytokines producing the same effect?", o: ["A. Synergy", "B. Antagonism", "C. Redundancy", "D. Specificity", "E. Amplification"], a: "C" },
-{ n: 28, s: "Biochemistry", l: 6, q: "The two groups that were renamed in MyPlate are:", o: ["A. Fruits and vegetables", "B. Grains and protein", "C. Meat and milk", "D. Oils and sweets", "E. Dairy and grains"], a: "C" },
-{ n: 29, s: "Pathology", l: 1, q: "Atrial septal defect (ASD) in infants may be caused by:", o: ["A. Excessive reabsorption of septum primum", "B. Failure of septum secundum formation", "C. Persistent truncus arteriosus", "D. Failure of endocardial cushion fusion", "E. Patent ductus arteriosus"], a: "A" },
-{ n: 30, s: "Biochemistry", l: 6, q: "MyPlate dietary guidelines are intended for:", o: ["A. Athletes only", "B. Healthy people", "C. Diabetic patients only", "D. Children under 2 years", "E. Pregnant women only"], a: "B" },
-{ n: 31, s: "Pharmacology", l: 1, q: "Which drug is prohibited during lactation because it may cause jaundice in the baby?", o: ["A. Azithromycin", "B. Amoxicillin", "C. Paracetamol", "D. Ceftriaxone", "E. Sulfonamide"], a: "E" },
-{ n: 32, s: "Pharmacology", l: 1, q: "Which drug is commonly used for postoperative intra-abdominal infection?", o: ["A. Doxycycline", "B. Ampicillin", "C. Ciprofloxacin", "D. Metronidazole", "E. Erythromycin"], a: "D" },
-{ n: 33, s: "Immunology", l: 10, q: "Which of the following is WRONG about allergen-specific immunotherapy?", o: ["A. Decreases IgE production", "B. Increases regulatory T-cell activity", "C. Shifts from Th1 to Th2", "D. Reduces allergic symptoms", "E. Promotes immune tolerance"], a: "C" },
-{ n: 34, s: "Biochemistry", l: 6, q: "MyPlate is a:", o: ["A. Food pyramid", "B. Federal symbol", "C. Nutrition textbook", "D. Dietary supplement", "E. Weight-loss program"], a: "B" },
-{ n: 35, s: "Pharmacology", l: 22, q: "Phenylephrine produces which effect through α1-receptor stimulation?", o: ["A. Miosis", "B. Mydriasis", "C. Bradycardia", "D. Bronchodilation", "E. Increased salivation"], a: "B" },
-{ n: 36, s: "Immunology", l: 9, q: "Properdin enhances the formation of:", o: ["A. C1q", "B. C2a", "C. C3b", "D. C5a", "E. IgM"], a: "C" },
-{ n: 37, s: "Pharmacology", l: 1, q: "Which of the following is the strongest α-adrenergic agonist?", o: ["A. Norepinephrine", "B. Epinephrine", "C. Isoproterenol", "D. Dobutamine", "E. Dopamine"], a: "A" },
-{ n: 38, s: "Pathology", l: 1, q: "Which of the following is a reversible cell injury?", o: ["A. Endoplasmic swelling", "B. Nuclear fragmentation", "C. Cell membrane rupture", "D. Fat necrosis", "E. Coagulative necrosis"], a: "A" },
-{ n: 39, s: "Pharmacology", l: 23, q: "Muscarinic receptor stimulation in the eye causes:", o: ["A. Mydriasis", "B. Cycloplegia", "C. Miosis", "D. Exophthalmos", "E. Ptosis"], a: "C" },
-{ n: 40, s: "Pharmacology", l: 1, q: "Infliximab is a:", o: ["A. TNF blocker", "B. IL-2 inhibitor", "C. Calcineurin inhibitor", "D. COX-2 inhibitor", "E. H1 receptor blocker"], a: "A" },
-{ n: 41, s: "Pathology", l: 1, q: "Which test is the most accurate for confirming malignancy?", o: ["A. Complete blood count", "B. Cytological examination", "C. CT scan", "D. MRI", "E. Ultrasound"], a: "B" },
-{ n: 42, s: "Medical Education", l: 1, q: "Which statement regarding the epidemiology of cancer is correct?", o: ["A. Australians have a higher incidence of melanoma", "B. Esophageal cancer is more common in Kurds", "C. Lung cancer is more common in females", "D. Liver cancer is most common in children", "E. Basal cell carcinoma commonly metastasizes"], a: "A" },
-{ n: 43, s: "Pathology", l: 15, q: "Pain during inflammation is mainly caused by:", o: ["A. Histamine and serotonin", "B. Bradykinin and prostaglandins", "C. Complement proteins", "D. Leukotrienes only", "E. Nitric oxide"], a: "B" },
-{ n: 44, s: "Biochemistry", l: 15, q: "Edema in tonsillar inflammation is mainly caused by:", o: ["A. Bradykinin", "B. Histamine", "C. TNF-α", "D. Interferon-γ", "E. Prostaglandin E2"], a: "B" },
-{ n: 45, s: "Pathology", l: 1, q: "Which factor plays the greatest role in healing by first intention?", o: ["A. Infection", "B. Wound closure", "C. Foreign body reaction", "D. Excessive inflammation", "E. Granuloma formation"], a: "B" },
-{ n: 46, s: "Pathology", l: 16, q: "An increase in skeletal muscle size due to exercise is called:", o: ["A. Hyperplasia", "B. Hypertrophy", "C. Metaplasia", "D. Dysplasia", "E. Atrophy"], a: "B" },
-{ n: 47, s: "Pathology", l: 1, q: "Which statement about sarcoma and carcinoma is WRONG?", o: ["A. Sarcoma occurs in older age", "B. Carcinoma arises from epithelial tissue", "C. Sarcoma arises from mesenchymal tissue", "D. Carcinoma is more common than sarcoma", "E. Sarcomas can metastasize"], a: "A" },
-{ n: 48, s: "Biochemistry", l: 4, q: "Promoter:", o: ["A. Saccharin", "B. Benzene", "C. Aflatoxin B1", "D. UV radiation", "E. Tobacco smoke"], a: "A" },
-{ n: 49, s: "Pathology", l: 15, q: "Appendicitis is characterized by which type of inflammation?", o: ["A. Serous inflammation", "B. Fibrinous inflammation", "C. Purulent inflammation", "D. Granulomatous inflammation", "E. Catarrhal inflammation"], a: "C" },
-{ n: 50, s: "Pharmacology", l: 1, q: "Which of the following tissues receives a drug most slowly?", o: ["A. Brain", "B. Liver", "C. Kidney", "D. Fat", "E. Heart"], a: "D" },
-{ n: 51, s: "Immunology", l: 10, q: "Which of the following is NOT true about Th2 cells?", o: ["A. They are effective against extracellular pathogens", "B. They promote IgE production", "C. They activate eosinophils", "D. They are involved in allergic responses", "E. They produce IL-4"], a: "A" },
-{ n: 52, s: "Pharmacology", l: 24, q: "The drug of choice for glaucoma is:", o: ["A. Phenylephrine", "B. Atropine", "C. Timolol", "D. Pilocarpine", "E. Tropicamide"], a: "C" },
-{ n: 53, s: "Biochemistry", l: 2, q: "The role of carnitine is:", o: ["A. Glycolysis", "B. Intracellular transport of fatty acids", "C. Protein synthesis", "D. Cholesterol synthesis", "E. Urea formation"], a: "B" },
-{ n: 54, s: "Biochemistry", l: 1, q: "RNA is composed of:", o: ["A. A, T, G, C", "B. A, U, G, C", "C. A, U, T, C", "D. A, G, C", "E. A, T, U, G"], a: "B" },
-{ n: 55, s: "Biochemistry", l: 3, q: "Which of the following is an irreversible noncompetitive enzyme inhibitor?", o: ["A. Cyanide", "B. Mercury (Hg)", "C. Malonate", "D. Methotrexate", "E. Sulfonamide"], a: "B" },
-{ n: 56, s: "Pathology", l: 16, q: "Metaplasia commonly occurs in:", o: ["A. Acute bronchitis", "B. Chronic bronchial irritation by cigarette smoking", "C. Myocardial infarction", "D. Peptic ulcer", "E. Viral hepatitis"], a: "B" },
-{ n: 57, s: "Biochemistry", l: 4, q: "Which of the following is a food preservative associated with carcinogenesis?", o: ["A. Benzoic acid", "B. Sorbic acid", "C. Methyl nitrosamine", "D. Citric acid", "E. Ascorbic acid"], a: "C" },
-{ n: 58, s: "Pathology", l: 17, q: "A wedge-shaped area of kidney necrosis is called:", o: ["A. Abscess", "B. Infarction", "C. Hydronephrosis", "D. Atrophy", "E. Fibrosis"], a: "B" },
-{ n: 59, s: "Biochemistry", l: 3, q: "Which coenzyme carries amino groups during transamination?", o: ["A. FAD", "B. NAD+", "C. PLP", "D. Coenzyme A", "E. Biotin"], a: "C" },
-{ n: 60, s: "Pathology", l: 1, q: "Which malignancy commonly metastasizes to bone?", o: ["A. Prostate carcinoma", "B. Colon carcinoma", "C. Gastric carcinoma", "D. Pancreatic carcinoma", "E. Thyroid adenoma"], a: "A" },
-{ n: 61, s: "Pathology", l: 1, q: "Which malignancy commonly metastasizes to the liver?", o: ["A. Colonic adenocarcinoma", "B. Basal cell carcinoma", "C. Glioblastoma", "D. Osteosarcoma", "E. Papillary thyroid carcinoma"], a: "A" },
-{ n: 62, s: "Pathology", l: 1, q: "Which statement about HLA is WRONG?", o: ["A. HLA genes are located on chromosome 6", "B. HLA molecules present antigens", "C. HLA is important in organ transplantation", "D. HLA is located on chromosome 5", "E. HLA polymorphism is extensive"], a: "D" },
-{ n: 63, s: "Immunology", l: 11, q: "Which statement about IgM is WRONG?", o: ["A. It is the first antibody produced in a primary immune response", "B. It efficiently activates complement", "C. It is mainly found as a pentamer in serum", "D. It is a monomer", "E. It has high avidity"], a: "D" },
-{ n: 64, s: "Biochemistry", l: 1, q: "cGMP acts primarily as a:", o: ["A. First messenger", "B. Structural protein", "C. Second messenger", "D. Enzyme inhibitor", "E. Hormone"], a: "C" },
+{ n: 1, s: "Biochemistry", l: 70, q: "Which of the following fatty acids is classified as an omega-9 fatty acid?", o: ["A. Linoleic acid", "B. Linolenic acid", "C. Arachidonic acid", "D. Palmitic acid", "E. Oleic acid"], a: "E" },
+{ n: 2, s: "Pathology", l: 70, q: "Healing by first intention is characterized by:", o: ["A. Granulation tissue formation", "B. Wound infection", "C. Closure of wound edges", "D. Excessive fibrosis", "E. Secondary wound contraction"], a: "C" },
+{ n: 3, s: "Pathology", l: 70, q: "Which one of the following does not metastasize?", o: ["A. Basal cell carcinoma", "B. Squamous cell carcinoma", "C. Adenocarcinoma", "D. Melanoma", "E. Osteosarcoma"], a: "A" },
+{ n: 4, s: "Pharmacology", l: 70, q: "Azithromycin belongs to which class of antibiotics?", o: ["A. Penicillins", "B. Cephalosporins", "C. Tetracyclines", "D. Macrolides", "E. Aminoglycosides"], a: "D" },
+{ n: 5, s: "Pathology", l: 1, 70: "Burning causing blister formation is due to:", o: ["A. Hemorrhage", "B. Serous edema", "C. Fat necrosis", "D. Coagulative necrosis", "E. Fibrin deposition"], a: "B" },
+{ n: 6, s: "Pharmacology", l: 70, q: "A drug that follows zero-order kinetics is:", o: ["A. Penicillin", "B. Aspirin", "C. Digoxin", "D. Propranolol", "E. Ciprofloxacin"], a: "B" },
+{ n: 7, s: "Biochemistry", l: 70, q: "Lactoperoxidase in milk has bactericidal action as a:", o: ["A. Physical factor", "B. Mechanical factor", "C. Chemical factor", "D. Cellular factor", "E. Immunological factor"], a: "C" },
+{ n: 8, s: "Biochemistry", l: 70, q: "Gluconeogenesis can:", o: ["A. Synthesize glycogen from glucose", "B. Produce glucose from fatty acids only", "C. Resynthesize glucose from lactate after vigorous exercise", "D. Convert glucose into pyruvate", "E. Form ketone bodies"], a: "C" },
+{ n: 9, s: "Pharmacology", l: 70, q: "CYP2D6 deficiency results in:", o: ["A. Increased codeine toxicity", "B. Inability to metabolize aspirin", "C. Inability to benefit from codeine", "D. Increased morphine excretion", "E. Increased warfarin metabolism"], a: "C" },
+{ n: 10, s: "Biochemistry", l: 70, q: "Alanine is formed from:", o: ["A. Glutamate and pyruvate", "B. Aspartate and oxaloacetate", "C. Glycine and serine", "D. Glucose and lactate", "E. Acetyl-CoA and pyruvate"], a: "A" },
+{ n: 11, s: "Pathology", l: 70, q: "Blood loss causes which type of shock?", o: ["A. Septic shock", "B. Cardiogenic shock", "C. Neurogenic shock", "D. Hypovolemic shock", "E. Anaphylactic shock"], a: "D" },
+{ n: 12, s: "Pathology", l: 70, q: "A women has chronic cough, what is the pathology?", o: [""], a: "Chronic cough is a persistent cough lasting more than 8 weeks, usually caused by an underlying respiratory or systemic disease such as asthma, chronic bronchitis, tuberculosis, or gastroesophageal reflux disease." },
+{ n: 13, s: "Pharmacology", l: 70, q: "A patient with kidney dysfunction and infection should receive which antibiotic because it is safely excreted in bile?", o: ["A. Ciprofloxacin", "B. Gentamicin", "C. Amikacin", "D. Vancomycin", "E. Ceftriaxone"], a: "E" },
+{ n: 14, s: "Pharmacology", l: 70, q: "A drug that produces the maximal effect at the highest concentration is called:", o: ["A. Full agonist", "B. Partial agonist", "C. Competitive antagonist", "D. Inverse agonist", "E. Noncompetitive antagonist"], a: "A" },
+{ n: 15, s: "Pathology", l: 70, q: "The usual fate of a pulmonary embolism is:", o: ["A. Asymptomatic", "B. Sudden death", "C. Myocardial infarction", "D. Lung abscess", "E. Pulmonary fibrosis"], a: "A" },
+{ n: 16, s: "Biochemistry", l: 70, q: "The apolipoprotein present in chylomicrons is:", o: ["A. Apo A-I", "B. Apo B-48", "C. Apo B-100", "D. Apo C-II", "E. Apo E"], a: "B" },
+{ n: 17, s: "Biochemistry", l: 70, q: "Fumarase belongs to which enzyme class?", o: ["A. Oxidoreductase", "B. Transferase", "C. Hydrolase", "D. Lyase", "E. Ligase"], a: "D" },
+{ n: 18, s: "Pathology", l: 70, q: "The 'guardian of the genome' is:", o: ["A. BRCA1", "B. p53", "C. Rb", "D. MYC", "E. APC"], a: "B" },
+{ n: 19, s: "Immunology", l: 70, q: "IgE has a critical role in:", o: ["A. Type I hypersensitivity", "B. Type II hypersensitivity", "C. Type III hypersensitivity", "D. Type IV hypersensitivity", "E. Autoimmune diseases"], a: "A" },
+{ n: 20, s: "Biochemistry", l: 70, q: "Creatine kinase is a marker of:", o: ["A. Liver damage", "B. Skeletal muscle damage", "C. Kidney damage", "D. Pancreatic damage", "E. Bone disease"], a: "B" },
+{ n: 21, s: "Biochemistry", l: 70, q: "Isomers of amino acids have:", o: ["A. Different molecular weight", "B. Same molecular weight", "C. Different number of carbon atoms", "D. Same number of carbon atoms", "E. Different peptide bonds"], a: "B" },
+{ n: 22, s: "Medical Education", l: 70, q: "Stress during pregnancy is called:", o: ["A. Distress", "B. Eustress", "C. Burnout", "D. Anxiety disorder", "E. Depression"], a: "B" },
+{ n: 23, s: "Pathology", l: 70, q: "Increased acid phosphatase is associated with:", o: ["A. Lung cancer", "B. Breast cancer", "C. Prostate cancer", "D. Colon cancer", "E. Liver cancer"], a: "C" },
+{ n: 24, s: "Pharmacology", l: 70, q: "Which antifungal used for candidiasis inhibits glycan synthesis?", o: ["A. Fluconazole", "B. Amphotericin B", "C. Caspofungin", "D. Nystatin", "E. Ketoconazole"], a: "C" },
+{ n: 25, s: "Pharmacology", l: 70, q: "Which drug in the aminoglycoside class is combined with ampicillin for synergistic action?", o: ["A. Streptomycin", "B. Neomycin", "C. Gentamicin", "D. Tobramycin", "E. Amikacin"], a: "C" },
+{ n: 26, s: "Pharmacology", l: 70, q: "A patient with hypertension and anxiety should receive: (case question)", o: ["A. Propranolol", "B. Amlodipine", "C. Hydralazine", "D. Furosemide", "E. Losartan"], a: "A" },
+{ n: 27, s: "Biochemistry", l: 70, q: "Which cytokine property describes different cytokines producing the same effect?", o: ["A. Synergy", "B. Antagonism", "C. Redundancy", "D. Specificity", "E. Amplification"], a: "C" },
+{ n: 28, s: "Biochemistry", l: 70, q: "The two groups that were renamed in MyPlate are:", o: ["A. Fruits and vegetables", "B. Grains and protein", "C. Meat and milk", "D. Oils and sweets", "E. Dairy and grains"], a: "C" },
+{ n: 29, s: "Pathology", l: 70, q: "Atrial septal defect (ASD) in infants may be caused by:", o: ["A. Excessive reabsorption of septum primum", "B. Failure of septum secundum formation", "C. Persistent truncus arteriosus", "D. Failure of endocardial cushion fusion", "E. Patent ductus arteriosus"], a: "A" },
+{ n: 30, s: "Biochemistry", l: 70, q: "MyPlate dietary guidelines are intended for:", o: ["A. Athletes only", "B. Healthy people", "C. Diabetic patients only", "D. Children under 2 years", "E. Pregnant women only"], a: "B" },
+{ n: 31, s: "Pharmacology", l: 70, q: "Which drug is prohibited during lactation because it may cause jaundice in the baby?", o: ["A. Azithromycin", "B. Amoxicillin", "C. Paracetamol", "D. Ceftriaxone", "E. Sulfonamide"], a: "E" },
+{ n: 32, s: "Pharmacology", l: 70, q: "Which drug is commonly used for postoperative intra-abdominal infection?", o: ["A. Doxycycline", "B. Ampicillin", "C. Ciprofloxacin", "D. Metronidazole", "E. Erythromycin"], a: "D" },
+{ n: 33, s: "Immunology", l: 70, q: "Which of the following is WRONG about allergen-specific immunotherapy?", o: ["A. Decreases IgE production", "B. Increases regulatory T-cell activity", "C. Shifts from Th1 to Th2", "D. Reduces allergic symptoms", "E. Promotes immune tolerance"], a: "C" },
+{ n: 34, s: "Biochemistry", l: 70, q: "MyPlate is a:", o: ["A. Food pyramid", "B. Federal symbol", "C. Nutrition textbook", "D. Dietary supplement", "E. Weight-loss program"], a: "B" },
+{ n: 35, s: "Pharmacology", l: 70, q: "Phenylephrine produces which effect through α1-receptor stimulation?", o: ["A. Miosis", "B. Mydriasis", "C. Bradycardia", "D. Bronchodilation", "E. Increased salivation"], a: "B" },
+{ n: 36, s: "Immunology", l: 70, q: "Properdin enhances the formation of:", o: ["A. C1q", "B. C2a", "C. C3b", "D. C5a", "E. IgM"], a: "C" },
+{ n: 37, s: "Pharmacology", l: 70, q: "Which of the following is the strongest α-adrenergic agonist?", o: ["A. Norepinephrine", "B. Epinephrine", "C. Isoproterenol", "D. Dobutamine", "E. Dopamine"], a: "A" },
+{ n: 38, s: "Pathology", l: 70, q: "Which of the following is a reversible cell injury?", o: ["A. Endoplasmic swelling", "B. Nuclear fragmentation", "C. Cell membrane rupture", "D. Fat necrosis", "E. Coagulative necrosis"], a: "A" },
+{ n: 39, s: "Pharmacology", l: 70, q: "Muscarinic receptor stimulation in the eye causes:", o: ["A. Mydriasis", "B. Cycloplegia", "C. Miosis", "D. Exophthalmos", "E. Ptosis"], a: "C" },
+{ n: 40, s: "Pharmacology", l: 70, q: "Infliximab is a:", o: ["A. TNF blocker", "B. IL-2 inhibitor", "C. Calcineurin inhibitor", "D. COX-2 inhibitor", "E. H1 receptor blocker"], a: "A" },
+{ n: 41, s: "Pathology", l: 70, q: "Which test is the most accurate for confirming malignancy?", o: ["A. Complete blood count", "B. Cytological examination", "C. CT scan", "D. MRI", "E. Ultrasound"], a: "B" },
+{ n: 42, s: "Medical Education", l: 70, q: "Which statement regarding the epidemiology of cancer is correct?", o: ["A. Australians have a higher incidence of melanoma", "B. Esophageal cancer is more common in Kurds", "C. Lung cancer is more common in females", "D. Liver cancer is most common in children", "E. Basal cell carcinoma commonly metastasizes"], a: "A" },
+{ n: 43, s: "Pathology", l: 70, q: "Pain during inflammation is mainly caused by:", o: ["A. Histamine and serotonin", "B. Bradykinin and prostaglandins", "C. Complement proteins", "D. Leukotrienes only", "E. Nitric oxide"], a: "B" },
+{ n: 44, s: "Biochemistry", l: 70, q: "Edema in tonsillar inflammation is mainly caused by:", o: ["A. Bradykinin", "B. Histamine", "C. TNF-α", "D. Interferon-γ", "E. Prostaglandin E2"], a: "B" },
+{ n: 45, s: "Pathology", l: 70, q: "Which factor plays the greatest role in healing by first intention?", o: ["A. Infection", "B. Wound closure", "C. Foreign body reaction", "D. Excessive inflammation", "E. Granuloma formation"], a: "B" },
+{ n: 46, s: "Pathology", l: 70, q: "An increase in skeletal muscle size due to exercise is called:", o: ["A. Hyperplasia", "B. Hypertrophy", "C. Metaplasia", "D. Dysplasia", "E. Atrophy"], a: "B" },
+{ n: 47, s: "Pathology", l: 70, q: "Which statement about sarcoma and carcinoma is WRONG?", o: ["A. Sarcoma occurs in older age", "B. Carcinoma arises from epithelial tissue", "C. Sarcoma arises from mesenchymal tissue", "D. Carcinoma is more common than sarcoma", "E. Sarcomas can metastasize"], a: "A" },
+{ n: 48, s: "Biochemistry", l: 70, q: "Promoter:", o: ["A. Saccharin", "B. Benzene", "C. Aflatoxin B1", "D. UV radiation", "E. Tobacco smoke"], a: "A" },
+{ n: 49, s: "Pathology", l: 70, q: "Appendicitis is characterized by which type of inflammation?", o: ["A. Serous inflammation", "B. Fibrinous inflammation", "C. Purulent inflammation", "D. Granulomatous inflammation", "E. Catarrhal inflammation"], a: "C" },
+{ n: 50, s: "Pharmacology", l: 70, q: "Which of the following tissues receives a drug most slowly?", o: ["A. Brain", "B. Liver", "C. Kidney", "D. Fat", "E. Heart"], a: "D" },
+{ n: 51, s: "Immunology", l: 70, q: "Which of the following is NOT true about Th2 cells?", o: ["A. They are effective against extracellular pathogens", "B. They promote IgE production", "C. They activate eosinophils", "D. They are involved in allergic responses", "E. They produce IL-4"], a: "A" },
+{ n: 52, s: "Pharmacology", l: 70, q: "The drug of choice for glaucoma is:", o: ["A. Phenylephrine", "B. Atropine", "C. Timolol", "D. Pilocarpine", "E. Tropicamide"], a: "C" },
+{ n: 53, s: "Biochemistry", l: 70, q: "The role of carnitine is:", o: ["A. Glycolysis", "B. Intracellular transport of fatty acids", "C. Protein synthesis", "D. Cholesterol synthesis", "E. Urea formation"], a: "B" },
+{ n: 54, s: "Biochemistry", l: 70, q: "RNA is composed of:", o: ["A. A, T, G, C", "B. A, U, G, C", "C. A, U, T, C", "D. A, G, C", "E. A, T, U, G"], a: "B" },
+{ n: 55, s: "Biochemistry", l: 70, q: "Which of the following is an irreversible noncompetitive enzyme inhibitor?", o: ["A. Cyanide", "B. Mercury (Hg)", "C. Malonate", "D. Methotrexate", "E. Sulfonamide"], a: "B" },
+{ n: 56, s: "Pathology", l: 70, q: "Metaplasia commonly occurs in:", o: ["A. Acute bronchitis", "B. Chronic bronchial irritation by cigarette smoking", "C. Myocardial infarction", "D. Peptic ulcer", "E. Viral hepatitis"], a: "B" },
+{ n: 57, s: "Biochemistry", l: 70, q: "Which of the following is a food preservative associated with carcinogenesis?", o: ["A. Benzoic acid", "B. Sorbic acid", "C. Methyl nitrosamine", "D. Citric acid", "E. Ascorbic acid"], a: "C" },
+{ n: 58, s: "Pathology", l: 70, q: "A wedge-shaped area of kidney necrosis is called:", o: ["A. Abscess", "B. Infarction", "C. Hydronephrosis", "D. Atrophy", "E. Fibrosis"], a: "B" },
+{ n: 59, s: "Biochemistry", l: 70, q: "Which coenzyme carries amino groups during transamination?", o: ["A. FAD", "B. NAD+", "C. PLP", "D. Coenzyme A", "E. Biotin"], a: "C" },
+{ n: 60, s: "Pathology", l: 70, q: "Which malignancy commonly metastasizes to bone?", o: ["A. Prostate carcinoma", "B. Colon carcinoma", "C. Gastric carcinoma", "D. Pancreatic carcinoma", "E. Thyroid adenoma"], a: "A" },
+{ n: 61, s: "Pathology", l: 70, q: "Which malignancy commonly metastasizes to the liver?", o: ["A. Colonic adenocarcinoma", "B. Basal cell carcinoma", "C. Glioblastoma", "D. Osteosarcoma", "E. Papillary thyroid carcinoma"], a: "A" },
+{ n: 62, s: "Pathology", l: 70, q: "Which statement about HLA is WRONG?", o: ["A. HLA genes are located on chromosome 6", "B. HLA molecules present antigens", "C. HLA is important in organ transplantation", "D. HLA is located on chromosome 5", "E. HLA polymorphism is extensive"], a: "D" },
+{ n: 63, s: "Immunology", l: 70, q: "Which statement about IgM is WRONG?", o: ["A. It is the first antibody produced in a primary immune response", "B. It efficiently activates complement", "C. It is mainly found as a pentamer in serum", "D. It is a monomer", "E. It has high avidity"], a: "D" },
+{ n: 64, s: "Biochemistry", l: 70, q: "cGMP acts primarily as a:", o: ["A. First messenger", "B. Structural protein", "C. Second messenger", "D. Enzyme inhibitor", "E. Hormone"], a: "C" },
 
 
  
@@ -1292,7 +1281,7 @@ function copyCase(btn) {
     copyTextToClipboard(fullText, btn);
 }
 
-/* ---- Per-question pen/eraser drawing ---- */
+
 let activeDrawState = null;
 let activeDrawOverlaysCount = 0;
 
@@ -1302,11 +1291,6 @@ function updateGlobalScrollLock() {
     document.body.classList.toggle('drawing-lock', locked);
 }
 
-// Belt-and-braces: even with CSS touch-action:none on the overlay, some
-// tablet browsers can still start a page scroll from a stylus/finger drag.
-// While drawing mode is on for any question, swallow touchmove so nothing
-// but the drawing itself responds to the movement. Taps on buttons are
-// unaffected since they don't rely on touchmove.
 document.addEventListener('touchmove', function (e) {
     if (activeDrawOverlaysCount > 0) {
         e.preventDefault();
@@ -1388,31 +1372,10 @@ function fallbackCopy(text) {
     document.body.removeChild(ta);
 }
 
-  const lectures = {
-   1:  "Protein Metabolism 🥩",
-   2:  "Lipid Metabolism 🥑",
-   3:  "Enzymology🧪",
-   4:  "Cancer 🧬",
-   5:  "Carbohydrate Metabolism 🍞",
-   6:  "Nutrition 🥗",
- 7: "Inhibitors of baterial protein synthesis",
- 8: "Hypersensitivity Immune response & Related diseases",
- 9: "Complement system II",
- 10: "Cytokines and immunotherapy",
- 11: "Antibody",
- 12: "Neoplasia",
- 13: "Hemodynamic disorders shock",
- 14: "Neoplasia - Molecular basis of cancer",
- 15: "Inflammation",
- 16: "Cell injury - Cellular adaptation",
- 17: "Embolism & infarction",
- 18: "Drug metabolism",
- 19: "Cell wall inhibitors",
- 20: "Drug receptor interaction",
- 21: "Antifungal drugs",
- 22: "Sympathomimetic drugs",
- 23: "Parasympathomimetics",
- 24: "Adrenergic receptor blockers",
+ const lectures = {
+  
+   70: "NOT SEPARATED YET", 
+ 
 };
   
 const lectureFilters = {
@@ -1420,52 +1383,36 @@ const lectureFilters = {
     "Biochemistry": [
         { label: "All",                            val: "All" },
         
-        { label: "Protein Metabolism 🥩",     val: 1 },
-        { label: "Lipid Metabolism 🥑",     val: 2 },
-        { label: "Enzymology 🧪",     val: 3 },
-        { label: "Cancer 🧬",     val: 4 },
-        { label: "Carbohydrate Metabolism 🍞",     val: 5 },
-        { label: "Nutrition 🥗",     val: 6 },
-
- ],
-
-  "Pharmacology": [
-        { label: "All",               val: "All" },
+        { label: "NOT SEPARATED YET",     val: 70 },
+      ],
         
-        { label: "Inhibitors of baterial protein synthesis",     val: 7 },
-        {label: "Drug metabolism",     val: 18 },
-        {label: "Cell wall inhibitors",     val: 19 },
-        {label: "Drug receptor interaction",     val: 20 },
-        {label: "Antifungal drugs",     val: 21 },
-        {label: "Sympathomimetic drugs",     val: 22 },
-        {label: "Parasympathomimetics",     val: 23 },
-        {label: "Adrenergic receptor blockers",     val: 24 },
- ],
+       "Pathology": [
+        { label: "All",               val: "All" },
+         { label: "NOT SEPARATED YET",     val: 70 },
+       
+       ],
+
+      "Pharmacology": [
+        { label: "All",               val: "All" },
+         { label: "NOT SEPARATED YET",     val: 70 },
+       
+       ],
+
+      "Immunology": [
+        { label: "All",               val: "All" },
+         { label: "NOT SEPARATED YET",     val: 70 },
+       
+       ],
+
     
- "Immunology": [
+      "Medical Education": [
         { label: "All",               val: "All" },
-        
-        { label: "Hypersensitivity Immune response & Related diseases",     val: 8 },
-        { label: "Complement system II",     val: 9 },
-        { label: "Cytokines and immunotherapy",     val: 10 },
-        { label: "Antibody",     val: 11 },
-    
+         { label: "NOT SEPARATED YET",     val: 70 },
+       
+       ],
 
-
-],
-
-"Pathology": [
-        { label: "All",               val: "All" },
-        
-        { label: "Neoplasia",     val: 12 },
-        { label: "Hemodynamic disorders shock",     val: 13 },
-        { label: "Neoplasia - Molecular basis of cancer",     val: 14 },
-        {label: "Inflammation",     val: 15 },
-        {label: "Cell injury - Cellular adaptation",     val: 16 },
-        {label: "Embolism & infarction",     val: 17 },
-],
 };
-
+    
 let currentSubjectFilter = "All";  
 let currentLecture = "All";
 let lectureDropdownOpen = false;
