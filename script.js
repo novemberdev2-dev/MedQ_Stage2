@@ -232,7 +232,7 @@ const ALL_SECTIONS = [
      
        { title: '2022-2023 Year Exam',     links: [
         { label: 'End-Block _ Practice', badge: '10 Qs',  href: 'IBS_End-Block_Practice_2022-2023.html' },
-        { label: 'Final', badge: '70 MCQs', href: 'IBS_Final_2022-2023.html' }
+        { label: 'Final', badge: '71 MCQs', href: 'IBS_Final_2022-2023.html' }
       
       ] },
 
@@ -490,7 +490,7 @@ const SUBJECT_CARDS_BY_SECTION = {
       { label: 'Practice', badge: '10 Qs', href: 'IBS_Pharmacology_Practice.html' }
     ] },
     { title: 'Pathology 🔬', links: [
-      { label: 'Theory',   badge: '320 MCQs', href: 'IBS_Pathology.html' },
+      { label: 'Theory',   badge: '321 MCQs', href: 'IBS_Pathology.html' },
       { label: 'Practice', badge: '11 Qs', href: 'IBS_Pathology_Practice.html' }
     ] },
     { title: 'Biochemistry 🧪', links: [
