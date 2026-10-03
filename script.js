@@ -263,7 +263,10 @@ const ALL_SECTIONS = [
     ] },
 
      { title: 'Unknown Year Exam',     links: [
+      { label: 'Final or End-Block', badge: '36 MCQs',  href: 'IBS_FinalorEndblock_Unkown year.html' },
       { label: 'Quiz', badge: '22 MCQs',  href: 'IBS_Quiz_Unkown year.html' },
+     
+       
     
     ] },
     ]
@@ -486,7 +489,7 @@ const ALL_SECTIONS = [
 const SUBJECT_CARDS_BY_SECTION = {
   ibs: [
     { title: 'Pharmacology 💊', links: [
-      { label: 'Theory',   badge: '128 MCQs', href: 'IBS_Pharmacology.html' },
+      { label: 'Theory',   badge: '164 MCQs', href: 'IBS_Pharmacology.html' },
       { label: 'Practice', badge: '10 Qs', href: 'IBS_Pharmacology_Practice.html' }
     ] },
     { title: 'Pathology 🔬', links: [
