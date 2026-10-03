@@ -1869,7 +1869,7 @@ const allQuestions = [
   {
     n: 277,
     s: 'Biochemistry',
-    l: 20,
+    l: 8,
     q: 'How does alcohol contribute to the development of fatty liver?',
     o: [
       'A. By depleting ATP stores needed for lipid synthesis.',
@@ -1915,7 +1915,7 @@ const allQuestions = [
   { 
     n: 282, 
     s: "Biochemistry", 
-    l: 20, 
+    l: 8, 
     q: "Which of the following is NOT a cause of fatty liver?", 
     o: ["A. Chronic alcoholism", "B. Hyperthyroidism", "C. Diabetes mellitus", "D. Protein-calorie malnutrition", "E. Obesity"], 
     a: "B" 
@@ -1923,7 +1923,7 @@ const allQuestions = [
   { 
     n: 283, 
     s: "Biochemistry", 
-    l: 20, 
+    l: 8, 
     q: "In pathological conditions like fatty liver, what is the approximate percentage of fat present in the liver?", 
     o: ["A. 1-2%", "B. 5-10%", "C. 12-15%", "D. 18-22%", "E. 25-30%"], 
     a: "E" 
@@ -2051,7 +2051,7 @@ const allQuestions = [
      { 
     n: 298, 
     s: "Biochemistry", 
-    l: 1, 
+    l: 8, 
     q: "How alcohol will cause fatty liver?", 
     o: [""], 
     a: "Intake of even a moderate amount of ethanol generates excess NADH, which inhibits processes that require NAD+, such as gluconeogenesis and fatty acid oxidation."
@@ -2214,9 +2214,7 @@ function updateGlobalScrollLock() {
 
 // Belt-and-braces: even with CSS touch-action:none on the overlay, some
 // tablet browsers can still start a page scroll from a stylus/finger drag.
-// While drawing mode is on for any question, swallow touchmove so nothing
-// but the drawing itself responds to the movement. Taps on buttons are
-// unaffected since they don't rely on touchmove.
+
 document.addEventListener('touchmove', function (e) {
     if (activeDrawOverlaysCount > 0) {
         e.preventDefault();
@@ -2304,8 +2302,9 @@ const lectures = {
     3: "Carbohydrate Metabolism 🍞",
     7: "Ketosis" ,
     4: "Enzymology ⚗️",
-    5: "Cancer 🧬",
+    5: "Biochemistry of cancer 🧬",
     6: "Nutrition 🥗",
+    8: "Fatty liver",
     20: "NOT SEPARATED YET",
    
    
@@ -2323,6 +2322,8 @@ const lectureFilters = {
         { label: "Enzymology ⚗️", val: 4 },
         { label: "Cancer 🧬", val: 5 },
         { label: "Nutrition 🥗", val: 6 },
+        { label: "Fatty liver", val: 8 },
+        
         { label: "NOT SEPARATED YET", val: 20 },
     ]
 };
