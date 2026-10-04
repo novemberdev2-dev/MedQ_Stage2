@@ -500,7 +500,7 @@ const SUBJECT_CARDS_BY_SECTION = {
       { label: 'Theory',   badge: '302 MCQs', href: 'IBS_Biochemistry.html' },
       { label: 'Practice', badge: '15 Qs', href: 'IBS_Biochemistry_Practice.html' }
     ] },
-    { title: 'Micro-Immunity 🛡️', links: [
+    { title: 'Micro-Immunity 🦠', links: [
       { label: 'Theory',   badge: '137 MCQs', href: 'IBS_Micro-Immunity.html' },
     
     ] },
