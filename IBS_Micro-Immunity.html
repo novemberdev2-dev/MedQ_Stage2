@@ -1036,7 +1036,7 @@
     <div class="header" id="header">
         <!-- NORMAL HEADER STATE -->
         <div cla+ss="header-title-wrap" id="header-normal-left">
-            <span class="header-title"><span class="title-line1">IBS_Micro-Immunity 🛡️&nbsp;·&nbsp; All years</span><span class="title-sep-2">
+            <span class="header-title"><span class="title-line1">IBS_Micro-Immunity 🦠&nbsp;·&nbsp; All years</span><span class="title-sep-2">
         </div>
 
         <div class="header-actions" id="header-normal-right">
@@ -2109,7 +2109,7 @@ const lectureFilters = {
         { label: "NOT SEPARATED YET", val: 20 },
     ]
 };
-
+const CONTENT_NOTE = "";
 let currentSubjectFilter = "Micro-Immunity";  
 let currentLecture = "All";
 let lectureDropdownOpen = false;
@@ -2166,8 +2166,15 @@ function closeLectureDropdown() {
 
 function selectLecture(val, ev) {
     if (ev) ev.stopPropagation();
+
+    const oldWrap = document.querySelector('#lecture-dropdown .lecture-dropdown-items');
+    const savedScroll = oldWrap ? oldWrap.scrollTop : 0;
+
     currentLecture = val;
     handleSearch();
+
+    const newWrap = document.querySelector('#lecture-dropdown .lecture-dropdown-items');
+    if (newWrap) newWrap.scrollTop = savedScroll;
 }
 
 document.addEventListener('click', function(e) {
@@ -2181,7 +2188,7 @@ function getLectureLabel(val) {
     if (val === "All" && currentSubjectFilter === "All") return "All";
     if (val === "All") {
         const subjectLabels = {
-            "Micro-Immunity": "Micro-Immunity 🛡️"
+            "Micro-Immunity": "Micro-Immunity 🦠"
         };
         return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
     }
@@ -2251,12 +2258,7 @@ function updateSectionHeading() {
         container.insertBefore(heading, container.firstChild);
     }
 
-    if (showLectureDropdownOpen) scrollLectureDropdownToSelected();
-
-    // Show the optional note only on the default "All" view (no subject or
-    // lecture filter applied) — i.e. what you see when the file first opens.
-    // It sits inside the heading block, below the title and above the
-    // divider line underneath it.
+     
     const showNote = !!CONTENT_NOTE && currentLecture === "All";
     if (showNote) {
         const noteEl = document.createElement('div');
