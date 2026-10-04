@@ -2316,7 +2316,7 @@ const lectureFilters = {
        
     ]
 };
-
+const CONTENT_NOTE = "";
 let currentSubjectFilter = "Pharmacology";  
 let currentLecture = "All";
 let lectureDropdownOpen = false;
@@ -2373,8 +2373,15 @@ function closeLectureDropdown() {
 
 function selectLecture(val, ev) {
     if (ev) ev.stopPropagation();
+
+    const oldWrap = document.querySelector('#lecture-dropdown .lecture-dropdown-items');
+    const savedScroll = oldWrap ? oldWrap.scrollTop : 0;
+
     currentLecture = val;
     handleSearch();
+
+    const newWrap = document.querySelector('#lecture-dropdown .lecture-dropdown-items');
+    if (newWrap) newWrap.scrollTop = savedScroll;
 }
 
 document.addEventListener('click', function(e) {
@@ -2458,12 +2465,7 @@ function updateSectionHeading() {
         container.insertBefore(heading, container.firstChild);
     }
 
-    if (showLectureDropdownOpen) scrollLectureDropdownToSelected();
 
-    // Show the optional note only on the default "All" view (no subject or
-    // lecture filter applied) — i.e. what you see when the file first opens.
-    // It sits inside the heading block, below the title and above the
-    // divider line underneath it.
     const showNote = !!CONTENT_NOTE && currentLecture === "All";
     if (showNote) {
         const noteEl = document.createElement('div');
