@@ -1675,6 +1675,18 @@ function scheduleFlush(st) {
     if (!st.raf) st.raf = requestAnimationFrame(() => flushDraw(st));
 }
 
+function deactivateDrawTools(onlyHidden) {
+    document.querySelectorAll('.q-block').forEach(qb => {
+        if (onlyHidden && qb.style.display !== 'none') return;
+        const svg = qb.querySelector(':scope > .draw-overlay');
+        if (svg && svg.dataset.tool) setOverlayTool(svg, null);
+        qb.querySelectorAll('.draw-btn').forEach(b => { b.dataset.active = 'false'; b.classList.remove('tool-on'); });
+    });
+    if (!onlyHidden) activeDrawOverlaysCount = 0;
+    activeDrawState = null;
+    updateGlobalScrollLock();
+}
+
 function startDraw(evt) {
     const svg = evt.currentTarget;
     if (!svg.classList.contains('active')) return;
@@ -2180,6 +2192,7 @@ function closeSubjectDropdown() {
 
 function selectSubjectFilter(subject, el) {
     currentSubjectFilter = subject;
+    deactivateDrawTools(false);   // switching subject turns off pen/eraser everywhere
     currentLecture = "All";
     localStorage.setItem('selectedSubject_' + location.pathname, subject);
     document.querySelectorAll('.subject-dropdown-item').forEach(i => i.classList.remove('selected'));
@@ -2238,6 +2251,7 @@ function handleSearch() {
             block.style.display = "none";
         }
     });
+    deactivateDrawTools(true);   // a hidden question can't keep pen/eraser (or the scroll lock) on
     updateSectionHeading();
 }
 
