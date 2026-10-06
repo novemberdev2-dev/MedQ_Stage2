@@ -1696,7 +1696,8 @@ function moveDraw(evt) {
     const svg = evt.currentTarget;
     const st = activeDrawState && activeDrawState.svg === svg ? activeDrawState : null;
     if (st && evt.pointerId !== st.pid) return;
-    if (svg.dataset.tool === 'eraser') moveCursor(svg, pointIn(svg, evt));   // tracks hover + contact instantly
+    // Pencil/finger: circle only while touching the screen. Mouse: also follows hover.
+    if (svg.dataset.tool === 'eraser' && (st || evt.pointerType === 'mouse')) moveCursor(svg, pointIn(svg, evt));
     if (!st) return;
     evt.preventDefault();
     const events = (evt.getCoalescedEvents && evt.getCoalescedEvents()) || [];
@@ -1724,7 +1725,13 @@ function moveDraw(evt) {
 
 function endDraw(evt) {
     const st = activeDrawState;
-    if (!st || st.svg !== evt.currentTarget || evt.pointerId !== st.pid) return;
+    if (!st || st.svg !== evt.currentTarget) {
+        // pointer left the area without drawing: make sure no circle is left behind
+        const c = evt.currentTarget.querySelector && evt.currentTarget.querySelector('.eraser-cursor');
+        if (c) c.style.display = 'none';
+        return;
+    }
+    if (evt.pointerId !== st.pid) return;
     if (st.raf) { cancelAnimationFrame(st.raf); st.raf = 0; }
     if (st.tool === 'eraser') { if (st.dirty) redrawOverlay(st.svg); }
     else st.path.setAttribute('d', strokeD(st.stroke, st.w));
