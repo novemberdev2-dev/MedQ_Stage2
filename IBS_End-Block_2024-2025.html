@@ -1040,6 +1040,8 @@
         }
         .q-block .icon-btn, .q-block .eye-btn { position: relative; z-index: 6; }
         .draw-overlay.tool-eraser { cursor: none; }
+        .draw-overlay { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+        button, .icon-btn, .eye-btn { touch-action: manipulation; -webkit-user-select: none; user-select: none; }
         .draw-overlay .eraser-cursor {
             fill: rgba(128,128,128,0.18);
             stroke: var(--text-main);
@@ -1537,24 +1539,39 @@ function qnOf(svg) {
 }
 function overlayWidth(svg) { return svg.getBoundingClientRect().width; }
 
-// Strokes are stored as points {x: fraction of width, y: px from overlay top}
+// Strokes are stored as points [x as fraction of width, y in px from overlay top]
+function strokeD(stroke, w) {
+    const pts = stroke.map(p => [p[0] * w, p[1]]);
+    const f = v => v.toFixed(1);
+    if (pts.length === 1) return `M ${f(pts[0][0])} ${f(pts[0][1])} l 0.01 0`;
+    let d = `M ${f(pts[0][0])} ${f(pts[0][1])}`;
+    for (let i = 1; i < pts.length - 1; i++) {
+        const mx = (pts[i][0] + pts[i + 1][0]) / 2, my = (pts[i][1] + pts[i + 1][1]) / 2;
+        d += ` Q ${f(pts[i][0])} ${f(pts[i][1])} ${f(mx)} ${f(my)}`;
+    }
+    const l = pts[pts.length - 1];
+    return d + ` L ${f(l[0])} ${f(l[1])}`;
+}
+
 function redrawOverlay(svg) {
     const n = qnOf(svg);
     const w = overlayWidth(svg);
     svg.querySelectorAll('.draw-path').forEach(p => p.remove());
     if (n === null || !w) return;
     (drawingsStore[n] || []).forEach(stroke => {
-        const d = stroke.map((p, i) => `${i ? 'L' : 'M'} ${(p[0] * w).toFixed(1)} ${p[1].toFixed(1)}`).join(' ');
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         path.setAttribute('class', 'draw-path');
-        path.setAttribute('d', stroke.length === 1 ? d + ' l 0.01 0' : d);
-        svg.insertBefore(path, svg.firstChild);
+        path.setAttribute('d', strokeD(stroke, w));
+        svg.insertBefore(path, svg.querySelector('.eraser-cursor'));
     });
 }
 
 const overlayObserver = (typeof ResizeObserver !== 'undefined')
     ? new ResizeObserver(entries => entries.forEach(en => redrawOverlay(en.target))) : null;
-function observeOverlay(svg) { if (overlayObserver) overlayObserver.observe(svg); }
+function observeOverlay(svg) {
+    if (overlayObserver) overlayObserver.observe(svg);
+    svg.addEventListener('pointerenter', () => { svg._rect = svg.getBoundingClientRect(); });
+}
 
 function setOverlayTool(svg, tool) {
     const had = !!svg.dataset.tool;
@@ -1586,29 +1603,32 @@ function selectTool(btn) {
     activeDrawState = null;
 }
 
-function getDrawPoint(svg, evt) {
-    const rect = svg.getBoundingClientRect();
-    return { x: evt.clientX - rect.left, y: evt.clientY - rect.top, w: rect.width };
+function pointIn(svg, evt) {
+    const r = svg._rect || (svg._rect = svg.getBoundingClientRect());
+    return { x: evt.clientX - r.left, y: evt.clientY - r.top, w: r.width };
 }
 
 function moveCursor(svg, pt) {
-    let cur = svg.querySelector('.eraser-cursor');
-    if (!cur) {
-        cur = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        cur.setAttribute('class', 'eraser-cursor');
-        cur.setAttribute('r', ERASER_RADIUS);
-        svg.appendChild(cur);
+    let cur = svg._cursor;
+    if (!cur || !cur.isConnected) {
+        cur = svg.querySelector('.eraser-cursor');
+        if (!cur) {
+            cur = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            cur.setAttribute('class', 'eraser-cursor');
+            cur.setAttribute('r', ERASER_RADIUS);
+            svg.appendChild(cur);
+        }
+        svg._cursor = cur;
     }
     cur.style.display = 'block';
     cur.setAttribute('cx', pt.x);
     cur.setAttribute('cy', pt.y);
 }
 
-function eraseAt(svg, px, py) {
+function eraseAt(svg, px, py, w) {
     const n = qnOf(svg);
     const strokes = drawingsStore[n];
     if (!strokes || !strokes.length) return false;
-    const w = overlayWidth(svg);
     const r2 = ERASER_RADIUS * ERASER_RADIUS;
     let changed = false;
     const out = [];
@@ -1632,61 +1652,118 @@ function eraseAt(svg, px, py) {
     return changed;
 }
 
+function flushDraw(st) {
+    st.raf = 0;
+    if (st.tool === 'pen') {
+        st.path.setAttribute('d', strokeD(st.stroke, st.w));
+    } else if (st.dirty) {
+        st.dirty = false;
+        redrawOverlay(st.svg);
+    }
+}
+function scheduleFlush(st) {
+    if (!st.raf) st.raf = requestAnimationFrame(() => flushDraw(st));
+}
+
 function startDraw(evt) {
     const svg = evt.currentTarget;
     if (!svg.classList.contains('active')) return;
+    if (activeDrawState) return;               // ignore a second finger / palm while drawing
+    if (evt.pointerType === 'mouse' && evt.button !== 0) return;
     evt.preventDefault();
-    const pt = getDrawPoint(svg, evt);
+    svg._rect = svg.getBoundingClientRect();
+    const pt = pointIn(svg, evt);
     if (!pt.w) return;
     const n = qnOf(svg);
     if (svg.setPointerCapture) { try { svg.setPointerCapture(evt.pointerId); } catch (e) {} }
     if (svg.dataset.tool === 'eraser') {
-        activeDrawState = { svg, tool: 'eraser', last: pt, dirty: false };
+        const st = activeDrawState = { svg, tool: 'eraser', pid: evt.pointerId, last: pt, w: pt.w, dirty: false, raf: 0 };
         moveCursor(svg, pt);
-        if (eraseAt(svg, pt.x, pt.y)) { activeDrawState.dirty = true; redrawOverlay(svg); }
+        if (eraseAt(svg, pt.x, pt.y, pt.w)) { st.dirty = true; scheduleFlush(st); }
     } else {
         if (!drawingsStore[n]) drawingsStore[n] = [];
         const stroke = [[pt.x / pt.w, pt.y]];
         drawingsStore[n].push(stroke);
-        activeDrawState = { svg, tool: 'pen', stroke, last: pt };
-        redrawOverlay(svg);
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('class', 'draw-path');
+        path.setAttribute('d', strokeD(stroke, pt.w));
+        svg.insertBefore(path, svg.querySelector('.eraser-cursor'));
+        activeDrawState = { svg, tool: 'pen', pid: evt.pointerId, stroke, path, last: pt, w: pt.w, raf: 0 };
     }
 }
 
 function moveDraw(evt) {
     const svg = evt.currentTarget;
-    if (svg.dataset.tool === 'eraser') {
-        const pt = getDrawPoint(svg, evt);
-        moveCursor(svg, pt);
-    }
-    if (!activeDrawState || activeDrawState.svg !== svg) return;
+    const st = activeDrawState && activeDrawState.svg === svg ? activeDrawState : null;
+    if (st && evt.pointerId !== st.pid) return;
+    if (svg.dataset.tool === 'eraser') moveCursor(svg, pointIn(svg, evt));   // tracks hover + contact instantly
+    if (!st) return;
     evt.preventDefault();
-    const pt = getDrawPoint(svg, evt);
-    const last = activeDrawState.last;
-    const dist = Math.hypot(pt.x - last.x, pt.y - last.y);
-    const step = activeDrawState.tool === 'eraser' ? 4 : 3;
-    const steps = Math.max(1, Math.ceil(dist / step));
-    for (let i = 1; i <= steps; i++) {
-        const x = last.x + (pt.x - last.x) * i / steps;
-        const y = last.y + (pt.y - last.y) * i / steps;
-        if (activeDrawState.tool === 'eraser') {
-            if (eraseAt(svg, x, y)) activeDrawState.dirty = true;
+    const events = (evt.getCoalescedEvents && evt.getCoalescedEvents()) || [];
+    if (!events.length) events.push(evt);     // full-rate Apple Pencil samples
+    for (const ev of events) {
+        const pt = pointIn(svg, ev);
+        const last = st.last;
+        if (st.tool === 'eraser') {
+            const dist = Math.hypot(pt.x - last.x, pt.y - last.y);
+            const steps = Math.max(1, Math.ceil(dist / 5));
+            for (let i = 1; i <= steps; i++) {
+                const x = last.x + (pt.x - last.x) * i / steps;
+                const y = last.y + (pt.y - last.y) * i / steps;
+                if (eraseAt(svg, x, y, st.w)) st.dirty = true;
+            }
+            st.last = pt;
         } else {
-            activeDrawState.stroke.push([x / pt.w, y]);
+            if (Math.hypot(pt.x - last.x, pt.y - last.y) < 0.8) continue;
+            st.stroke.push([pt.x / st.w, pt.y]);
+            st.last = pt;
         }
     }
-    activeDrawState.last = pt;
-    redrawOverlay(svg);
+    scheduleFlush(st);
 }
 
 function endDraw(evt) {
-    if (activeDrawState && activeDrawState.svg === evt.currentTarget) {
-        activeDrawState = null;
-        saveDrawings();
+    const st = activeDrawState;
+    if (!st || st.svg !== evt.currentTarget || evt.pointerId !== st.pid) return;
+    if (st.raf) { cancelAnimationFrame(st.raf); st.raf = 0; }
+    if (st.tool === 'eraser') { if (st.dirty) redrawOverlay(st.svg); }
+    else st.path.setAttribute('d', strokeD(st.stroke, st.w));
+    activeDrawState = null;
+    saveDrawings();
+    if (evt.type !== 'pointerup' || evt.pointerType !== 'mouse') {
+        const cur = st.svg.querySelector('.eraser-cursor');
+        if (cur && evt.pointerType !== 'mouse') cur.style.display = 'none';
     }
-    const cur = evt.currentTarget.querySelector && evt.currentTarget.querySelector('.eraser-cursor');
-    if (cur && evt.type !== 'pointerup') cur.style.display = 'none';
 }
+
+/* ---- Apple Pencil taps on buttons ----
+   On iPad, Pencil taps on buttons can lose their click (tiny movement during the tap,
+   especially while the page is scroll-locked). Handle pen taps via pointer events and
+   swallow the browser's own click so nothing fires twice. */
+(function () {
+    let downEl = null, dx = 0, dy = 0, lastSynth = 0;
+    const SEL = 'button, [onclick]';
+    document.addEventListener('pointerdown', e => {
+        if (e.pointerType !== 'pen') { downEl = null; return; }
+        downEl = e.target.closest ? e.target.closest(SEL) : null;
+        dx = e.clientX; dy = e.clientY;
+    }, true);
+    document.addEventListener('pointerup', e => {
+        if (e.pointerType !== 'pen' || !downEl) return;
+        const el = downEl; downEl = null;
+        if (Math.hypot(e.clientX - dx, e.clientY - dy) > 14) return;
+        const up = document.elementFromPoint(e.clientX, e.clientY);
+        if (!up || up.closest(SEL) !== el) return;
+        lastSynth = Date.now();
+        el.click();
+    }, true);
+    document.addEventListener('click', e => {
+        if (e.isTrusted && Date.now() - lastSynth < 700) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+        }
+    }, true);
+})();
 
 function fallbackCopy(text) {
     const ta = document.createElement('textarea');
