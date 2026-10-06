@@ -1049,6 +1049,16 @@
             pointer-events: none;
             display: none;
         }
+
+        /* No tap flash / sticky hover / focus box on touch devices */
+        html, body, *, *::before, *::after { -webkit-tap-highlight-color: rgba(0,0,0,0) !important; }
+        button, .icon-btn, .eye-btn { outline: none !important; -webkit-touch-callout: none; }
+        button:focus, button:focus-visible, button:active { outline: none !important; }
+        @media (hover: none) {
+            .icon-btn:hover, .eye-btn:hover { background-color: transparent; }
+            .icon-btn:active, .eye-btn:active { background-color: transparent; }
+        }
+        .draw-btn.tool-on, .draw-btn.tool-on:hover, .draw-btn.tool-on:active { background-color: rgba(128,128,128,0.32); }
     </style>
 
 </head>
