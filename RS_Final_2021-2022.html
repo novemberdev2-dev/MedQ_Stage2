@@ -1035,7 +1035,8 @@
             padding: 28px 20px 8px;   /* top padding = the old container top gap, so the header never shifts when stuck */
             background-color: var(--bg-body);
         }
-        .container { padding-top: 0; }
+        .container { padding-top: 0; min-height: 100vh; }
+        .no-results { min-height: 50vh; }
         .header2-sticky .header2 { margin-bottom: 0; }
         .header { margin-bottom: 8px; }
         .header-tools {
@@ -2046,6 +2047,10 @@ function updateSectionHeading() {
             noResultsMsg.textContent = "No questions found.";
             container.appendChild(noResultsMsg);
         }
+        // The page just got much shorter; if we were scrolled down, the view lands
+        // on blank space below the content. Jump to the top so the message is visible.
+        window.scrollTo(0, 0);
+        requestAnimationFrame(function () { window.scrollTo(0, 0); });
     } else if (noResultsMsg) {
         noResultsMsg.remove();
     }
@@ -2315,8 +2320,11 @@ function closeSearchBar() {
     handleSearch();
 }
 
+let savedScrollY = null;
 function handleSearch() {
     const term = document.getElementById('search-input').value.toLowerCase();
+    // Remember where the user was before the search starts changing the list
+    if (term !== "" && savedScrollY === null) savedScrollY = window.pageYOffset;
     const blocks = document.querySelectorAll('.q-block');
     blocks.forEach(block => {
         resetBlock(block);
@@ -2332,6 +2340,13 @@ function handleSearch() {
     });
     deactivateDrawTools(true);   // a hidden question can't keep pen/eraser (or the scroll lock) on
     updateSectionHeading();
+    // Search cleared: go back to the spot the user was at before searching
+    if (term === "" && savedScrollY !== null) {
+        const y = savedScrollY;
+        savedScrollY = null;
+        window.scrollTo(0, y);
+        requestAnimationFrame(function () { window.scrollTo(0, y); });
+    }
 }
 
 function resetBlock(block) {
