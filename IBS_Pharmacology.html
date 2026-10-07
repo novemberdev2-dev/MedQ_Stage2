@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IBS_End-Block_Pharmacology_2024-2025</title>
+    <title>IBS_Pharmacology_All Years</title>
    
     <style>
        :root {
@@ -523,7 +523,7 @@
             overflow: hidden;
             width: 290px;
             max-width: 80vw;
-            z-index: 50;
+            z-index: 20;
             opacity: 0;
             pointer-events: none;
             transform: translateY(-6px) scale(0.97);
@@ -992,7 +992,8 @@
         }
 
         
-        .draw-overlay {
+        /* One page-wide drawing layer (pen / eraser work everywhere) */
+        #draw-layer {
             position: absolute;
             top: 0;
             left: 0;
@@ -1001,29 +1002,23 @@
             z-index: 5;
             pointer-events: none;
             touch-action: none;
+            overflow: hidden;
         }
 
-        .draw-overlay.draw-overlay--outer {
-            top: -40px;
-            height: calc(100% + 40px);
-        }
-
-        .draw-overlay.active {
+        #draw-layer.active {
             pointer-events: auto;
             cursor: crosshair;
-            touch-action: none;
         }
 
-        /* While any question's drawing mode is on, block page scrolling so a
-           stylus/finger stroke never gets interpreted as a scroll gesture.
-           Buttons remain clickable since taps don't trigger this. */
+        /* While a tool is on, block page scrolling by touch so a
+           stylus/finger stroke never gets interpreted as a scroll gesture. */
         html.drawing-lock,
         body.drawing-lock {
             touch-action: none;
             overscroll-behavior: none;
         }
 
-        .draw-overlay .draw-path {
+        #draw-layer .draw-path {
             stroke: #ff0000;
             stroke-width: 3;
             fill: none;
@@ -1031,6 +1026,55 @@
             stroke-linejoin: round;
         }
 
+        /* Second header: sticky, questions scroll underneath it */
+        .header2-sticky {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            margin: 0 -20px 6px;
+            padding: 28px 20px 8px;   /* top padding = the old container top gap, so the header never shifts when stuck */
+            background-color: var(--bg-body);
+        }
+        .container { padding-top: 0; min-height: 100vh; }
+        .no-results { min-height: 50vh; }
+        .header2-sticky .header2 { margin-bottom: 0; }
+        .header { margin-bottom: 8px; }
+        .header-tools {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+            min-width: 0;
+        }
+        .header-actions .icon-btn { margin-top: 0; padding: 7px; }
+        .header2 { gap: 0; }
+        #header-normal-right .icon-divider.tools-divider { display: block; margin: 0 2px; }
+        .brand-wrap {
+            margin-right: auto;
+            padding-right: 28px;
+            text-align: left;
+            line-height: 1.15;
+            min-width: 0;
+            flex-shrink: 1;
+        }
+        .brand-big { font-size: 1.2rem; font-weight: 800; color: var(--text-main); white-space: nowrap; }
+        .brand-small { font-size: 0.68rem; font-weight: 600; color: var(--text-opts); opacity: 0.85; white-space: nowrap; margin-top: 2px; }
+        @media (max-width: 480px) {
+            .brand-wrap { padding-right: 6px; }
+            .brand-big { font-size: 0.9rem; }
+            .brand-small { font-size: 0.54rem; margin-top: 1px; }
+            .header-actions { gap: 6px; }
+            .header-actions .icon-btn { padding: 4px; }
+            .search-toggle-btn, .theme-toggle, .subject-toggle { width: 30px; height: 30px; }
+        }
+        /* Same header box size in normal and search mode */
+        .header.header2 { height: 58px; min-height: 58px; padding-top: 0; padding-bottom: 0; box-sizing: border-box; }
+        .search-takeover-wrap { height: 100%; }
+        @media (max-width: 360px) {
+            .brand-big { font-size: 0.85rem; }
+            .brand-small { font-size: 0.5rem; }
+            .header-actions { gap: 4px; }
+        }
 
         .draw-btn svg, .draw-btn svg path { fill: none !important; }
         .draw-btn svg path { stroke: currentColor; }
@@ -1039,10 +1083,10 @@
             border-radius: 50%;
         }
         .q-block .icon-btn, .q-block .eye-btn { position: relative; z-index: 6; }
-        .draw-overlay.tool-eraser { cursor: none; }
-        .draw-overlay { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+        #draw-layer.tool-eraser { cursor: none; }
+        #draw-layer { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
         button, .icon-btn, .eye-btn { touch-action: manipulation; -webkit-user-select: none; user-select: none; }
-        .draw-overlay .eraser-cursor {
+        #draw-layer .eraser-cursor {
             fill: rgba(128,128,128,0.18);
             stroke: var(--text-main);
             stroke-width: 1.5;
@@ -1066,13 +1110,18 @@
 <body oncontextmenu="return false;">
 
 <div class="container">
-    <div class="header" id="header">
-        <!-- NORMAL HEADER STATE -->
-        <div cla+ss="header-title-wrap" id="header-normal-left">
-            <span class="header-title"><span class="title-line1">IBS - Pharmacology 💊&nbsp;·&nbsp; All Years</span>
+    <div class="header2-sticky" id="header2-sticky">
+    <div class="header header2" id="header2">
+        <!-- TITLE (left side) -->
+        <div class="brand-wrap" id="header-title-wrap">
+            <div class="brand-big">IBS </div>
+            <div class="brand-small">Pharmacology 💊&nbsp;·&nbsp;All Years</div>
         </div>
 
         <div class="header-actions" id="header-normal-right">
+            <button class="icon-btn draw-btn pen-btn" data-tool="pen" data-active="false" onclick="selectTool(this)" title="Pen"></button>
+            <button class="icon-btn draw-btn eraser-btn" data-tool="eraser" data-active="false" onclick="selectTool(this)" title="Eraser"></button>
+            <div class="icon-divider tools-divider"></div>
             <button class="search-toggle-btn" id="search-toggle-btn" onclick="toggleSearchBar()" title="Search">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.9536 14.9458L21 21M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
             </button>
@@ -1106,6 +1155,7 @@
             </button>
         </div>
     </div>
+    </div>
 
     <hr class="divider">
     <div id="quiz-content"></div>
@@ -1113,17 +1163,10 @@
 
 <script>
 
-/* ============================================================
-   SUBJECT SETTING  -  change this one line to switch the whole
-   file to another subject, e.g. "Pathology", "Immunology",
-   "Biochemistry". The name must match the subject names used in
-   the questions below. The emoji comes from subjectLabels.
-   ============================================================ */
-const SUBJECT = "Pharmacology";
-
 const allQuestions = [
   
- { n: 1, s: "Pharmacology", l: 20, q: "Azithromycin belongs to which class of antibiotics?", o: ["A. Penicillins", "B. Cephalosporins", "C. Tetracyclines", "D. Macrolides", "E. Aminoglycosides"], a: "D" },
+ 
+  { n: 1, s: "Pharmacology", l: 20, q: "Azithromycin belongs to which class of antibiotics?", o: ["A. Penicillins", "B. Cephalosporins", "C. Tetracyclines", "D. Macrolides", "E. Aminoglycosides"], a: "D" },
 { n: 2, s: "Pharmacology", l: 4, q: "A drug that follows zero-order kinetics is:", o: ["A. Penicillin", "B. Aspirin", "C. Digoxin", "D. Propranolol", "E. Ciprofloxacin"], a: "B" },
 { n: 3, s: "Pharmacology", l: 4, q: "CYP2D6 deficiency results in:", o: ["A. Increased codeine toxicity", "B. Inability to metabolize aspirin", "C. Inability to benefit from codeine", "D. Increased morphine excretion", "E. Increased warfarin metabolism"], a: "C" },
 { n: 4, s: "Pharmacology", l: 13, q: "A patient with kidney dysfunction and infection should receive which antibiotic because it is safely excreted in bile?", o: ["A. Ciprofloxacin", "B. Gentamicin", "C. Amikacin", "D. Vancomycin", "E. Ceftriaxone"], a: "E" },
@@ -2109,7 +2152,6 @@ const allQuestions = [
 { n: 163, s: "Pharmacology", l: 20, q: "Which of the following drugs is a nicotinic receptor antagonist?", o: ["A. Bethanechol", "B. Pilocarpine", "C. Trimetaphan", "D. Neostigmine", "E. Nicotine"], a: "C" },
 { n: 164, s: "Pharmacology", l: 20, q: "Which of the following drugs inhibits bacterial protein synthesis?", o: ["A. Ciprofloxacin", "B. Linezolid", "C. Amoxicillin", "D. Sulfamethoxazole", "E. Rifampin"], a: "B" },
 
-
 ];
 
 
@@ -2126,12 +2168,13 @@ const PIN_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2
 
 const UNPIN_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.1218 1.87023C15.7573 0.505682 13.4779 0.76575 12.4558 2.40261L9.75191 6.73289L11.1969 8.17793C11.2355 8.1273 11.2723 8.07415 11.3071 8.01845L14.1523 3.46191C14.493 2.91629 15.2528 2.8296 15.7076 3.28445L20.6359 8.21274C21.0907 8.66759 21.0041 9.42737 20.4584 9.76806L15.9019 12.6133C15.8462 12.6481 15.793 12.6848 15.7424 12.7234L17.1874 14.1684L21.5177 11.4645C23.1546 10.4424 23.4147 8.16307 22.0501 6.79852L17.1218 1.87023Z" fill="currentColor"></path><path d="M3.56525 8.85242C3.6015 8.26612 3.84962 7.68582 4.32883 7.27422L5.77735 8.72274C5.75784 8.72967 5.73835 8.7368 5.71886 8.74414C5.64516 8.7719 5.61855 8.80285 5.60548 8.82181C5.58877 8.84604 5.56651 8.8937 5.56144 8.97583C5.55046 9.15333 5.62872 9.40686 5.82846 9.6066L14.3137 18.0919C14.5135 18.2916 14.767 18.3699 14.9445 18.3589C15.0266 18.3538 15.0743 18.3316 15.0985 18.3149C15.1175 18.3018 15.1484 18.2752 15.1762 18.2015C15.1835 18.182 15.1907 18.1625 15.1976 18.143L16.6461 19.5915C16.2345 20.0707 15.6542 20.3188 15.0679 20.3551C14.2853 20.4035 13.4808 20.0874 12.8995 19.5061L9.36397 15.9705L2.68394 22.6506C2.29342 23.0411 1.66025 23.0411 1.26973 22.6506C0.879206 22.26 0.879206 21.6269 1.26973 21.2363L7.94975 14.5563L4.41425 11.0208C3.83293 10.4395 3.51687 9.63502 3.56525 8.85242Z" fill="currentColor"></path><path d="M2.00789 2.00786C1.61736 2.39838 1.61736 3.03155 2.00789 3.42207L20.5862 22.0004C20.9767 22.3909 21.6099 22.3909 22.0004 22.0004C22.391 21.6099 22.391 20.9767 22.0004 20.5862L3.4221 2.00786C3.03158 1.61733 2.39841 1.61733 2.00789 2.00786Z" fill="currentColor"></path></svg>`;
 
-const PINNED_QUESTIONS_KEY = 'pinnedQuestions_' + SUBJECT + '_' + location.pathname; let pinnedQuestions = new Set(JSON.parse(localStorage.getItem(PINNED_QUESTIONS_KEY) || '[]'));
-// Keep only this file's subject, numbered 1..N
+const PINNED_QUESTIONS_KEY = 'pinnedQuestions_' + location.pathname; let pinnedQuestions = new Set(JSON.parse(localStorage.getItem(PINNED_QUESTIONS_KEY) || '[]'));
+/* ===== SUBJECT SETTINGS (only thing to change for another subject) ===== */
+const SUBJECT = "Pharmacology";
+const SUBJECT_LABEL = "Pharmacology 💊";
 for (let i = allQuestions.length - 1; i >= 0; i--) {
     if (allQuestions[i].s !== SUBJECT) allQuestions.splice(i, 1);
 }
-allQuestions.forEach((q, i) => { q.n = i + 1; });
 const originalQuestionsOrder = allQuestions.slice();
 
 function isPinned(n) {
@@ -2156,10 +2199,7 @@ function togglePin(n) {
     try {
         renderQuiz();
     } finally {
-        // handleSearch() re-applies the current subject/lecture/search filters
-        // to the freshly rendered questions. Running it in a finally block
-        // guarantees the list is always re-shown correctly, even if something
-        // above throws, instead of getting stuck on "No questions found".
+       
         handleSearch();
     }
 }
@@ -2222,41 +2262,74 @@ function copyCase(btn) {
     copyTextToClipboard(fullText, btn);
 }
 
-/* ---- Per-question pen/eraser drawing (two independent tools, saved) ---- */
-const ERASER_SVG_ICON = ERASER_SVG;
-const DRAW_BTNS_HTML = `<button class="icon-btn draw-btn pen-btn" data-tool="pen" data-active="false" onclick="selectTool(this)" title="Pen">${PEN_SVG}</button><button class="icon-btn draw-btn eraser-btn" data-tool="eraser" data-active="false" onclick="selectTool(this)" title="Eraser">${ERASER_SVG_ICON}</button>`;
-
-const DRAWINGS_KEY = 'drawings_' + SUBJECT + '_' + location.pathname;
+const SVGNS = 'http://www.w3.org/2000/svg';
+const DRAWINGS_KEY = 'drawings2_' + location.pathname;
+const OLD_DRAWINGS_KEY = 'drawings_' + location.pathname;
 const ERASER_RADIUS = 14;   // px -> 28px "medium" circle
 let drawingsStore = {};
-try { drawingsStore = JSON.parse(localStorage.getItem(DRAWINGS_KEY) || '{}') || {}; } catch (e) { drawingsStore = {}; }
+try { drawingsStore = JSON.parse(localStorage.getItem(DRAWINGS_KEY) || 'null') || null; } catch (e) { drawingsStore = null; }
+if (!drawingsStore) {
+    // one-time migration of drawings made with the old per-question overlays (they started 40px above the block)
+    drawingsStore = {};
+    try {
+        const old = JSON.parse(localStorage.getItem(OLD_DRAWINGS_KEY) || '{}') || {};
+        Object.keys(old).forEach(n => { drawingsStore[n] = old[n].map(s => s.map(p => [p[0], p[1] - 40])); });
+    } catch (e) {}
+}
 function saveDrawings() {
     try { localStorage.setItem(DRAWINGS_KEY, JSON.stringify(drawingsStore)); } catch (e) {}
 }
 
+let drawLayer = null;
+let currentTool = null;       // 'pen' | 'eraser' | null
 let activeDrawState = null;
-let activeDrawOverlaysCount = 0;
+let blockMetrics = {};        // qn -> {left, top, width} in page coordinates
 
 function updateGlobalScrollLock() {
-    const locked = activeDrawOverlaysCount > 0;
+    const locked = !!currentTool;
     document.documentElement.classList.toggle('drawing-lock', locked);
     document.body.classList.toggle('drawing-lock', locked);
 }
 
-// While any tool is on, swallow touchmove so the page can't scroll.
+// While a tool is on, swallow touchmove so the page can't scroll.
 document.addEventListener('touchmove', function (e) {
-    if (activeDrawOverlaysCount > 0) e.preventDefault();
+    if (currentTool) e.preventDefault();
 }, { passive: false });
 
-function qnOf(svg) {
-    const qb = svg.closest('.q-block');
-    return qb ? qb.dataset.qn : null;
+function measureBlocks() {
+    blockMetrics = {};
+    const sx = window.pageXOffset, sy = window.pageYOffset;
+    document.querySelectorAll('.q-block').forEach(qb => {
+        if (qb.style.display === 'none') return;
+        const r = qb.getBoundingClientRect();
+        if (!r.width) return;
+        blockMetrics[qb.dataset.qn] = { left: r.left + sx, top: r.top + sy, width: r.width };
+    });
 }
-function overlayWidth(svg) { return svg.getBoundingClientRect().width; }
 
-// Strokes are stored as points [x as fraction of width, y in px from overlay top]
-function strokeD(stroke, w) {
-    const pts = stroke.map(p => [p[0] * w, p[1]]);
+function nearestBlock(py) {
+    let best = null, bestD = Infinity;
+    Object.keys(blockMetrics).forEach(n => {
+        const m = blockMetrics[n];
+        const qb = document.querySelector('.q-block[data-qn="' + n + '"]');
+        const h = qb ? qb.getBoundingClientRect().height : 0;
+        const d = py < m.top ? m.top - py : (py > m.top + h ? py - (m.top + h) : 0);
+        if (d < bestD) { bestD = d; best = n; }
+    });
+    return best;
+}
+
+function sizeDrawLayer() {
+    if (!drawLayer) return;
+    const c = document.querySelector('.container');
+    const bottom = c ? c.getBoundingClientRect().bottom + window.pageYOffset : 0;
+    drawLayer.style.height = Math.max(bottom, window.innerHeight) + 'px';
+    drawLayer.style.width = document.documentElement.clientWidth + 'px';
+}
+
+// Strokes are stored as points [x as fraction of block width, y in px from block top]
+function strokeD(stroke, m) {
+    const pts = stroke.map(p => [m.left + p[0] * m.width, m.top + p[1]]);
     const f = v => v.toFixed(1);
     if (pts.length === 1) return `M ${f(pts[0][0])} ${f(pts[0][1])} l 0.01 0`;
     let d = `M ${f(pts[0][0])} ${f(pts[0][1])}`;
@@ -2268,169 +2341,178 @@ function strokeD(stroke, w) {
     return d + ` L ${f(l[0])} ${f(l[1])}`;
 }
 
-function redrawOverlay(svg) {
-    const n = qnOf(svg);
-    const w = overlayWidth(svg);
-    svg.querySelectorAll('.draw-path').forEach(p => p.remove());
-    if (n === null || !w) return;
-    (drawingsStore[n] || []).forEach(stroke => {
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('class', 'draw-path');
-        path.setAttribute('d', strokeD(stroke, w));
-        svg.insertBefore(path, svg.querySelector('.eraser-cursor'));
+function redrawAll() {
+    if (!drawLayer) return;
+    sizeDrawLayer();
+    measureBlocks();
+    drawLayer.querySelectorAll('.draw-path').forEach(p => p.remove());
+    const cur = drawLayer.querySelector('.eraser-cursor');
+    Object.keys(drawingsStore).forEach(n => {
+        const m = blockMetrics[n];
+        if (!m) return;                       // question currently hidden
+        drawingsStore[n].forEach(stroke => {
+            const path = document.createElementNS(SVGNS, 'path');
+            path.setAttribute('class', 'draw-path');
+            path.setAttribute('d', strokeD(stroke, m));
+            drawLayer.insertBefore(path, cur);
+        });
     });
 }
-
-const overlayObserver = (typeof ResizeObserver !== 'undefined')
-    ? new ResizeObserver(entries => entries.forEach(en => redrawOverlay(en.target))) : null;
-function observeOverlay(svg) {
-    if (overlayObserver) overlayObserver.observe(svg);
-    svg.addEventListener('pointerenter', () => { svg._rect = svg.getBoundingClientRect(); });
+let redrawQueued = false;
+function queueRedraw() {
+    if (redrawQueued) return;
+    redrawQueued = true;
+    requestAnimationFrame(() => { redrawQueued = false; if (!activeDrawState) redrawAll(); });
 }
 
-function setOverlayTool(svg, tool) {
-    const had = !!svg.dataset.tool;
-    if (tool) svg.dataset.tool = tool; else delete svg.dataset.tool;
-    svg.classList.toggle('active', !!tool);
-    svg.classList.toggle('tool-eraser', tool === 'eraser');
-    const cur = svg.querySelector('.eraser-cursor');
-    if (cur) cur.style.display = 'none';
-    if (!had && tool) activeDrawOverlaysCount++;
-    if (had && !tool) activeDrawOverlaysCount = Math.max(0, activeDrawOverlaysCount - 1);
+function initGlobalDrawing() {
+    drawLayer = document.createElementNS(SVGNS, 'svg');
+    drawLayer.id = 'draw-layer';
+    const cur = document.createElementNS(SVGNS, 'circle');
+    cur.setAttribute('class', 'eraser-cursor');
+    cur.setAttribute('r', ERASER_RADIUS);
+    drawLayer.appendChild(cur);
+    drawLayer.addEventListener('pointerdown', startDraw);
+    drawLayer.addEventListener('pointermove', moveDraw);
+    drawLayer.addEventListener('pointerup', endDraw);
+    drawLayer.addEventListener('pointerleave', endDraw);
+    drawLayer.addEventListener('pointercancel', endDraw);
+    document.body.appendChild(drawLayer);
+    if (typeof ResizeObserver !== 'undefined') {
+        new ResizeObserver(queueRedraw).observe(document.querySelector('.container'));
+    }
+    window.addEventListener('resize', queueRedraw);
+    window.addEventListener('load', queueRedraw);
+    redrawAll();
+}
+
+function setTool(tool) {
+    currentTool = tool;
+    if (drawLayer) {
+        drawLayer.classList.toggle('active', !!tool);
+        drawLayer.classList.toggle('tool-eraser', tool === 'eraser');
+        const cur = drawLayer.querySelector('.eraser-cursor');
+        if (cur) cur.style.display = 'none';
+    }
     updateGlobalScrollLock();
 }
 
 function selectTool(btn) {
-    const qb = btn.closest('.q-block');
-    if (!qb) return;
-    const svg = qb.querySelector(':scope > .draw-overlay');
-    if (!svg) return;
     const tool = btn.dataset.tool;
     const turnOff = btn.dataset.active === 'true';
-    qb.querySelectorAll('.draw-btn').forEach(b => { b.dataset.active = 'false'; b.classList.remove('tool-on'); });
+    document.querySelectorAll('.draw-btn').forEach(b => { b.dataset.active = 'false'; b.classList.remove('tool-on'); });
     if (turnOff) {
-        setOverlayTool(svg, null);
+        setTool(null);
     } else {
         btn.dataset.active = 'true';
         btn.classList.add('tool-on');
-        setOverlayTool(svg, tool);
+        setTool(tool);
+        redrawAll();
     }
     activeDrawState = null;
 }
 
-function pointIn(svg, evt) {
-    const r = svg._rect || (svg._rect = svg.getBoundingClientRect());
-    return { x: evt.clientX - r.left, y: evt.clientY - r.top, w: r.width };
+function deactivateDrawTools(onlyHidden) {
+    // Questions being hidden no longer switch the tool off; only a full reset does.
+    if (!onlyHidden) {
+        document.querySelectorAll('.draw-btn').forEach(b => { b.dataset.active = 'false'; b.classList.remove('tool-on'); });
+        setTool(null);
+        activeDrawState = null;
+    }
+    queueRedraw();
 }
 
-function moveCursor(svg, pt) {
-    let cur = svg._cursor;
-    if (!cur || !cur.isConnected) {
-        cur = svg.querySelector('.eraser-cursor');
-        if (!cur) {
-            cur = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            cur.setAttribute('class', 'eraser-cursor');
-            cur.setAttribute('r', ERASER_RADIUS);
-            svg.appendChild(cur);
-        }
-        svg._cursor = cur;
-    }
+function pointIn(evt) {
+    return { x: evt.pageX, y: evt.pageY };
+}
+
+function moveCursor(pt) {
+    const cur = drawLayer.querySelector('.eraser-cursor');
     cur.style.display = 'block';
     cur.setAttribute('cx', pt.x);
     cur.setAttribute('cy', pt.y);
 }
 
-function eraseAt(svg, px, py, w) {
-    const n = qnOf(svg);
-    const strokes = drawingsStore[n];
-    if (!strokes || !strokes.length) return false;
+function eraseAt(px, py) {
     const r2 = ERASER_RADIUS * ERASER_RADIUS;
     let changed = false;
-    const out = [];
-    strokes.forEach(stroke => {
-        let run = [];
-        let hit = false;
-        stroke.forEach(p => {
-            const dx = p[0] * w - px, dy = p[1] - py;
-            if (dx * dx + dy * dy <= r2) {
-                hit = true;
-                if (run.length) { out.push(run); run = []; }
-            } else run.push(p);
+    Object.keys(drawingsStore).forEach(n => {
+        const m = blockMetrics[n];
+        if (!m) return;
+        const out = [];
+        let touched = false;
+        drawingsStore[n].forEach(stroke => {
+            let run = [], hit = false;
+            stroke.forEach(p => {
+                const dx = m.left + p[0] * m.width - px, dy = m.top + p[1] - py;
+                if (dx * dx + dy * dy <= r2) {
+                    hit = true;
+                    if (run.length) { out.push(run); run = []; }
+                } else run.push(p);
+            });
+            if (!hit) { out.push(stroke); return; }
+            touched = true;
+            if (run.length) out.push(run);
         });
-        if (!hit) { out.push(stroke); return; }
-        changed = true;
-        if (run.length) out.push(run);
+        if (touched) {
+            changed = true;
+            if (out.length) drawingsStore[n] = out; else delete drawingsStore[n];
+        }
     });
-    if (changed) {
-        if (out.length) drawingsStore[n] = out; else delete drawingsStore[n];
-    }
     return changed;
 }
 
 function flushDraw(st) {
     st.raf = 0;
     if (st.tool === 'pen') {
-        st.path.setAttribute('d', strokeD(st.stroke, st.w));
+        st.path.setAttribute('d', strokeD(st.stroke, st.m));
     } else if (st.dirty) {
         st.dirty = false;
-        redrawOverlay(st.svg);
+        redrawAll();
     }
 }
 function scheduleFlush(st) {
     if (!st.raf) st.raf = requestAnimationFrame(() => flushDraw(st));
 }
 
-function deactivateDrawTools(onlyHidden) {
-    document.querySelectorAll('.q-block').forEach(qb => {
-        if (onlyHidden && qb.style.display !== 'none') return;
-        const svg = qb.querySelector(':scope > .draw-overlay');
-        if (svg && svg.dataset.tool) setOverlayTool(svg, null);
-        qb.querySelectorAll('.draw-btn').forEach(b => { b.dataset.active = 'false'; b.classList.remove('tool-on'); });
-    });
-    if (!onlyHidden) activeDrawOverlaysCount = 0;
-    activeDrawState = null;
-    updateGlobalScrollLock();
-}
-
 function startDraw(evt) {
-    const svg = evt.currentTarget;
-    if (!svg.classList.contains('active')) return;
+    if (!currentTool) return;
     if (activeDrawState) return;               // ignore a second finger / palm while drawing
     if (evt.pointerType === 'mouse' && evt.button !== 0) return;
     evt.preventDefault();
-    svg._rect = svg.getBoundingClientRect();
-    const pt = pointIn(svg, evt);
-    if (!pt.w) return;
-    const n = qnOf(svg);
-    if (svg.setPointerCapture) { try { svg.setPointerCapture(evt.pointerId); } catch (e) {} }
-    if (svg.dataset.tool === 'eraser') {
-        const st = activeDrawState = { svg, tool: 'eraser', pid: evt.pointerId, last: pt, w: pt.w, dirty: false, raf: 0 };
-        moveCursor(svg, pt);
-        if (eraseAt(svg, pt.x, pt.y, pt.w)) { st.dirty = true; scheduleFlush(st); }
+    measureBlocks();
+    const pt = pointIn(evt);
+    if (drawLayer.setPointerCapture) { try { drawLayer.setPointerCapture(evt.pointerId); } catch (e) {} }
+    if (currentTool === 'eraser') {
+        const st = activeDrawState = { tool: 'eraser', pid: evt.pointerId, last: pt, dirty: false, raf: 0 };
+        moveCursor(pt);
+        if (eraseAt(pt.x, pt.y)) { st.dirty = true; scheduleFlush(st); }
     } else {
+        const n = nearestBlock(pt.y);
+        if (n === null) return;
+        const m = blockMetrics[n];
         if (!drawingsStore[n]) drawingsStore[n] = [];
-        const stroke = [[pt.x / pt.w, pt.y]];
+        const stroke = [[(pt.x - m.left) / m.width, pt.y - m.top]];
         drawingsStore[n].push(stroke);
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const path = document.createElementNS(SVGNS, 'path');
         path.setAttribute('class', 'draw-path');
-        path.setAttribute('d', strokeD(stroke, pt.w));
-        svg.insertBefore(path, svg.querySelector('.eraser-cursor'));
-        activeDrawState = { svg, tool: 'pen', pid: evt.pointerId, stroke, path, last: pt, w: pt.w, raf: 0 };
+        path.setAttribute('d', strokeD(stroke, m));
+        drawLayer.insertBefore(path, drawLayer.querySelector('.eraser-cursor'));
+        activeDrawState = { tool: 'pen', pid: evt.pointerId, stroke, path, m, last: pt, raf: 0 };
     }
 }
 
 function moveDraw(evt) {
-    const svg = evt.currentTarget;
-    const st = activeDrawState && activeDrawState.svg === svg ? activeDrawState : null;
+    const st = activeDrawState;
     if (st && evt.pointerId !== st.pid) return;
     // Pencil/finger: circle only while touching the screen. Mouse: also follows hover.
-    if (svg.dataset.tool === 'eraser' && (st || evt.pointerType === 'mouse')) moveCursor(svg, pointIn(svg, evt));
+    if (currentTool === 'eraser' && (st || evt.pointerType === 'mouse')) moveCursor(pointIn(evt));
     if (!st) return;
     evt.preventDefault();
     const events = (evt.getCoalescedEvents && evt.getCoalescedEvents()) || [];
     if (!events.length) events.push(evt);     // full-rate Apple Pencil samples
     for (const ev of events) {
-        const pt = pointIn(svg, ev);
+        const pt = pointIn(ev);
         const last = st.last;
         if (st.tool === 'eraser') {
             const dist = Math.hypot(pt.x - last.x, pt.y - last.y);
@@ -2438,12 +2520,12 @@ function moveDraw(evt) {
             for (let i = 1; i <= steps; i++) {
                 const x = last.x + (pt.x - last.x) * i / steps;
                 const y = last.y + (pt.y - last.y) * i / steps;
-                if (eraseAt(svg, x, y, st.w)) st.dirty = true;
+                if (eraseAt(x, y)) st.dirty = true;
             }
             st.last = pt;
         } else {
             if (Math.hypot(pt.x - last.x, pt.y - last.y) < 0.8) continue;
-            st.stroke.push([pt.x / st.w, pt.y]);
+            st.stroke.push([(pt.x - st.m.left) / st.m.width, pt.y - st.m.top]);
             st.last = pt;
         }
     }
@@ -2452,22 +2534,19 @@ function moveDraw(evt) {
 
 function endDraw(evt) {
     const st = activeDrawState;
-    if (!st || st.svg !== evt.currentTarget) {
-        // pointer left the area without drawing: make sure no circle is left behind
-        const c = evt.currentTarget.querySelector && evt.currentTarget.querySelector('.eraser-cursor');
+    if (!st) {
+        const c = drawLayer && drawLayer.querySelector('.eraser-cursor');
         if (c) c.style.display = 'none';
         return;
     }
     if (evt.pointerId !== st.pid) return;
     if (st.raf) { cancelAnimationFrame(st.raf); st.raf = 0; }
-    if (st.tool === 'eraser') { if (st.dirty) redrawOverlay(st.svg); }
-    else st.path.setAttribute('d', strokeD(st.stroke, st.w));
+    if (st.tool === 'eraser') { if (st.dirty) redrawAll(); }
+    else st.path.setAttribute('d', strokeD(st.stroke, st.m));
     activeDrawState = null;
     saveDrawings();
-    if (evt.type !== 'pointerup' || evt.pointerType !== 'mouse') {
-        const cur = st.svg.querySelector('.eraser-cursor');
-        if (cur && evt.pointerType !== 'mouse') cur.style.display = 'none';
-    }
+    const cur = drawLayer.querySelector('.eraser-cursor');
+    if (cur && evt.pointerType !== 'mouse') cur.style.display = 'none';
 }
 
 /* ---- Apple Pencil taps on buttons ----
@@ -2511,7 +2590,7 @@ function fallbackCopy(text) {
 }
 
 
-
+/* Write each lecture name ONCE here: number (used as "l" in the questions) : name */
 const lectures = {
     1: "Introduction to Pharmacology",
     2: "Pharmacokinetics",
@@ -2527,16 +2606,12 @@ const lectures = {
     12: "Adrenergic receptor blockers",
     13: "Cell wall synthesis inhibitors Ⅱ",
     20: "NOT SEPARATED YET",
-   
-   
 };
 
-
 const lectureFilters = {
-    "All": [],
     [SUBJECT]: [
         { label: "All", val: "All" },
-        ...Object.keys(lectures).map(id => ({ label: lectures[id], val: id }))
+        ...Object.entries(lectures).map(([val, label]) => ({ label, val })),
     ],
 };
 const CONTENT_NOTE = "";
@@ -2615,18 +2690,7 @@ document.addEventListener('click', function(e) {
 });
 
 function getLectureLabel(val) {
-    if (val === "All" && currentSubjectFilter === "All") return "All";
-    if (val === "All") {
-        const subjectLabels = {
-            "Immunology": "Immunology 🛡️",
-            "Biochemistry": "Biochemistry 🧪",
-            "Pharmacology": "Pharmacology 💊",
-            "Pathology": "Pathology 🔬",
-            "Medical Education": "Medical Education 📗",
-              
-        };
-        return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
-    }
+    if (val === "All") return SUBJECT_LABEL;
     return lectures[val] || val;
 }
 
@@ -2649,6 +2713,10 @@ function updateSectionHeading() {
             noResultsMsg.textContent = "No questions found.";
             container.appendChild(noResultsMsg);
         }
+        // The page just got much shorter; if we were scrolled down, the view lands
+        // on blank space below the content. Jump to the top so the message is visible.
+        window.scrollTo(0, 0);
+        requestAnimationFrame(function () { window.scrollTo(0, 0); });
     } else if (noResultsMsg) {
         noResultsMsg.remove();
     }
@@ -2729,16 +2797,12 @@ function renderCaseActionsHtml(mainN) {
                 <button class="icon-btn copy-btn" onclick="copyCase(this)" title="Copy question">${COPY_SVG}</button>
             </div>
             <button class="icon-btn pin-btn" data-pinned="${isPinned(mainN)}" onclick="togglePin(${mainN})" title="${isPinned(mainN) ? 'Unpin question' : 'Pin question'}">${isPinned(mainN) ? UNPIN_SVG : PIN_SVG}</button>
-            ${DRAW_BTNS_HTML}
-        </div>
-        <svg class="draw-overlay draw-overlay--outer" onpointerdown="startDraw(event)" onpointermove="moveDraw(event)" onpointerup="endDraw(event)" onpointerleave="endDraw(event)" onpointercancel="endDraw(event)"></svg>`;
+        </div>`;
 }
 
 function renderQuiz() {
     container.innerHTML = '';
     activeDrawState = null;
-    activeDrawOverlaysCount = 0;
-    updateGlobalScrollLock();
     allQuestions.forEach(item => {
         const div = document.createElement('div');
         div.className = 'q-block';
@@ -2761,7 +2825,6 @@ function renderQuiz() {
                 ${renderCaseActionsHtml(item.n)}
             `;
             container.appendChild(div);
-            div.querySelectorAll('.draw-overlay').forEach(observeOverlay);
             return;
         }
 
@@ -2784,15 +2847,13 @@ function renderQuiz() {
                         <button class="icon-btn copy-btn" onclick="copyQuestion(this)" title="Copy question">${COPY_SVG}</button>
                     </div>
                     <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button>
-                    ${DRAW_BTNS_HTML}
-                </div>`
+                        </div>`
             : `
                 <button class="eye-btn" data-label="Answer" data-answer="${escapeAttr(isEssay ? item.a : '')}" data-essay="${isEssay}" data-correct="${escapeAttr(item.a)}" data-revealed="false" onclick="toggleAnswer(this)" title="Show answer">${EYE_HIDE_SVG}</button>
                 <div class="copy-wrap">
                     <button class="icon-btn copy-btn" onclick="copyQuestion(this)" title="Copy question">${COPY_SVG}</button>
                 </div>
-                <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button>
-                ${DRAW_BTNS_HTML}`;
+                <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button>`;
 
         div.innerHTML = `
             <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
@@ -2803,13 +2864,11 @@ function renderQuiz() {
             <div class="ans-row${isMulti ? ' ans-row--multi' : ''}">
                 ${iconsRowHtml}
             </div>
-            <svg class="draw-overlay draw-overlay--outer" onpointerdown="startDraw(event)" onpointermove="moveDraw(event)" onpointerup="endDraw(event)" onpointerleave="endDraw(event)" onpointercancel="endDraw(event)"></svg>
         `;
         container.appendChild(div);
-        div.querySelectorAll('.draw-overlay').forEach(observeOverlay);
     });
-    container.querySelectorAll('.draw-overlay').forEach(redrawOverlay);
     updateSectionHeading();
+    queueRedraw();
 }
 
 document.addEventListener("keydown", function(e) {
@@ -2849,15 +2908,66 @@ function matchesFilters(item) {
     return subjectOk && lectureOk;
 }
 
+function scrollSubjectDropdownToSelected() {
+    const wrap = document.querySelector('#subject-dropdown .subject-dropdown-items');
+    if (!wrap) return;
+    const selected = wrap.querySelector('.subject-dropdown-item.selected');
+    if (selected) {
+        const target = selected.offsetTop - (wrap.clientHeight / 2) + (selected.clientHeight / 2);
+        wrap.scrollTop = Math.max(0, target);
+    } else {
+        wrap.scrollTop = 0;
+    }
+}
+
+function toggleSubjectDropdown() {
+    const dd = document.getElementById('subject-dropdown');
+    const btn = document.getElementById('subject-toggle-btn');
+    const isOpen = dd.classList.contains('open');
+    if (isOpen) {
+        dd.classList.remove('open');
+        btn.classList.remove('dropdown-open');
+    } else {
+        dd.classList.add('open');
+        btn.classList.add('dropdown-open');
+        scrollSubjectDropdownToSelected();
+    }
+}
+
+function closeSubjectDropdown() {
+    const dd = document.getElementById('subject-dropdown');
+    const btn = document.getElementById('subject-toggle-btn');
+    if (dd) dd.classList.remove('open');
+    if (btn) btn.classList.remove('dropdown-open');
+}
+
+function selectSubjectFilter(subject, el) {
+    currentSubjectFilter = subject;
+    deactivateDrawTools(false);   // switching subject turns off pen/eraser everywhere
+    currentLecture = "All";
+    localStorage.setItem('selectedSubject_' + location.pathname, subject);
+    document.querySelectorAll('.subject-dropdown-item').forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+    handleSearch();
+}
+
+document.addEventListener('click', function(e) {
+    const wrapper = document.querySelector('.subject-toggle-wrapper');
+    if (wrapper && !wrapper.contains(e.target)) {
+        document.getElementById('subject-dropdown').classList.remove('open');
+        document.getElementById('subject-toggle-btn').classList.remove('dropdown-open');
+    }
+});
+
 /* Premium Full Header Takeover Functions */
 function toggleSearchBar() {
     const takeover = document.getElementById('search-takeover-wrap');
-    const normalLeft = document.getElementById('header-normal-left');
     const normalRight = document.getElementById('header-normal-right');
     const input = document.getElementById('search-input');
 
-    normalLeft.style.display = 'none';
+    deactivateDrawTools(false);   // pen/eraser buttons are hidden while searching
     normalRight.style.display = 'none';
+    document.getElementById('header-title-wrap').style.display = 'none';
     takeover.classList.add('open');
     
     setTimeout(() => input.focus(), 50);
@@ -2865,20 +2975,22 @@ function toggleSearchBar() {
 
 function closeSearchBar() {
     const takeover = document.getElementById('search-takeover-wrap');
-    const normalLeft = document.getElementById('header-normal-left');
     const normalRight = document.getElementById('header-normal-right');
     const input = document.getElementById('search-input');
 
     takeover.classList.remove('open');
-    normalLeft.style.display = 'flex';
     normalRight.style.display = 'flex';
+    document.getElementById('header-title-wrap').style.display = '';
     
     input.value = '';
     handleSearch();
 }
 
+let savedScrollY = null;
 function handleSearch() {
     const term = document.getElementById('search-input').value.toLowerCase();
+    // Remember where the user was before the search starts changing the list
+    if (term !== "" && savedScrollY === null) savedScrollY = window.pageYOffset;
     const blocks = document.querySelectorAll('.q-block');
     blocks.forEach(block => {
         resetBlock(block);
@@ -2894,6 +3006,13 @@ function handleSearch() {
     });
     deactivateDrawTools(true);   // a hidden question can't keep pen/eraser (or the scroll lock) on
     updateSectionHeading();
+    // Search cleared: go back to the spot the user was at before searching
+    if (term === "" && savedScrollY !== null) {
+        const y = savedScrollY;
+        savedScrollY = null;
+        window.scrollTo(0, y);
+        requestAnimationFrame(function () { window.scrollTo(0, y); });
+    }
 }
 
 function resetBlock(block) {
@@ -2995,8 +3114,33 @@ function toggleTheme() {
 reorderQuestions();
 renderQuiz();
 
+document.querySelectorAll('.pen-btn').forEach(b => b.innerHTML = PEN_SVG);
+document.querySelectorAll('.eraser-btn').forEach(b => b.innerHTML = ERASER_SVG);
+initGlobalDrawing();
 
 
+/* Keep the header visible while the search bar is open (mobile keyboard fix) */
+(function () {
+    const sticky = document.getElementById('header2-sticky');
+    const input = document.getElementById('search-input');
+    const takeover = document.getElementById('search-takeover-wrap');
+    function syncHeader() {
+        const searching = takeover.classList.contains('open');
+        const off = (window.visualViewport && searching) ? window.visualViewport.offsetTop : 0;
+        sticky.style.transform = off > 0 ? 'translateY(' + off + 'px)' : '';
+    }
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('scroll', syncHeader);
+        window.visualViewport.addEventListener('resize', syncHeader);
+    }
+    window.addEventListener('scroll', syncHeader, { passive: true });
+    document.addEventListener('touchmove', function (e) {
+        if (document.activeElement === input && e.target !== input) input.blur();
+    }, { passive: true });
+    document.querySelector('.search-close-btn').addEventListener('click', function () {
+        sticky.style.transform = '';
+    });
+})();
 </script>
 </body>
 </html>
