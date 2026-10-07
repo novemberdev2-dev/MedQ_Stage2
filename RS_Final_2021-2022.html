@@ -1059,12 +1059,17 @@
         .brand-big { font-size: 1.45rem; font-weight: 800; color: var(--text-main); white-space: nowrap; }
         .brand-small { font-size: 0.68rem; font-weight: 600; color: var(--text-opts); opacity: 0.85; white-space: nowrap; margin-top: 2px; }
         @media (max-width: 480px) {
-            .brand-wrap { padding-right: 10px; }
-            .brand-big { font-size: 1.2rem; }
-            .brand-small { font-size: 0.62rem; }
-            .header-actions { gap: 2px; }
-            .header-actions .icon-btn { padding: 5px; }
-            .search-toggle-btn, .theme-toggle { width: 30px; height: 30px; }
+            .brand-wrap { padding-right: 6px; }
+            .brand-big { font-size: 1rem; }
+            .brand-small { font-size: 0.54rem; margin-top: 1px; }
+            .header-actions { gap: 6px; }
+            .header-actions .icon-btn { padding: 4px; }
+            .search-toggle-btn, .theme-toggle, .subject-toggle { width: 30px; height: 30px; }
+        }
+        @media (max-width: 360px) {
+            .brand-big { font-size: 0.92rem; }
+            .brand-small { font-size: 0.5rem; }
+            .header-actions { gap: 4px; }
         }
 
         .draw-btn svg, .draw-btn svg path { fill: none !important; }
@@ -2443,6 +2448,29 @@ document.querySelectorAll('.pen-btn').forEach(b => b.innerHTML = PEN_SVG);
 document.querySelectorAll('.eraser-btn').forEach(b => b.innerHTML = ERASER_SVG);
 initGlobalDrawing();
 
+
+/* Keep the header visible while the search bar is open (mobile keyboard fix) */
+(function () {
+    const sticky = document.getElementById('header2-sticky');
+    const input = document.getElementById('search-input');
+    const takeover = document.getElementById('search-takeover-wrap');
+    function syncHeader() {
+        const searching = takeover.classList.contains('open');
+        const off = (window.visualViewport && searching) ? window.visualViewport.offsetTop : 0;
+        sticky.style.transform = off > 0 ? 'translateY(' + off + 'px)' : '';
+    }
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('scroll', syncHeader);
+        window.visualViewport.addEventListener('resize', syncHeader);
+    }
+    window.addEventListener('scroll', syncHeader, { passive: true });
+    document.addEventListener('touchmove', function (e) {
+        if (document.activeElement === input && e.target !== input) input.blur();
+    }, { passive: true });
+    document.querySelector('.search-close-btn').addEventListener('click', function () {
+        sticky.style.transform = '';
+    });
+})();
 </script>
 </body>
 </html>
