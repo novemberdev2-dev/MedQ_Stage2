@@ -1044,7 +1044,27 @@
             flex: 1;
             min-width: 0;
         }
-        .header-tools .icon-btn { margin-top: 0; padding: 7px; }
+        .header-actions .icon-btn { margin-top: 0; padding: 7px; }
+        .header2 { gap: 0; }
+        #header-normal-right .icon-divider.tools-divider { display: block; margin: 0 2px; }
+        .brand-wrap {
+            margin-right: auto;
+            padding-right: 28px;
+            text-align: left;
+            line-height: 1.15;
+            min-width: 0;
+            flex-shrink: 1;
+        }
+        .brand-big { font-size: 1.45rem; font-weight: 800; color: var(--text-main); white-space: nowrap; }
+        .brand-small { font-size: 0.68rem; font-weight: 600; color: var(--text-opts); opacity: 0.85; white-space: nowrap; margin-top: 2px; }
+        @media (max-width: 480px) {
+            .brand-wrap { padding-right: 10px; }
+            .brand-big { font-size: 1.2rem; }
+            .brand-small { font-size: 0.62rem; }
+            .header-actions { gap: 2px; }
+            .header-actions .icon-btn { padding: 5px; }
+            .search-toggle-btn, .theme-toggle { width: 30px; height: 30px; }
+        }
 
         .draw-btn svg, .draw-btn svg path { fill: none !important; }
         .draw-btn svg path { stroke: currentColor; }
@@ -1080,21 +1100,18 @@
 <body oncontextmenu="return false;">
 
 <div class="container">
-    <div class="header" id="header">
-        <div class="header-title-wrap" id="header-title-wrap">
-            <span class="header-title"><span class="title-line1">IBS 🧪&nbsp;·&nbsp; End-Block</span><span class="title-sep-2">&nbsp;·&nbsp;</span><span class="title-line2">2024-2025</span></span>
-        </div>
-    </div>
-
     <div class="header2-sticky" id="header2-sticky">
     <div class="header header2" id="header2">
-        <!-- LEFT: drawing tools -->
-        <div class="header-tools" id="header-normal-left">
-            <button class="icon-btn draw-btn pen-btn" data-tool="pen" data-active="false" onclick="selectTool(this)" title="Pen"></button>
-            <button class="icon-btn draw-btn eraser-btn" data-tool="eraser" data-active="false" onclick="selectTool(this)" title="Eraser"></button>
+        <!-- TITLE (left side) -->
+        <div class="brand-wrap" id="header-title-wrap">
+            <div class="brand-big">IBS 🧪</div>
+            <div class="brand-small">End-Block&nbsp;·&nbsp;2024-2025</div>
         </div>
 
         <div class="header-actions" id="header-normal-right">
+            <button class="icon-btn draw-btn pen-btn" data-tool="pen" data-active="false" onclick="selectTool(this)" title="Pen"></button>
+            <button class="icon-btn draw-btn eraser-btn" data-tool="eraser" data-active="false" onclick="selectTool(this)" title="Eraser"></button>
+            <div class="icon-divider tools-divider"></div>
             <button class="search-toggle-btn" id="search-toggle-btn" onclick="toggleSearchBar()" title="Search">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.9536 14.9458L21 21M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
             </button>
@@ -2268,13 +2285,12 @@ document.addEventListener('click', function(e) {
 /* Premium Full Header Takeover Functions */
 function toggleSearchBar() {
     const takeover = document.getElementById('search-takeover-wrap');
-    const normalLeft = document.getElementById('header-normal-left');
     const normalRight = document.getElementById('header-normal-right');
     const input = document.getElementById('search-input');
 
     deactivateDrawTools(false);   // pen/eraser buttons are hidden while searching
-    normalLeft.style.display = 'none';
     normalRight.style.display = 'none';
+    document.getElementById('header-title-wrap').style.display = 'none';
     takeover.classList.add('open');
     
     setTimeout(() => input.focus(), 50);
@@ -2282,13 +2298,12 @@ function toggleSearchBar() {
 
 function closeSearchBar() {
     const takeover = document.getElementById('search-takeover-wrap');
-    const normalLeft = document.getElementById('header-normal-left');
     const normalRight = document.getElementById('header-normal-right');
     const input = document.getElementById('search-input');
 
     takeover.classList.remove('open');
-    normalLeft.style.display = 'flex';
     normalRight.style.display = 'flex';
+    document.getElementById('header-title-wrap').style.display = '';
     
     input.value = '';
     handleSearch();
