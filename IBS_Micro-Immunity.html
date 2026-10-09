@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IBS_Micro-Immunity_All</title>
-
+    <title>IBS_Micro-Immunity_All Years</title>
+   
     <style>
        :root {
             --bg-body: #121212;
@@ -523,7 +523,7 @@
             overflow: hidden;
             width: 290px;
             max-width: 80vw;
-            z-index: 50;
+            z-index: 20;
             opacity: 0;
             pointer-events: none;
             transform: translateY(-6px) scale(0.97);
@@ -795,8 +795,14 @@
             white-space: nowrap;
         }
 
+        /* Two versions of the lecture/subject name are rendered together:
+           .label-full (complete text, used on larger screens) and
+           .label-short (hard-capped to 25 characters + "…", used on small
+           screens). Only one is shown at a time via the media query below. */
         .label-short { display: none; }
 
+        /* Subject names (e.g. "Microbiology 🦠") are shown a bit larger
+           than individual lecture names (e.g. "Trachea, bronch..."). */
         .section-heading-title.subject-title {
             font-size: 1.22rem;
         }
@@ -987,7 +993,8 @@
         }
 
         
-        .draw-overlay {
+        /* One page-wide drawing layer (pen / eraser work everywhere) */
+        #draw-layer {
             position: absolute;
             top: 0;
             left: 0;
@@ -996,29 +1003,23 @@
             z-index: 5;
             pointer-events: none;
             touch-action: none;
+            overflow: hidden;
         }
 
-        .draw-overlay.draw-overlay--outer {
-            top: -40px;
-            height: calc(100% + 40px);
-        }
-
-        .draw-overlay.active {
+        #draw-layer.active {
             pointer-events: auto;
             cursor: crosshair;
-            touch-action: none;
         }
 
-        /* While any question's drawing mode is on, block page scrolling so a
-           stylus/finger stroke never gets interpreted as a scroll gesture.
-           Buttons remain clickable since taps don't trigger this. */
+        /* While a tool is on, block page scrolling by touch so a
+           stylus/finger stroke never gets interpreted as a scroll gesture. */
         html.drawing-lock,
         body.drawing-lock {
             touch-action: none;
             overscroll-behavior: none;
         }
 
-        .draw-overlay .draw-path {
+        #draw-layer .draw-path {
             stroke: #ff0000;
             stroke-width: 3;
             fill: none;
@@ -1026,6 +1027,83 @@
             stroke-linejoin: round;
         }
 
+        /* Second header: sticky, questions scroll underneath it */
+        .header2-sticky {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            margin: 0 -20px 6px;
+            padding: 28px 20px 8px;   /* top padding = the old container top gap, so the header never shifts when stuck */
+            background-color: var(--bg-body);
+        }
+        .container { padding-top: 0; min-height: 100vh; }
+        .no-results { min-height: 50vh; }
+        .header2-sticky .header2 { margin-bottom: 0; }
+        .header { margin-bottom: 8px; }
+        .header-tools {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+            min-width: 0;
+        }
+        .header-actions .icon-btn { margin-top: 0; padding: 7px; }
+        .header2 { gap: 0; }
+        #header-normal-right .icon-divider.tools-divider { display: block; margin: 0 2px; }
+        .brand-wrap {
+            margin-right: auto;
+            padding-right: 28px;
+            text-align: left;
+            line-height: 1.15;
+            min-width: 0;
+            flex-shrink: 1;
+        }
+        .brand-big { font-size: 1.2rem; font-weight: 800; color: var(--text-main); white-space: nowrap; }
+        .brand-small { font-size: 0.68rem; font-weight: 600; color: var(--text-opts); opacity: 0.85; white-space: nowrap; margin-top: 2px; }
+        @media (max-width: 480px) {
+            .brand-wrap { padding-right: 6px; }
+            .brand-big { font-size: 0.9rem; }
+            .brand-small { font-size: 0.54rem; margin-top: 1px; }
+            .header-actions { gap: 6px; }
+            .header-actions .icon-btn { padding: 4px; }
+            .search-toggle-btn, .theme-toggle, .subject-toggle { width: 30px; height: 30px; }
+        }
+        /* Same header box size in normal and search mode */
+        .header.header2 { height: 58px; min-height: 58px; padding-top: 0; padding-bottom: 0; box-sizing: border-box; }
+        .search-takeover-wrap { height: 100%; }
+        @media (max-width: 360px) {
+            .brand-big { font-size: 0.85rem; }
+            .brand-small { font-size: 0.5rem; }
+            .header-actions { gap: 4px; }
+        }
+
+        .draw-btn svg, .draw-btn svg path { fill: none !important; }
+        .draw-btn svg path { stroke: currentColor; }
+        .draw-btn.tool-on {
+            background-color: rgba(128,128,128,0.32);
+            border-radius: 50%;
+        }
+        .q-block .icon-btn, .q-block .eye-btn { position: relative; z-index: 6; }
+        #draw-layer.tool-eraser { cursor: none; }
+        #draw-layer { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+        button, .icon-btn, .eye-btn { touch-action: manipulation; -webkit-user-select: none; user-select: none; }
+        #draw-layer .eraser-cursor {
+            fill: rgba(128,128,128,0.18);
+            stroke: var(--text-main);
+            stroke-width: 1.5;
+            pointer-events: none;
+            display: none;
+        }
+
+        /* No tap flash / sticky hover / focus box on touch devices */
+        html, body, *, *::before, *::after { -webkit-tap-highlight-color: rgba(0,0,0,0) !important; }
+        button, .icon-btn, .eye-btn { outline: none !important; -webkit-touch-callout: none; }
+        button:focus, button:focus-visible, button:active { outline: none !important; }
+        @media (hover: none) {
+            .icon-btn:hover, .eye-btn:hover { background-color: transparent; }
+            .icon-btn:active, .eye-btn:active { background-color: transparent; }
+        }
+        .draw-btn.tool-on, .draw-btn.tool-on:hover, .draw-btn.tool-on:active { background-color: rgba(128,128,128,0.32); }
     </style>
 
 </head>
@@ -1033,13 +1111,18 @@
 <body oncontextmenu="return false;">
 
 <div class="container">
-    <div class="header" id="header">
-        <!-- NORMAL HEADER STATE -->
-        <div cla+ss="header-title-wrap" id="header-normal-left">
-            <span class="header-title"><span class="title-line1">IBS_Micro-Immunity 🦠&nbsp;·&nbsp; All years</span><span class="title-sep-2">
+    <div class="header2-sticky" id="header2-sticky">
+    <div class="header header2" id="header2">
+        <!-- TITLE (left side) -->
+        <div class="brand-wrap" id="header-title-wrap">
+            <div class="brand-big">IBS </div>
+            <div class="brand-small">Micro-Immunity 🦠&nbsp;·&nbsp;All Years</div>
         </div>
 
         <div class="header-actions" id="header-normal-right">
+            <button class="icon-btn draw-btn pen-btn" data-tool="pen" data-active="false" onclick="selectTool(this)" title="Pen"></button>
+            <button class="icon-btn draw-btn eraser-btn" data-tool="eraser" data-active="false" onclick="selectTool(this)" title="Eraser"></button>
+            <div class="icon-divider tools-divider"></div>
             <button class="search-toggle-btn" id="search-toggle-btn" onclick="toggleSearchBar()" title="Search">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.9536 14.9458L21 21M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
             </button>
@@ -1073,6 +1156,7 @@
             </button>
         </div>
     </div>
+    </div>
 
     <hr class="divider">
     <div id="quiz-content"></div>
@@ -1080,11 +1164,9 @@
 
 <script>
 
-
 const allQuestions = [
   
-   
-{ n: 1,  s: "Micro-Immunity", l: 20, q: "Which interleukin is involved in CD8+ T-cell interactions or production pathways?", o: ["A. IL-4", "B. IL-1", "C. TNF", "D. IL-12", "E. IL-6"], a: "A" },
+ { n: 1,  s: "Micro-Immunity", l: 20, q: "Which interleukin is involved in CD8+ T-cell interactions or production pathways?", o: ["A. IL-4", "B. IL-1", "C. TNF", "D. IL-12", "E. IL-6"], a: "A" },
   { n: 2,  s: "Micro-Immunity", l: 20, q: "Which cytokine pathway protects immune cells from undergoing premature apoptosis?", o: ["A. IL pathway", "B. Histamine pathway", "C. Bradykinin pathway", "D. Leukotriene pathway", "E. Prostaglandin pathway"], a: "A" },
   { n: 3,  s: "Micro-Immunity", l: 13, q: "Which cytokine is essential for defense against helminthic infections by activating eosinophils?", o: ["A. IL-1", "B. IL-2", "C. IL-5", "D. IL-10", "E. TNF-alpha"], a: "C" },
   { n: 4,  s: "Micro-Immunity", l: 13, q: "Eosinophils bind to helminths coated with antibody molecules using which surface structure?", o: ["A. C5b receptor", "B. J chain", "C. CD8 molecule", "D. Fc receptor", "E. IgD receptor"], a: "D" },
@@ -1907,7 +1989,17 @@ a: "C"
   },
 
 
-  
+  { n: 156, s: "Micro-Immunity", l: 14, q: "Which of the following cytokines is involved in chemoresistance?", o: ["A. TNF-alpha", "B. IL-6", "C. TGF-beta", "D. IL-10", "E. IL-2"], a: "B" },
+  { n: 157, s: "Micro-Immunity", l: 14, q: "Which of the following cytokines is antiviral and anti-tumor?", o: ["A. IL-4", "B. IL-12", "C. IFN-y", "D. IL-10", "E. TGF-beta"], a: "C" },
+
+  { 
+  n: 158, 
+  s: "Micro-Immunity", 
+  l: 14,
+  q: "Write one advantage and disadvantage of immunotherapy.", 
+  o: [""], 
+  a: "Advantage: Fewer side effects than traditional treatments. \n\n Disadvantage: Treatment costs are high."
+}
 ];
 
 
@@ -1917,7 +2009,7 @@ const EYE_HIDE_SVG = `<svg fill="#000000" width="20px" height="20px" viewBox="0 
 const COPY_SVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="9" y="9" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="2"></path></svg>`;
 const CHECK_SVG = `<svg fill="currentColor" width="20" height="20" viewBox="0 0 335.765 335.765" xmlns="http://www.w3.org/2000/svg"><polygon points="311.757,41.803 107.573,245.96 23.986,162.364 0,186.393 107.573,293.962 335.765,65.795 "></polygon></svg>`;
 
-const PEN_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11 4H7.2C6.0799 4 5.51984 4 5.09202 4.21799C4.71569 4.40974 4.40973 4.7157 4.21799 5.09202C4 5.51985 4 6.0799 4 7.2V16.8C4 17.9201 4 18.4802 4.21799 18.908C4.40973 19.2843 4.71569 19.5903 5.09202 19.782C5.51984 20 6.0799 20 7.2 20H16.8C17.9201 20 18.4802 20 18.908 19.782C19.2843 19.5903 19.5903 19.2843 19.782 18.908C20 18.4802 20 17.9201 20 16.8V12.5M15.5 5.5L18.3284 8.32843M10.7627 10.2373L17.411 3.58902C18.192 2.80797 19.4584 2.80797 20.2394 3.58902C21.0205 4.37007 21.0205 5.6364 20.2394 6.41745L13.3774 13.2794C12.6158 14.0411 12.235 14.4219 11.8012 14.7247C11.4162 14.9936 11.0009 15.2162 10.564 15.3882C10.0717 15.582 9.54378 15.6885 8.48793 15.9016L8 16L8.04745 15.6678C8.21536 14.4925 8.29932 13.9048 8.49029 13.3561C8.65975 12.8692 8.89125 12.4063 9.17906 11.9786C9.50341 11.4966 9.92319 11.0768 10.7627 10.2373Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`;
+const PEN_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.4998 5.49994L18.3282 8.32837M3 20.9997L3.04745 20.6675C3.21536 19.4922 3.29932 18.9045 3.49029 18.3558C3.65975 17.8689 3.89124 17.4059 4.17906 16.9783C4.50341 16.4963 4.92319 16.0765 5.76274 15.237L17.4107 3.58896C18.1918 2.80791 19.4581 2.80791 20.2392 3.58896C21.0202 4.37001 21.0202 5.63634 20.2392 6.41739L8.37744 18.2791C7.61579 19.0408 7.23497 19.4216 6.8012 19.7244C6.41618 19.9932 6.00093 20.2159 5.56398 20.3879C5.07171 20.5817 4.54375 20.6882 3.48793 20.9012L3 20.9997Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>`;
 const ERASER_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M17.9995 13L10.9995 6.00004M20.9995 21H7.99955M10.9368 20.0628L19.6054 11.3941C20.7935 10.2061 21.3875 9.61207 21.6101 8.92709C21.8058 8.32456 21.8058 7.67551 21.6101 7.07298C21.3875 6.388 20.7935 5.79397 19.6054 4.60592L19.3937 4.39415C18.2056 3.2061 17.6116 2.61207 16.9266 2.38951C16.3241 2.19373 15.675 2.19373 15.0725 2.38951C14.3875 2.61207 13.7935 3.2061 12.6054 4.39415L4.39366 12.6059C3.20561 13.794 2.61158 14.388 2.38902 15.073C2.19324 15.6755 2.19324 16.3246 2.38902 16.9271C2.61158 17.6121 3.20561 18.2061 4.39366 19.3941L5.06229 20.0628C5.40819 20.4087 5.58114 20.5816 5.78298 20.7053C5.96192 20.815 6.15701 20.8958 6.36108 20.9448C6.59126 21 6.83585 21 7.32503 21H8.67406C9.16324 21 9.40784 21 9.63801 20.9448C9.84208 20.8958 10.0372 20.815 10.2161 20.7053C10.418 20.5816 10.5909 20.4087 10.9368 20.0628Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`;
 
 const PIN_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.1218 1.87023C15.7573 0.505682 13.4779 0.76575 12.4558 2.40261L9.61062 6.95916C9.61033 6.95965 9.60913 6.96167 9.6038 6.96549C9.59728 6.97016 9.58336 6.97822 9.56001 6.9848C9.50899 6.99916 9.44234 6.99805 9.38281 6.97599C8.41173 6.61599 6.74483 6.22052 5.01389 6.87251C4.08132 7.22378 3.61596 8.03222 3.56525 8.85243C3.51687 9.63502 3.83293 10.4395 4.41425 11.0208L7.94975 14.5563L1.26973 21.2363C0.879206 21.6269 0.879206 22.26 1.26973 22.6506C1.66025 23.0411 2.29342 23.0411 2.68394 22.6506L9.36397 15.9705L12.8995 19.5061C13.4808 20.0874 14.2853 20.4035 15.0679 20.3551C15.8881 20.3044 16.6966 19.839 17.0478 18.9065C17.6998 17.1755 17.3043 15.5086 16.9444 14.5375C16.9223 14.478 16.9212 14.4114 16.9355 14.3603C16.9421 14.337 16.9502 14.3231 16.9549 14.3165C16.9587 14.3112 16.9606 14.31 16.9611 14.3098L21.5177 11.4645C23.1546 10.4424 23.4147 8.16307 22.0501 6.79853L17.1218 1.87023ZM14.1523 3.46191C14.493 2.91629 15.2528 2.8296 15.7076 3.28445L20.6359 8.21274C21.0907 8.66759 21.0041 9.42737 20.4584 9.76806L15.9019 12.6133C14.9572 13.2032 14.7469 14.3637 15.0691 15.2327C15.3549 16.0037 15.5829 17.1217 15.1762 18.2015C15.1484 18.2752 15.1175 18.3018 15.0985 18.3149C15.0743 18.3316 15.0266 18.3538 14.9445 18.3589C14.767 18.3699 14.5135 18.2916 14.3137 18.0919L5.82846 9.6066C5.62872 9.40686 5.55046 9.15333 5.56144 8.97583C5.56651 8.8937 5.58877 8.84605 5.60548 8.82181C5.61855 8.80285 5.64516 8.7719 5.71886 8.74414C6.79869 8.33741 7.91661 8.56545 8.68762 8.85128C9.55668 9.17345 10.7171 8.96318 11.3071 8.01845L14.1523 3.46191Z" fill="currentColor"></path></svg>`;
@@ -1925,6 +2017,12 @@ const PIN_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2
 const UNPIN_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.1218 1.87023C15.7573 0.505682 13.4779 0.76575 12.4558 2.40261L9.75191 6.73289L11.1969 8.17793C11.2355 8.1273 11.2723 8.07415 11.3071 8.01845L14.1523 3.46191C14.493 2.91629 15.2528 2.8296 15.7076 3.28445L20.6359 8.21274C21.0907 8.66759 21.0041 9.42737 20.4584 9.76806L15.9019 12.6133C15.8462 12.6481 15.793 12.6848 15.7424 12.7234L17.1874 14.1684L21.5177 11.4645C23.1546 10.4424 23.4147 8.16307 22.0501 6.79852L17.1218 1.87023Z" fill="currentColor"></path><path d="M3.56525 8.85242C3.6015 8.26612 3.84962 7.68582 4.32883 7.27422L5.77735 8.72274C5.75784 8.72967 5.73835 8.7368 5.71886 8.74414C5.64516 8.7719 5.61855 8.80285 5.60548 8.82181C5.58877 8.84604 5.56651 8.8937 5.56144 8.97583C5.55046 9.15333 5.62872 9.40686 5.82846 9.6066L14.3137 18.0919C14.5135 18.2916 14.767 18.3699 14.9445 18.3589C15.0266 18.3538 15.0743 18.3316 15.0985 18.3149C15.1175 18.3018 15.1484 18.2752 15.1762 18.2015C15.1835 18.182 15.1907 18.1625 15.1976 18.143L16.6461 19.5915C16.2345 20.0707 15.6542 20.3188 15.0679 20.3551C14.2853 20.4035 13.4808 20.0874 12.8995 19.5061L9.36397 15.9705L2.68394 22.6506C2.29342 23.0411 1.66025 23.0411 1.26973 22.6506C0.879206 22.26 0.879206 21.6269 1.26973 21.2363L7.94975 14.5563L4.41425 11.0208C3.83293 10.4395 3.51687 9.63502 3.56525 8.85242Z" fill="currentColor"></path><path d="M2.00789 2.00786C1.61736 2.39838 1.61736 3.03155 2.00789 3.42207L20.5862 22.0004C20.9767 22.3909 21.6099 22.3909 22.0004 22.0004C22.391 21.6099 22.391 20.9767 22.0004 20.5862L3.4221 2.00786C3.03158 1.61733 2.39841 1.61733 2.00789 2.00786Z" fill="currentColor"></path></svg>`;
 
 const PINNED_QUESTIONS_KEY = 'pinnedQuestions_' + location.pathname; let pinnedQuestions = new Set(JSON.parse(localStorage.getItem(PINNED_QUESTIONS_KEY) || '[]'));
+/* ===== SUBJECT SETTINGS (only thing to change for another subject) ===== */
+const SUBJECT = "Micro-Immunity";
+const SUBJECT_LABEL = "Micro-Immunity 🦠";
+for (let i = allQuestions.length - 1; i >= 0; i--) {
+    if (allQuestions[i].s !== SUBJECT) allQuestions.splice(i, 1);
+}
 const originalQuestionsOrder = allQuestions.slice();
 
 function isPinned(n) {
@@ -1949,10 +2047,7 @@ function togglePin(n) {
     try {
         renderQuiz();
     } finally {
-        // handleSearch() re-applies the current subject/lecture/search filters
-        // to the freshly rendered questions. Running it in a finally block
-        // guarantees the list is always re-shown correctly, even if something
-        // above throws, instead of getting stuck on "No questions found".
+       
         handleSearch();
     }
 }
@@ -2015,90 +2110,321 @@ function copyCase(btn) {
     copyTextToClipboard(fullText, btn);
 }
 
-/* ---- Per-question pen/eraser drawing ---- */
+const SVGNS = 'http://www.w3.org/2000/svg';
+const DRAWINGS_KEY = 'drawings2_' + location.pathname;
+const OLD_DRAWINGS_KEY = 'drawings_' + location.pathname;
+const ERASER_RADIUS = 14;   // px -> 28px "medium" circle
+let drawingsStore = {};
+try { drawingsStore = JSON.parse(localStorage.getItem(DRAWINGS_KEY) || 'null') || null; } catch (e) { drawingsStore = null; }
+if (!drawingsStore) {
+    // one-time migration of drawings made with the old per-question overlays (they started 40px above the block)
+    drawingsStore = {};
+    try {
+        const old = JSON.parse(localStorage.getItem(OLD_DRAWINGS_KEY) || '{}') || {};
+        Object.keys(old).forEach(n => { drawingsStore[n] = old[n].map(s => s.map(p => [p[0], p[1] - 40])); });
+    } catch (e) {}
+}
+function saveDrawings() {
+    try { localStorage.setItem(DRAWINGS_KEY, JSON.stringify(drawingsStore)); } catch (e) {}
+}
+
+let drawLayer = null;
+let currentTool = null;       // 'pen' | 'eraser' | null
 let activeDrawState = null;
-let activeDrawOverlaysCount = 0;
+let blockMetrics = {};        // qn -> {left, top, width} in page coordinates
 
 function updateGlobalScrollLock() {
-    const locked = activeDrawOverlaysCount > 0;
+    const locked = !!currentTool;
     document.documentElement.classList.toggle('drawing-lock', locked);
     document.body.classList.toggle('drawing-lock', locked);
 }
 
-// Belt-and-braces: even with CSS touch-action:none on the overlay, some
-// tablet browsers can still start a page scroll from a stylus/finger drag.
-// While drawing mode is on for any question, swallow touchmove so nothing
-// but the drawing itself responds to the movement. Taps on buttons are
-// unaffected since they don't rely on touchmove.
+// While a tool is on, swallow touchmove so the page can't scroll.
 document.addEventListener('touchmove', function (e) {
-    if (activeDrawOverlaysCount > 0) {
-        e.preventDefault();
-    }
+    if (currentTool) e.preventDefault();
 }, { passive: false });
 
-function toggleDraw(btn) {
-    const container = btn.closest('.case-block') || btn.closest('.q-block');
-    if (!container) return;
-    const overlay = container.querySelector(':scope > .draw-overlay');
-    const isDrawing = btn.dataset.drawing === "true";
-
-    if (!isDrawing) {
-        // Enter drawing mode: pen -> eraser. Other buttons on this question stay usable.
-        btn.dataset.drawing = "true";
-        btn.innerHTML = ERASER_SVG;
-        btn.title = "Erase drawing";
-        if (overlay) overlay.classList.add('active');
-        activeDrawOverlaysCount++;
-        updateGlobalScrollLock();
-    } else {
-        // Erase: clear the drawing, eraser -> pen
-        if (overlay) {
-            overlay.innerHTML = '';
-            overlay.classList.remove('active');
-        }
-        btn.dataset.drawing = "false";
-        btn.innerHTML = PEN_SVG;
-        btn.title = "Draw";
-        if (activeDrawState && activeDrawState.svg === overlay) activeDrawState = null;
-        activeDrawOverlaysCount = Math.max(0, activeDrawOverlaysCount - 1);
-        updateGlobalScrollLock();
-    }
+function measureBlocks() {
+    blockMetrics = {};
+    const sx = window.pageXOffset, sy = window.pageYOffset;
+    document.querySelectorAll('.q-block').forEach(qb => {
+        if (qb.style.display === 'none') return;
+        const r = qb.getBoundingClientRect();
+        if (!r.width) return;
+        blockMetrics[qb.dataset.qn] = { left: r.left + sx, top: r.top + sy, width: r.width };
+    });
 }
 
-function getDrawPoint(svg, evt) {
-    const rect = svg.getBoundingClientRect();
-    return { x: evt.clientX - rect.left, y: evt.clientY - rect.top };
+function nearestBlock(py) {
+    let best = null, bestD = Infinity;
+    Object.keys(blockMetrics).forEach(n => {
+        const m = blockMetrics[n];
+        const qb = document.querySelector('.q-block[data-qn="' + n + '"]');
+        const h = qb ? qb.getBoundingClientRect().height : 0;
+        const d = py < m.top ? m.top - py : (py > m.top + h ? py - (m.top + h) : 0);
+        if (d < bestD) { bestD = d; best = n; }
+    });
+    return best;
+}
+
+function sizeDrawLayer() {
+    if (!drawLayer) return;
+    const c = document.querySelector('.container');
+    const bottom = c ? c.getBoundingClientRect().bottom + window.pageYOffset : 0;
+    drawLayer.style.height = Math.max(bottom, window.innerHeight) + 'px';
+    drawLayer.style.width = document.documentElement.clientWidth + 'px';
+}
+
+// Strokes are stored as points [x as fraction of block width, y in px from block top]
+function strokeD(stroke, m) {
+    const pts = stroke.map(p => [m.left + p[0] * m.width, m.top + p[1]]);
+    const f = v => v.toFixed(1);
+    if (pts.length === 1) return `M ${f(pts[0][0])} ${f(pts[0][1])} l 0.01 0`;
+    let d = `M ${f(pts[0][0])} ${f(pts[0][1])}`;
+    for (let i = 1; i < pts.length - 1; i++) {
+        const mx = (pts[i][0] + pts[i + 1][0]) / 2, my = (pts[i][1] + pts[i + 1][1]) / 2;
+        d += ` Q ${f(pts[i][0])} ${f(pts[i][1])} ${f(mx)} ${f(my)}`;
+    }
+    const l = pts[pts.length - 1];
+    return d + ` L ${f(l[0])} ${f(l[1])}`;
+}
+
+function redrawAll() {
+    if (!drawLayer) return;
+    sizeDrawLayer();
+    measureBlocks();
+    drawLayer.querySelectorAll('.draw-path').forEach(p => p.remove());
+    const cur = drawLayer.querySelector('.eraser-cursor');
+    Object.keys(drawingsStore).forEach(n => {
+        const m = blockMetrics[n];
+        if (!m) return;                       // question currently hidden
+        drawingsStore[n].forEach(stroke => {
+            const path = document.createElementNS(SVGNS, 'path');
+            path.setAttribute('class', 'draw-path');
+            path.setAttribute('d', strokeD(stroke, m));
+            drawLayer.insertBefore(path, cur);
+        });
+    });
+}
+let redrawQueued = false;
+function queueRedraw() {
+    if (redrawQueued) return;
+    redrawQueued = true;
+    requestAnimationFrame(() => { redrawQueued = false; if (!activeDrawState) redrawAll(); });
+}
+
+function initGlobalDrawing() {
+    drawLayer = document.createElementNS(SVGNS, 'svg');
+    drawLayer.id = 'draw-layer';
+    const cur = document.createElementNS(SVGNS, 'circle');
+    cur.setAttribute('class', 'eraser-cursor');
+    cur.setAttribute('r', ERASER_RADIUS);
+    drawLayer.appendChild(cur);
+    drawLayer.addEventListener('pointerdown', startDraw);
+    drawLayer.addEventListener('pointermove', moveDraw);
+    drawLayer.addEventListener('pointerup', endDraw);
+    drawLayer.addEventListener('pointerleave', endDraw);
+    drawLayer.addEventListener('pointercancel', endDraw);
+    document.body.appendChild(drawLayer);
+    if (typeof ResizeObserver !== 'undefined') {
+        new ResizeObserver(queueRedraw).observe(document.querySelector('.container'));
+    }
+    window.addEventListener('resize', queueRedraw);
+    window.addEventListener('load', queueRedraw);
+    redrawAll();
+}
+
+function setTool(tool) {
+    currentTool = tool;
+    if (drawLayer) {
+        drawLayer.classList.toggle('active', !!tool);
+        drawLayer.classList.toggle('tool-eraser', tool === 'eraser');
+        const cur = drawLayer.querySelector('.eraser-cursor');
+        if (cur) cur.style.display = 'none';
+    }
+    updateGlobalScrollLock();
+}
+
+function selectTool(btn) {
+    const tool = btn.dataset.tool;
+    const turnOff = btn.dataset.active === 'true';
+    document.querySelectorAll('.draw-btn').forEach(b => { b.dataset.active = 'false'; b.classList.remove('tool-on'); });
+    if (turnOff) {
+        setTool(null);
+    } else {
+        btn.dataset.active = 'true';
+        btn.classList.add('tool-on');
+        setTool(tool);
+        redrawAll();
+    }
+    activeDrawState = null;
+}
+
+function deactivateDrawTools(onlyHidden) {
+    // Questions being hidden no longer switch the tool off; only a full reset does.
+    if (!onlyHidden) {
+        document.querySelectorAll('.draw-btn').forEach(b => { b.dataset.active = 'false'; b.classList.remove('tool-on'); });
+        setTool(null);
+        activeDrawState = null;
+    }
+    queueRedraw();
+}
+
+function pointIn(evt) {
+    return { x: evt.pageX, y: evt.pageY };
+}
+
+function moveCursor(pt) {
+    const cur = drawLayer.querySelector('.eraser-cursor');
+    cur.style.display = 'block';
+    cur.setAttribute('cx', pt.x);
+    cur.setAttribute('cy', pt.y);
+}
+
+function eraseAt(px, py) {
+    const r2 = ERASER_RADIUS * ERASER_RADIUS;
+    let changed = false;
+    Object.keys(drawingsStore).forEach(n => {
+        const m = blockMetrics[n];
+        if (!m) return;
+        const out = [];
+        let touched = false;
+        drawingsStore[n].forEach(stroke => {
+            let run = [], hit = false;
+            stroke.forEach(p => {
+                const dx = m.left + p[0] * m.width - px, dy = m.top + p[1] - py;
+                if (dx * dx + dy * dy <= r2) {
+                    hit = true;
+                    if (run.length) { out.push(run); run = []; }
+                } else run.push(p);
+            });
+            if (!hit) { out.push(stroke); return; }
+            touched = true;
+            if (run.length) out.push(run);
+        });
+        if (touched) {
+            changed = true;
+            if (out.length) drawingsStore[n] = out; else delete drawingsStore[n];
+        }
+    });
+    return changed;
+}
+
+function flushDraw(st) {
+    st.raf = 0;
+    if (st.tool === 'pen') {
+        st.path.setAttribute('d', strokeD(st.stroke, st.m));
+    } else if (st.dirty) {
+        st.dirty = false;
+        redrawAll();
+    }
+}
+function scheduleFlush(st) {
+    if (!st.raf) st.raf = requestAnimationFrame(() => flushDraw(st));
 }
 
 function startDraw(evt) {
-    const svg = evt.currentTarget;
-    if (!svg.classList.contains('active')) return;
+    if (!currentTool) return;
+    if (activeDrawState) return;               // ignore a second finger / palm while drawing
+    if (evt.pointerType === 'mouse' && evt.button !== 0) return;
     evt.preventDefault();
-    const pt = getDrawPoint(svg, evt);
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute('class', 'draw-path');
-    path.setAttribute('d', `M ${pt.x} ${pt.y}`);
-    svg.appendChild(path);
-    activeDrawState = { svg, path, points: [pt] };
-    if (svg.setPointerCapture) {
-        try { svg.setPointerCapture(evt.pointerId); } catch (e) {}
+    measureBlocks();
+    const pt = pointIn(evt);
+    if (drawLayer.setPointerCapture) { try { drawLayer.setPointerCapture(evt.pointerId); } catch (e) {} }
+    if (currentTool === 'eraser') {
+        const st = activeDrawState = { tool: 'eraser', pid: evt.pointerId, last: pt, dirty: false, raf: 0 };
+        moveCursor(pt);
+        if (eraseAt(pt.x, pt.y)) { st.dirty = true; scheduleFlush(st); }
+    } else {
+        const n = nearestBlock(pt.y);
+        if (n === null) return;
+        const m = blockMetrics[n];
+        if (!drawingsStore[n]) drawingsStore[n] = [];
+        const stroke = [[(pt.x - m.left) / m.width, pt.y - m.top]];
+        drawingsStore[n].push(stroke);
+        const path = document.createElementNS(SVGNS, 'path');
+        path.setAttribute('class', 'draw-path');
+        path.setAttribute('d', strokeD(stroke, m));
+        drawLayer.insertBefore(path, drawLayer.querySelector('.eraser-cursor'));
+        activeDrawState = { tool: 'pen', pid: evt.pointerId, stroke, path, m, last: pt, raf: 0 };
     }
 }
 
 function moveDraw(evt) {
-    if (!activeDrawState || activeDrawState.svg !== evt.currentTarget) return;
+    const st = activeDrawState;
+    if (st && evt.pointerId !== st.pid) return;
+    // Pencil/finger: circle only while touching the screen. Mouse: also follows hover.
+    if (currentTool === 'eraser' && (st || evt.pointerType === 'mouse')) moveCursor(pointIn(evt));
+    if (!st) return;
     evt.preventDefault();
-    const pt = getDrawPoint(activeDrawState.svg, evt);
-    activeDrawState.points.push(pt);
-    const d = activeDrawState.points.map((p, i) => (i === 0 ? `M ${p.x} ${p.y}` : `L ${p.x} ${p.y}`)).join(' ');
-    activeDrawState.path.setAttribute('d', d);
+    const events = (evt.getCoalescedEvents && evt.getCoalescedEvents()) || [];
+    if (!events.length) events.push(evt);     // full-rate Apple Pencil samples
+    for (const ev of events) {
+        const pt = pointIn(ev);
+        const last = st.last;
+        if (st.tool === 'eraser') {
+            const dist = Math.hypot(pt.x - last.x, pt.y - last.y);
+            const steps = Math.max(1, Math.ceil(dist / 5));
+            for (let i = 1; i <= steps; i++) {
+                const x = last.x + (pt.x - last.x) * i / steps;
+                const y = last.y + (pt.y - last.y) * i / steps;
+                if (eraseAt(x, y)) st.dirty = true;
+            }
+            st.last = pt;
+        } else {
+            if (Math.hypot(pt.x - last.x, pt.y - last.y) < 0.8) continue;
+            st.stroke.push([(pt.x - st.m.left) / st.m.width, pt.y - st.m.top]);
+            st.last = pt;
+        }
+    }
+    scheduleFlush(st);
 }
 
 function endDraw(evt) {
-    if (activeDrawState && activeDrawState.svg === evt.currentTarget) {
-        activeDrawState = null;
+    const st = activeDrawState;
+    if (!st) {
+        const c = drawLayer && drawLayer.querySelector('.eraser-cursor');
+        if (c) c.style.display = 'none';
+        return;
     }
+    if (evt.pointerId !== st.pid) return;
+    if (st.raf) { cancelAnimationFrame(st.raf); st.raf = 0; }
+    if (st.tool === 'eraser') { if (st.dirty) redrawAll(); }
+    else st.path.setAttribute('d', strokeD(st.stroke, st.m));
+    activeDrawState = null;
+    saveDrawings();
+    const cur = drawLayer.querySelector('.eraser-cursor');
+    if (cur && evt.pointerType !== 'mouse') cur.style.display = 'none';
 }
+
+/* ---- Apple Pencil taps on buttons ----
+   On iPad, Pencil taps on buttons can lose their click (tiny movement during the tap,
+   especially while the page is scroll-locked). Handle pen taps via pointer events and
+   swallow the browser's own click so nothing fires twice. */
+(function () {
+    let downEl = null, dx = 0, dy = 0, lastSynth = 0;
+    const SEL = 'button, [onclick]';
+    document.addEventListener('pointerdown', e => {
+        if (e.pointerType !== 'pen') { downEl = null; return; }
+        downEl = e.target.closest ? e.target.closest(SEL) : null;
+        dx = e.clientX; dy = e.clientY;
+    }, true);
+    document.addEventListener('pointerup', e => {
+        if (e.pointerType !== 'pen' || !downEl) return;
+        const el = downEl; downEl = null;
+        if (Math.hypot(e.clientX - dx, e.clientY - dy) > 14) return;
+        const up = document.elementFromPoint(e.clientX, e.clientY);
+        if (!up || up.closest(SEL) !== el) return;
+        lastSynth = Date.now();
+        el.click();
+    }, true);
+    document.addEventListener('click', e => {
+        if (e.isTrusted && Date.now() - lastSynth < 700) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+        }
+    }, true);
+})();
 
 function fallbackCopy(text) {
     const ta = document.createElement('textarea');
@@ -2111,8 +2437,10 @@ function fallbackCopy(text) {
     document.body.removeChild(ta);
 }
 
+
+
 const lectures = {
-    1: "Introduction to Immunology",
+   1: "Introduction to Immunology",
     2: "Organs and Cells of the Immune System",
     3: "Innate Immunity",
     4: "Antibody",
@@ -2129,33 +2457,15 @@ const lectures = {
     
     20: "NOT SEPARATED YET",
 };
-  
+
 const lectureFilters = {
-    "All": [],
-    "Micro-Immunity": [
+    [SUBJECT]: [
         { label: "All", val: "All" },
-        { label: "Introduction to Immunology", val: 1 },
-        { label: "Organs and Cells of the Immune System", val: 2 },
-        { label: "Innate Immunity", val: 3 },
-        { label: "Antibody", val: 4 },
-        { label: "Antigen", val: 5 },
-        { label: "Complement System Ⅰ", val: 6 },
-        { label: "Complement System Ⅱ", val: 7 },
-        { label: "Adaptive Immunity", val: 8 },
-        { label: "Major Histocompatibility Complex (MHC)", val: 9 },
-        { label: "Hypersensitivity reactions", val: 10 },
-        { label: "Inflammation and inflammatory mediators", val: 11 },
-        { label: "Autoimmunity and immune tolerance", val: 12 },
-        { label: "Immunity to microbes", val: 13 },
-        { label: "Cytokines and immunotherapy", val: 14 },
-        
-        
-        
-        { label: "NOT SEPARATED YET", val: 20 },
-    ]
+        ...Object.entries(lectures).map(([val, label]) => ({ label, val })),
+    ],
 };
 const CONTENT_NOTE = "";
-let currentSubjectFilter = "Micro-Immunity";  
+let currentSubjectFilter = SUBJECT;  
 let currentLecture = "All";
 let lectureDropdownOpen = false;
 
@@ -2230,13 +2540,7 @@ document.addEventListener('click', function(e) {
 });
 
 function getLectureLabel(val) {
-    if (val === "All" && currentSubjectFilter === "All") return "All";
-    if (val === "All") {
-        const subjectLabels = {
-            "Micro-Immunity": "Micro-Immunity 🦠"
-        };
-        return subjectLabels[currentSubjectFilter] || currentSubjectFilter;
-    }
+    if (val === "All") return SUBJECT_LABEL;
     return lectures[val] || val;
 }
 
@@ -2259,6 +2563,10 @@ function updateSectionHeading() {
             noResultsMsg.textContent = "No questions found.";
             container.appendChild(noResultsMsg);
         }
+        // The page just got much shorter; if we were scrolled down, the view lands
+        // on blank space below the content. Jump to the top so the message is visible.
+        window.scrollTo(0, 0);
+        requestAnimationFrame(function () { window.scrollTo(0, 0); });
     } else if (noResultsMsg) {
         noResultsMsg.remove();
     }
@@ -2303,8 +2611,9 @@ function updateSectionHeading() {
         container.insertBefore(heading, container.firstChild);
     }
 
-     
-    const showNote = !!CONTENT_NOTE && currentLecture === "All";
+    if (showLectureDropdownOpen) scrollLectureDropdownToSelected();
+
+    const showNote = !!CONTENT_NOTE && currentSubjectFilter === "All" && currentLecture === "All";
     if (showNote) {
         const noteEl = document.createElement('div');
         noteEl.id = 'section-note';
@@ -2338,19 +2647,16 @@ function renderCaseActionsHtml(mainN) {
                 <button class="icon-btn copy-btn" onclick="copyCase(this)" title="Copy question">${COPY_SVG}</button>
             </div>
             <button class="icon-btn pin-btn" data-pinned="${isPinned(mainN)}" onclick="togglePin(${mainN})" title="${isPinned(mainN) ? 'Unpin question' : 'Pin question'}">${isPinned(mainN) ? UNPIN_SVG : PIN_SVG}</button>
-            <button class="icon-btn draw-btn" data-drawing="false" onclick="toggleDraw(this)" title="Draw">${PEN_SVG}</button>
-        </div>
-        <svg class="draw-overlay draw-overlay--outer" onpointerdown="startDraw(event)" onpointermove="moveDraw(event)" onpointerup="endDraw(event)" onpointerleave="endDraw(event)" onpointercancel="endDraw(event)"></svg>`;
+        </div>`;
 }
 
 function renderQuiz() {
     container.innerHTML = '';
     activeDrawState = null;
-    activeDrawOverlaysCount = 0;
-    updateGlobalScrollLock();
     allQuestions.forEach(item => {
         const div = document.createElement('div');
         div.className = 'q-block';
+        div.dataset.qn = item.n;
         div.dataset.subject = item.s;
         div.dataset.lecture = item.l ?? "";
 
@@ -2391,15 +2697,13 @@ function renderQuiz() {
                         <button class="icon-btn copy-btn" onclick="copyQuestion(this)" title="Copy question">${COPY_SVG}</button>
                     </div>
                     <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button>
-                    <button class="icon-btn draw-btn" data-drawing="false" onclick="toggleDraw(this)" title="Draw">${PEN_SVG}</button>
-                </div>`
+                        </div>`
             : `
                 <button class="eye-btn" data-label="Answer" data-answer="${escapeAttr(isEssay ? item.a : '')}" data-essay="${isEssay}" data-correct="${escapeAttr(item.a)}" data-revealed="false" onclick="toggleAnswer(this)" title="Show answer">${EYE_HIDE_SVG}</button>
                 <div class="copy-wrap">
                     <button class="icon-btn copy-btn" onclick="copyQuestion(this)" title="Copy question">${COPY_SVG}</button>
                 </div>
-                <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button>
-                <button class="icon-btn draw-btn" data-drawing="false" onclick="toggleDraw(this)" title="Draw">${PEN_SVG}</button>`;
+                <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button>`;
 
         div.innerHTML = `
             <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
@@ -2410,11 +2714,11 @@ function renderQuiz() {
             <div class="ans-row${isMulti ? ' ans-row--multi' : ''}">
                 ${iconsRowHtml}
             </div>
-            <svg class="draw-overlay draw-overlay--outer" onpointerdown="startDraw(event)" onpointermove="moveDraw(event)" onpointerup="endDraw(event)" onpointerleave="endDraw(event)" onpointercancel="endDraw(event)"></svg>
         `;
         container.appendChild(div);
     });
     updateSectionHeading();
+    queueRedraw();
 }
 
 document.addEventListener("keydown", function(e) {
@@ -2454,15 +2758,66 @@ function matchesFilters(item) {
     return subjectOk && lectureOk;
 }
 
+function scrollSubjectDropdownToSelected() {
+    const wrap = document.querySelector('#subject-dropdown .subject-dropdown-items');
+    if (!wrap) return;
+    const selected = wrap.querySelector('.subject-dropdown-item.selected');
+    if (selected) {
+        const target = selected.offsetTop - (wrap.clientHeight / 2) + (selected.clientHeight / 2);
+        wrap.scrollTop = Math.max(0, target);
+    } else {
+        wrap.scrollTop = 0;
+    }
+}
+
+function toggleSubjectDropdown() {
+    const dd = document.getElementById('subject-dropdown');
+    const btn = document.getElementById('subject-toggle-btn');
+    const isOpen = dd.classList.contains('open');
+    if (isOpen) {
+        dd.classList.remove('open');
+        btn.classList.remove('dropdown-open');
+    } else {
+        dd.classList.add('open');
+        btn.classList.add('dropdown-open');
+        scrollSubjectDropdownToSelected();
+    }
+}
+
+function closeSubjectDropdown() {
+    const dd = document.getElementById('subject-dropdown');
+    const btn = document.getElementById('subject-toggle-btn');
+    if (dd) dd.classList.remove('open');
+    if (btn) btn.classList.remove('dropdown-open');
+}
+
+function selectSubjectFilter(subject, el) {
+    currentSubjectFilter = subject;
+    deactivateDrawTools(false);   // switching subject turns off pen/eraser everywhere
+    currentLecture = "All";
+    localStorage.setItem('selectedSubject_' + location.pathname, subject);
+    document.querySelectorAll('.subject-dropdown-item').forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+    handleSearch();
+}
+
+document.addEventListener('click', function(e) {
+    const wrapper = document.querySelector('.subject-toggle-wrapper');
+    if (wrapper && !wrapper.contains(e.target)) {
+        document.getElementById('subject-dropdown').classList.remove('open');
+        document.getElementById('subject-toggle-btn').classList.remove('dropdown-open');
+    }
+});
+
 /* Premium Full Header Takeover Functions */
 function toggleSearchBar() {
     const takeover = document.getElementById('search-takeover-wrap');
-    const normalLeft = document.getElementById('header-normal-left');
     const normalRight = document.getElementById('header-normal-right');
     const input = document.getElementById('search-input');
 
-    normalLeft.style.display = 'none';
+    deactivateDrawTools(false);   // pen/eraser buttons are hidden while searching
     normalRight.style.display = 'none';
+    document.getElementById('header-title-wrap').style.display = 'none';
     takeover.classList.add('open');
     
     setTimeout(() => input.focus(), 50);
@@ -2470,20 +2825,22 @@ function toggleSearchBar() {
 
 function closeSearchBar() {
     const takeover = document.getElementById('search-takeover-wrap');
-    const normalLeft = document.getElementById('header-normal-left');
     const normalRight = document.getElementById('header-normal-right');
     const input = document.getElementById('search-input');
 
     takeover.classList.remove('open');
-    normalLeft.style.display = 'flex';
     normalRight.style.display = 'flex';
+    document.getElementById('header-title-wrap').style.display = '';
     
     input.value = '';
     handleSearch();
 }
 
+let savedScrollY = null;
 function handleSearch() {
     const term = document.getElementById('search-input').value.toLowerCase();
+    // Remember where the user was before the search starts changing the list
+    if (term !== "" && savedScrollY === null) savedScrollY = window.pageYOffset;
     const blocks = document.querySelectorAll('.q-block');
     blocks.forEach(block => {
         resetBlock(block);
@@ -2497,7 +2854,15 @@ function handleSearch() {
             block.style.display = "none";
         }
     });
+    deactivateDrawTools(true);   // a hidden question can't keep pen/eraser (or the scroll lock) on
     updateSectionHeading();
+    // Search cleared: go back to the spot the user was at before searching
+    if (term === "" && savedScrollY !== null) {
+        const y = savedScrollY;
+        savedScrollY = null;
+        window.scrollTo(0, y);
+        requestAnimationFrame(function () { window.scrollTo(0, y); });
+    }
 }
 
 function resetBlock(block) {
@@ -2599,8 +2964,33 @@ function toggleTheme() {
 reorderQuestions();
 renderQuiz();
 
+document.querySelectorAll('.pen-btn').forEach(b => b.innerHTML = PEN_SVG);
+document.querySelectorAll('.eraser-btn').forEach(b => b.innerHTML = ERASER_SVG);
+initGlobalDrawing();
 
 
+/* Keep the header visible while the search bar is open (mobile keyboard fix) */
+(function () {
+    const sticky = document.getElementById('header2-sticky');
+    const input = document.getElementById('search-input');
+    const takeover = document.getElementById('search-takeover-wrap');
+    function syncHeader() {
+        const searching = takeover.classList.contains('open');
+        const off = (window.visualViewport && searching) ? window.visualViewport.offsetTop : 0;
+        sticky.style.transform = off > 0 ? 'translateY(' + off + 'px)' : '';
+    }
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('scroll', syncHeader);
+        window.visualViewport.addEventListener('resize', syncHeader);
+    }
+    window.addEventListener('scroll', syncHeader, { passive: true });
+    document.addEventListener('touchmove', function (e) {
+        if (document.activeElement === input && e.target !== input) input.blur();
+    }, { passive: true });
+    document.querySelector('.search-close-btn').addEventListener('click', function () {
+        sticky.style.transform = '';
+    });
+})();
 </script>
 </body>
 </html>
