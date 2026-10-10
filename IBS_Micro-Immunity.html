@@ -831,11 +831,15 @@
         }
 
         /* Eye / Copy / Pin icon buttons */
-        .ans-row {
-            justify-content: flex-start !important;
-            position: relative;
-            z-index: 10;
-        }
+      .ans-row {
+    justify-content: flex-start !important;
+    position: relative;
+    z-index: 10;
+    pointer-events: none;
+}
+.ans-row button {
+    pointer-events: auto;
+}
 
         .icon-btn, .eye-btn {
             background: transparent;
@@ -874,11 +878,15 @@
              color: var(--correct-color);
         }
 
-        .eye-part-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+      .eye-part-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+}
+.eye-part-row button {
+    pointer-events: auto;
+}
 
         .eye-part-label {
             font-size: 0.75rem;
@@ -910,10 +918,14 @@
             margin-top: 10px;
         }
 
-        .copy-wrap {
-            position: relative;
-            display: inline-flex;
-        }
+       .copy-wrap {
+    position: relative;
+    display: inline-flex;
+    pointer-events: none;
+}
+.copy-wrap button {
+    pointer-events: auto;
+}
 
         .copy-btn svg {
             transition: opacity 0.15s ease, transform 0.15s ease;
@@ -980,6 +992,9 @@
             position: relative;
             z-index: 10;
         }
+        .case-actions-row button {
+    pointer-events: auto;
+}
 
         .case-actions-row .icon-btn {
             margin-top: 0;
