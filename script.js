@@ -257,7 +257,7 @@ const ALL_SECTIONS = [
     
     ] },
        { title: '2026-2027 Year Exam',     links: [
-      { label: 'Quiz', badge: '52 MCQs',  href: 'IBS_Quiz_2026-2027.html' },
+      { label: 'Quiz', badge: '63 MCQs',  href: 'IBS_Quiz_2026-2027.html' },
       
     
     ] },
@@ -489,7 +489,7 @@ const ALL_SECTIONS = [
 const SUBJECT_CARDS_BY_SECTION = {
   ibs: [
     { title: 'Pharmacology 💊', links: [
-      { label: 'Theory',   badge: '164 MCQs', href: 'IBS_Pharmacology.html' },
+      { label: 'Theory',   badge: '175 MCQs', href: 'IBS_Pharmacology.html' },
       { label: 'Practice', badge: '10 Qs', href: 'IBS_Pharmacology_Practice.html' }
     ] },
     { title: 'Pathology 🔬', links: [
