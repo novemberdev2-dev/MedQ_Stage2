@@ -1070,6 +1070,7 @@
                   
                 <div class="subject-dropdown-item" data-subject="Micro-Immunity" onclick="selectSubjectFilter('Micro-Immunity', this)"><span class="filter-option-dot"></span>Micro-Immunity 🦠</div>
                 <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
+                         <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
         
                 </div>
                 </div>
@@ -1272,6 +1273,28 @@ const allQuestions = [
     o: [""], 
     a: "8 NADH molecules"
   },
+    { n: 53, s: "Pharmacology", l: 6, q: "Which antibiotic can penetrate the cerebrospinal fluid (CSF) even without inflammation?", o: ["A. Cefazolin", "B. Meropenem", "C. Vancomycin", "D. Gentamicin", "E. Cefuroxime"], a: "B" },
+
+{ n: 54, s: "Pharmacology", l: 7, q: "Red man syndrome and anaphylactoid reactions are adverse effects of which drug?", o: ["A. Vancomycin", "B. Ceftriaxone", "C. Meropenem", "D. Azithromycin", "E. Amoxicillin"], a: "A" },
+
+{ n: 55, s: "Pharmacology", l: 7, q: "Which antibiotic is excreted through both bile and urine?", o: ["A. Gentamicin", "B. Penicillin G", "C. Vancomycin", "D. Cefazolin", "E. Ceftriaxone"], a: "E" },
+
+{ n: 56, s: "Pharmacology", l: 6, q: "Which drug is used for the chemoprophylaxis of rheumatic fever?", o: ["A. Amoxicillin", "B. Procaine penicillin G", "C. Benzathine penicillin G", "D. Ampicillin", "E. Piperacillin"], a: "C" },
+
+{ n: 57, s: "Pharmacology", l: 7, q: "Which antibiotic is commonly used to treat bacterial meningitis because it penetrates the CSF effectively when the meninges are inflamed?", o: ["A. Cefazolin", "B. Gentamicin", "C. Ceftriaxone", "D. Dicloxacillin", "E. Penicillin V"], a: "C" },
+
+{ n: 58, s: "Pharmacology", l: 6, q: "Which of the following penicillins is active against Pseudomonas aeruginosa?", o: ["A. Penicillin V", "B. Oxacillin", "C. Piperacillin", "D. Dicloxacillin", "E. Benzathine penicillin G"], a: "C" },
+
+{ n: 59, s: "Pharmacology", l: 6, q: "Which extended-spectrum penicillin can be used to treat Salmonella infections?", o: ["A. Oxacillin", "B. Dicloxacillin", "C. Penicillin V", "D. Ampicillin", "E. Benzathine penicillin G"], a: "D" },
+
+{ n: 60, s: "Pharmacology", l: 6, q: "Which type of penicillin is commonly used against Pseudomonas aeruginosa?", o: ["A. Piperacillin", "B. Penicillin V", "C. Oxacillin", "D. Dicloxacillin", "E. Benzathine penicillin G"], a: "A" },
+
+{ n: 61, s: "Pharmacology", l: 6, q: "Which antibiotic exerts its action by disrupting the bacterial outer cell membrane?", o: ["A. Ceftriaxone", "B. Amoxicillin", "C. Azithromycin", "D. Colistin", "E. Ciprofloxacin"], a: "D" },
+
+{ n: 62, s: "Pharmacology", l: 6, q: "Which of the following antibiotics can be used to treat susceptible Salmonella infections?", o: ["A. Vancomycin", "B. Amoxicillin", "C. Clindamycin", "D. Metronidazole", "E. Teicoplanin"], a: "B" },
+
+{ n: 63, s: "Pharmacology", l: 7, q: "Which of the following antibiotics is associated with Clostridioides difficile colitis?", o: ["A. Nitrofurantoin", "B. Fosfomycin", "C. Trimethoprim", "D. Ceftriaxone", "E. Doxycycline"], a: "D" },
+    
 
 
 ];
@@ -1484,6 +1507,8 @@ const lectures = {
  3: "Autoimmunity and immune tolerance",
  4: "Carbohydrate Metabolism 🍞",
  5: "Cytokines and immunotherapy",
+ 6: "Cell wall inhibitors Ⅰ",
+ 7: "Cell wall inhibitors Ⅱ",
  
 };
   
@@ -1507,12 +1532,18 @@ const lectureFilters = {
         
         { label: "Carbohydrate Metabolism 🍞",     val: 4 },
        
+      ],
+
+"Pharmacology": [
+        { label: "All",               val: "All" },
+        
+        { label: "Cell wall inhibitors Ⅰ",     val: 6 },
+        { label: "Cell wall inhibitors Ⅱ",     val: 7 },
+       
       
 
 
 ],
-
-
 
 };
 const CONTENT_NOTE = "";
