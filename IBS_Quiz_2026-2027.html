@@ -1159,10 +1159,9 @@
                     <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
                       
                       <div class="subject-dropdown-item" data-subject="Micro-Immunity" onclick="selectSubjectFilter('Micro-Immunity', this)"><span class="filter-option-dot"></span>Micro-Immunity 🦠 </div>
-                      
-                <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
-              
-                    <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
+                     <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
+                     <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
+                     <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
                 
                 
 
@@ -1392,7 +1391,119 @@ const allQuestions = [
 
 { n: 63, s: "Pharmacology", l: 2, q: "Which of the following antibiotics is associated with Clostridioides difficile colitis?", o: ["A. Nitrofurantoin", "B. Fosfomycin", "C. Trimethoprim", "D. Ceftriaxone", "E. Doxycycline"], a: "D" },
     
+{ 
+  n: 64, 
+  s: "Pathology", 
+  l: 1,
+  q: "The two main components of granulation tissue are.......... and .......... .", 
+  o: [""], 
+  a: "Newly formed blood vessels and proliferating fibroblasts."
+},
+{ 
+  n: 65, 
+  s: "Pathology", 
+  l: 2,
+  q: "............. is the most reliable feature that distinguishes a malignant tumor from a benign tumor.", 
+  o: [""], 
+  a: "Metastasis"
+},
+{ 
+  n: 66, 
+  s: "Pathology", 
+  l: 1,
+  q: "............ results from excessive proliferation of collagen that extends beyond the boundaries of the original wound during healing.", 
+  o: [""], 
+  a: "Keloid"
+},
+{ 
+  n: 67, 
+  s: "Pathology", 
+  l: 2,
+  q: "Lack of differentiation is called .........", 
+  o: [""], 
+  a: "Anaplasia"
+},
+{ 
+  n: 68, 
+  s: "Pathology", 
+  l: 1,
+  q: "........... results from excessive deposition of collagen during wound healing and usually remains within the boundaries of the original wound.", 
+  o: [""], 
+  a: "Hypertrophic scar"
+},
+{ 
+  n: 69, 
+  s: "Pathology", 
+  l: 2,
+  q: "When dysplastic changes are marked and involve the entire thickness of the epithelium, it is called ................. .", 
+  o: [""], 
+  a: "carcinoma in situ"
+},
+{ 
+  n: 70, 
+  s: "Pathology", 
+  l: 1,
+  q: "............... formation is a type of........... healing, occurs when tissue regeneration is incomplete during wound healing.", 
+  o: [""], 
+  a: "Scar, Secondary"
+},
+{ 
+  n: 71, 
+  s: "Pathology", 
+  l: 2,
+  q: "The .............. of parenchymal cells refers to the extent to which they resemble their corresponding normal cells.", 
+  o: [""], 
+  a: "Differentiation"
+},
 
+{ 
+  n: 72, 
+  s: "Micro-Immunity", 
+  l: 4,
+  q: "Which cytokine is related to Chronic Granulomatous Disease (CGD)?", 
+  o: [""], 
+  a: "Interferon-gamma (IFN-γ)."
+},
+{ 
+  n: 73, 
+  s: "Micro-Immunity", 
+  l: 4,
+  q: "Which antibody is blocked to prevent its binding to mast cells and basophils?", 
+  o: [""], 
+  a: "IgE."
+},
+{ 
+  n: 74, 
+  s: "Micro-Immunity", 
+  l: 4,
+  q: "Define synergistic action of cytokines.", 
+  o: [""], 
+  a: "When two or more cytokines act together to produce a greater effect on a cell."
+},
+{ 
+  n: 75, 
+  s: "Micro-Immunity", 
+  l: 4,
+  q: "One cytokine produces different effects on different target cells. What is this property called?", 
+  o: [""], 
+  a: "Pleiotropy."
+},
+{ 
+  n: 76, 
+  s: "Micro-Immunity", 
+  l: 4,
+  q: "Give one example of an anti-inflammatory cytokine.", 
+  o: [""], 
+  a: "Interleukin-10 (IL-10)."
+},
+{ 
+  n: 77, 
+  s: "Micro-Immunity", 
+  l: 4,
+  q: "Write one mechanism of action of oncolytic viruses.", 
+  o: [""], 
+  a: "Selective replication within tumor cells leading to direct lysis (destruction) of the cancer cells, which then releases tumor-associated antigens to stimulate a systemic anti-tumor immune response."
+},
 
 
 ];
@@ -1859,6 +1970,11 @@ const lectures = {
     "Pharmacology": {
         1: "Cell wall inhibitors Ⅰ",
         2: "Cell wall inhibitors Ⅱ",
+    },
+
+    "Pathology": {
+        1: "Healing process",
+        2: "Neoplasia, characteristics of tumors",
     },
 
 };
