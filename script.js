@@ -257,7 +257,8 @@ const ALL_SECTIONS = [
     
     ] },
        { title: '2026-2027 Year Exam',     links: [
-      { label: 'Quiz', badge: '81 MCQs',  href: 'IBS_Quiz_2026-2027.html' },
+      { label: 'Quiz _ Theory', badge: '81 MCQs',  href: 'IBS_Quiz_2026-2027.html' },
+      { label: 'Quiz _ Practice', badge: '10 Qs',  href: 'IBS_Quiz_Practice_2026-2027.html' },
       
     
     ] },
