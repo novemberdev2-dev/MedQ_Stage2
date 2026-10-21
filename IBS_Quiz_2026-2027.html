@@ -1505,6 +1505,11 @@ const allQuestions = [
   a: "Selective replication within tumor cells leading to direct lysis (destruction) of the cancer cells, which then releases tumor-associated antigens to stimulate a systemic anti-tumor immune response."
 },
 
+{ n: 78, s: "Pharmacology", l: 3, q: "Why is moxifloxacin not indicated for the treatment of urinary tract infections?", o: [""], a: "Because moxifloxacin does not concentrate in urine." },
+{ n: 79, s: "Pharmacology", l: 3, q: "Explain why is sulfonamide contraindicated for children or during pregnancy?", o: [""], a: "Sulfonamides displace bilirubin from albumin, increasing free unconjugated bilirubin that can enter the newborn’s brain and cause kernicterus." },
+{ n: 80, s: "Pharmacology", l: 3, q: "Why Levofloxacin and moxifloxacin are sometimes referred to as respiratory fluoroquinolones?", o: [""], a: "Because they have excellent activity against Streptococcus pneumoniae, which is a common cause of community-acquired pneumonia (CAP)." },
+{ n: 81, s: "Pharmacology", l: 3, q: "Write down three of the most important (severe) side effects of fluoroquinolones.", o: [""], a: "1. Phototoxicity.\n2. Cartilage damage.\n3. Hypoglycemia." },
+
 
 ];
 
@@ -1945,8 +1950,7 @@ function fallbackCopy(text) {
 }
 
 
-// Write each lecture ONCE, under its subject: number: "Name".
-// The same number can be reused in different subjects (matched by s + l).
+
 const lectures = {
 
 
@@ -1970,6 +1974,8 @@ const lectures = {
     "Pharmacology": {
         1: "Cell wall inhibitors Ⅰ",
         2: "Cell wall inhibitors Ⅱ",
+        3: "Antimicrobial agents inhibiting bacterial Nucleic Acid synthesis",
+
     },
 
     "Pathology": {
