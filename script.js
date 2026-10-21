@@ -258,7 +258,7 @@ const ALL_SECTIONS = [
     ] },
        { title: '2026-2027 Year Exam',     links: [
       { label: 'Quiz _ Theory', badge: '81 MCQs',  href: 'IBS_Quiz_2026-2027.html' },
-      { label: 'Quiz _ Practice', badge: '10 Qs',  href: 'IBS_Quiz_Practice_2026-2027.html' },
+      { label: 'Quiz _ Practice', badge: '9 Qs',  href: 'IBS_Quiz_Practice_2026-2027.html' },
       
     
     ] },
@@ -499,7 +499,7 @@ const SUBJECT_CARDS_BY_SECTION = {
     ] },
     { title: 'Biochemistry 🧪', links: [
       { label: 'Theory',   badge: '305 MCQs', href: 'IBS_Biochemistry.html' },
-      { label: 'Practice', badge: '25 Qs', href: 'IBS_Biochemistry_Practice.html' }
+      { label: 'Practice', badge: '24 Qs', href: 'IBS_Biochemistry_Practice.html' }
     ] },
     { title: 'Micro-Immunity 🦠', links: [
       { label: 'Theory',   badge: '164 MCQs', href: 'IBS_Micro-Immunity.html' },
