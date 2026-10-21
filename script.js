@@ -499,7 +499,7 @@ const SUBJECT_CARDS_BY_SECTION = {
     ] },
     { title: 'Biochemistry 🧪', links: [
       { label: 'Theory',   badge: '305 MCQs', href: 'IBS_Biochemistry.html' },
-      { label: 'Practice', badge: '15 Qs', href: 'IBS_Biochemistry_Practice.html' }
+      { label: 'Practice', badge: '25 Qs', href: 'IBS_Biochemistry_Practice.html' }
     ] },
     { title: 'Micro-Immunity 🦠', links: [
       { label: 'Theory',   badge: '164 MCQs', href: 'IBS_Micro-Immunity.html' },
