@@ -1187,7 +1187,7 @@ const allQuestions = [
 { n: 3, s: "Pharmacology", l: 4, q: "CYP2D6 deficiency results in:", o: ["A. Increased codeine toxicity", "B. Inability to metabolize aspirin", "C. Inability to benefit from codeine", "D. Increased morphine excretion", "E. Increased warfarin metabolism"], a: "C" },
 { n: 4, s: "Pharmacology", l: 13, q: "A patient with kidney dysfunction and infection should receive which antibiotic because it is safely excreted in bile?", o: ["A. Ciprofloxacin", "B. Gentamicin", "C. Amikacin", "D. Vancomycin", "E. Ceftriaxone"], a: "E" },
 { n: 5, s: "Pharmacology", l: 5, q: "A drug that produces the maximal effect at the highest concentration is called:", o: ["A. Full agonist", "B. Partial agonist", "C. Competitive antagonist", "D. Inverse agonist", "E. Noncompetitive antagonist"], a: "A" },
-{ n: 6, s: "Pharmacology", l: 20, q: "Which antifungal used for candidiasis inhibits glucan synthesis?", o: ["A. Fluconazole", "B. Amphotericin B", "C. Caspofungin", "D. Nystatin", "E. Ketoconazole"], a: "C" },
+{ n: 6, s: "Pharmacology", l: 18, q: "Which antifungal used for candidiasis inhibits glucan synthesis?", o: ["A. Fluconazole.", "B. Amphotericin B.", "C. Caspofungin.", "D. Nystatin.", "E. Ketoconazole."], a: "C" },
 { n: 7, s: "Pharmacology", l: 20, q: "Which drug in the aminoglycoside class is combined with ampicillin for synergistic action?", o: ["A. Streptomycin", "B. Neomycin", "C. Gentamicin", "D. Tobramycin", "E. Amikacin"], a: "C" },
 { n: 8, s: "Pharmacology", l: 12, q: "A patient with hypertension and anxiety should receive: (case question)", o: ["A. Propranolol", "B. Amlodipine", "C. Hydralazine", "D. Furosemide", "E. Losartan"], a: "A" },
 { n: 9, s: "Pharmacology", l: 14, q: "Which drug is prohibited during lactation because it may cause jaundice in the baby?", o: ["A. Azithromycin", "B. Amoxicillin", "C. Paracetamol", "D. Ceftriaxone", "E. Sulfonamide"], a: "E" },
@@ -1217,7 +1217,7 @@ const allQuestions = [
   { 
     n: 19, 
     s: "Pharmacology", 
-    l: 20, 
+    l: 18, 
     q: "Which antifungal drug is not commonly used for the treatment of cutaneous infection?", 
     o: ["A. Clotrimazole", "B. Terbinafine", "C. Caspofungin", "D. Miconazole", "E. Nystatin"], 
     a: "C" 
@@ -1339,8 +1339,8 @@ const allQuestions = [
   { 
     n: 34, 
     s: "Pharmacology", 
-    l: 20, 
-    q: "An antifungal drug used for the treatment of oropharyngeal candidiasis is:", 
+    l: 18, 
+    q: "Which antifungal drug is used for the treatment of oropharyngeal candidiasis?", 
     o: ["A. Nystatin", "B. Griseofulvin", "C. Terbinafine", "D. Acyclovir", "E. Flucytosine"], 
     a: "A" 
   },
@@ -1479,7 +1479,7 @@ const allQuestions = [
   { "n": 54, "s": "Pharmacology", "l": 20, "q": "Which of the following antimicrobial classes is not bacteriostatic?", "o": ["A. Tetracyclines", "B. Aminoglycosides", "C. Macrolides", "D. Sulfonamides", "E. Chloramphenicol"], "a": "B" },
   { "n": 55, "s": "Pharmacology", "l": 6, "q": "Which class of antibiotics exerts its antimicrobial action via protein synthesis inhibition?", "o": ["A. Penicillins", "B. Cephalosporins", "C. Fluoroquinolones", "D. Macrolides", "E. Polymyxins"], "a": "D" },
   { "n": 56, "s": "Pharmacology", "l": 13, "q": "What is the preferred treatment for a urinary tract infection (UTI) or systemic infection caused by Neisseria gonorrhoeae?", "o": ["A. Ceftriaxone", "B. Fosfomycin", "C. Amoxicillin", "D. Nitrofurantoin", "E. Metronidazole"], "a": "A" },
-  { "n": 57, "s": "Pharmacology", "l": 20, "q": "Which of the following antifungal agents is not indicated for the treatment of superficial cutaneous lesions?", "o": ["A. Clotrimazole", "B. Caspofungin", "C. Ketoconazole", "D. Terbinafine", "E. Nystatin"], "a": "B" },
+  { "n": 57, "s": "Pharmacology", "l": 18, "q": "Which of the following antifungal agents is NOT indicated for the treatment of superficial cutaneous lesions?", "o": ["A. Clotrimazole", "B. Caspofungin", "C. Ketoconazole", "D. Terbinafine", "E. Nystatin"], "a": "B" },
   { "n": 58, "s": "Pharmacology", "l": 12, "q": "Which drug can be used to manage anxiety?", "o": ["A. Diazepam", "B. Fluoxetine", "C. Buspirone", "D. Propranolol", "E. Haloperidol"], "a": "D" },
  
   { "n": 59, "s": "Pharmacology", "l": 11, "q": "Which adrenergic agonist is commonly used for the treatment of severe shock?", "o": ["A. Isoproterenol", "B. Albuterol", "C. Dopamine", "D. Clonidine", "E. Phenylephrine"], "a": "C" },
@@ -2631,7 +2631,7 @@ function fallbackCopy(text) {
 }
 
 
-/* Write each lecture name ONCE here: number (used as "l" in the questions) : name */
+
 const lectures = {
     1: "Introduction to Pharmacology",
     2: "Pharmacokinetics",
@@ -2650,6 +2650,7 @@ const lectures = {
     15: "Inhibitors of bacterial protein synthesis",
     16: "Adverse drug reactions",
     17: "EXCRETION",
+    18: "Antifungals",
     
     20: "NOT SEPARATED YET",
 };
