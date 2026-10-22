@@ -498,11 +498,11 @@ const SUBJECT_CARDS_BY_SECTION = {
       { label: 'Practice', badge: '13 Qs', href: 'IBS_Pathology_Practice.html' }
     ] },
     { title: 'Biochemistry 🧪', links: [
-      { label: 'Theory',   badge: '305 MCQs', href: 'IBS_Biochemistry.html' },
+      { label: 'Theory',   badge: '303 MCQs', href: 'IBS_Biochemistry.html' },
       { label: 'Practice', badge: '24 Qs', href: 'IBS_Biochemistry_Practice.html' }
     ] },
     { title: 'Micro-Immunity 🦠', links: [
-      { label: 'Theory',   badge: '164 MCQs', href: 'IBS_Micro-Immunity.html' },
+      { label: 'Theory',   badge: '166 MCQs', href: 'IBS_Micro-Immunity.html' },
     
     ] },
     { title: 'Medical Education 📘', links: [
