@@ -1118,6 +1118,346 @@
             .icon-btn:active, .eye-btn:active { background-color: transparent; }
         }
         .draw-btn.tool-on, .draw-btn.tool-on:hover, .draw-btn.tool-on:active { background-color: rgba(128,128,128,0.32); }
+
+        /* Subject chips (sit in the sticky header, under the title bar) */
+        .filter-container {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            padding-bottom: 2px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-wrap: nowrap;
+            max-width: 100%;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .filter-container::-webkit-scrollbar { display: none; }
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            font-weight: 750;
+            font-family: inherit;
+            transition: all 0.2s;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        .filter-btn.active {
+            background-color: #729fcf;
+            color: #fff;
+            border-color: #729fcf;
+        }
+
+        /* Pin button on each lecture row */
+        .lecture-pin-btn {
+            margin-left: auto;
+            align-self: center;
+            flex-shrink: 0;
+            width: 26px;
+            height: 26px;
+            padding: 0;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: #777;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+        .lecture-pin-btn svg { width: 15px; height: 15px; display: block; pointer-events: none; }
+        .lecture-pin-btn:hover { background-color: rgba(255,255,255,0.1); color: #f1f5f9; }
+        [data-theme="light"] .lecture-pin-btn:hover { background-color: rgba(0,0,0,0.06); color: #111; }
+        .lecture-pin-btn[data-pinned="true"] { color: #f0cf6a; }
+        [data-theme="light"] .lecture-pin-btn[data-pinned="true"] { color: #2e7d32; }
+
+        /* Lecture list: blue selected row, inset from the edges, no divider lines */
+        .lecture-dropdown-items { padding: 6px; box-sizing: border-box; }
+        .lecture-dropdown-item,
+        [data-theme="light"] .lecture-dropdown-item { border-bottom: none !important; border-radius: 10px; }
+        .lecture-dropdown-item + .lecture-dropdown-item { margin-top: 2px; }
+        .lecture-dropdown-item.selected,
+        .lecture-dropdown-item.selected:hover,
+        [data-theme="light"] .lecture-dropdown-item.selected,
+        [data-theme="light"] .lecture-dropdown-item.selected:hover {
+            background: #729fcf;
+            color: #fff;
+        }
+        .lecture-dropdown-item.selected .lecture-dot,
+        [data-theme="light"] .lecture-dropdown-item.selected .lecture-dot {
+            background: #fff;
+            border-color: #fff;
+        }
+        .lecture-dropdown-item.selected .lecture-pin-btn,
+        [data-theme="light"] .lecture-dropdown-item.selected .lecture-pin-btn { color: rgba(255,255,255,0.8); }
+        .lecture-dropdown-item.selected .lecture-pin-btn[data-pinned="true"],
+        [data-theme="light"] .lecture-dropdown-item.selected .lecture-pin-btn[data-pinned="true"] { color: #fff; }
+        .lecture-dropdown-item.selected .lecture-pin-btn:hover,
+        [data-theme="light"] .lecture-dropdown-item.selected .lecture-pin-btn:hover { background-color: rgba(255,255,255,0.22); color: #fff; }
+
+        /* Remove the circle dots from the lecture list */
+        .lecture-dot { display: none !important; }
+
+        /* ===== Two headers ===== */
+        .header.header1 {
+            height: 44px;
+            min-height: 44px;
+            padding: 0 16px;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .h1-title { font-size: 1.15rem; font-weight: 800; color: var(--text-main); white-space: nowrap; }
+        .h1-sub { font-size: 0.8rem; font-weight: 600; color: var(--text-opts); opacity: 0.75; white-space: nowrap; }
+
+        .header.header2 { height: 48px; min-height: 48px; padding: 0 4px; }
+        .header2 .header-actions {
+            flex: 1;
+            width: 100%;
+            gap: 2px;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .header #header-normal-right .icon-divider { display: none; }
+
+        /* all five icons: same button size, same glyph size */
+        .header2 .header-actions .icon-btn,
+        .header2 .search-toggle-btn,
+        .header2 .theme-toggle,
+        .header2 .subject-toggle {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            margin: 0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .header2 .search-toggle-btn svg,
+        .header2 .theme-toggle svg,
+        .header2 .subject-toggle svg,
+        .header2 .draw-btn svg { width: 22px; height: 22px; }
+        .header2 .draw-btn.eraser-btn svg { width: 20px; height: 20px; }  /* its drawing is cropped tighter, so this looks equal */
+        .draw-btn.eraser-btn svg path { fill: currentColor !important; stroke: none; }
+        .header2 .draw-btn.tool-on,
+        .header2 .draw-btn.tool-on:hover,
+        .header2 .draw-btn.tool-on:active { background-color: #729fcf; color: #fff; }
+
+        /* pen + eraser go to the right end */
+        .header2 .header-actions .icon-btn.pen-btn { margin-left: auto; }
+
+        /* dropdown opens centered under the filter icon */
+        .header2 .subject-dropdown { right: auto; left: 50%; margin-left: -105px; width: 210px; }
+
+        /* Subject list styled exactly like the lecture list */
+        .subject-dropdown-header { font-size: 0.70rem; color: #777; border-bottom-color: rgba(255,255,255,0.13); }
+        [data-theme="light"] .subject-dropdown-header { color: #999; border-bottom-color: rgba(0,0,0,0.13); }
+        .subject-dropdown-items { padding: 6px; box-sizing: border-box; }
+        .filter-option-dot { display: none !important; }
+        .subject-dropdown-item,
+        [data-theme="light"] .subject-dropdown-item { border-bottom: none !important; border-radius: 10px; }
+        .subject-dropdown-item + .subject-dropdown-item { margin-top: 2px; }
+        .subject-dropdown-item.selected,
+        .subject-dropdown-item.selected:hover,
+        [data-theme="light"] .subject-dropdown-item.selected,
+        [data-theme="light"] .subject-dropdown-item.selected:hover {
+            background: #729fcf;
+            color: #fff;
+        }
+
+        /* Title bar: boxed again */
+        .header.header1 {
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            height: 44px;
+            min-height: 44px;
+            padding: 0 16px;
+            margin-bottom: 8px;
+        }
+        .h1-title { font-size: 1.15rem; }
+        .h1-sub { font-size: 0.8rem; }
+
+        /* Tools row: no outer box; two small boxes instead (left 3 icons, right 2 icons) */
+        .header.header2 {
+            border: none;
+            background: transparent;
+            padding: 0;
+            height: 48px;
+            min-height: 48px;
+        }
+        .header2 .header-actions { justify-content: space-between; gap: 0; }
+        .tool-box {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            height: 48px;
+            padding: 0 4px;
+            box-sizing: border-box;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 7px;
+        }
+        .header2 .header-actions .icon-btn.pen-btn { margin-left: 0; }
+        .search-takeover-wrap.open {
+            height: 48px;
+            box-sizing: border-box;
+            padding: 0 6px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 7px;
+        }
+
+        /* More rounded boxes */
+        .header.header1,
+        .tool-box,
+        .search-takeover-wrap.open { border-radius: 16px; }
+
+        /* Centered plain title under the tools row */
+        .page-title { text-align: center; margin: 4px 0 16px; }
+        .pt-main { font-size: 1.3rem; font-weight: 800; color: var(--text-main); }
+        .pt-year { font-size: 0.8rem; font-weight: 600; color: var(--text-opts); opacity: 0.7; margin-top: 2px; }
+
+        /* Boxed title, sticky with the tools */
+        .title-box {
+            margin-top: 8px;
+            padding: 6px 12px;
+            text-align: center;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 16px;
+        }
+        .tb-main { font-size: 0.98rem; font-weight: 800; color: var(--text-main); line-height: 1.25; }
+        .tb-year { font-size: 0.68rem; font-weight: 600; color: var(--text-opts); opacity: 0.7; line-height: 1.2; }
+
+        /* Wavy bottom edge: questions slide under the wave instead of a straight line */
+        .divider { display: none; }
+        .header2-sticky::before,
+        .header2-sticky::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            height: 8px;
+            pointer-events: none;
+            -webkit-mask-repeat: repeat-x;
+            mask-repeat: repeat-x;
+            -webkit-mask-size: 24px 8px;
+            mask-size: 24px 8px;
+        }
+        .header2-sticky::after {      /* solid fill that hides the questions */
+            background-color: var(--bg-body);
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 8' preserveAspectRatio='none'%3E%3Cpath d='M0 0H24V4C21 8 15 8 12 4C9 0 3 0 0 4Z'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 8' preserveAspectRatio='none'%3E%3Cpath d='M0 0H24V4C21 8 15 8 12 4C9 0 3 0 0 4Z'/%3E%3C/svg%3E");
+        }
+        .header2-sticky::before {     /* the visible wavy line */
+            z-index: 1;
+            background-color: var(--border-color);
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 8' preserveAspectRatio='none'%3E%3Cpath d='M0 4C3 0 9 0 12 4C15 8 21 8 24 4' fill='none' stroke='black' stroke-width='1.4'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 8' preserveAspectRatio='none'%3E%3Cpath d='M0 4C3 0 9 0 12 4C15 8 21 8 24 4' fill='none' stroke='black' stroke-width='1.4'/%3E%3C/svg%3E");
+        }
+        [data-theme="light"] .header2-sticky::before { background-color: #c9c9c9; }
+
+        /* Title box sits in the same row, between the two tool boxes */
+        .header2 .header-actions { gap: 8px; }
+        .title-box {
+            flex: 1 1 auto;
+            min-width: 0;
+            height: 48px;
+            margin: 0;
+            padding: 0 8px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        .tb-main { font-size: 0.82rem; font-weight: 800; line-height: 1.2; white-space: nowrap; }
+        .tb-year { font-size: 0.62rem; font-weight: 600; line-height: 1.2; opacity: 0.7; white-space: nowrap; }
+
+        /* large screens: everything on one straight line, same size */
+        @media (min-width: 700px) {
+            .title-box { flex-direction: row; gap: 6px; }
+            .tb-main, .tb-year { font-size: 1.05rem; font-weight: 800; opacity: 1; color: var(--text-main); }
+            .tb-year::before { content: "- "; }
+        }
+
+        @media (max-width: 480px) {
+            .header2 .header-actions { gap: 6px; }
+            .header2 .header-actions .icon-btn,
+            .header2 .search-toggle-btn,
+            .header2 .theme-toggle,
+            .header2 .subject-toggle { width: 34px; height: 34px; }
+            .header2 .search-toggle-btn svg,
+            .header2 .theme-toggle svg,
+            .header2 .subject-toggle svg,
+            .header2 .draw-btn svg { width: 20px; height: 20px; }
+            .header2 .draw-btn.eraser-btn svg { width: 18px; height: 18px; }
+            .tool-box { padding: 0 3px; gap: 0; }
+            .title-box { padding: 0 3px; }
+            .tb-main { font-size: 0.74rem; }
+            .tb-year { font-size: 0.6rem; }
+        }
+
+        /* Soft fade instead of a wave/line: questions fade out under the header */
+        .header2-sticky::before { display: none !important; }
+        .header2-sticky::after {
+            height: 22px;
+            -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+        }
+
+        /* Push the subject heading ("All" + MCQ count) down, clear of the fade */
+        .header2-sticky { margin-bottom: 30px; }
+
+        /* medium screens: enough room, so keep the title on one straight line too */
+        @media (min-width: 450px) {
+            .title-box { flex-direction: row; gap: 5px; }
+            .tb-main, .tb-year { font-size: 0.76rem; font-weight: 800; opacity: 1; color: var(--text-main); }
+            .tb-year::before { content: "- "; }
+        }
+        @media (min-width: 700px) {
+            .tb-main, .tb-year { font-size: 1.05rem; }
+        }
+
+        /* ===== Two boxes: [brand + 3 tools] and [pen + eraser] ===== */
+        .main-box {
+            flex: 1 1 auto;
+            min-width: 0;
+            height: 48px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            padding: 0 4px 0 14px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 16px;
+        }
+        .brand-block { min-width: 0; text-align: left; line-height: 1.15; }
+        .bb-title { font-size: 1.05rem; font-weight: 800; color: var(--text-main); white-space: nowrap; }
+        .bb-sub { font-size: 0.66rem; font-weight: 600; color: var(--text-opts); opacity: 0.7; white-space: nowrap; margin-top: 1px; }
+        .tool-group { display: flex; align-items: center; gap: 2px; flex: 0 0 auto; }
+        @media (max-width: 480px) {
+            .main-box { padding: 0 3px 0 12px; gap: 4px; }
+            .bb-title { font-size: 0.98rem; }
+            .bb-sub { font-size: 0.6rem; }
+            .tool-group { gap: 0; }
+        }
     </style>
 
 </head>
@@ -1127,55 +1467,55 @@
 <div class="container">
     <div class="header2-sticky" id="header2-sticky">
     <div class="header header2" id="header2">
-        <!-- TITLE (left side) -->
-        <div class="brand-wrap" id="header-title-wrap">
-            <div class="brand-big">IBS 🧪</div>
-            <div class="brand-small">End-Block&nbsp;·&nbsp;2024-2025</div>
-        </div>
-
         <div class="header-actions" id="header-normal-right">
-            <button class="icon-btn draw-btn pen-btn" data-tool="pen" data-active="false" onclick="selectTool(this)" title="Pen"></button>
-            <button class="icon-btn draw-btn eraser-btn" data-tool="eraser" data-active="false" onclick="selectTool(this)" title="Eraser"></button>
-            <div class="icon-divider tools-divider"></div>
-            <button class="search-toggle-btn" id="search-toggle-btn" onclick="toggleSearchBar()" title="Search">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.9536 14.9458L21 21M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            </button>
-
-            <div class="icon-divider"></div>
-
-            <div class="subject-toggle-wrapper">
-                <div class="subject-toggle" id="subject-toggle-btn" onclick="toggleSubjectDropdown()" title="Filter by subject">
-                    <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.90693 3.9999C9.93791 3.99996 9.96894 4.00001 10 4.00001C10.0311 4.00001 10.0621 3.99996 10.0931 3.9999C10.4618 3.99929 10.8242 3.99869 11.147 4.08519C12.0098 4.31636 12.6836 4.99023 12.9148 5.85296C13.0013 6.1758 13.0007 6.53821 13.0001 6.90693C13.0001 6.93792 13 6.96895 13 7.00001H21C21.5523 7.00001 22 7.44772 22 8.00001C22 8.55229 21.5523 9.00001 21 9.00001H13C13 9.03107 13.0001 9.0621 13.0001 9.09309C13.0007 9.46181 13.0013 9.82422 12.9148 10.1471C12.6836 11.0098 12.0098 11.6837 11.147 11.9148C10.8242 12.0013 10.4618 12.0007 10.0931 12.0001C10.0621 12.0001 10.0311 12 10 12C9.96894 12 9.93791 12.0001 9.90692 12.0001C9.5382 12.0007 9.17579 12.0013 8.85295 11.9148C7.99022 11.6837 7.31635 11.0098 7.08519 10.1471C6.99868 9.82421 6.99928 9.46181 6.9999 9.09308C6.99995 9.0621 7 9.03106 7 9.00001H5C4.44772 9.00001 4 8.55229 4 8.00001C4 7.44772 4.44772 7.00001 5 7.00001H7C7 6.96895 6.99995 6.93792 6.9999 6.90693C6.99928 6.53821 6.99868 6.1758 7.08519 5.85296C7.31635 4.99023 7.99022 4.31636 8.85295 4.08519C9.17579 3.99869 9.5382 3.99929 9.90693 3.9999ZM9.49861 6.00536C9.39195 6.01022 9.36685 6.01805 9.37059 6.01704C9.19804 6.06328 9.06327 6.19805 9.01704 6.3706C9.0162 6.37411 9.00963 6.40483 9.00535 6.49861C9.00024 6.61064 9 6.75845 9 7.00001V9.00001C9 9.24156 9.00024 9.38937 9.00535 9.5014C9.01021 9.60806 9.01804 9.63315 9.01704 9.62942C9.06327 9.80196 9.19804 9.93674 9.37059 9.98297C9.36685 9.98197 9.39195 9.98979 9.49861 9.99466C9.61063 9.99977 9.75844 10 10 10C10.2416 10 10.3894 9.99977 10.5014 9.99466C10.608 9.98979 10.6331 9.98197 10.6294 9.98297C10.802 9.93674 10.9367 9.80196 10.983 9.62942C10.982 9.63315 10.9898 9.60806 10.9946 9.5014C10.9998 9.38937 11 9.24156 11 9.00001V7.00001C11 6.75845 10.9998 6.61064 10.9946 6.49861C10.9898 6.39196 10.982 6.36686 10.983 6.3706M9.49861 6.00536C9.61063 6.00025 9.75844 6.00001 10 6.00001L9.49861 6.00536ZM10 6.00001C10.2416 6.00001 10.3894 6.00025 10.5014 6.00536L10 6.00001ZM10.5014 6.00536C10.5952 6.00963 10.6259 6.0162 10.6294 6.01704L10.5014 6.00536ZM10.6298 6.01713C10.6298 6.01713 10.6296 6.0171 10.6294 6.01704L10.6298 6.01713ZM15.9069 11.9999C15.9379 12 15.9689 12 16 12C16.0311 12 16.0621 12 16.0931 11.9999C16.4618 11.9993 16.8242 11.9987 17.147 12.0852C18.0098 12.3164 18.6836 12.9902 18.9148 13.853C19.0013 14.1758 19.0007 14.5382 19.0001 14.9069C19.0001 14.9379 19 14.9689 19 15H21C21.5523 15 22 15.4477 22 16C22 16.5523 21.5523 17 21 17H19C19 17.0311 19.0001 17.0621 19.0001 17.0931C19.0007 17.4618 19.0013 17.8242 18.9148 18.1471C18.6836 19.0098 18.0098 19.6837 17.147 19.9148C16.8242 20.0013 16.4618 20.0007 16.0931 20.0001C16.0621 20.0001 16.0311 20 16 20C15.9689 20 15.9379 20.0001 15.9069 20.0001C15.5382 20.0007 15.1758 20.0013 14.853 19.9148C13.9902 19.6837 13.3164 19.0098 13.0852 18.1471C12.9987 17.8242 12.9993 17.4618 12.9999 17.0931C12.9999 17.0621 13 17.0311 13 17H5C4.44772 17 4 16.5523 4 16C4 15.4477 4.44772 15 5 15H13C13 14.969 12.9999 14.9379 12.9999 14.9069C12.9993 14.5382 12.9987 14.1758 13.0852 13.853C13.3164 12.9902 13.9902 12.3164 14.853 12.0852C15.1758 11.9987 15.5382 11.9993 15.9069 11.9999ZM15.4986 14.0054C15.392 14.0102 15.3669 14.018 15.3706 14.017C15.198 14.0633 15.0633 14.1981 15.017 14.3706C15.018 14.3669 15.0102 14.392 15.0054 14.4986C15.0002 14.6106 15 14.7585 15 15V17C15 17.2416 15.0002 17.3894 15.0054 17.5014C15.0102 17.6081 15.018 17.6332 15.017 17.6294C15.0633 17.802 15.198 17.9367 15.3706 17.983C15.3669 17.982 15.392 17.9898 15.4986 17.9947C15.6106 17.9998 15.7584 18 16 18C16.2416 18 16.3894 17.9998 16.5014 17.9947C16.608 17.9898 16.6331 17.982 16.6294 17.983C16.802 17.9367 16.9367 17.802 16.983 17.6294C16.982 17.6332 16.9898 17.6081 16.9946 17.5014C16.9998 17.3894 17 17.2416 17 17V15C17 14.7585 16.9998 14.6106 16.9946 14.4986C16.9898 14.392 16.982 14.3669 16.983 14.3706C16.9367 14.1981 16.802 14.0633 16.6294 14.017C16.6331 14.018 16.608 14.0102 16.5014 14.0054C16.3894 14.0002 16.2416 14 16 14C15.7584 14 15.6106 14.0002 15.4986 14.0054Z"/></svg>
+            <div class="main-box">
+                <div class="brand-block">
+                    <div class="bb-title">IBS 🧪</div>
+                    <div class="bb-sub">End-Block&nbsp;·&nbsp;2024-2025</div>
                 </div>
-                <div class="subject-dropdown" id="subject-dropdown">
-                    <div class="subject-dropdown-header">
-                        <span>Subject</span>
-                        <button type="button" class="dropdown-close-btn" onclick="closeSubjectDropdown()" title="Close" aria-label="Close">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                        </button>
+                <div class="tool-group">
+                <button class="search-toggle-btn" id="search-toggle-btn" onclick="toggleSearchBar()" title="Search">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.9536 14.9458L21 21M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </button>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <svg id="theme-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+
+                <div class="subject-toggle-wrapper">
+                    <div class="subject-toggle" id="subject-toggle-btn" onclick="toggleSubjectDropdown()" title="Filter by subject">
+                        <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.90693 3.9999C9.93791 3.99996 9.96894 4.00001 10 4.00001C10.0311 4.00001 10.0621 3.99996 10.0931 3.9999C10.4618 3.99929 10.8242 3.99869 11.147 4.08519C12.0098 4.31636 12.6836 4.99023 12.9148 5.85296C13.0013 6.1758 13.0007 6.53821 13.0001 6.90693C13.0001 6.93792 13 6.96895 13 7.00001H21C21.5523 7.00001 22 7.44772 22 8.00001C22 8.55229 21.5523 9.00001 21 9.00001H13C13 9.03107 13.0001 9.0621 13.0001 9.09309C13.0007 9.46181 13.0013 9.82422 12.9148 10.1471C12.6836 11.0098 12.0098 11.6837 11.147 11.9148C10.8242 12.0013 10.4618 12.0007 10.0931 12.0001C10.0621 12.0001 10.0311 12 10 12C9.96894 12 9.93791 12.0001 9.90692 12.0001C9.5382 12.0007 9.17579 12.0013 8.85295 11.9148C7.99022 11.6837 7.31635 11.0098 7.08519 10.1471C6.99868 9.82421 6.99928 9.46181 6.9999 9.09308C6.99995 9.0621 7 9.03106 7 9.00001H5C4.44772 9.00001 4 8.55229 4 8.00001C4 7.44772 4.44772 7.00001 5 7.00001H7C7 6.96895 6.99995 6.93792 6.9999 6.90693C6.99928 6.53821 6.99868 6.1758 7.08519 5.85296C7.31635 4.99023 7.99022 4.31636 8.85295 4.08519C9.17579 3.99869 9.5382 3.99929 9.90693 3.9999ZM9.49861 6.00536C9.39195 6.01022 9.36685 6.01805 9.37059 6.01704C9.19804 6.06328 9.06327 6.19805 9.01704 6.3706C9.0162 6.37411 9.00963 6.40483 9.00535 6.49861C9.00024 6.61064 9 6.75845 9 7.00001V9.00001C9 9.24156 9.00024 9.38937 9.00535 9.5014C9.01021 9.60806 9.01804 9.63315 9.01704 9.62942C9.06327 9.80196 9.19804 9.93674 9.37059 9.98297C9.36685 9.98197 9.39195 9.98979 9.49861 9.99466C9.61063 9.99977 9.75844 10 10 10C10.2416 10 10.3894 9.99977 10.5014 9.99466C10.608 9.98979 10.6331 9.98197 10.6294 9.98297C10.802 9.93674 10.9367 9.80196 10.983 9.62942C10.982 9.63315 10.9898 9.60806 10.9946 9.5014C10.9998 9.38937 11 9.24156 11 9.00001V7.00001C11 6.75845 10.9998 6.61064 10.9946 6.49861C10.9898 6.39196 10.982 6.36686 10.983 6.3706M9.49861 6.00536C9.61063 6.00025 9.75844 6.00001 10 6.00001L9.49861 6.00536ZM10 6.00001C10.2416 6.00001 10.3894 6.00025 10.5014 6.00536L10 6.00001ZM10.5014 6.00536C10.5952 6.00963 10.6259 6.0162 10.6294 6.01704L10.5014 6.00536ZM10.6298 6.01713C10.6298 6.01713 10.6296 6.0171 10.6294 6.01704L10.6298 6.01713ZM15.9069 11.9999C15.9379 12 15.9689 12 16 12C16.0311 12 16.0621 12 16.0931 11.9999C16.4618 11.9993 16.8242 11.9987 17.147 12.0852C18.0098 12.3164 18.6836 12.9902 18.9148 13.853C19.0013 14.1758 19.0007 14.5382 19.0001 14.9069C19.0001 14.9379 19 14.9689 19 15H21C21.5523 15 22 15.4477 22 16C22 16.5523 21.5523 17 21 17H19C19 17.0311 19.0001 17.0621 19.0001 17.0931C19.0007 17.4618 19.0013 17.8242 18.9148 18.1471C18.6836 19.0098 18.0098 19.6837 17.147 19.9148C16.8242 20.0013 16.4618 20.0007 16.0931 20.0001C16.0621 20.0001 16.0311 20 16 20C15.9689 20 15.9379 20.0001 15.9069 20.0001C15.5382 20.0007 15.1758 20.0013 14.853 19.9148C13.9902 19.6837 13.3164 19.0098 13.0852 18.1471C12.9987 17.8242 12.9993 17.4618 12.9999 17.0931C12.9999 17.0621 13 17.0311 13 17H5C4.44772 17 4 16.5523 4 16C4 15.4477 4.44772 15 5 15H13C13 14.969 12.9999 14.9379 12.9999 14.9069C12.9993 14.5382 12.9987 14.1758 13.0852 13.853C13.3164 12.9902 13.9902 12.3164 14.853 12.0852C15.1758 11.9987 15.5382 11.9993 15.9069 11.9999ZM15.4986 14.0054C15.392 14.0102 15.3669 14.018 15.3706 14.017C15.198 14.0633 15.0633 14.1981 15.017 14.3706C15.018 14.3669 15.0102 14.392 15.0054 14.4986C15.0002 14.6106 15 14.7585 15 15V17C15 17.2416 15.0002 17.3894 15.0054 17.5014C15.0102 17.6081 15.018 17.6332 15.017 17.6294C15.0633 17.802 15.198 17.9367 15.3706 17.983C15.3669 17.982 15.392 17.9898 15.4986 17.9947C15.6106 17.9998 15.7584 18 16 18C16.2416 18 16.3894 17.9998 16.5014 17.9947C16.608 17.9898 16.6331 17.982 16.6294 17.983C16.802 17.9367 16.9367 17.802 16.983 17.6294C16.982 17.6332 16.9898 17.6081 16.9946 17.5014C16.9998 17.3894 17 17.2416 17 17V15C17 14.7585 16.9998 14.6106 16.9946 14.4986C16.9898 14.392 16.982 14.3669 16.983 14.3706C16.9367 14.1981 16.802 14.0633 16.6294 14.017C16.6331 14.018 16.608 14.0102 16.5014 14.0054C16.3894 14.0002 16.2416 14 16 14C15.7584 14 15.6106 14.0002 15.4986 14.0054Z"/></svg>
                     </div>
-                    <div class="subject-dropdown-items">
-                    <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
-                <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
+                    <div class="subject-dropdown" id="subject-dropdown">
+                        <div class="subject-dropdown-header">
+                            <span>Subject</span>
+                            <button type="button" class="dropdown-close-btn" onclick="closeSubjectDropdown()" title="Close" aria-label="Close">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+                        </div>
+                        <div class="subject-dropdown-items">
+                        <div class="subject-dropdown-item" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
+                    <div class="subject-dropdown-item" data-subject="Pharmacology" onclick="selectSubjectFilter('Pharmacology', this)"><span class="filter-option-dot"></span>Pharmacology 💊</div>
               
-                    <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
-                <div class="subject-dropdown-item" data-subject="Immunology" onclick="selectSubjectFilter('Immunology', this)"><span class="filter-option-dot"></span>Immunology 🛡️</div>
-                <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
+                        <div class="subject-dropdown-item" data-subject="Biochemistry" onclick="selectSubjectFilter('Biochemistry', this)"><span class="filter-option-dot"></span>Biochemistry 🧪</div>
+                    <div class="subject-dropdown-item" data-subject="Immunology" onclick="selectSubjectFilter('Immunology', this)"><span class="filter-option-dot"></span>Immunology 🛡️</div>
+                    <div class="subject-dropdown-item" data-subject="Pathology" onclick="selectSubjectFilter('Pathology', this)"><span class="filter-option-dot"></span>Pathology 🔬</div>
 
  
        
         
+                    </div>
+                    </div>
                 </div>
+            
                 </div>
             </div>
 
-            <div class="icon-divider"></div>
-
-            <button class="theme-toggle" onclick="toggleTheme()">
-                <svg id="theme-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                </svg>
-            </button>
+            <div class="tool-box tool-box-right">
+                <button class="icon-btn draw-btn pen-btn" data-tool="pen" data-active="false" onclick="selectTool(this)" title="Pen"></button>
+                <button class="icon-btn draw-btn eraser-btn" data-tool="eraser" data-active="false" onclick="selectTool(this)" title="Eraser"></button>
+            </div>
         </div>
 
         <!-- ACTIVE SEARCH STATE (TAKEOVER WRAPPER WITH X ICON & DIVIDER ON THE RIGHT) -->
@@ -1203,6 +1543,7 @@
     <hr class="divider">
     <div id="quiz-content"></div>
 </div>
+
 
 <script>
 
@@ -1485,7 +1826,7 @@ const COPY_SVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xm
 const CHECK_SVG = `<svg fill="currentColor" width="20" height="20" viewBox="0 0 335.765 335.765" xmlns="http://www.w3.org/2000/svg"><polygon points="311.757,41.803 107.573,245.96 23.986,162.364 0,186.393 107.573,293.962 335.765,65.795 "></polygon></svg>`;
 
 const PEN_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.4998 5.49994L18.3282 8.32837M3 20.9997L3.04745 20.6675C3.21536 19.4922 3.29932 18.9045 3.49029 18.3558C3.65975 17.8689 3.89124 17.4059 4.17906 16.9783C4.50341 16.4963 4.92319 16.0765 5.76274 15.237L17.4107 3.58896C18.1918 2.80791 19.4581 2.80791 20.2392 3.58896C21.0202 4.37001 21.0202 5.63634 20.2392 6.41739L8.37744 18.2791C7.61579 19.0408 7.23497 19.4216 6.8012 19.7244C6.41618 19.9932 6.00093 20.2159 5.56398 20.3879C5.07171 20.5817 4.54375 20.6882 3.48793 20.9012L3 20.9997Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>`;
-const ERASER_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M17.9995 13L10.9995 6.00004M20.9995 21H7.99955M10.9368 20.0628L19.6054 11.3941C20.7935 10.2061 21.3875 9.61207 21.6101 8.92709C21.8058 8.32456 21.8058 7.67551 21.6101 7.07298C21.3875 6.388 20.7935 5.79397 19.6054 4.60592L19.3937 4.39415C18.2056 3.2061 17.6116 2.61207 16.9266 2.38951C16.3241 2.19373 15.675 2.19373 15.0725 2.38951C14.3875 2.61207 13.7935 3.2061 12.6054 4.39415L4.39366 12.6059C3.20561 13.794 2.61158 14.388 2.38902 15.073C2.19324 15.6755 2.19324 16.3246 2.38902 16.9271C2.61158 17.6121 3.20561 18.2061 4.39366 19.3941L5.06229 20.0628C5.40819 20.4087 5.58114 20.5816 5.78298 20.7053C5.96192 20.815 6.15701 20.8958 6.36108 20.9448C6.59126 21 6.83585 21 7.32503 21H8.67406C9.16324 21 9.40784 21 9.63801 20.9448C9.84208 20.8958 10.0372 20.815 10.2161 20.7053C10.418 20.5816 10.5909 20.4087 10.9368 20.0628Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`;
+const ERASER_SVG = `<svg viewBox="4 4 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.67004 11.6064L8.20037 12.1367L7.67004 11.6064ZM6 13.9682H5.25H6ZM10.0318 18V18.75V18ZM11.6064 7.67004L11.076 7.13971L11.6064 7.67004ZM12.6506 16.073C12.9435 16.3659 13.4183 16.3659 13.7112 16.073C14.0041 15.7801 14.0041 15.3053 13.7112 15.0124L12.6506 16.073ZM8.98764 10.2888C8.69474 9.99588 8.21987 9.99588 7.92698 10.2888C7.63408 10.5817 7.63408 11.0565 7.92698 11.3494L8.98764 10.2888ZM15.7996 11.8633L11.8633 15.7996L12.924 16.8603L16.8603 12.924L15.7996 11.8633ZM8.20037 12.1367L12.1367 8.20037L11.076 7.13971L7.13971 11.076L8.20037 12.1367ZM8.20037 15.7996C7.6287 15.228 7.25442 14.8514 7.01378 14.536C6.78634 14.2379 6.75 14.0841 6.75 13.9682H5.25C5.25 14.544 5.492 15.0144 5.82124 15.4459C6.13728 15.8601 6.59802 16.3186 7.13971 16.8603L8.20037 15.7996ZM7.13971 11.076C6.59802 11.6177 6.13728 12.0762 5.82124 12.4904C5.492 12.922 5.25 13.3924 5.25 13.9682H6.75C6.75 13.8522 6.78634 13.6984 7.01378 13.4003C7.25442 13.0849 7.6287 12.7084 8.20037 12.1367L7.13971 11.076ZM11.8633 15.7996C11.2916 16.3713 10.9151 16.7456 10.5997 16.9862C10.3016 17.2137 10.1478 17.25 10.0318 17.25V18.75C10.6076 18.75 11.078 18.508 11.5096 18.1788C11.9238 17.8627 12.3823 17.402 12.924 16.8603L11.8633 15.7996ZM7.13971 16.8603C7.6814 17.402 8.13989 17.8627 8.55411 18.1788C8.98563 18.508 9.45604 18.75 10.0318 18.75V17.25C9.91588 17.25 9.76207 17.2137 9.46398 16.9862C9.14858 16.7456 8.77204 16.3713 8.20037 15.7996L7.13971 16.8603ZM15.7996 8.20037C16.3713 8.77204 16.7456 9.14858 16.9862 9.46398C17.2137 9.76207 17.25 9.91588 17.25 10.0318H18.75C18.75 9.45604 18.508 8.98563 18.1788 8.55411C17.8627 8.13989 17.402 7.6814 16.8603 7.13971L15.7996 8.20037ZM16.8603 12.924C17.402 12.3823 17.8627 11.9238 18.1788 11.5096C18.508 11.078 18.75 10.6076 18.75 10.0318H17.25C17.25 10.1478 17.2137 10.3016 16.9862 10.5997C16.7456 10.9151 16.3713 11.2916 15.7996 11.8633L16.8603 12.924ZM16.8603 7.13971C16.3186 6.59802 15.8601 6.13728 15.4459 5.82124C15.0144 5.492 14.544 5.25 13.9682 5.25V6.75C14.0841 6.75 14.2379 6.78634 14.536 7.01378C14.8514 7.25442 15.228 7.6287 15.7996 8.20037L16.8603 7.13971ZM12.1367 8.20037C12.7084 7.6287 13.0849 7.25442 13.4003 7.01378C13.6984 6.78634 13.8522 6.75 13.9682 6.75V5.25C13.3924 5.25 12.922 5.492 12.4904 5.82124C12.0762 6.13728 11.6177 6.59802 11.076 7.13971L12.1367 8.20037ZM13.7112 15.0124L8.98764 10.2888L7.92698 11.3494L12.6506 16.073L13.7112 15.0124Z" fill="currentColor"></path></svg>`;
 
 const PIN_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.1218 1.87023C15.7573 0.505682 13.4779 0.76575 12.4558 2.40261L9.61062 6.95916C9.61033 6.95965 9.60913 6.96167 9.6038 6.96549C9.59728 6.97016 9.58336 6.97822 9.56001 6.9848C9.50899 6.99916 9.44234 6.99805 9.38281 6.97599C8.41173 6.61599 6.74483 6.22052 5.01389 6.87251C4.08132 7.22378 3.61596 8.03222 3.56525 8.85243C3.51687 9.63502 3.83293 10.4395 4.41425 11.0208L7.94975 14.5563L1.26973 21.2363C0.879206 21.6269 0.879206 22.26 1.26973 22.6506C1.66025 23.0411 2.29342 23.0411 2.68394 22.6506L9.36397 15.9705L12.8995 19.5061C13.4808 20.0874 14.2853 20.4035 15.0679 20.3551C15.8881 20.3044 16.6966 19.839 17.0478 18.9065C17.6998 17.1755 17.3043 15.5086 16.9444 14.5375C16.9223 14.478 16.9212 14.4114 16.9355 14.3603C16.9421 14.337 16.9502 14.3231 16.9549 14.3165C16.9587 14.3112 16.9606 14.31 16.9611 14.3098L21.5177 11.4645C23.1546 10.4424 23.4147 8.16307 22.0501 6.79853L17.1218 1.87023ZM14.1523 3.46191C14.493 2.91629 15.2528 2.8296 15.7076 3.28445L20.6359 8.21274C21.0907 8.66759 21.0041 9.42737 20.4584 9.76806L15.9019 12.6133C14.9572 13.2032 14.7469 14.3637 15.0691 15.2327C15.3549 16.0037 15.5829 17.1217 15.1762 18.2015C15.1484 18.2752 15.1175 18.3018 15.0985 18.3149C15.0743 18.3316 15.0266 18.3538 14.9445 18.3589C14.767 18.3699 14.5135 18.2916 14.3137 18.0919L5.82846 9.6066C5.62872 9.40686 5.55046 9.15333 5.56144 8.97583C5.56651 8.8937 5.58877 8.84605 5.60548 8.82181C5.61855 8.80285 5.64516 8.7719 5.71886 8.74414C6.79869 8.33741 7.91661 8.56545 8.68762 8.85128C9.55668 9.17345 10.7171 8.96318 11.3071 8.01845L14.1523 3.46191Z" fill="currentColor"></path></svg>`;
 
@@ -1952,11 +2293,39 @@ const container = document.getElementById('quiz-content');
 
 const LECTURE_CHEVRON_SVG = `<svg class="lecture-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z" fill="currentColor"></path></svg>`;
 
+const PINNED_LECTURES_KEY = 'pinnedLectures_' + location.pathname;
+let pinnedLectures = new Set();
+try { pinnedLectures = new Set(JSON.parse(localStorage.getItem(PINNED_LECTURES_KEY) || '[]')); } catch (e) {}
+
+function lectureKey(val) { return currentSubjectFilter + '|' + val; }
+
+function toggleLecturePin(val, ev) {
+    if (ev) { ev.stopPropagation(); ev.preventDefault(); }
+    const k = lectureKey(val);
+    if (pinnedLectures.has(k)) pinnedLectures.delete(k); else pinnedLectures.add(k);
+    try { localStorage.setItem(PINNED_LECTURES_KEY, JSON.stringify([...pinnedLectures])); } catch (e) {}
+    const wrap = document.querySelector('#lecture-dropdown .lecture-dropdown-items');
+    if (wrap) {
+        const saved = wrap.scrollTop;
+        wrap.innerHTML = renderLectureDropdownItems();
+        wrap.scrollTop = saved;
+    }
+}
+
 function renderLectureDropdownItems() {
     const filters = lectureFilters[currentSubjectFilter] || [];
-    return filters.map(f =>
-    `<div class="lecture-dropdown-item${String(f.val) === String(currentLecture) ? " selected" : ""}" onclick="selectLecture('${f.val}', event)"><span class="lecture-dot"></span><span class="lecture-item-text">${f.label}</span></div>`
-    ).join('');
+    const all = filters.filter(f => f.val === "All");
+    const lecs = filters.filter(f => f.val !== "All");
+    const pinned = lecs.filter(f => pinnedLectures.has(lectureKey(f.val)));
+    const rest = lecs.filter(f => !pinnedLectures.has(lectureKey(f.val)));
+    return [...all, ...pinned, ...rest].map(f => {
+        const sel = String(f.val) === String(currentLecture) ? " selected" : "";
+        const pinBtn = f.val === "All" ? '' : (() => {
+            const isP = pinnedLectures.has(lectureKey(f.val));
+            return `<button type="button" class="lecture-pin-btn" data-pinned="${isP}" onclick="toggleLecturePin('${f.val}', event)" title="${isP ? 'Unpin lecture' : 'Pin lecture'}" aria-label="${isP ? 'Unpin lecture' : 'Pin lecture'}">${isP ? UNPIN_SVG : PIN_SVG}</button>`;
+        })();
+        return `<div class="lecture-dropdown-item${sel}" onclick="selectLecture('${f.val}', event)"><span class="lecture-dot"></span><span class="lecture-item-text">${f.label}</span>${pinBtn}</div>`;
+    }).join('');
 }
 
 function scrollLectureDropdownToSelected() {
@@ -2305,7 +2674,6 @@ function toggleSearchBar() {
 
     deactivateDrawTools(false);   // pen/eraser buttons are hidden while searching
     normalRight.style.display = 'none';
-    document.getElementById('header-title-wrap').style.display = 'none';
     takeover.classList.add('open');
     
     setTimeout(() => input.focus(), 50);
@@ -2318,7 +2686,6 @@ function closeSearchBar() {
 
     takeover.classList.remove('open');
     normalRight.style.display = 'flex';
-    document.getElementById('header-title-wrap').style.display = '';
     
     input.value = '';
     handleSearch();
@@ -2452,11 +2819,7 @@ function toggleTheme() {
         currentSubjectFilter = saved;
     }
     document.querySelectorAll('.subject-dropdown-item').forEach(item => {
-        if (item.dataset.subject === currentSubjectFilter) {
-            item.classList.add('selected');
-        } else {
-            item.classList.remove('selected');
-        }
+        item.classList.toggle('selected', item.dataset.subject === currentSubjectFilter);
     });
 }());
 
