@@ -1917,6 +1917,16 @@ function fallbackCopy(text) {
 // Write each lecture ONCE, under its subject: number: "Name".
 // The same number can be reused in different subjects (matched by s + l).
 
+    const lectureFilters = {
+
+  "Pharmacology": [""],
+ "Biochemistry": [""],
+ "Immunology": [""],
+  "Pathology": [""],
+        
+
+    };
+
 // Dropdown lists are built automatically from `lectures` (no need to edit).
 const lectureFilters = {
     "All": [],
