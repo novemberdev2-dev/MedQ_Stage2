@@ -126,8 +126,7 @@
         const count = subs.map(() => 0);
         mine.forEach(m => count[m.idx]++);
         const rank = subs.map((_, i) => i).sort((a, b) => (count[b] - count[a]) || (a - b));   // most questions first; ties keep the written order
-        const pos = new Map(rank.map((i, r) => [i, r]));
-        mine.sort((a, b) => pos.get(a.idx) - pos.get(b.idx));         // questions grouped by subject, in the same order as the filter list
+        // questions stay in the order they are written in the year file (only the subject filter list is sorted)
         const questions = mine.map(m => m.item);
         const usedSubjects = new Set(questions.map(q => q.s));
         const subjects = [], lecturesOut = {};
@@ -137,7 +136,7 @@
             const used = new Set(questions.filter(q => q.s === sub.name).map(q => String(q.l)));
             lecturesOut[sub.name] = Object.fromEntries(Object.entries(sub.lectures).filter(([k]) => used.has(String(k))));
         });
-        questions.forEach((q, i) => { q.num = i + 1; });              // numbers shown on this page: 1, 2, 3 ...
+        questions.forEach(q => { q.num = q.srcN; });                  // the number shown is exactly the  n  written in the year file
         if (!(single && single.name)) delete cfg.subject;             // one-subject year page: keep it, tools.js then hides the filter icon
         delete cfg.years;
         cfg.questions = questions;
@@ -178,7 +177,7 @@
         });
         if (keys.length) years.push({ year: label, number: keys });   // numbers are listed, so the year filter works unchanged
     });
-    questions.forEach((q, i) => { q.num = i + 1; });                  // numbers shown on this page: 1, 2, 3 ...
+    questions.forEach(q => { q.num = q.srcN; });                      // the number shown is exactly the  n  written in the year file
     cfg.years = years;
     cfg.questions = questions;
 })();
