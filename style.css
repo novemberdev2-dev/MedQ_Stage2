@@ -807,11 +807,8 @@ html.light-mode-pre body .filter-option-pill.selected .filter-pill-check::after 
 .filter-actions {
   display: flex; gap: 8px;
   padding: 8px 12px 12px;
-  border-top: 1px solid rgba(255,255,255,0.08);
   margin-top: 6px;
 }
-body.light-mode .filter-actions,
-html.light-mode-pre body .filter-actions { border-top-color: rgba(0,0,0,0.08); }
 
 .filter-btn-cancel, .filter-btn-save {
   flex: 1; padding: 9px; border-radius: 8px;
@@ -839,3 +836,29 @@ html.light-mode-pre body .filter-btn-save:hover { background: #000; }
 .contact-support { margin-top: 18px; font-size: 0.82rem; color: var(--text-dim); }
 .tg-link { color: #38bdf8; text-decoration: none; margin-left: 5px; font-weight: 600; }
 .tg-link:hover { text-decoration: underline; }
+
+/* ===== VIEW MODE BUTTON (By Year / By Subject) ===== */
+.mode-dropdown-wrapper { position: relative; display: inline-block; }
+
+#mode-btn.dropdown-open { background: rgba(255,255,255,0.2); }
+#mode-btn.dropdown-open svg { stroke: var(--text-main); }
+body.light-mode #mode-btn.dropdown-open,
+html.light-mode-pre body #mode-btn.dropdown-open { background: rgba(0,0,0,0.14); }
+body.light-mode #mode-btn.dropdown-open svg,
+html.light-mode-pre body #mode-btn.dropdown-open svg { stroke: var(--text-main); }
+
+/* "Not yet" block, centered in the middle of a section */
+.not-yet-block {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  text-align: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  background: var(--card-bg);
+  border: 1px dashed var(--border-color);
+  border-radius: 12px;
+}
