@@ -1,0 +1,1174 @@
+/* tools.css - shared styles for all quiz pages */
+       :root {
+            --bg-body: #121212;
+            --text-main: #f1f5f9;
+            --text-opts: #f1f5f9;
+            --header-bg: #f1f5f9;
+            --header-text: #0f172a;
+            --border-color: #26292b;
+            --input-bg: #1a1c1e;
+            --input-border: #2a2f36;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --filter-bg: transparent;
+            --correct-color: #f0cf6a;
+            --btn-bg: #f8fafc; 
+            --btn-text: #0f172a;
+            --opts-bg: #1a1c1e;
+            --icon-hover-bg: rgba(255,255,255,0.08);
+        }
+
+        [data-theme="light"] {
+            --bg-body: #ffffff;
+            --text-main: #000000;
+            --text-opts: #333333;
+            --header-bg: #333333;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --input-bg: #fcfcfc;
+            --input-border: #cccccc;
+            --ans-bg: #eef6e4;
+            --ans-text: #2e7d32;
+            --filter-bg: transparent;
+            --correct-color: #2e7d32;
+            --btn-bg: #52525b; 
+            --btn-text: #ffffff;
+            --opts-bg: #eef6e4;
+            --icon-hover-bg: rgba(0,0,0,0.06);
+        }
+
+        
+        @media print {
+            body * {
+                visibility: hidden !important;
+            }
+            body::before {
+                content: "Printing is disabled for this document.";
+                visibility: visible;
+                display: block;
+                text-align: center;
+                margin-top: 40vh;
+                font-size: 1.2rem;
+            }
+        }
+
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+          .theme-toggle,
+        .subject-toggle,
+        .subject-dropdown-item,
+        .eye-btn,
+        .icon-btn,
+        .copy-btn,
+        .pin-btn,
+        .draw-btn,
+        .answer-text,
+        .lecture-select-btn,
+        .lecture-dropdown-item,
+        .search-toggle-btn,
+        .search-close-btn,
+        button {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Show the hand/pointer cursor on every clickable control so it
+           doesn't fall back to the default Windows arrow on hover */
+        button,
+        .theme-toggle,
+        .subject-toggle,
+        .subject-dropdown-item,
+        .eye-btn,
+        .icon-btn,
+        .copy-btn,
+        .pin-btn,
+        .draw-btn,
+        .lecture-select-btn,
+        .lecture-dropdown-item,
+        .search-toggle-btn,
+        .search-close-btn {
+            cursor: pointer;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1150px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 15px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 8px 12px;
+            min-height: 28px;
+            border-radius: 7px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                align-items: center;
+            }
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .icon-divider {
+            width: 1px;
+            height: 24px;
+            background-color: var(--input-border);
+            flex-shrink: 0;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 8px 10px 8px 40px;
+            font-size: 1rem;
+            border: none;
+            background-color: transparent;
+            color: var(--text-main);
+            border-radius: 7px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: transparent;
+            border: none;
+            color: var(--text-main);
+            width: 33px;
+            height: 33px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .search-toggle-btn {
+            background-color: transparent;
+            border: none;
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .theme-toggle:hover,
+        .search-toggle-btn:hover,
+        .subject-toggle:hover {
+            background-color: var(--icon-hover-bg);
+        }
+
+        /* Takeover styles */
+        .search-takeover-wrap {
+            display: none;
+            width: 100%;
+            align-items: center;
+        }
+
+        .search-takeover-wrap.open {
+            display: flex;
+        }
+
+        .search-close-btn {
+            background-color: transparent;
+            border: none;
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .search-close-btn:hover {
+    background-color: rgba(255,255,255,0.08);
+}
+
+[data-theme="light"] .search-close-btn:hover {
+    background-color: rgba(0,0,0,0.06);
+}
+
+.search-close-btn:focus {
+    outline: none;
+}
+
+        /* Subject picker dropdown */
+        .subject-toggle-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .subject-toggle {
+            background-color: transparent;
+            border: none;
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .subject-toggle svg {
+            stroke: none !important;
+            fill: var(--text-main);
+            pointer-events: none;
+        }
+
+        .subject-toggle.dropdown-open {
+            border-color: rgba(255,255,255,0.3);
+            background: rgba(40, 42, 45, 0.9);
+        }
+
+        .subject-toggle.dropdown-open svg { fill: var(--text-main); }
+
+        [data-theme="light"] .subject-toggle.dropdown-open {
+            border-color: #121212;
+            background: rgba(255,255,255,1);
+        }
+
+        .subject-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: #111111;
+            border: 1px solid rgba(255,255,255,0.13);
+            border-radius: 14px;
+            overflow: hidden;
+            min-width: 210px;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-6px) scale(0.97);
+            transition: opacity 0.22s ease, transform 0.22s ease;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.65);
+        }
+
+        .subject-dropdown.open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        [data-theme="light"] .subject-dropdown {
+            background: #ffffff;
+            border-color: rgba(0,0,0,0.13);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+        }
+
+        .subject-dropdown-header {
+            padding: 10px 10px 10px 16px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #555;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
+        }
+
+        [data-theme="light"] .subject-dropdown-header {
+            border-bottom-color: rgba(0,0,0,0.08);
+            color: #999;
+        }
+
+        /* Cap the list to ~8 rows tall (incl. All); the rest scrolls inside
+           the dropdown, and overscroll-behavior stops that scroll from
+           chaining into the page once it reaches the end. */
+        .subject-dropdown-items {
+            max-height: 348px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.25) transparent;
+        }
+
+        [data-theme="light"] .subject-dropdown-items {
+            scrollbar-color: rgba(0,0,0,0.25) transparent;
+        }
+
+        .subject-dropdown-items::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .subject-dropdown-items::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .subject-dropdown-items::-webkit-scrollbar-thumb {
+            background-color: rgba(255,255,255,0.25);
+            border-radius: 6px;
+        }
+
+        [data-theme="light"] .subject-dropdown-items::-webkit-scrollbar-thumb {
+            background-color: rgba(0,0,0,0.25);
+        }
+
+        .subject-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 13px 16px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #aaa;
+            transition: background 0.15s ease, color 0.15s ease;
+            user-select: none;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        [data-theme="light"] .subject-dropdown-item { color: #666; }
+
+        .subject-dropdown-item:not(:last-child) {
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        [data-theme="light"] .subject-dropdown-item:not(:last-child) {
+            border-bottom-color: rgba(0,0,0,0.06);
+        }
+
+        .subject-dropdown-item:hover {
+            background: rgba(255,255,255,0.06);
+            color: #e2e8f0;
+        }
+
+        [data-theme="light"] .subject-dropdown-item:hover {
+            background: rgba(0,0,0,0.04);
+            color: #111;
+        }
+
+        .subject-dropdown-item.selected { color: #f1f5f9; }
+
+        [data-theme="light"] .subject-dropdown-item.selected { color: #111; }
+
+        .lecture-select-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            min-width: 0;
+            flex: 1 1 auto;
+        }
+
+        .lecture-select-btn {
+            background: transparent;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 0;
+            max-width: 100%;
+            padding: 4px 6px;
+            margin: -4px -6px;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+
+        .lecture-select-btn:hover {
+            background-color: rgba(255,255,255,0.06);
+        }
+
+        [data-theme="light"] .lecture-select-btn:hover {
+            background-color: rgba(0,0,0,0.04);
+        }
+
+        .lecture-chevron {
+            flex-shrink: 0;
+            color: var(--text-main);
+            transition: transform 0.2s ease;
+            position: relative;
+            top: 2px;
+        }
+
+        .lecture-select-btn.dropdown-open .lecture-chevron {
+            transform: rotate(180deg);
+        }
+
+        .lecture-dropdown {
+            position: absolute;
+            top: calc(100% + 13px);
+            left: 0;
+            background: #111111;
+            border: 1px solid rgba(255,255,255,0.13);
+            border-radius: 14px;
+            overflow: hidden;
+            width: 290px;
+            max-width: 80vw;
+            z-index: 20;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-6px) scale(0.97);
+            transition: opacity 0.22s ease, transform 0.22s ease;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.65);
+        }
+
+        
+
+        .lecture-dropdown.open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+
+        }
+
+        [data-theme="light"] .lecture-dropdown {
+            background: #ffffff;
+            border-color: rgba(0,0,0,0.13);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+        }
+
+        .lecture-dropdown-header {
+            padding: 10px 10px 10px 16px;
+            font-size: 0.70rem;
+            font-weight: 700;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: #777;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.13);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        [data-theme="light"] .lecture-dropdown-header {
+            color: #999;
+            border-bottom-color: rgba(0,0,0,0.13);
+        }
+
+        .dropdown-close-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: #888;
+            flex-shrink: 0;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+
+        .dropdown-close-btn svg {
+            width: 13px;
+            height: 13px;
+            pointer-events: none;
+        }
+
+        .dropdown-close-btn:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: #f1f5f9;
+        }
+
+        [data-theme="light"] .dropdown-close-btn:hover {
+            background-color: rgba(0,0,0,0.06);
+            color: #111;
+        }
+
+        /* Cap the list to ~7 rows tall; anything beyond that scrolls
+           inside the dropdown instead of growing the page. */
+        .lecture-dropdown-items {
+            max-height: 329px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.25) transparent;
+        }
+
+        [data-theme="light"] .lecture-dropdown-items {
+            scrollbar-color: rgba(0,0,0,0.25) transparent;
+        }
+
+        .lecture-dropdown-items::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .lecture-dropdown-items::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .lecture-dropdown-items::-webkit-scrollbar-thumb {
+            background-color: rgba(255,255,255,0.25);
+            border-radius: 6px;
+        }
+
+        [data-theme="light"] .lecture-dropdown-items::-webkit-scrollbar-thumb {
+            background-color: rgba(0,0,0,0.25);
+        }
+
+        .lecture-dropdown-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            padding: 13px 16px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #aaa;
+            transition: background 0.15s ease, color 0.15s ease;
+            user-select: none;
+            text-align: left;
+        }
+
+        [data-theme="light"] .lecture-dropdown-item { color: #666; }
+
+        .lecture-dropdown-item:not(:last-child) {
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        [data-theme="light"] .lecture-dropdown-item:not(:last-child) {
+            border-bottom-color: rgba(0,0,0,0.06);
+        }
+
+        .lecture-dropdown-item:hover {
+            background: rgba(255,255,255,0.06);
+            color: #e2e8f0;
+        }
+
+        [data-theme="light"] .lecture-dropdown-item:hover {
+            background: rgba(0,0,0,0.04);
+            color: #111;
+        }
+
+        .lecture-dropdown-item.selected { color: #f1f5f9; }
+
+        [data-theme="light"] .lecture-dropdown-item.selected { color: #111; }
+
+        .lecture-item-text {
+            flex: 1;
+            min-width: 0;
+            line-height: 1.4;
+            white-space: normal;
+            word-break: break-word;
+            padding-top: 1px;
+        }
+
+        .q-block {
+            position: relative;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+
+        .ans-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .ans-row--multi {
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 8px;
+        }
+
+        mark { background-color: #f0cf6a; color: #000; }
+        .opts li.correct-option { color: var(--correct-color); font-weight: 650; background-color: var( --opts-bg); display: inline-block; padding: 0 7px 0 1px; border-radius: 4px;}
+        
+        .section-heading {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-bottom: 14px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-heading-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Optional small note shown under the "All" heading on first open,
+           above the divider line. Not every file needs one — to remove it,
+           just clear the CONTENT_NOTE constant near the top of the script
+           (or delete it). */
+        .section-note {
+            font-size: 0.80rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #999;
+        }
+
+        [data-theme="light"] .section-note {
+            color: #9a9a9a;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-opts);
+            font-size: 1.15rem;
+            font-weight: 500;
+            opacity: 0.6;
+            box-sizing: border-box;
+            width: 100%;
+            display: block; 
+        }
+
+        .section-heading-title {
+            font-size: 1.10rem;
+            font-weight: 700;
+            color: var(--text-main);
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Two versions of the lecture/subject name are rendered together:
+           .label-full (complete text, used on larger screens) and
+           .label-short (hard-capped to 25 characters + "…", used on small
+           screens). Only one is shown at a time via the media query below. */
+        .label-short { display: none; }
+
+        /* Subject names (e.g. "Microbiology 🦠") are shown a bit larger
+           than individual lecture names (e.g. "Trachea, bronch..."). */
+        .section-heading-title.subject-title {
+            font-size: 1.22rem;
+        }
+
+        .mcq-count-badge {
+            font-size: 0.70rem;
+            font-weight: 700;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            padding: 2px 5px;
+            border-radius: 3px;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 480px) {
+            .section-heading-title {
+                font-size: 1rem;
+            }
+            .section-heading-title.subject-title {
+                font-size: 1.12rem;
+            }
+            .label-full { display: none; }
+            .label-short { display: inline; }
+        }
+
+        /* Eye / Copy / Pin icon buttons */
+      .ans-row {
+    justify-content: flex-start !important;
+    position: relative;
+    z-index: 10;
+    pointer-events: none;
+}
+.ans-row button {
+    pointer-events: auto;
+}
+
+        .icon-btn, .eye-btn {
+            background: transparent;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            padding: 6px;
+            border-radius: 6px;
+            transition: background-color 0.2s ease, opacity 0.2s ease, color 0.2s ease;
+            margin-top: 20px;
+        }
+
+        .icon-btn:hover, .eye-btn:hover {
+            background-color: var(--icon-hover-bg);
+        }
+
+        .icon-btn svg, .eye-btn svg {
+            width: 20px;
+            height: 20px;
+            display: block;
+            fill: currentColor;
+        }
+
+        .eye-btn svg.icon-eye-open {
+            width: 22px;
+            height: 22px;
+        }
+
+        .eye-btn[data-revealed="true"] {
+            color: var(--correct-color);
+        }
+
+        .pin-btn[data-pinned="true"] {
+             color: var(--correct-color);
+        }
+
+      .eye-part-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+}
+.eye-part-row button {
+    pointer-events: auto;
+}
+
+        .eye-part-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-opts);
+            opacity: 0.7;
+            min-width: 12px;
+            text-align: center;
+        }
+
+        .answer-text {
+            display: none;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: var(--opts-bg);
+            color: var(--correct-color);
+            font-weight: 800;
+            font-size: 15px;
+            padding: 7px 12px;
+            border-radius: 5px;
+        }
+
+        .case-block .answer-text {
+            width: auto;
+            max-width: 100%;
+            white-space: pre-line;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+       .copy-wrap {
+    position: relative;
+    display: inline-flex;
+    pointer-events: none;
+}
+.copy-wrap button {
+    pointer-events: auto;
+}
+
+        .copy-btn svg {
+            transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+
+        .copy-btn.copied {
+            color: var(--correct-color);
+        }
+
+        .copy-btn.copied svg {
+            animation: copy-check-pop 0.3s ease;
+        }
+
+        @keyframes copy-check-pop {
+            0% { transform: scale(0.6); opacity: 0; }
+            60% { transform: scale(1.15); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Multi-case questions (e.g. Q29 style) */
+        .case-block {
+            position: relative;
+            margin-top: 14px;
+            padding-top: 10px;
+        }
+
+        .case-block:first-of-type {
+            margin-top: 16px;
+        }
+
+        .case-eye-row {
+            margin-top: 2px;
+        }
+
+        .case-eye-row .eye-btn {
+            margin-top: 6px;
+        }
+
+        /* Case questions (Q21, Q22): the reveal button itself turns into
+           the answer box, instead of showing an open-eye icon plus a
+           separate answer box. */
+        .case-eye-row .eye-btn.case-answer-revealed {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            background-color: var(--opts-bg);
+            color: var(--correct-color);
+            font-weight: 800;
+            font-size: 15px;
+            padding: 7px 12px;
+            border-radius: 5px;
+            white-space: pre-line;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .case-actions-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px dashed var(--border-color);
+            position: relative;
+            z-index: 10;
+        }
+        .case-actions-row button {
+    pointer-events: auto;
+}
+
+        .case-actions-row .icon-btn {
+            margin-top: 0;
+        }
+
+        .case-text {
+            font-size: 1.02rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        
+        /* One page-wide drawing layer (pen / eraser work everywhere) */
+        #draw-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
+            touch-action: none;
+            overflow: hidden;
+        }
+
+        #draw-layer.active {
+            pointer-events: auto;
+            cursor: crosshair;
+        }
+
+        /* While a tool is on, block page scrolling by touch so a
+           stylus/finger stroke never gets interpreted as a scroll gesture. */
+        html.drawing-lock,
+        body.drawing-lock {
+            touch-action: none;
+            overscroll-behavior: none;
+        }
+
+        #draw-layer .draw-path {
+            stroke: #ff0000;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Second header: sticky, questions scroll underneath it */
+        .header2-sticky {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            margin: 0 -20px 6px;
+            padding: 28px 20px 8px;   /* top padding = the old container top gap, so the header never shifts when stuck */
+            background-color: var(--bg-body);
+        }
+        .container { padding-top: 0; min-height: 100vh; }
+        .no-results { min-height: 50vh; }
+        .header2-sticky .header2 { margin-bottom: 0; }
+        .header { margin-bottom: 8px; }
+        .header-actions .icon-btn { margin-top: 0; padding: 7px; }
+        .header2 { gap: 0; }
+        .search-takeover-wrap { height: 100%; }
+
+        .draw-btn svg, .draw-btn svg path { fill: none !important; }
+        .draw-btn svg path { stroke: currentColor; }
+        .draw-btn.tool-on {
+            background-color: rgba(128,128,128,0.32);
+            border-radius: 50%;
+        }
+        .q-block .icon-btn, .q-block .eye-btn { position: relative; z-index: 6; }
+        #draw-layer.tool-eraser { cursor: none; }
+        #draw-layer { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+        button, .icon-btn, .eye-btn { touch-action: manipulation; -webkit-user-select: none; user-select: none; }
+        #draw-layer .eraser-cursor {
+            fill: rgba(128,128,128,0.18);
+            stroke: var(--text-main);
+            stroke-width: 1.5;
+            pointer-events: none;
+            display: none;
+        }
+
+        /* No tap flash / sticky hover / focus box on touch devices */
+        html, body, *, *::before, *::after { -webkit-tap-highlight-color: rgba(0,0,0,0) !important; }
+        button, .icon-btn, .eye-btn { outline: none !important; -webkit-touch-callout: none; }
+        button:focus, button:focus-visible, button:active { outline: none !important; }
+        @media (hover: none) {
+            .icon-btn:hover, .eye-btn:hover { background-color: transparent; }
+            .icon-btn:active, .eye-btn:active { background-color: transparent; }
+        }
+        .draw-btn.tool-on, .draw-btn.tool-on:hover, .draw-btn.tool-on:active { background-color: rgba(128,128,128,0.32); }
+
+        /* Pin button on each lecture row */
+        .lecture-pin-btn {
+            margin-left: auto;
+            align-self: center;
+            flex-shrink: 0;
+            width: 26px;
+            height: 26px;
+            padding: 0;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: #777;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+        .lecture-pin-btn svg { width: 15px; height: 15px; display: block; pointer-events: none; }
+        .lecture-pin-btn:hover { background-color: rgba(255,255,255,0.1); color: #f1f5f9; }
+        [data-theme="light"] .lecture-pin-btn:hover { background-color: rgba(0,0,0,0.06); color: #111; }
+        .lecture-pin-btn[data-pinned="true"] { color: #f0cf6a; }
+        [data-theme="light"] .lecture-pin-btn[data-pinned="true"] { color: #2e7d32; }
+
+        /* Lecture list: blue selected row, inset from the edges, no divider lines */
+        .lecture-dropdown-items { padding: 6px; box-sizing: border-box; }
+        .lecture-dropdown-item,
+        [data-theme="light"] .lecture-dropdown-item { border-bottom: none !important; border-radius: 10px; }
+        .lecture-dropdown-item + .lecture-dropdown-item { margin-top: 2px; }
+        .lecture-dropdown-item.selected,
+        .lecture-dropdown-item.selected:hover,
+        [data-theme="light"] .lecture-dropdown-item.selected,
+        [data-theme="light"] .lecture-dropdown-item.selected:hover {
+            background: #729fcf;
+            color: #fff;
+        }
+        .lecture-dropdown-item.selected .lecture-pin-btn,
+        [data-theme="light"] .lecture-dropdown-item.selected .lecture-pin-btn { color: rgba(255,255,255,0.8); }
+        .lecture-dropdown-item.selected .lecture-pin-btn[data-pinned="true"],
+        [data-theme="light"] .lecture-dropdown-item.selected .lecture-pin-btn[data-pinned="true"] { color: #fff; }
+        .lecture-dropdown-item.selected .lecture-pin-btn:hover,
+        [data-theme="light"] .lecture-dropdown-item.selected .lecture-pin-btn:hover { background-color: rgba(255,255,255,0.22); color: #fff; }
+
+
+        /* all five icons: same button size, same glyph size */
+        .header2 .header-actions .icon-btn,
+        .header2 .search-toggle-btn,
+        .header2 .theme-toggle,
+        .header2 .subject-toggle {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            margin: 0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .header2 .search-toggle-btn svg,
+        .header2 .theme-toggle svg,
+        .header2 .subject-toggle svg,
+        .header2 .draw-btn svg { width: 22px; height: 22px; }
+        .header2 .draw-btn.eraser-btn svg { width: 20px; height: 20px; }  /* its drawing is cropped tighter, so this looks equal */
+        .draw-btn.eraser-btn svg path { fill: currentColor !important; stroke: none; }
+        .header2 .draw-btn.tool-on,
+        .header2 .draw-btn.tool-on:hover,
+        .header2 .draw-btn.tool-on:active { background-color: #729fcf; color: #fff; }
+
+        /* dropdown opens centered under the filter icon */
+        /* Width follows the longest item (never narrower than 210px, never wider than the screen).
+           The exact left offset is set by positionSubjectDropdown() in tools.js. */
+        .header2 .subject-dropdown { right: auto; left: 50%; margin-left: -105px; width: max-content; min-width: 210px; max-width: calc(100vw - 16px); box-sizing: border-box; }
+        .subject-dropdown-items { overflow-x: hidden; }
+        .subject-dropdown-item { white-space: pre-line; }
+
+        /* Subject list styled exactly like the lecture list */
+        .subject-dropdown-header { font-size: 0.70rem; color: #777; border-bottom-color: rgba(255,255,255,0.13); }
+        [data-theme="light"] .subject-dropdown-header { color: #999; border-bottom-color: rgba(0,0,0,0.13); }
+        .subject-dropdown-items { padding: 6px; box-sizing: border-box; }
+        .subject-dropdown-item,
+        [data-theme="light"] .subject-dropdown-item { border-bottom: none !important; border-radius: 10px; }
+        .subject-dropdown-item + .subject-dropdown-item { margin-top: 2px; }
+        .subject-dropdown-item.selected,
+        .subject-dropdown-item.selected:hover,
+        [data-theme="light"] .subject-dropdown-item.selected,
+        [data-theme="light"] .subject-dropdown-item.selected:hover {
+            background: #729fcf;
+            color: #fff;
+        }
+
+        /* Tools row: no outer box; two small boxes instead (left 3 icons, right 2 icons) */
+        .header.header2 {
+            border: none;
+            background: transparent;
+            padding: 0;
+            height: 48px;
+            min-height: 48px;
+            box-sizing: border-box;
+        }
+        .header2 .header-actions {
+            flex: 1;
+            width: 100%;
+            gap: 8px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .tool-box {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            height: 48px;
+            padding: 0 4px;
+            box-sizing: border-box;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 16px;
+        }
+        .search-takeover-wrap.open {
+            height: 48px;
+            box-sizing: border-box;
+            padding: 0 6px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 16px;
+        }
+
+        /* Soft fade under the sticky header: questions fade out as they scroll under it */
+        .header2-sticky::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            height: 22px;
+            pointer-events: none;
+            background-color: var(--bg-body);
+            -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+        }
+
+        @media (max-width: 480px) {
+            .header2 .header-actions { gap: 6px; }
+            .header2 .header-actions .icon-btn,
+            .header2 .search-toggle-btn,
+            .header2 .theme-toggle,
+            .header2 .subject-toggle { width: 34px; height: 34px; }
+            .header2 .search-toggle-btn svg,
+            .header2 .theme-toggle svg,
+            .header2 .subject-toggle svg,
+            .header2 .draw-btn svg { width: 20px; height: 20px; }
+            .header2 .draw-btn.eraser-btn svg { width: 18px; height: 18px; }
+            .tool-box { padding: 0 3px; gap: 0; }
+        }
+
+        /* Push the subject heading ("All" + MCQ count) down, clear of the fade */
+        .header2-sticky { margin-bottom: 30px; }
+
+        /* ===== Two boxes: [brand + 3 tools] and [pen + eraser] ===== */
+        .main-box {
+            flex: 1 1 auto;
+            min-width: 0;
+            height: 48px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            padding: 0 4px 0 14px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 16px;
+        }
+        .brand-block { min-width: 0; text-align: left; line-height: 1.15; }
+        .bb-title { font-size: 1.05rem; font-weight: 800; color: var(--text-main); white-space: nowrap; }
+        .bb-sub { font-size: 0.66rem; font-weight: 600; color: var(--text-opts); opacity: 0.7; white-space: nowrap; margin-top: 1px; }
+        .tool-group { display: flex; align-items: center; gap: 2px; flex: 0 0 auto; }
+        @media (max-width: 480px) {
+            .main-box { padding: 0 3px 0 12px; gap: 4px; }
+            .bb-title { font-size: 0.98rem; }
+            .bb-sub { font-size: 0.6rem; }
+            .tool-group { gap: 0; }
+        }
+
+        /* Vertically center the text inside the blue row (equal space above and below) */
+        .lecture-dropdown-item,
+        .subject-dropdown-item { align-items: center; padding-top: 13px; padding-bottom: 13px; }
+        .lecture-item-text { padding-top: 0; }
+    
+
+        /* Note under a question (visible only after the answer is revealed) */
+        .q-note {
+            margin: 4px 0 14px;
+            padding: 9px 12px;
+            border-left: 3px solid #729fcf;
+            border-radius: 6px;
+            background-color: var(--input-bg);
+            color: var(--text-opts);
+            font-size: 0.92rem;
+            line-height: 1.55;
+            white-space: pre-wrap;
+        }
