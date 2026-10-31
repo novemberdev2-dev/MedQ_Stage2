@@ -516,65 +516,63 @@ const SUBJECT_CARDS_BY_SECTION = {
   ],
 
 msd: [
-    { title: 'Anatomy', links: [
+    { title: 'Anatomy 🦴', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Embryology', links: [
+    { title: 'Embryology 👶', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Radiology', links: [
+    { title: 'Radiology 🩻', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Immunology', links: [
+    { title: 'Immunology 🛡️', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Pharmacology', links: [
+    { title: 'Pharmacology 💊', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Histology', links: [
+    { title: 'Histology 🫁', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Biochemistry', links: [
+    { title: 'Biochemistry 🧪', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Bioethics', links: [
+    { title: 'Bioethics ⚖️', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Pathology', links: [
+    { title: 'Pathology 🔬', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Physiology', links: [
+    { title: 'Physiology ⚡', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Microbiology', links: [
+    { title: 'Microbiology 🦠', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Dermatology', links: [
+    { title: 'Dermatology 🧴', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Rheumatology', links: [
+    { title: 'Rheumatology 🦴', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Orthopedics', links: [
+    { title: 'Orthopedics 🦾', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] }
   ]
- 
-   
 
 };
 
