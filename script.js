@@ -109,6 +109,7 @@ function toggleSettingsDropdown() {
   } else {
     document.getElementById('filter-dropdown').classList.remove('open');
     document.getElementById('filter-btn').classList.remove('dropdown-open');
+    closeModeDropdown();
     dropdown.classList.add('open');
     btn.classList.add('dropdown-open');
   }
@@ -155,6 +156,7 @@ function toggleFilterDropdown() {
   } else {
     document.getElementById('settings-dropdown').classList.remove('open');
     document.getElementById('settings-btn').classList.remove('dropdown-open');
+    closeModeDropdown();
     // Initialise pending from saved
     const saved = JSON.parse(localStorage.getItem('medq_filter_v2') || 'null') || ['all'];
     _pendingFilter = saved.slice();
@@ -576,123 +578,81 @@ msd: [
 
 };
 
-function getSectionModes() {
-  return JSON.parse(localStorage.getItem('medq_section_modes') || '{}');
+// ===== VIEW MODE (global: By Year / By Subject, set from the header) =====
+function getViewMode() {
+  return localStorage.getItem('medq_view_mode') === 'subject' ? 'subject' : 'year';
 }
 
-function getSectionMode(key) {
-  const m = getSectionModes()[key];
-  return m === 'subject' ? 'subject' : 'year';
+function setViewMode(mode) {
+  localStorage.setItem('medq_view_mode', mode);
 }
 
-function setSectionMode(key, mode) {
-  const modes = getSectionModes();
-  modes[key] = mode;
-  localStorage.setItem('medq_section_modes', JSON.stringify(modes));
+function renderModeOptions() {
+  const mode = getViewMode();
+  const y = document.getElementById('mode-opt-year');
+  const sj = document.getElementById('mode-opt-subject');
+  if (y)  y.classList.toggle('selected', mode === 'year');
+  if (sj) sj.classList.toggle('selected', mode === 'subject');
 }
 
-// ----- the little FILTER box that the section chevron opens -----
-const YEAR_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19,4H17V3a1,1,0,0,0-2,0V4H9V3A1,1,0,0,0,7,3V4H5A3,3,0,0,0,2,7V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V7A3,3,0,0,0,19,4Zm1,15a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V12H20Zm0-9H4V7A1,1,0,0,1,5,6H7V7A1,1,0,0,0,9,7V6h6V7a1,1,0,0,0,2,0V6h2a1,1,0,0,1,1,1Z"/></svg>';
-const SUBJECT_ICON_SVG = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 19V6.2C4 5.0799 4 4.51984 4.21799 4.09202C4.40973 3.71569 4.71569 3.40973 5.09202 3.21799C5.51984 3 6.0799 3 7.2 3H16.8C17.9201 3 18.4802 3 18.908 3.21799C19.2843 3.40973 19.5903 3.71569 19.782 4.09202C20 4.51984 20 5.0799 20 6.2V17H6C4.89543 17 4 17.8954 4 19ZM4 19C4 20.1046 4.89543 21 6 21H20M9 7H15M9 11H15M19 17V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-const BOX_CLOSE_SVG = '<svg viewBox="0 0 12 12"><line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/></svg>';
-
-function buildSectionFilterBox(key) {
-  const box = document.createElement('div');
-  box.className = 'section-filter-box';
-  box.id = 'sfbox-' + key;
-  box.onclick = (e) => e.stopPropagation();
-
-  box.innerHTML = `
-    <div class="section-filter-header">
-      Filter
-      <div class="settings-close-btn" data-close="1">${BOX_CLOSE_SVG}</div>
-    </div>
-    <div class="section-filter-list">
-      <div class="filter-mode-option" data-mode="year">
-        <span class="filter-mode-icon">${YEAR_ICON_SVG}</span>
-        <span class="filter-mode-text">By Year</span>
-        <span class="filter-mode-check"></span>
-      </div>
-      <div class="filter-mode-option" data-mode="subject">
-        <span class="filter-mode-icon filter-mode-icon-stroke">${SUBJECT_ICON_SVG}</span>
-        <span class="filter-mode-text">By Subject</span>
-        <span class="filter-mode-check"></span>
-      </div>
-    </div>
-    <div class="section-filter-note" id="sfnote-${key}">Not yet</div>
-  `;
-
-  box.querySelector('[data-close="1"]').onclick = () => closeSectionFilterBox(key);
-  box.querySelectorAll('.filter-mode-option').forEach(opt => {
-    opt.onclick = () => selectSectionMode(key, opt.getAttribute('data-mode'));
-  });
-
-  renderSectionFilterBox(key, box);
-  return box;
-}
-
-function renderSectionFilterBox(key, boxEl) {
-  const box = boxEl || document.getElementById('sfbox-' + key);
-  if (!box) return;
-  const mode = getSectionMode(key);
-  box.querySelectorAll('.filter-mode-option').forEach(opt => {
-    opt.classList.toggle('selected', opt.getAttribute('data-mode') === mode);
-  });
-}
-
-function closeAllSectionFilterBoxes() {
-  document.querySelectorAll('.section-filter-box.open').forEach(b => b.classList.remove('open'));
-  document.querySelectorAll('.category-toggle-btn.box-open').forEach(b => b.classList.remove('box-open'));
-  document.querySelectorAll('.section-filter-note.show').forEach(n => n.classList.remove('show'));
-}
-
-function closeSectionFilterBox(key) {
-  const box = document.getElementById('sfbox-' + key);
-  const btn = document.getElementById('toggle-' + key);
-  if (box) box.classList.remove('open');
-  if (btn) btn.classList.remove('box-open');
-  const note = document.getElementById('sfnote-' + key);
-  if (note) note.classList.remove('show');
-}
-
-function toggleSectionFilterBox(key) {
-  const box = document.getElementById('sfbox-' + key);
-  const btn = document.getElementById('toggle-' + key);
-  if (!box) return;
-  const isOpen = box.classList.contains('open');
-  closeAllSectionFilterBoxes();
-  closeSettingsDropdown();
-  if (!isOpen) {
-    renderSectionFilterBox(key);
-    box.classList.add('open');
-    if (btn) btn.classList.add('box-open');
-  }
-}
-
-function selectSectionMode(key, mode) {
-  const note = document.getElementById('sfnote-' + key);
-  if (mode === 'subject' && !SUBJECT_CARDS_BY_SECTION[key]) {
-    if (note) note.classList.add('show');   // "Not yet"
+function toggleModeDropdown() {
+  const dropdown = document.getElementById('mode-dropdown');
+  const btn = document.getElementById('mode-btn');
+  if (dropdown.classList.contains('open')) {
+    closeModeDropdown();
     return;
   }
-  if (note) note.classList.remove('show');
-  setSectionMode(key, mode);
-  renderSectionFilterBox(key);
-  renderSectionCards(key);
-  closeSectionFilterBox(key);
+  // close the other header dropdowns
+  closeSettingsDropdown();
+  document.getElementById('filter-dropdown').classList.remove('open');
+  document.getElementById('filter-btn').classList.remove('dropdown-open');
+  _pendingFilter = null;
+  renderModeOptions();
+  dropdown.classList.add('open');
+  btn.classList.add('dropdown-open');
 }
 
-// Re-renders just the cards of one section according to its current mode
-function renderSectionCards(key) {
-  const grid = document.getElementById('grid-' + key);
-  if (!grid) return;
-  const section = ALL_SECTIONS.find(s => (s.key || s.type) === key);
-  const mode = getSectionMode(key);
-  const cards = (mode === 'subject' && SUBJECT_CARDS_BY_SECTION[key])
-    ? SUBJECT_CARDS_BY_SECTION[key]
-    : (section ? section.cards : []);
+function closeModeDropdown() {
+  const dropdown = document.getElementById('mode-dropdown');
+  const btn = document.getElementById('mode-btn');
+  if (dropdown) dropdown.classList.remove('open');
+  if (btn) btn.classList.remove('dropdown-open');
+}
+
+function selectViewMode(mode) {
+  setViewMode(mode);
+  renderModeOptions();
+  renderAllSectionCards();
+  closeModeDropdown();
+}
+
+// "Not yet" block shown in the middle of a section that has no subject split yet
+function buildNotYetBlock() {
+  const el = document.createElement('div');
+  el.className = 'not-yet-block';
+  el.textContent = 'Not yet';
+  return el;
+}
+
+// Fills one section's grid according to the current global mode
+function fillSectionGrid(grid, section) {
+  const key = section.key || section.type;
   grid.innerHTML = '';
-  cards.forEach(card => grid.appendChild(buildCard(card)));
+  if (getViewMode() === 'subject') {
+    const subjectCards = SUBJECT_CARDS_BY_SECTION[key];
+    if (!subjectCards) { grid.appendChild(buildNotYetBlock()); return; }
+    subjectCards.forEach(card => grid.appendChild(buildCard(card)));
+  } else {
+    section.cards.forEach(card => grid.appendChild(buildCard(card)));
+  }
+}
+
+// Re-renders the cards of every visible section
+function renderAllSectionCards() {
+  ALL_SECTIONS.forEach(section => {
+    const grid = document.getElementById('grid-' + (section.key || section.type));
+    if (grid) fillSectionGrid(grid, section);
+  });
 }
 
 function buildCard(card) {
@@ -767,17 +727,6 @@ function buildSection(section) {
   titleText.textContent = section.type;
   title.appendChild(titleText);
 
-  const toggleBtn = document.createElement('span');
-  toggleBtn.className = 'category-toggle-btn';
-  toggleBtn.id = `toggle-${key}`;
-  toggleBtn.title = 'Filter';
-  toggleBtn.innerHTML = CHEVRON_SVG;
-  toggleBtn.onclick = (e) => { e.stopPropagation(); toggleSectionFilterBox(key); };
-  title.appendChild(toggleBtn);
-
-  // the FILTER box lives inside the section header, under the chevron
-  title.appendChild(buildSectionFilterBox(key));
-
   sectionEl.appendChild(title);
 
   const gridWrap = document.createElement('div');
@@ -791,11 +740,7 @@ function buildSection(section) {
   grid.className = 'subject-grid';
   grid.id = `grid-${key}`;
 
-  const mode = getSectionMode(key);
-  const cards = (mode === 'subject' && SUBJECT_CARDS_BY_SECTION[key])
-    ? SUBJECT_CARDS_BY_SECTION[key]
-    : section.cards;
-  cards.forEach(card => grid.appendChild(buildCard(card)));
+  fillSectionGrid(grid, section);
 
   gridInner.appendChild(grid);
   gridWrap.appendChild(gridInner);
@@ -828,9 +773,10 @@ function applyFilter(activeKeys, animate) {
 
 // ===== GLOBAL CLICK OUTSIDE =====
 document.addEventListener('click', function (e) {
-  if (!e.target.closest || !e.target.closest('.category-title')) closeAllSectionFilterBoxes();
   const settingsWrapper = document.querySelector('.settings-dropdown-wrapper');
   if (settingsWrapper && !settingsWrapper.contains(e.target)) closeSettingsDropdown();
+  const modeWrapper = document.querySelector('.mode-dropdown-wrapper');
+  if (modeWrapper && !modeWrapper.contains(e.target)) closeModeDropdown();
   const filterWrapper = document.querySelector('.filter-dropdown-wrapper');
   if (filterWrapper && !filterWrapper.contains(e.target)) {
     document.getElementById('filter-dropdown').classList.remove('open');
@@ -847,6 +793,7 @@ window.onload = function () {
   else { updateSettingsThemeUI(false); }
 
   restoreProfile();
+  renderModeOptions();
 
   const savedFilter = JSON.parse(localStorage.getItem('medq_filter_v2') || 'null') || ['all'];
   applyFilter(savedFilter, false);
