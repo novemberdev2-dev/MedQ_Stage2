@@ -177,7 +177,7 @@
         });
         if (keys.length) years.push({ year: label, number: keys });   // numbers are listed, so the year filter works unchanged
     });
-    questions.forEach(q => { q.num = q.srcN; });                      // the number shown is exactly the  n  written in the year file
+    questions.forEach((q, i) => { q.num = i + 1; });                  // subject page: numbered 1, 2, 3 ... to the end (year pages keep the written numbers)
     cfg.years = years;
     cfg.questions = questions;
 })();
