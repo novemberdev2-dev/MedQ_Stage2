@@ -515,14 +515,67 @@ const SUBJECT_CARDS_BY_SECTION = {
      
   ],
 
-
-  msd: [
-    { title: 'Anatomy 🦴', links: [
+msd: [
+    { title: 'Anatomy', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-   
+    { title: 'Embryology', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+      { label: 'Practice', badge: '0 Qs', href: '#' }
+    ] },
+    { title: 'Radiology', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+      { label: 'Practice', badge: '0 Qs', href: '#' }
+    ] },
+    { title: 'Immunology', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+      { label: 'Practice', badge: '0 Qs', href: '#' }
+    ] },
+    { title: 'Pharmacology', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+      { label: 'Practice', badge: '0 Qs', href: '#' }
+    ] },
+    { title: 'Histology', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+      { label: 'Practice', badge: '0 Qs', href: '#' }
+    ] },
+    { title: 'Biochemistry', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+      { label: 'Practice', badge: '0 Qs', href: '#' }
+    ] },
+    { title: 'Bioethics', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+      { label: 'Practice', badge: '0 Qs', href: '#' }
+    ] },
+    { title: 'Pathology', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+      { label: 'Practice', badge: '0 Qs', href: '#' }
+    ] },
+    { title: 'Physiology', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+      { label: 'Practice', badge: '0 Qs', href: '#' }
+    ] },
+    { title: 'Microbiology', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+      { label: 'Practice', badge: '0 Qs', href: '#' }
+    ] },
+    { title: 'Dermatology', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+      { label: 'Practice', badge: '0 Qs', href: '#' }
+    ] },
+    { title: 'Rheumatology', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+      { label: 'Practice', badge: '0 Qs', href: '#' }
+    ] },
+    { title: 'Orthopedics', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+      { label: 'Practice', badge: '0 Qs', href: '#' }
+    ] }
   ]
+ 
+   
+
 };
 
 function getSectionModes() {
