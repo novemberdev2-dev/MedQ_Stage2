@@ -513,6 +513,15 @@ const SUBJECT_CARDS_BY_SECTION = {
      
     ] },
      
+  ],
+
+
+  msd: [
+    { title: 'Anatomy 🦴', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+      { label: 'Practice', badge: '0 Qs', href: '#' }
+    ] },
+   
   ]
 };
 
