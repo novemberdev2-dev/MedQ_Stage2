@@ -109,6 +109,36 @@
         </div>
       </div>
 
+      <!-- View Mode Button (By Year / By Subject) -->
+      <div class="mode-dropdown-wrapper">
+        <div class="top-bar-icon-btn" id="mode-btn" title="Group by" onclick="toggleModeDropdown()">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 6H19M21 12H16M21 18H16M7 20V13.5612C7 13.3532 7 13.2492 6.97958 13.1497C6.96147 13.0615 6.93151 12.9761 6.89052 12.8958C6.84431 12.8054 6.77934 12.7242 6.64939 12.5617L3.35061 8.43826C3.22066 8.27583 3.15569 8.19461 3.10948 8.10417C3.06849 8.02393 3.03853 7.93852 3.02042 7.85026C3 7.75078 3 7.64677 3 7.43875V5.6C3 5.03995 3 4.75992 3.10899 4.54601C3.20487 4.35785 3.35785 4.20487 3.54601 4.10899C3.75992 4 4.03995 4 4.6 4H13.4C13.9601 4 14.2401 4 14.454 4.10899C14.6422 4.20487 14.7951 4.35785 14.891 4.54601C15 4.75992 15 5.03995 15 5.6V7.43875C15 7.64677 15 7.75078 14.9796 7.85026C14.9615 7.93852 14.9315 8.02393 14.8905 8.10417C14.8443 8.19461 14.7793 8.27583 14.6494 8.43826L11.3506 12.5617C11.2207 12.7242 11.1557 12.8054 11.1095 12.8958C11.0685 12.9761 11.0385 13.0615 11.0204 13.1497C11 13.2492 11 13.3532 11 13.5612V17L7 20Z"/></svg>
+        </div>
+        <div class="filter-dropdown" id="mode-dropdown" onclick="event.stopPropagation()">
+          <div class="filter-dropdown-header">
+            Filter
+            <div class="settings-close-btn" onclick="closeModeDropdown()">
+              <svg viewBox="0 0 12 12">
+                <line x1="1" y1="1" x2="11" y2="11"/>
+                <line x1="11" y1="1" x2="1" y2="11"/>
+              </svg>
+            </div>
+          </div>
+          <div class="section-filter-list">
+            <div class="filter-mode-option" id="mode-opt-year" onclick="selectViewMode('year')">
+              <span class="filter-mode-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19,4H17V3a1,1,0,0,0-2,0V4H9V3A1,1,0,0,0,7,3V4H5A3,3,0,0,0,2,7V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V7A3,3,0,0,0,19,4Zm1,15a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V12H20Zm0-9H4V7A1,1,0,0,1,5,6H7V7A1,1,0,0,0,9,7V6h6V7a1,1,0,0,0,2,0V6h2a1,1,0,0,1,1,1Z"/></svg></span>
+              <span class="filter-mode-text">By Year</span>
+              <span class="filter-mode-check"></span>
+            </div>
+            <div class="filter-mode-option" id="mode-opt-subject" onclick="selectViewMode('subject')">
+              <span class="filter-mode-icon filter-mode-icon-stroke"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 19V6.2C4 5.0799 4 4.51984 4.21799 4.09202C4.40973 3.71569 4.71569 3.40973 5.09202 3.21799C5.51984 3 6.0799 3 7.2 3H16.8C17.9201 3 18.4802 3 18.908 3.21799C19.2843 3.40973 19.5903 3.71569 19.782 4.09202C20 4.51984 20 5.0799 20 6.2V17H6C4.89543 17 4 17.8954 4 19ZM4 19C4 20.1046 4.89543 21 6 21H20M9 7H15M9 11H15M19 17V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="filter-mode-text">By Subject</span>
+              <span class="filter-mode-check"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Settings Button -->
       <div class="settings-dropdown-wrapper">
         <div class="top-bar-icon-btn" id="settings-btn" title="Settings" onclick="toggleSettingsDropdown()">
