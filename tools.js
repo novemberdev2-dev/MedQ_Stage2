@@ -13,7 +13,8 @@
        window.QUIZ_CONFIG = {
            title: "IBS 🧪", subtitle: "End-Block · 2024-2025",
            year: "End-Block _ 2024-2025",          // the name shown in the subject pages' year filter
-           subjectFiles: [ "IBS_Pathology_All Years.html", ... ],   // read ONLY for subject name, emoji and lecture names
+           subjects: [ "Pathology 🔬", "Biochemistry 🧪", ... ],   // optional: subject names + emoji (order = filter list); others are added automatically
+           subjectFiles: [ "IBS_Pathology_All Years.html", ... ],   // optional: only read for emoji and lecture names; missing files are skipped
            questions: [ { n: 1, s: "Pathology", l: 7, q: "...", o: [...], a: "B" }, ... ]
        };
        "s" = subject name (as written in that subject file), "l" = lecture number (as in that subject file).
@@ -35,7 +36,7 @@
 (function linkedPageLoader() {
     const cfg = window.QUIZ_CONFIG;
     if (!cfg) return;
-    const isYearPage    = Array.isArray(cfg.subjectFiles);
+    const isYearPage    = Array.isArray(cfg.subjectFiles) || (!!cfg.year && !cfg.subject && Array.isArray(cfg.questions));
     const isSubjectPage = !isYearPage && !!cfg.subject && Array.isArray(cfg.yearFiles);
     if (!isYearPage && !isSubjectPage) return;
     const errors = window.__QUIZ_LINK_ERRORS = [];
@@ -81,41 +82,53 @@
         return (h % 9000 + 1) * 100000;
     }
 
-    /* ---------- YEAR page: own questions, lectures / subject names come from the subject files ---------- */
+    /* ---------- YEAR page: owns the questions; subject names / emoji / lectures are optional extras ---------- */
     if (isYearPage) {
-        const subs = [];
-        cfg.subjectFiles.forEach(src => {
+        const subs = [];                                              // { name, emoji, lectures }  (order = order in the filter list)
+        const add = raw => {
+            const s = splitSubject(raw);
+            if (!s || !s.name) return null;
+            let hit = subs.find(x => norm(x.name) === norm(s.name));
+            if (!hit) { hit = { name: s.name, emoji: s.emoji || '', lectures: {} }; subs.push(hit); }
+            else if (s.emoji && !hit.emoji) hit.emoji = s.emoji;
+            return hit;
+        };
+        (cfg.subjects || []).forEach(add);                            // 1) subjects: [ "Anatomy 🦴", ... ] written on this page
+        (cfg.subjectFiles || []).forEach(src => {                     // 2) subject files that exist: emoji + lecture names (missing ones are skipped silently)
             const file = fileOf(src);
             if (!file) return;
             try {
                 const f = readConfig(file);
-                const s = splitSubject(f.subject) || { name: file, emoji: '' };
-                subs.push({ name: s.name || file, emoji: s.emoji, lectures: lectureMap(f, s.name) });
-            } catch (e) {
-                errors.push('Could not load "' + file + '" (' + e.message + '). Check the file name, and open the page through a web server, not directly from disk.');
-            }
+                const hit = add(f.subject);
+                if (hit) hit.lectures = lectureMap(f, hit.name);
+            } catch (e) { console.info('[linked pages] subject file not loaded, skipped: ' + file); }
         });
-        const order = new Map(subs.map((s, i) => [norm(s.name), i]));
+        (cfg.questions || []).forEach(q => add(q.s));                 // 3) any other subject used by a question
+        const ownLect = cfg.lectures || {};                           // 4) optional lectures: { "Anatomy": { 1: "..." } } written on this page
+        subs.forEach(sub => {
+            const k = Object.keys(ownLect).find(x => norm(x) === norm(sub.name));
+            if (k && !Object.keys(sub.lectures).length) sub.lectures = ownLect[k] || {};
+        });
+
         const seen = new Set(), mine = [];
         (cfg.questions || []).forEach(q => {
-            if (!subs.length) return;                                 // the subject files failed; that error is already shown
-            const idx = order.get(norm(subjectName(q.s)));
-            if (idx === undefined) { errors.push('Question n=' + q.n + ' has subject "' + q.s + '", which matches none of the subject files.'); return; }
+            const idx = subs.findIndex(x => norm(x.name) === norm(subjectName(q.s)));
+            if (idx < 0) { errors.push('A question (n=' + q.n + ') has no subject "s".'); return; }
             if (!isFinite(Number(q.n))) { errors.push('A ' + subs[idx].name + ' question has no valid number "n".'); return; }
             const key = idx + '|' + Number(q.n);
             if (seen.has(key)) errors.push('Number ' + q.n + ' is used twice for ' + subs[idx].name + ' in this year file.');
             seen.add(key);
             mine.push({ idx, item: Object.assign({}, q, { s: subs[idx].name, srcN: q.n, n: offsetFor(subs[idx].name) + Number(q.n) }) });
         });
-        mine.sort((a, b) => a.idx - b.idx);                           // grouped by subject, in the order of subjectFiles
+        mine.sort((a, b) => a.idx - b.idx);                           // grouped by subject, in the order of the list
         const questions = mine.map(m => m.item);
         const usedSubjects = new Set(questions.map(q => q.s));
         const subjects = [], lecturesOut = {};
-        subs.forEach(s => {
-            if (!usedSubjects.has(s.name)) return;                    // no questions of this subject in this year
-            subjects.push({ name: s.name, emoji: s.emoji });
-            const used = new Set(questions.filter(q => q.s === s.name).map(q => String(q.l)));
-            lecturesOut[s.name] = Object.fromEntries(Object.entries(s.lectures).filter(([k]) => used.has(String(k))));
+        subs.forEach(sub => {
+            if (!usedSubjects.has(sub.name)) return;                  // no questions of this subject in this year
+            subjects.push({ name: sub.name, emoji: sub.emoji });
+            const used = new Set(questions.filter(q => q.s === sub.name).map(q => String(q.l)));
+            lecturesOut[sub.name] = Object.fromEntries(Object.entries(sub.lectures).filter(([k]) => used.has(String(k))));
         });
         questions.forEach((q, i) => { q.num = i + 1; });              // numbers shown on this page: 1, 2, 3 ...
         delete cfg.subject;
@@ -129,9 +142,11 @@
     /* ---------- SUBJECT page: own lectures, questions come from the year files ---------- */
     const wantedName = subjectName(cfg.subject);
     const years = [], questions = [];
+    const doneFiles = new Set(), doneYears = new Set();
     cfg.yearFiles.forEach(src => {
         const file = fileOf(src);
-        if (!file) return;
+        if (!file || doneFiles.has(file)) return;                     // the same file listed twice is only read once
+        doneFiles.add(file);
         let f;
         try { f = readConfig(file); }
         catch (e) {
@@ -141,6 +156,8 @@
         }
         const label = String(f.year || '').trim();
         if (!label) { errors.push('"' + file + '" has no  year: "..."  line.'); return; }
+        if (doneYears.has(norm(label))) return;
+        doneYears.add(norm(label));
         const base = offsetFor(label);
         const seen = new Set(), keys = [];
         (f.questions || []).forEach(q => {
