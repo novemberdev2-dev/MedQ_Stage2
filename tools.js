@@ -123,11 +123,15 @@
             seen.add(key);
             mine.push({ idx, item: Object.assign({}, q, { s: subs[idx].name, srcN: q.n, n: offsetFor(subs[idx].name) + Number(q.n) }) });
         });
-        mine.sort((a, b) => a.idx - b.idx);                           // grouped by subject, in the order of the list
+        const count = subs.map(() => 0);
+        mine.forEach(m => count[m.idx]++);
+        const rank = subs.map((_, i) => i).sort((a, b) => (count[b] - count[a]) || (a - b));   // most questions first; ties keep the written order
+        const pos = new Map(rank.map((i, r) => [i, r]));
+        mine.sort((a, b) => pos.get(a.idx) - pos.get(b.idx));         // questions grouped by subject, in the same order as the filter list
         const questions = mine.map(m => m.item);
         const usedSubjects = new Set(questions.map(q => q.s));
         const subjects = [], lecturesOut = {};
-        subs.forEach(sub => {
+        rank.map(i => subs[i]).forEach(sub => {
             if (!usedSubjects.has(sub.name)) return;                  // no questions of this subject in this year
             subjects.push({ name: sub.name, emoji: sub.emoji });
             const used = new Set(questions.filter(q => q.s === sub.name).map(q => String(q.l)));
