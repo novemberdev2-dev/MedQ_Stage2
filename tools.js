@@ -14,6 +14,7 @@
            title: "IBS 🧪", subtitle: "End-Block · 2024-2025",
            year: "End-Block _ 2024-2025",          // the name shown in the subject pages' year filter
            subjects: [ "Pathology 🔬", "Biochemistry 🧪", ... ],   // optional: subject names + emoji (order = filter list); others are added automatically
+           // subject: "Anatomy 🦴",   // only if this year has ONE subject: no filter icon, and "s" in the questions is not needed
            subjectFiles: [ "IBS_Pathology_All Years.html", ... ],   // optional: only read for emoji and lecture names; missing files are skipped
            questions: [ { n: 1, s: "Pathology", l: 7, q: "...", o: [...], a: "B" }, ... ]
        };
@@ -36,7 +37,7 @@
 (function linkedPageLoader() {
     const cfg = window.QUIZ_CONFIG;
     if (!cfg) return;
-    const isYearPage    = Array.isArray(cfg.subjectFiles) || (!!cfg.year && !cfg.subject && Array.isArray(cfg.questions));
+    const isYearPage    = Array.isArray(cfg.subjectFiles) || (!!cfg.year && Array.isArray(cfg.questions) && !Array.isArray(cfg.yearFiles));
     const isSubjectPage = !isYearPage && !!cfg.subject && Array.isArray(cfg.yearFiles);
     if (!isYearPage && !isSubjectPage) return;
     const errors = window.__QUIZ_LINK_ERRORS = [];
@@ -93,6 +94,8 @@
             else if (s.emoji && !hit.emoji) hit.emoji = s.emoji;
             return hit;
         };
+        const single = cfg.subject ? splitSubject(cfg.subject) : null; // subject: "Anatomy 🦴" written on a year page = this year has ONE subject only (no filter icon)
+        if (single && single.name) add(single); else if (single) single.name = '';
         (cfg.subjects || []).forEach(add);                            // 1) subjects: [ "Anatomy 🦴", ... ] written on this page
         (cfg.subjectFiles || []).forEach(src => {                     // 2) subject files that exist: emoji + lecture names (missing ones are skipped silently)
             const file = fileOf(src);
@@ -103,7 +106,7 @@
                 if (hit) hit.lectures = lectureMap(f, hit.name);
             } catch (e) { console.info('[linked pages] subject file not loaded, skipped: ' + file); }
         });
-        (cfg.questions || []).forEach(q => add(q.s));                 // 3) any other subject used by a question
+        (cfg.questions || []).forEach(q => add(single && single.name ? single : q.s));   // 3) any other subject used by a question
         const ownLect = cfg.lectures || {};                           // 4) optional lectures: { "Anatomy": { 1: "..." } } written on this page
         subs.forEach(sub => {
             const k = Object.keys(ownLect).find(x => norm(x) === norm(sub.name));
@@ -112,7 +115,7 @@
 
         const seen = new Set(), mine = [];
         (cfg.questions || []).forEach(q => {
-            const idx = subs.findIndex(x => norm(x.name) === norm(subjectName(q.s)));
+            const idx = subs.findIndex(x => norm(x.name) === norm(single && single.name ? single.name : subjectName(q.s)));
             if (idx < 0) { errors.push('A question (n=' + q.n + ') has no subject "s".'); return; }
             if (!isFinite(Number(q.n))) { errors.push('A ' + subs[idx].name + ' question has no valid number "n".'); return; }
             const key = idx + '|' + Number(q.n);
@@ -131,7 +134,7 @@
             lecturesOut[sub.name] = Object.fromEntries(Object.entries(sub.lectures).filter(([k]) => used.has(String(k))));
         });
         questions.forEach((q, i) => { q.num = i + 1; });              // numbers shown on this page: 1, 2, 3 ...
-        delete cfg.subject;
+        if (!(single && single.name)) delete cfg.subject;             // one-subject year page: keep it, tools.js then hides the filter icon
         delete cfg.years;
         cfg.questions = questions;
         cfg.subjects  = subjects;
