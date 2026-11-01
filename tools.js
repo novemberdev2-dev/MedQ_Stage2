@@ -292,6 +292,7 @@ function subjectLabel(name) {
                             </button>
                         </div>
                         <div class="subject-dropdown-items">
+${subjectItems}
                     </div>
                     </div>
                 </div>
@@ -864,8 +865,7 @@ function scrollLectureDropdownToSelected() {
     if (!wrap) return;
     const selected = wrap.querySelector('.lecture-dropdown-item.selected');
     if (selected) {
-        const head = 44;   // the floating header covers the top of the list
-        const target = selected.offsetTop - ((wrap.clientHeight + head) / 2) + (selected.clientHeight / 2);
+        const target = selected.offsetTop - (wrap.clientHeight / 2) + (selected.clientHeight / 2);
         wrap.scrollTop = Math.max(0, target);
     } else {
         wrap.scrollTop = 0;
@@ -958,7 +958,8 @@ function updateSectionHeading() {
     const labelHtml = `<span class="label-full">${label}</span><span class="label-short">${shortLabel}</span>`;
     const isSubjectLabel = currentLecture === "All";
     const titleClass = "section-heading-title" + (isSubjectLabel ? " subject-title" : "");
-    const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
+    const unitOne = QUIZ.unitOne || "MCQ", unitMany = QUIZ.unitMany || "MCQs";   // practical pages write unitOne: "Question", unitMany: "Questions"
+    const badgeText = count === 1 ? "1 " + unitOne : `${count} ${unitMany}`;
     const filters = getLectureFilters();
     const hasLectures = filters.some(f => f.val !== "All");
     if (!hasLectures) lectureDropdownOpen = false;
@@ -1047,12 +1048,58 @@ function syncNote(btn) {
     note.style.display = block.querySelector('.eye-btn[data-revealed="true"]') ? 'block' : 'none';
 }
 
+/* Optional pictures: written as  img: "path.jpg"  or  img: ["a.jpg", "b.jpg"]  in the question data.
+   They are shown on the right of the question (above it on phones). */
+function wrapMedia(item, innerHtml, footHtml) {
+    const list = Array.isArray(item.img) ? item.img : (item.img ? [item.img] : []);
+    if (!list.length) return innerHtml + (footHtml || '');
+    const esc = t => String(t).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    const imgs = list.map(src => `<img class="q-img" src="${esc(src)}" alt="" loading="lazy" draggable="false" oncontextmenu="return false;">`).join('');
+    return `<div class="q-layout has-img"><div class="q-main">${innerHtml}</div><div class="q-media">${imgs}</div>${footHtml ? `<div class="q-foot">${footHtml}</div>` : ''}</div>`;
+}
+
+(function injectQuestionMediaStyle() {
+    if (document.getElementById('q-media-style')) return;
+    const st = document.createElement('style');
+    st.id = 'q-media-style';
+    st.textContent = `
+    .q-layout.has-img {
+        display: grid; gap: 0 24px; align-items: start;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 46%);
+        grid-template-rows: 1fr auto;
+        grid-template-areas: "main media" "foot media";
+    }
+    .q-layout.has-img .q-main  { grid-area: main; min-width: 0; }
+    .q-layout.has-img .q-media { grid-area: media; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; min-width: 0; }   /* pictures sit against the right edge */
+    .q-layout.has-img .q-foot  { grid-area: foot; align-self: end; }   /* copy + pin sit at the bottom-left corner */
+    /* the picture hugs its own size, so the rounded corners are on the picture itself */
+    .q-img { display: block; width: auto; height: auto; max-width: 100%; max-height: 460px; border-radius: 10px;
+             -webkit-user-select: none; user-select: none; -webkit-user-drag: none; }
+    @media (max-width: 760px) {
+        .q-layout.has-img { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; gap: 14px 0;
+                            grid-template-areas: "media" "main" "foot"; }
+        .q-img { max-height: 340px; }
+        .q-layout.has-img .q-media { align-items: center; }   /* on phones the picture is centred above the question */
+    }
+    /* copy + pin row: no dashed line, no box, and a big gap between the question and the icons */
+    .case-actions-row { border-top: none !important; margin-top: 64px; padding-top: 0; }
+    .act-pill { display: inline-flex; align-items: center; gap: 10px; }
+    .q-foot .case-actions-row { margin-top: 52px; }
+    /* multi-part questions: the main question is bigger and bolder than its parts (A, B ...) */
+    .q-text.q-text-main { font-size: 1.25rem; font-weight: 700; margin-bottom: 16px; }
+    .case-block .case-text { font-size: 1rem; font-weight: 600; }
+    /* short answers can have several lines */
+    .answer-text { white-space: pre-line; }`;
+    document.head.appendChild(st);
+})();
+
 function renderQuiz() {
     container.innerHTML = '';
     activeDrawState = null;
     allQuestions.forEach(item => {
         const div = document.createElement('div');
         div.className = 'q-block';
+        if (item.img || (Array.isArray(item.cases) && item.cases.length) || !item.o || !item.o.length || (item.o.length === 1 && String(item.o[0]).trim() === '')) div.dataset.box = '1';
         div.dataset.qn = item.n;
         div.dataset.subject = item.s;
         div.dataset.lecture = item.l ?? "";
@@ -1066,12 +1113,11 @@ function renderQuiz() {
         div.style.display = matchesFilters(item) ? "block" : "none";
 
         if (isCaseQuestion) {
-            div.innerHTML = `
-                <div class="q-text" data-original="${qLabel(item)}. ${item.q}">${qLabel(item)}. ${item.q}</div>
+            div.innerHTML = wrapMedia(item, `
+                <div class="q-text q-text-main" data-original="${qLabel(item)}. ${item.q}">${qLabel(item)}. ${item.q}</div>
                 ${item.cases.map(c => renderCaseHtml(c, item.n)).join('')}
                 ${noteHtml(item.note)}
-                ${renderCaseActionsHtml(item.n)}
-            `;
+            `, renderCaseActionsHtml(item.n));
             container.appendChild(div);
             return;
         }
@@ -1091,19 +1137,19 @@ function renderQuiz() {
                 </div>`;
               }).join('') + `
                 <div class="eye-part-row">
-                    <div class="copy-wrap">
+                    <div class="act-pill"><div class="copy-wrap">
                         <button class="icon-btn copy-btn" onclick="copyQuestion(this)" title="Copy question">${COPY_SVG}</button>
                     </div>
-                    <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button>
+                    <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button></div>
                         </div>`
             : `
                 <button class="eye-btn" data-label="Answer" data-answer="${escapeAttr(isEssay ? item.a : '')}" data-essay="${isEssay}" data-correct="${escapeAttr(item.a)}" data-revealed="false" onclick="toggleAnswer(this)" title="Show answer">${EYE_HIDE_SVG}</button>
-                <div class="copy-wrap">
+                <div class="act-pill"><div class="copy-wrap">
                     <button class="icon-btn copy-btn" onclick="copyQuestion(this)" title="Copy question">${COPY_SVG}</button>
                 </div>
-                <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button>`;
+                <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button></div>`;
 
-        div.innerHTML = `
+        div.innerHTML = wrapMedia(item, `
             <div class="q-text" data-original="${qLabel(item)}. ${item.q}">${qLabel(item)}. ${item.q}</div>
             <ul class="opts">
                 ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
@@ -1113,7 +1159,7 @@ function renderQuiz() {
             <div class="ans-row${isMulti ? ' ans-row--multi' : ''}">
                 ${iconsRowHtml}
             </div>
-        `;
+        `);
         container.appendChild(div);
     });
     updateSectionHeading();
@@ -1162,7 +1208,8 @@ function scrollSubjectDropdownToSelected() {
     if (!wrap) return;
     const selected = wrap.querySelector('.subject-dropdown-item.selected');
     if (selected) {
-        const target = selected.offsetTop - (wrap.clientHeight / 2) + (selected.clientHeight / 2);
+        const head = 44;   // the floating header covers the top of the list
+        const target = selected.offsetTop - ((wrap.clientHeight + head) / 2) + (selected.clientHeight / 2);
         wrap.scrollTop = Math.max(0, target);
     } else {
         wrap.scrollTop = 0;
@@ -1206,13 +1253,12 @@ window.addEventListener('resize', function () {
     st.id = 'subject-menu-ios-style';
     st.textContent = `
     .subject-dropdown {
-        background: linear-gradient(180deg, rgba(70, 70, 76, 0.42), rgba(34, 34, 38, 0.34));
-        -webkit-backdrop-filter: blur(34px) saturate(190%) brightness(1.05);
-        backdrop-filter: blur(34px) saturate(190%) brightness(1.05);
-        border-width: 0.5px;
-        border-color: rgba(255, 255, 255, 0.16);
+        background: rgba(30, 30, 32, 0.72);
+        -webkit-backdrop-filter: blur(28px) saturate(180%);
+        backdrop-filter: blur(28px) saturate(180%);
+        border-color: rgba(255, 255, 255, 0.14);
         border-radius: 16px;
-        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.35);
         opacity: 0;
         transform: scale(0.45);
         transform-origin: 100% 0;
@@ -1228,15 +1274,23 @@ window.addEventListener('resize', function () {
     }
     [data-theme="light"] .subject-dropdown {
         /* frosted glass on a light page */
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(242, 243, 247, 0.34));
-        -webkit-backdrop-filter: blur(34px) saturate(220%);
-        backdrop-filter: blur(34px) saturate(220%);
-        border-width: 0.5px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(242, 243, 247, 0.46));
+        -webkit-backdrop-filter: blur(30px) saturate(210%);
+        backdrop-filter: blur(30px) saturate(210%);
         border-color: rgba(0, 0, 0, 0.14);
         box-shadow: 0 22px 60px rgba(20, 24, 40, 0.28), 0 2px 10px rgba(20, 24, 40, 0.1);
     }
     /* header floats ABOVE the list: no divider line, and the names fade away completely before they reach it */
     .subject-dropdown { --sd-head: 44px; }
+    .subject-dropdown, .header2 .subject-dropdown { min-width: 250px; }
+    .subject-dropdown-item .subject-item-text { flex: 1 1 auto; min-width: 0; }
+    .subject-dropdown-item .lecture-pin-btn { margin-left: auto; }
+    .subject-dropdown-item.selected .lecture-pin-btn,
+    [data-theme="light"] .subject-dropdown-item.selected .lecture-pin-btn { color: rgba(255,255,255,0.8); }
+    .subject-dropdown-item.selected .lecture-pin-btn[data-pinned="true"],
+    [data-theme="light"] .subject-dropdown-item.selected .lecture-pin-btn[data-pinned="true"] { color: #fff; }
+    .subject-dropdown-item.selected .lecture-pin-btn:hover,
+    [data-theme="light"] .subject-dropdown-item.selected .lecture-pin-btn:hover { background-color: rgba(255,255,255,0.22); color: #fff; }
     .subject-dropdown .subject-dropdown-header {
         position: absolute; top: 0; left: 0; right: 0; z-index: 2;
         box-sizing: border-box; height: var(--sd-head); padding: 0 10px 0 16px;
@@ -1245,11 +1299,11 @@ window.addEventListener('resize', function () {
     }
     [data-theme="light"] .subject-dropdown .subject-dropdown-header { background: transparent; border-bottom: none !important; }
     .subject-dropdown .subject-dropdown-items {
-        padding: calc(var(--sd-head) + 4px) 6px 6px;
+        padding: calc(var(--sd-head) + 6px) 6px 6px;
         max-height: calc(348px + var(--sd-head));
         /* nothing shows above the header's bottom edge: scrolled names fade out before they reach the word SUBJECT */
-        -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent calc(var(--sd-head) - 12px), #000 calc(var(--sd-head) + 1px));
-        mask-image: linear-gradient(to bottom, transparent 0, transparent calc(var(--sd-head) - 12px), #000 calc(var(--sd-head) + 1px));
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent calc(var(--sd-head) - 2px), #000 calc(var(--sd-head) + 6px));
+        mask-image: linear-gradient(to bottom, transparent 0, transparent calc(var(--sd-head) - 2px), #000 calc(var(--sd-head) + 6px));
     }
     /* contents fade in a touch after the box starts growing */
     .subject-dropdown .subject-dropdown-header,
@@ -1284,34 +1338,33 @@ function closeSubjectDropdown() {
     if (btn) btn.classList.remove('dropdown-open');
 }
 
-/* ---- Pin subjects / years in the filter list (same idea as the lecture pins) ---- */
-const PINNED_SUBJECTS_KEY = 'pinnedSubjects_' + (YEAR_MODE ? 'y_' : 's_') + location.pathname;
+/* ---- Pin subjects / years (same idea as the pinned lectures): pinned ones are listed right after "All" ---- */
+const PINNED_SUBJECTS_KEY = (YEAR_MODE ? 'pinnedYears_' : 'pinnedSubjects_') + location.pathname;
 let pinnedSubjects = new Set();
 try { pinnedSubjects = new Set(JSON.parse(localStorage.getItem(PINNED_SUBJECTS_KEY) || '[]')); } catch (e) {}
 
-function escHtmlSub(t) {
-    return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}
+function subjectPinKey(v) { return YEAR_MODE ? (YEARS[v] ? YEARS[v].label : String(v)) : String(v); }
 
 function renderSubjectDropdownItems() {
-    const selectedVal = String(YEAR_MODE ? currentYear : currentSubjectFilter);
-    const entries = YEAR_MODE
-        ? YEARS.map((y, i) => ({ val: String(i), label: y.label }))
-        : subjectList.map(s => ({ val: s.name, label: subjectLabel(s.name) }));
-    const pinned = entries.filter(e => pinnedSubjects.has(e.val));
-    const rest = entries.filter(e => !pinnedSubjects.has(e.val));
-    return [{ val: 'All', label: 'All' }, ...pinned, ...rest].map(e => {
-        const sel = e.val === selectedVal ? ' selected' : '';
+    const esc = t => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    const values = YEAR_MODE ? YEARS.map((y, i) => String(i)) : subjectList.map(x => x.name);
+    const pinned = values.filter(v => pinnedSubjects.has(subjectPinKey(v)));
+    const rest   = values.filter(v => !pinnedSubjects.has(subjectPinKey(v)));
+    const current = YEAR_MODE ? currentYear : currentSubjectFilter;
+    const word = YEAR_MODE ? 'year' : 'subject';
+    return ['All', ...pinned, ...rest].map(v => {
+        const label = v === 'All' ? 'All' : (YEAR_MODE ? YEARS[v].label : subjectLabel(v));
+        const sel = String(v) === String(current) ? ' selected' : '';
         let pinBtn = '';
-        if (e.val !== 'All') {
-            const isP = pinnedSubjects.has(e.val);
-            pinBtn = `<button type="button" class="lecture-pin-btn" data-pinned="${isP}" onclick="toggleSubjectPin(this.closest('.subject-dropdown-item').dataset.subject, event)" title="${isP ? 'Unpin' : 'Pin'}" aria-label="${isP ? 'Unpin' : 'Pin'}">${isP ? UNPIN_SVG : PIN_SVG}</button>`;
+        if (v !== 'All') {
+            const isP = pinnedSubjects.has(subjectPinKey(v));
+            pinBtn = `<button type="button" class="lecture-pin-btn" data-pinned="${isP}" onclick="toggleSubjectPin(this.parentNode.dataset.subject, event)" title="${isP ? 'Unpin ' : 'Pin '}${word}" aria-label="${isP ? 'Unpin ' : 'Pin '}${word}">${isP ? UNPIN_SVG : PIN_SVG}</button>`;
         }
-        return `<div class="subject-dropdown-item${sel}" data-subject="${escHtmlSub(e.val)}" onclick="selectSubjectFilter(this.dataset.subject, this)"><span class="subject-item-text">${escHtmlSub(e.label)}</span>${pinBtn}</div>`;
+        return `<div class="subject-dropdown-item${sel}" data-subject="${esc(v)}" onclick="selectSubjectFilter(this.dataset.subject, this)"><span class="subject-item-text">${esc(label)}</span>${pinBtn}</div>`;
     }).join('');
 }
 
-function refreshSubjectDropdown() {
+function refreshSubjectDropdownItems() {
     const wrap = document.querySelector('#subject-dropdown .subject-dropdown-items');
     if (!wrap) return;
     const saved = wrap.scrollTop;
@@ -1321,9 +1374,10 @@ function refreshSubjectDropdown() {
 
 function toggleSubjectPin(val, ev) {
     if (ev) { ev.stopPropagation(); ev.preventDefault(); }
-    if (pinnedSubjects.has(val)) pinnedSubjects.delete(val); else pinnedSubjects.add(val);
+    const k = subjectPinKey(val);
+    if (pinnedSubjects.has(k)) pinnedSubjects.delete(k); else pinnedSubjects.add(k);
     try { localStorage.setItem(PINNED_SUBJECTS_KEY, JSON.stringify([...pinnedSubjects])); } catch (e) {}
-    refreshSubjectDropdown();
+    refreshSubjectDropdownItems();
 }
 
 function selectSubjectFilter(subject, el) {
@@ -1332,13 +1386,12 @@ function selectSubjectFilter(subject, el) {
     deactivateDrawTools(false);   // switching subject turns off pen/eraser everywhere
     currentLecture = "All";
     try { localStorage.setItem((YEAR_MODE ? 'selectedYear_' : 'selectedSubject_') + location.pathname, subject); } catch (e) {}
-    refreshSubjectDropdown();
+    document.querySelectorAll('.subject-dropdown-item').forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
     handleSearch();
 }
 
 document.addEventListener('click', function(e) {
-    // the list re-renders itself on select/pin, so the clicked row may already be detached: that is not an outside click
-    if (!e.target.isConnected) return;
     const wrapper = document.querySelector('.subject-toggle-wrapper');
     if (wrapper && !wrapper.contains(e.target)) {
         document.getElementById('subject-dropdown').classList.remove('open');
@@ -1536,7 +1589,7 @@ function toggleTheme() {
         const savedYear = localStorage.getItem('selectedYear_' + location.pathname);
         if (savedYear && (savedYear === "All" || YEARS[savedYear])) currentYear = savedYear;
     }
-    refreshSubjectDropdown();
+    refreshSubjectDropdownItems();   // fills the list (pinned first) and marks the selected row
 }());
 
 reorderQuestions();
