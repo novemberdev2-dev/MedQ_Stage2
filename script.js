@@ -553,12 +553,12 @@ msd: [
     ] },
    
     { title: 'Biochemistry 🧪', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+      { label: 'Theory',   badge: '0 MCQs', href: 'MSD_Biochemistry.html' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
 
   { title: 'Pathology 🔬', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+      { label: 'Theory',   badge: '0 MCQs', href: 'MSD_Pathology.html' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
     { title: 'Physiology ⚡', links: [
