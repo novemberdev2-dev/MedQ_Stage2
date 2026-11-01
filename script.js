@@ -583,6 +583,16 @@ msd: [
       { label: 'Theory',   badge: '46 MCQs', href: 'MSD/MSD_Radiology.html' }
     ] },
 
+  
+  { title: 'Genetics 🧬', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: 'MSD/MSD_Genetics.html' }
+    ] },
+
+  
+  { title: 'Medical-Education 📗', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: 'MSD/MSD_Medical-Education.html' }
+    ] },
+
     { title: 'Dermatology ✨', links: [
       { label: 'Theory',   badge: '7 MCQs', href: 'MSD/MSD_Dermatology.html' }
     ] },
