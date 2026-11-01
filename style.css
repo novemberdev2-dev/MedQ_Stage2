@@ -880,11 +880,11 @@ html.light-mode-pre body #mode-btn.dropdown-open svg { stroke: var(--text-main);
   border-color: transparent; /* the visible border is drawn by ::after, above the layers */
 }
 
-/* solid layer: same colour + timing as the body, also covers the 15px strip above the header */
+/* solid layer: same colour + timing as the body, also covers everything above the header */
 .main-header::before {
   content: '';
   position: absolute;
-  inset: -15px -1px -1px -1px;
+  inset: -100px -1px -1px -1px; /* reaches well above the screen edge so nothing shows at the very top */
   z-index: -2;
   background-color: var(--bg-color);
   border-radius: 0 0 16px 16px;
