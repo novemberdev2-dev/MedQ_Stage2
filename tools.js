@@ -292,7 +292,6 @@ function subjectLabel(name) {
                             </button>
                         </div>
                         <div class="subject-dropdown-items">
-${subjectItems}
                     </div>
                     </div>
                 </div>
@@ -1207,12 +1206,12 @@ window.addEventListener('resize', function () {
     st.id = 'subject-menu-ios-style';
     st.textContent = `
     .subject-dropdown {
-        background: rgba(30, 30, 32, 0.72);
-        -webkit-backdrop-filter: blur(28px) saturate(180%);
-        backdrop-filter: blur(28px) saturate(180%);
-        border-color: rgba(255, 255, 255, 0.14);
+        background: linear-gradient(180deg, rgba(70, 70, 76, 0.42), rgba(34, 34, 38, 0.34));
+        -webkit-backdrop-filter: blur(34px) saturate(190%) brightness(1.05);
+        backdrop-filter: blur(34px) saturate(190%) brightness(1.05);
+        border-color: rgba(255, 255, 255, 0.2);
         border-radius: 16px;
-        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.35);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 18px 50px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
         opacity: 0;
         transform: scale(0.45);
         transform-origin: 100% 0;
@@ -1228,12 +1227,15 @@ window.addEventListener('resize', function () {
     }
     [data-theme="light"] .subject-dropdown {
         /* frosted glass on a light page */
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(242, 243, 247, 0.46));
-        -webkit-backdrop-filter: blur(30px) saturate(210%);
-        backdrop-filter: blur(30px) saturate(210%);
-        border-color: rgba(0, 0, 0, 0.14);
-        box-shadow: 0 22px 60px rgba(20, 24, 40, 0.28), 0 2px 10px rgba(20, 24, 40, 0.1);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(242, 243, 247, 0.34));
+        -webkit-backdrop-filter: blur(34px) saturate(220%);
+        backdrop-filter: blur(34px) saturate(220%);
+        border-color: rgba(255, 255, 255, 0.55);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 22px 60px rgba(20, 24, 40, 0.28), 0 2px 10px rgba(20, 24, 40, 0.1);
     }
+    /* the sticky header is a solid colour; while the menu is open let it be see-through so the glass has something to blur */
+    .header2-sticky:has(.subject-dropdown.open) { background-color: transparent; }
+    .header2-sticky:has(.subject-dropdown.open)::after { opacity: 0; }
     /* header floats ABOVE the list: no divider line, and the names fade away completely before they reach it */
     .subject-dropdown { --sd-head: 44px; }
     .subject-dropdown .subject-dropdown-header {
@@ -1247,8 +1249,8 @@ window.addEventListener('resize', function () {
         padding: calc(var(--sd-head) + 4px) 6px 6px;
         max-height: calc(348px + var(--sd-head));
         /* nothing shows above the header's bottom edge: scrolled names fade out before they reach the word SUBJECT */
-        -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent calc(var(--sd-head) - 6px), #000 calc(var(--sd-head) + 8px));
-        mask-image: linear-gradient(to bottom, transparent 0, transparent calc(var(--sd-head) - 6px), #000 calc(var(--sd-head) + 8px));
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent calc(var(--sd-head) - 12px), #000 calc(var(--sd-head) + 1px));
+        mask-image: linear-gradient(to bottom, transparent 0, transparent calc(var(--sd-head) - 12px), #000 calc(var(--sd-head) + 1px));
     }
     /* contents fade in a touch after the box starts growing */
     .subject-dropdown .subject-dropdown-header,
@@ -1283,18 +1285,61 @@ function closeSubjectDropdown() {
     if (btn) btn.classList.remove('dropdown-open');
 }
 
+/* ---- Pin subjects / years in the filter list (same idea as the lecture pins) ---- */
+const PINNED_SUBJECTS_KEY = 'pinnedSubjects_' + (YEAR_MODE ? 'y_' : 's_') + location.pathname;
+let pinnedSubjects = new Set();
+try { pinnedSubjects = new Set(JSON.parse(localStorage.getItem(PINNED_SUBJECTS_KEY) || '[]')); } catch (e) {}
+
+function escHtmlSub(t) {
+    return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function renderSubjectDropdownItems() {
+    const selectedVal = String(YEAR_MODE ? currentYear : currentSubjectFilter);
+    const entries = YEAR_MODE
+        ? YEARS.map((y, i) => ({ val: String(i), label: y.label }))
+        : subjectList.map(s => ({ val: s.name, label: subjectLabel(s.name) }));
+    const pinned = entries.filter(e => pinnedSubjects.has(e.val));
+    const rest = entries.filter(e => !pinnedSubjects.has(e.val));
+    return [{ val: 'All', label: 'All' }, ...pinned, ...rest].map(e => {
+        const sel = e.val === selectedVal ? ' selected' : '';
+        let pinBtn = '';
+        if (e.val !== 'All') {
+            const isP = pinnedSubjects.has(e.val);
+            pinBtn = `<button type="button" class="lecture-pin-btn" data-pinned="${isP}" onclick="toggleSubjectPin(this.closest('.subject-dropdown-item').dataset.subject, event)" title="${isP ? 'Unpin' : 'Pin'}" aria-label="${isP ? 'Unpin' : 'Pin'}">${isP ? UNPIN_SVG : PIN_SVG}</button>`;
+        }
+        return `<div class="subject-dropdown-item${sel}" data-subject="${escHtmlSub(e.val)}" onclick="selectSubjectFilter(this.dataset.subject, this)"><span class="subject-item-text">${escHtmlSub(e.label)}</span>${pinBtn}</div>`;
+    }).join('');
+}
+
+function refreshSubjectDropdown() {
+    const wrap = document.querySelector('#subject-dropdown .subject-dropdown-items');
+    if (!wrap) return;
+    const saved = wrap.scrollTop;
+    wrap.innerHTML = renderSubjectDropdownItems();
+    wrap.scrollTop = saved;
+}
+
+function toggleSubjectPin(val, ev) {
+    if (ev) { ev.stopPropagation(); ev.preventDefault(); }
+    if (pinnedSubjects.has(val)) pinnedSubjects.delete(val); else pinnedSubjects.add(val);
+    try { localStorage.setItem(PINNED_SUBJECTS_KEY, JSON.stringify([...pinnedSubjects])); } catch (e) {}
+    refreshSubjectDropdown();
+}
+
 function selectSubjectFilter(subject, el) {
     if (YEAR_MODE) currentYear = subject;          // the dropdown lists years
     else currentSubjectFilter = subject;           // the dropdown lists subjects
     deactivateDrawTools(false);   // switching subject turns off pen/eraser everywhere
     currentLecture = "All";
     try { localStorage.setItem((YEAR_MODE ? 'selectedYear_' : 'selectedSubject_') + location.pathname, subject); } catch (e) {}
-    document.querySelectorAll('.subject-dropdown-item').forEach(i => i.classList.remove('selected'));
-    el.classList.add('selected');
+    refreshSubjectDropdown();
     handleSearch();
 }
 
 document.addEventListener('click', function(e) {
+    // the list re-renders itself on select/pin, so the clicked row may already be detached: that is not an outside click
+    if (!e.target.isConnected) return;
     const wrapper = document.querySelector('.subject-toggle-wrapper');
     if (wrapper && !wrapper.contains(e.target)) {
         document.getElementById('subject-dropdown').classList.remove('open');
@@ -1492,9 +1537,7 @@ function toggleTheme() {
         const savedYear = localStorage.getItem('selectedYear_' + location.pathname);
         if (savedYear && (savedYear === "All" || YEARS[savedYear])) currentYear = savedYear;
     }
-    document.querySelectorAll('.subject-dropdown-item').forEach(item => {
-        item.classList.toggle('selected', item.dataset.subject === (YEAR_MODE ? currentYear : currentSubjectFilter));
-    });
+    refreshSubjectDropdown();
 }());
 
 reorderQuestions();
