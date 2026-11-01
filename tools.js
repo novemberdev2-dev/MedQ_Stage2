@@ -1235,9 +1235,6 @@ window.addEventListener('resize', function () {
         border-color: rgba(0, 0, 0, 0.14);
         box-shadow: 0 22px 60px rgba(20, 24, 40, 0.28), 0 2px 10px rgba(20, 24, 40, 0.1);
     }
-    /* the sticky header is a solid colour; while the menu is open let it be see-through so the glass has something to blur */
-    .header2-sticky:has(.subject-dropdown.open) { background-color: transparent; }
-    .header2-sticky:has(.subject-dropdown.open)::after { opacity: 0; }
     /* header floats ABOVE the list: no divider line, and the names fade away completely before they reach it */
     .subject-dropdown { --sd-head: 44px; }
     .subject-dropdown .subject-dropdown-header {
