@@ -49,7 +49,7 @@ function openProfileModal() {
   const backdrop   = document.getElementById('profile-modal-backdrop');
   const nameInput  = document.getElementById('pm-name-input');
   const previewImg = document.getElementById('pm-preview-img');
-  nameInput.value  = localStorage.getItem('medq_profile_name') || DEFAULT_NAME;
+  nameInput.value  = (localStorage.getItem('medq_profile_name') || DEFAULT_NAME).slice(0, 12);
   previewImg.src   = localStorage.getItem('medq_profile_img')  || DEFAULT_IMG;
   pendingImageDataUrl = null;
   backdrop.classList.add('open');
@@ -798,3 +798,17 @@ window.onload = function () {
   const savedFilter = JSON.parse(localStorage.getItem('medq_filter_v2') || 'null') || ['all'];
   applyFilter(savedFilter, false);
 };
+
+// ===== FIXED HEADER: reserve its height in the page =====
+function updateHeaderHeight() {
+  const header = document.querySelector('.main-header');
+  if (!header) return;
+  document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+}
+document.addEventListener('DOMContentLoaded', function () {
+  updateHeaderHeight();
+  const header = document.querySelector('.main-header');
+  if (header && window.ResizeObserver) new ResizeObserver(updateHeaderHeight).observe(header);
+});
+window.addEventListener('resize', updateHeaderHeight);
+window.addEventListener('load', updateHeaderHeight);
