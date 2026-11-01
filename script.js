@@ -542,70 +542,71 @@ const SUBJECT_CARDS_BY_SECTION = {
   ],
 
 msd: [
+
+  { title: 'Pathology 🔬', links: [
+      { label: 'Theory',   badge: '67 MCQs', href: 'MSD/MSD_Pathology.html' },
+      { label: 'Practice', badge: '0 Qs', href: '#' }
+    ] },
+  
+   { title: 'Pharmacology 💊', links: [
+      { label: 'Theory',   badge: '63 MCQs', href: 'MSD/MSD_Pharmacology.html' },
+      { label: 'Practice', badge: '0 Qs', href: '#' }
+    ] },
+
+    { title: 'Microbiology 🦠', links: [
+      { label: 'Theory',   badge: '63 MCQs', href: 'MSD/MSD_Microbiology.html' },
+      { label: 'Practice', badge: '0 Qs', href: '#' }
+    ] },
+  
     { title: 'Anatomy 🦴', links: [
       { label: 'Theory',   badge: '37 MCQs', href: 'MSD/MSD_Anatomy.html' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
 
-    { title: 'Pharmacology 💊', links: [
-      { label: 'Theory',   badge: '63 MCQs', href: 'MSD/MSD_Pharmacology.html' },
+    { title: 'Physiology ⚡', links: [
+      { label: 'Theory',   badge: '24 MCQs', href: 'MSD/MSD_Physiology.html' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
+   
 
     { title: 'Biochemistry 🧪', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: 'MSD/MSD_Biochemistry.html' },
-      { label: 'Practice', badge: '0 Qs', href: '#' }
-    ] },
-
-    { title: 'Pathology 🔬', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: 'MSD/MSD_Pathology.html' },
-      { label: 'Practice', badge: '0 Qs', href: '#' }
-    ] },
-
-    { title: 'Physiology ⚡', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: 'MSD/MSD_Physiology.html' },
-      { label: 'Practice', badge: '0 Qs', href: '#' }
-    ] },
-
-    { title: 'Microbiology 🦠', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: 'MSD/MSD_Microbiology.html' },
+      { label: 'Theory',   badge: '15 MCQs', href: 'MSD/MSD_Biochemistry.html' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
 
     { title: 'Histology 🫁', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: 'MSD/MSD_Histology.html' },
+      { label: 'Theory',   badge: '20 MCQs', href: 'MSD/MSD_Histology.html' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
 
-    { title: 'Bioethics ⚖️', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: 'MSD/MSD_Bioethics.html' }
-    ] },
-
-    { title: 'Embryology 👶', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: 'MSD/MSD_Embryology.html' }
-    ] },
-
-    { title: 'Radiology 🩻', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: 'MSD/MSD_Radiology.html' }
-    ] },
-
-    { title: 'Immunology 🛡️', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: 'MSD/MSD_Immunology.html' }
+  { title: 'Radiology 🩻', links: [
+      { label: 'Theory',   badge: '46 MCQs', href: 'MSD/MSD_Radiology.html' }
     ] },
 
     { title: 'Dermatology ✨', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: 'MSD/MSD_Dermatology.html' }
+      { label: 'Theory',   badge: '7 MCQs', href: 'MSD/MSD_Dermatology.html' }
     ] },
 
-    { title: 'Rheumatology 🦴', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: 'MSD/MSD_Rheumatology.html' }
+   { title: 'Embryology 👶', links: [
+      { label: 'Theory',   badge: '6 MCQs', href: 'MSD/MSD_Embryology.html' }
+    ] },
+
+    { title: 'Immunology 🛡️', links: [
+      { label: 'Theory',   badge: '5 MCQs', href: 'MSD/MSD_Immunology.html' }
+    ] },
+  
+    { title: 'Bioethics ⚖️', links: [
+      { label: 'Theory',   badge: '4 MCQs', href: 'MSD/MSD_Bioethics.html' }
+    ] },
+
+     { title: 'Rheumatology 🦴', links: [
+      { label: 'Theory',   badge: '2 MCQs', href: 'MSD/MSD_Rheumatology.html' }
     ] },
 
     { title: 'Orthopedics 🦾', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: 'MSD/MSD_Orthopedics.html' }
+      { label: 'Theory',   badge: '2 MCQs', href: 'MSD/MSD_Orthopedics.html' }
     ] }
   ]
-
 };
 
 // ===== VIEW MODE (global: By Year / By Subject, set from the header) =====
