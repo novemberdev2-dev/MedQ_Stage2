@@ -865,7 +865,8 @@ function scrollLectureDropdownToSelected() {
     if (!wrap) return;
     const selected = wrap.querySelector('.lecture-dropdown-item.selected');
     if (selected) {
-        const target = selected.offsetTop - (wrap.clientHeight / 2) + (selected.clientHeight / 2);
+        const head = 44;   // the floating header covers the top of the list
+        const target = selected.offsetTop - ((wrap.clientHeight + head) / 2) + (selected.clientHeight / 2);
         wrap.scrollTop = Math.max(0, target);
     } else {
         wrap.scrollTop = 0;
@@ -1226,9 +1227,28 @@ window.addEventListener('resize', function () {
         transition: transform 0.5s cubic-bezier(0.22, 1.32, 0.36, 1), opacity 0.18s ease-out;
     }
     [data-theme="light"] .subject-dropdown {
-        background: rgba(255, 255, 255, 0.78);
-        border-color: rgba(0, 0, 0, 0.1);
-        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.08);
+        /* frosted glass on a light page */
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(242, 243, 247, 0.46));
+        -webkit-backdrop-filter: blur(30px) saturate(210%);
+        backdrop-filter: blur(30px) saturate(210%);
+        border-color: rgba(0, 0, 0, 0.14);
+        box-shadow: 0 22px 60px rgba(20, 24, 40, 0.28), 0 2px 10px rgba(20, 24, 40, 0.1);
+    }
+    /* header floats ABOVE the list: no divider line, and the names fade away completely before they reach it */
+    .subject-dropdown { --sd-head: 44px; }
+    .subject-dropdown .subject-dropdown-header {
+        position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+        box-sizing: border-box; height: var(--sd-head); padding: 0 10px 0 16px;
+        border-bottom: none !important;
+        background: transparent;
+    }
+    [data-theme="light"] .subject-dropdown .subject-dropdown-header { background: transparent; border-bottom: none !important; }
+    .subject-dropdown .subject-dropdown-items {
+        padding: calc(var(--sd-head) + 4px) 6px 6px;
+        max-height: calc(348px + var(--sd-head));
+        /* nothing shows above the header's bottom edge: scrolled names fade out before they reach the word SUBJECT */
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent calc(var(--sd-head) - 6px), #000 calc(var(--sd-head) + 8px));
+        mask-image: linear-gradient(to bottom, transparent 0, transparent calc(var(--sd-head) - 6px), #000 calc(var(--sd-head) + 8px));
     }
     /* contents fade in a touch after the box starts growing */
     .subject-dropdown .subject-dropdown-header,
