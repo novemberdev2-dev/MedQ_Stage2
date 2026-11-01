@@ -548,7 +548,7 @@ msd: [
     ] },
     
     { title: 'Pharmacology 💊', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: 'MSD_Pharmacology.html' },
+      { label: 'Theory',   badge: '63 MCQs', href: 'MSD_Pharmacology.html' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
    
