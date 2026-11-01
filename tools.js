@@ -1190,11 +1190,56 @@ function positionSubjectDropdown() {
     let left = r.left + r.width / 2 - closeCx;
     left = Math.max(8, Math.min(left, vw - w - 8));
     dd.style.marginLeft = (left - r.left - r.width / 2) + 'px';
+    // iOS-style: the menu grows out of (and shrinks back into) the filter icon
+    const layoutLeft = wrap.getBoundingClientRect().left + dd.offsetLeft;
+    dd.style.transformOrigin = (r.left + r.width / 2 - layoutLeft) + 'px 0px';
 }
 window.addEventListener('resize', function () {
     const dd = document.getElementById('subject-dropdown');
     if (dd && dd.classList.contains('open')) positionSubjectDropdown();
 });
+
+/* iOS-style popover for the subject / year menu: springs out of the filter icon, blurred translucent glass, quick shrink on close */
+(function injectSubjectMenuStyle() {
+    if (document.getElementById('subject-menu-ios-style')) return;
+    const st = document.createElement('style');
+    st.id = 'subject-menu-ios-style';
+    st.textContent = `
+    .subject-dropdown {
+        background: rgba(30, 30, 32, 0.72);
+        -webkit-backdrop-filter: blur(28px) saturate(180%);
+        backdrop-filter: blur(28px) saturate(180%);
+        border-color: rgba(255, 255, 255, 0.14);
+        border-radius: 16px;
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.35);
+        opacity: 0;
+        transform: scale(0.45);
+        transform-origin: 100% 0;
+        will-change: transform, opacity;
+        /* closing: quick, ease-in, no bounce */
+        transition: transform 0.2s cubic-bezier(0.4, 0, 0.9, 0.6), opacity 0.16s ease-in 0.02s;
+    }
+    .subject-dropdown.open {
+        opacity: 1;
+        transform: scale(1);
+        /* opening: spring with a small overshoot, like the iPhone context menu */
+        transition: transform 0.5s cubic-bezier(0.22, 1.32, 0.36, 1), opacity 0.18s ease-out;
+    }
+    [data-theme="light"] .subject-dropdown {
+        background: rgba(255, 255, 255, 0.78);
+        border-color: rgba(0, 0, 0, 0.1);
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    /* contents fade in a touch after the box starts growing */
+    .subject-dropdown .subject-dropdown-header,
+    .subject-dropdown .subject-dropdown-items { opacity: 0; transition: opacity 0.1s ease; }
+    .subject-dropdown.open .subject-dropdown-header,
+    .subject-dropdown.open .subject-dropdown-items { opacity: 1; transition: opacity 0.28s ease 0.06s; }
+    @media (prefers-reduced-motion: reduce) {
+        .subject-dropdown, .subject-dropdown.open { transition: opacity 0.15s ease; transform: none; }
+    }`;
+    document.head.appendChild(st);
+})();
 
 function toggleSubjectDropdown() {
     const dd = document.getElementById('subject-dropdown');
