@@ -1042,7 +1042,7 @@
         /* dropdown opens centered under the filter icon */
         /* Width follows the longest item (never narrower than 210px, never wider than the screen).
            The exact left offset is set by positionSubjectDropdown() in tools.js. */
-        .header2 .subject-dropdown { right: auto; left: 50%; margin-left: -105px; width: max-content; min-width: 210px; max-width: calc(100vw - 16px); box-sizing: border-box; }
+        .header2 .subject-dropdown { right: auto; left: 50%; margin-left: -125px; width: max-content; min-width: 260px; max-width: calc(100vw - 16px); box-sizing: border-box; }
         .subject-dropdown-items { overflow-x: hidden; }
         .subject-dropdown-item { white-space: pre-line; }
 
@@ -1153,6 +1153,15 @@
             .bb-sub { font-size: 0.6rem; }
             .tool-group { gap: 0; }
         }
+
+        /* Subject / year list: text + pin button on each row (pin uses the lecture pin style) */
+        .subject-item-text { flex: 1; min-width: 0; line-height: 1.4; }
+        .subject-dropdown-item.selected .lecture-pin-btn,
+        [data-theme="light"] .subject-dropdown-item.selected .lecture-pin-btn { color: rgba(255,255,255,0.8); }
+        .subject-dropdown-item.selected .lecture-pin-btn[data-pinned="true"],
+        [data-theme="light"] .subject-dropdown-item.selected .lecture-pin-btn[data-pinned="true"] { color: #fff; }
+        .subject-dropdown-item.selected .lecture-pin-btn:hover,
+        [data-theme="light"] .subject-dropdown-item.selected .lecture-pin-btn:hover { background-color: rgba(255,255,255,0.22); color: #fff; }
 
         /* Vertically center the text inside the blue row (equal space above and below) */
         .lecture-dropdown-item,
