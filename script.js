@@ -562,7 +562,7 @@ msd: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Dermatology 🧴', links: [
+    { title: 'Dermatology ✨', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
