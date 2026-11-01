@@ -1041,6 +1041,37 @@ html.light-mode-pre body .settings-item:not(:last-child) {
 
 /* ===== GLASSY CARDS (same frosted look as the menus) =====
    Glass needs something to blur, so a very soft colour glow sits behind the page. */
+/* ===== PIN BUTTON (top-right corner of each card) ===== */
+.card-header h1 { padding-right: 38px; }
+
+.card-pin-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: background-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.card-pin-btn svg { width: 16px; height: 16px; display: block; pointer-events: none; }
+.card-pin-btn:hover { background: rgba(255, 255, 255, 0.1); color: var(--text-main); opacity: 1; }
+.card-pin-btn[data-pinned="true"] { color: #f0cf6a; opacity: 1; }
+body.light-mode .card-pin-btn:hover,
+html.light-mode-pre body .card-pin-btn:hover { background: rgba(0, 0, 0, 0.07); }
+body.light-mode .card-pin-btn[data-pinned="true"],
+html.light-mode-pre body .card-pin-btn[data-pinned="true"] { color: #2e7d32; }
+
 /* Glass cards: the light sits INSIDE the card (no glow behind it, no colours). */
 .subject-card {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02));
