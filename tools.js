@@ -313,7 +313,7 @@ ${subjectItems}
                 </button>
                 <button class="theme-toggle" onclick="toggleTheme()">
                     <svg id="theme-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        <path d="M12 4V2M12 20V22M6.41421 6.41421L5 5M17.728 17.728L19.1422 19.1422M4 12H2M20 12H22M17.7285 6.41421L19.1427 5M6.4147 17.728L5.00049 19.1422M12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12C17 14.7614 14.7614 17 12 17Z" stroke-linecap="round" stroke-linejoin="round"></path>
                     </svg>
                 </button>
 
@@ -1373,13 +1373,45 @@ function toggleAnswer(btn) {
 }
 
 function toggleTheme() {
+    const SUN_ICON  = '<path d="M12 4V2M12 20V22M6.41421 6.41421L5 5M17.728 17.728L19.1422 19.1422M4 12H2M20 12H22M17.7285 6.41421L19.1427 5M6.4147 17.728L5.00049 19.1422M12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12C17 14.7614 14.7614 17 12 17Z" stroke-linecap="round" stroke-linejoin="round"></path>';
+    const MOON_ICON = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
     const isLight = document.body.getAttribute('data-theme') === 'light';
     const newTheme = isLight ? '' : 'light';
-    document.body.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    document.getElementById('theme-icon').innerHTML = isLight 
-        ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
-        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    const apply = () => {
+        document.body.setAttribute('data-theme', newTheme);
+        try { localStorage.setItem('theme', newTheme); } catch (e) {}
+        document.getElementById('theme-icon').innerHTML = isLight ? SUN_ICON : MOON_ICON;
+    };
+
+    // One shared style for the theme animation (added once)
+    if (!document.getElementById('theme-anim-style')) {
+        const st = document.createElement('style');
+        st.id = 'theme-anim-style';
+        st.textContent =
+            /* every element uses the SAME duration + easing, so header and body change together */
+            'html.theme-anim, html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after {' +
+            '  transition: background-color .4s ease, color .4s ease, border-color .4s ease, fill .4s ease, stroke .4s ease, box-shadow .4s ease, outline-color .4s ease !important; }' +
+            /* browsers with View Transitions: the whole page cross-fades as ONE picture, element transitions are switched off */
+            'html.theme-vt *, html.theme-vt *::before, html.theme-vt *::after { transition: none !important; }' +
+            '::view-transition-old(root), ::view-transition-new(root) { animation-duration: .4s; animation-timing-function: ease; mix-blend-mode: normal; }';
+        document.head.appendChild(st);
+    }
+
+    const root = document.documentElement;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) { apply(); return; }
+
+    if (document.startViewTransition) {
+        root.classList.add('theme-vt');
+        const vt = document.startViewTransition(apply);
+        const done = () => root.classList.remove('theme-vt');
+        vt.finished.then(done, done);
+    } else {
+        root.classList.add('theme-anim');
+        apply();
+        clearTimeout(window.__themeAnimTimer);
+        window.__themeAnimTimer = setTimeout(() => root.classList.remove('theme-anim'), 500);
+    }
 }
 
 (function () {
