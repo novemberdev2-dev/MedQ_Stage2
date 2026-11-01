@@ -908,3 +908,62 @@ html.light-mode-pre body #mode-btn.dropdown-open svg { stroke: var(--text-main);
 /* the fixed header no longer takes space in the page, so reserve it here
    (--header-h is measured by script.js; 65px is the fallback) */
 body { padding-top: calc(15px + var(--header-h, 65px) + 10px); }
+
+/* ===== iOS-STYLE POPOVERS: settings box, "Filter" box, "Filter blocks" box =====
+   Each box springs out of its own icon (the icons are 42px wide, so the icon centre is 21px
+   from the box's right edge), with a small overshoot, then shrinks back into it on close.
+   Translucent blurred "glass" background; the contents fade in just after the box starts growing. */
+.settings-dropdown,
+.filter-dropdown {
+  background: rgba(28, 28, 30, 0.78);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(180%);
+  border-color: rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transform: scale(0.45);
+  transform-origin: calc(100% - 21px) 0;
+  will-change: transform, opacity;
+  /* closing: quick, no bounce */
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.9, 0.6), opacity 0.16s ease-in 0.02s;
+}
+
+.settings-dropdown.open,
+.filter-dropdown.open {
+  opacity: 1;
+  transform: scale(1);
+  /* opening: spring with a small overshoot, like the iPhone context menu */
+  transition: transform 0.5s cubic-bezier(0.22, 1.32, 0.36, 1), opacity 0.18s ease-out;
+}
+
+body.light-mode .settings-dropdown,
+html.light-mode-pre body .settings-dropdown,
+body.light-mode .filter-dropdown,
+html.light-mode-pre body .filter-dropdown {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* contents fade in a touch after the box starts growing */
+.settings-dropdown > *,
+.filter-dropdown > * {
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+.settings-dropdown.open > *,
+.filter-dropdown.open > * {
+  opacity: 1;
+  transition: opacity 0.28s ease 0.06s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .settings-dropdown,
+  .filter-dropdown,
+  .settings-dropdown.open,
+  .filter-dropdown.open {
+    transform: none;
+    transition: opacity 0.15s ease;
+  }
+}
