@@ -11,6 +11,30 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+// ----- APP FEEL: block refreshing (keyboard + pull-to-refresh) -----
+document.addEventListener('keydown', function (e) {
+  const key = e.key ? e.key.toLowerCase() : '';
+  const ctrlOrCmd = e.ctrlKey || e.metaKey;
+  if (e.key === 'F5' || (ctrlOrCmd && key === 'r')) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }
+}, true);
+
+(function blockPullToRefresh() {
+  let startY = 0;
+  document.addEventListener('touchstart', function (e) {
+    if (e.touches.length === 1) startY = e.touches[0].clientY;
+  }, { passive: true });
+  document.addEventListener('touchmove', function (e) {
+    if (e.touches.length !== 1) return;
+    const dy = e.touches[0].clientY - startY;
+    const atTop = (window.pageYOffset || document.documentElement.scrollTop || 0) <= 0;
+    if (atTop && dy > 0 && e.cancelable) e.preventDefault();   // pulling down at the very top = refresh gesture
+  }, { passive: false });
+})();
+
 // ----- PROTECTION: catch printing triggered via the browser's Print menu -----
 window.addEventListener('beforeprint', function () {
   document.title = 'Printing disabled';
@@ -562,7 +586,7 @@ msd: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Dermatology ✨', links: [
+    { title: 'Dermatology 🧴', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
@@ -641,9 +665,9 @@ function fillSectionGrid(grid, section) {
   if (getViewMode() === 'subject') {
     const subjectCards = SUBJECT_CARDS_BY_SECTION[key];
     if (!subjectCards) { grid.appendChild(buildNotYetBlock()); return; }
-    subjectCards.forEach(card => grid.appendChild(buildCard(card)));
+    subjectCards.forEach((card, i) => grid.appendChild(buildCard(card, i)));
   } else {
-    section.cards.forEach(card => grid.appendChild(buildCard(card)));
+    section.cards.forEach((card, i) => grid.appendChild(buildCard(card, i)));
   }
 }
 
@@ -655,9 +679,10 @@ function renderAllSectionCards() {
   });
 }
 
-function buildCard(card) {
+function buildCard(card, index) {
   const cardEl = document.createElement('div');
-  cardEl.className = 'subject-card';
+  cardEl.className = 'subject-card card-pop';
+  cardEl.style.animationDelay = Math.min((index || 0) * 55, 440) + 'ms';
   cardEl.innerHTML = `<div class="card-header"><h1>${card.title}</h1></div>`;
   const linksContainer = document.createElement('div');
   linksContainer.className = 'links-container';
