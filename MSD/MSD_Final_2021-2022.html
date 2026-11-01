@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSD_Final_2021-2022</title>
+    <link rel="stylesheet" href="tools.css?v=1">
+</head>
+<body>
+
+<script>
+/* ---- Settings for THIS page only. Everything else lives in tools.js / tools.css ----
+   This page OWNS the questions of this year (all subjects together).
+   To make another year page: copy this file, change  subtitle  and  year,  and replace the questions.
+   Subject names, emoji and lecture names are read from the subject files below (they are NOT written here). */
+window.QUIZ_CONFIG = {
+    title:    "MSD 🦴",
+    subtitle: "Final · 2021-2022",
+    note:     "",                       // optional note shown under the heading
+
+    // The year name. Subject pages show it in their year filter, so write it exactly the way you want it shown.
+    year: "Final _ 2021-2022",
+
+    // ONE subject only in this year? Remove the // before the next line and write the subject name.
+    // The filter icon then disappears, and  s  is not needed in the questions (the subjects list below is ignored).
+    // subject: "Anatomy 🦴",
+
+    // Subjects shown in the filter list (order = order in the list). Write the emoji after the name.
+    // A subject used by a question but NOT written here is still added automatically (without emoji).
+    subjects: [
+        "Anatomy 🦴",
+  "Pharmacology 💊",
+"Microbiology 🦠",
+ "Histology 🔬",
+ "Immunology 🛡️",
+"Radiology 🩻",
+  "Embryology 👶",
+  "Physiology ⚡",
+  "Dermatology ✨",
+  "Rheumatology 🦴",
+ "Orthopedics 🦾",
+  "Bioethics ⚖️",
+  "Biochemistry 🧪",
+ "Pathology 🔬",
+    ],
+
+    // Subject files: OPTIONAL. Only read (if they exist) for a subject's emoji and lecture names. Missing files are ignored.
+    subjectFiles: [
+       "MSD_Anatomy.html",
+  "MSD_Embryology.html",
+  "MSD_Radiology.html",
+  "MSD_Immunology.html",
+  "MSD_Pharmacology.html",
+  "MSD_Histology.html",
+  "MSD_Biochemistry.html",
+  "MSD_Bioethics.html",
+  "MSD_Pathology.html",
+  "MSD_Physiology.html",
+  "MSD_Microbiology.html",
+  "MSD_Dermatology.html",
+  "MSD_Rheumatology.html",
+  "MSD_Orthopedics.html"
+    ],
+
+    // Each question:  n = number (unique per subject inside THIS file) · s = subject name · l = lecture number
+    // A question that belongs to two years: copy it into both year files.
+    questions: [
+
+   { n: 1, s: "Anatomy", l: 1, q: "The cephalic vein runs through which anatomical groove?", o: ["A. Deltopectoral groove", "B. Intertubercular groove", "C. Cubital fossa", "D. Carpal tunnel", "E. Anatomical snuffbox"], a: "A" },  
+{ n: 2, s: "Anatomy", l: 1, q: "Which of the following structures is attached to the bicipital groove of the humerus?", o: ["A. Short head of biceps", "B. Long head of biceps", "C. Pectoralis minor", "D. Coracobrachialis", "E. Deltoid"], a: "B" },
+{ n: 3, s: "Anatomy", l: 1, q: "Injury to which of the following nerves characteristically results in foot drop?", o: ["A. Femoral nerve", "B. Obturator nerve", "C. Sciatic nerve", "D. Pudendal nerve", "E. Saphenous nerve"], a: "C" },
+{ n: 4, s: "Anatomy", l: 1, q: "Which bone serves as the keystone of the medial longitudinal arch of the foot?", o: ["A. Talus", "B. Calcaneus", "C. Cuboid", "D. Navicular", "E. Medial cuneiform"], a: "D" },
+{ n: 5, s: "Anatomy", l: 1, q: "Which of the following structures provides suspensory support to the breast tissue?", o: ["A. Pectoralis major fascia", "B. Serratus anterior fascia", "C. Cooper's ligament", "D. Lactiferous ducts", "E. Platysma muscle"], a: "C" },
+
+{ n: 6, s: "Embryology", l: 1, q: "Regarding embryology, which of the following statements is NOT true?", o: ["A. The maxilla forms via intramembranous ossification.", "B. The mandible forms through endochondral ossification.", "C. The first pharyngeal arch gives rise to the muscles of mastication.", "D. The thyroid gland originates from the foramen caecum.", "E. The palatine tonsils develop from the second pharyngeal pouch."], a: "B" },
+{ n: 7, s: "Embryology", l: 1, q: "Which of the following statements is correct?", o: ["A. Epiaxial muscles are derived from paraxial mesoderm.", "B. Hypaxial muscles are derived from neural crest cells.", "C. Limb muscles develop from lateral plate mesoderm.", "D. Cardiac muscle develops from ectoderm.", "E. Smooth muscle of the gut develops from somatic mesoderm."], a: "A" },
+
+{ n: 8, s: "Radiology", l: 1, q: "Which imaging modality is commonly used to diagnose a bone fracture?", o: ["A. Magnetic Resonance Imaging (MRI)", "B. Computed Tomography (CT)", "C. Ultrasound", "D. X-ray", "E. Positron Emission Tomography (PET)"], a: "D" },
+{ n: 9, s: "Radiology", l: 1, q: "Which imaging modality provides the highest contrast resolution for evaluating soft tissues?", o: ["A. Conventional radiography", "B. Ultrasound", "C. Computed Tomography (CT)", "D. Magnetic Resonance Imaging (MRI)", "E. Fluoroscopy"], a: "D" },
+{ n: 10, s: "Radiology", l: 1, q: "Which test is commonly used for bone mass testing?", o: ["A. Quantitative ultrasound", "B. Computed Tomography (CT)", "C. Bone scintigraphy", "D. X-ray skeletal survey", "E. DEXA scan"], a: "E" },
+
+{ n: 11, s: "Immunology", l: 1, q: "Which antimicrobial peptide is associated with psoriasis?", o: ["A. Defensin alpha-1", "B. Cathelicidin LL-37", "C. Lysozyme", "D. Lactoferrin", "E. Secretory leukocyte protease inhibitor"], a: "B" },
+{ n: 12, s: "Immunology", l: 1, q: "Which immunoglobulin is NOT a warm antibody?", o: ["A. IgG", "B. IgA", "C. IgM", "D. IgE", "E. IgD"], a: "D" },
+{ n: 13, s: "Immunology", l: 1, q: "Which of the following environmental or infectious factors does NOT affect or trigger the development of rheumatoid arthritis?", o: ["A. Cigarette smoking", "B. Periodontal disease caused by P. gingivalis", "C. Infections like influenza", "D. Silica dust exposure", "E. Microbiome alterations"], a: "C" },
+
+{ n: 14, s: "Pharmacology", l: 1, q: "Which topical antibiotic combination is commonly used for superficial skin infections?", o: ["A. Amoxicillin + Clavulanate", "B. Metronidazole + Tinidazole ", "C. Sulfamethoxazole + Trimethoprim", "D. Clindamycin + Erythromycin", "E. Polymyxin + Bacitracin"], a: "E" },
+{ n: 15, s: "Pharmacology", l: 1, q: "What is the most common cause of hypercalcemia in hospitalized patients?", o: ["A. Malignancy", "B. Chronic kidney disease", "C. Hypoparathyroidism", "D. Vitamin D deficiency", "E. Acute pancreatitis"], a: "A" },
+{ n: 16, s: "Pharmacology", l: 1, q: "Which drug is commonly used to treat neuropathic pain? (Matching question)", o: ["A. Pregabalin", "B. Paracetamol", "C. Morphine", "D. Celecoxib", "E. Aspirin"], a: "A" },
+{ n: 17, s: "Pharmacology", l: 1, q: "Which monoclonal antibody is used to treat rheumatoid arthritis?", o: ["A. Rituximab", "B. Infliximab", "C. Trastuzumab", "D. Omalizumab", "E. Cetuximab"], a: "B" },
+{ n: 18, s: "Pharmacology", l: 1, q: "Which of the following statements is INCORRECT regarding the clinical use of neuromuscular receptor blockers?", o: ["A. Facilitating endotracheal intubation", "B. Providing adequate mobility during surgery", "C. Paralyzing skeletal muscles during mechanical ventilation", "D. Preventing patient movement during delicate surgical procedures", "E. Lacking anesthetic or analgesic properties"], a: "B" },
+
+
+{ n: 19, s: "Histology", l: 1, q: "Which cells are attached to the basal lamina in epithelial tissue?", o: ["A. Stem cells", "B. Keratinized squames", "C. Melanocytes", "D. Langerhans cells", "E. Fibroblasts"], a: "A" },
+{ n: 20, s: "Histology", l: 1, q: "Which connective tissue surrounds individual muscle fibers?", o: ["A. Epimysium", "B. Perimysium", "C. Endomysium", "D. Sarcolemma", "E. Deep fascia"], a: "C" },
+{ n: 21, s: "Histology", l: 1, q: "Which layer of the skin is first involved in a superficial skin injury?", o: ["A. Reticular dermis", "B. Subcutaneous tissue  ", "C. Hypodermis", "D. Stratum corneum", "E. Papillary dermis"], a: "E" },
+{ n: 22, s: "Histology", l: 1, q: "Which layer of the hair matrix contains actively dividing cells responsible for hair growth?", o: ["A. Stratum corneum", "B. Stratum lucidum", "C. Stratum granulosum", "D. Germinal layer", "E. Stratum spinosum"], a: "D" },
+
+{ n: 23, s: "Biochemistry", l: 1, q: "Deficiency of which vitamin causes defective collagen synthesis?", o: ["A. Vitamin A", "B. Vitamin B6", "C. Vitamin C", "D. Vitamin D", "E. Vitamin K"], a: "C" },
+
+{ n: 24, s: "Bioethics", l: 1, q: "Building and maintaining trust between the public and medical professionals is a fundamental goal of:", o: ["A. Medical education", "B. Hospital administration", "C. Pharmaceutical marketing", "D. Health insurance policies", "E. Litigation procedures"], a: "A" },
+{ n: 25, s: "Bioethics", l: 1, q: "Generalized aches, localized pain, and excessive sweating represent which type of reaction to stressors?", o: ["A. Psychological response to stress", "B. Cognitive response to stress", "C. Behavioral response to stress", "D. Physical response to stress", "E. Emotional response to stress"], a: "D" },
+
+{ n: 26, s: "Pathology", l: 1, q: "Which of the following is NOT a feature of Maffucci syndrome?", o: ["A. Multiple enchondromas", "B. Hemangiomas of soft tissue", "C. High risk of malignant transformation", "D. Soft tissue mass", "E. Severe bone deformities"], a: "D" },
+
+{ n: 27, s: "Physiology", l: 1, q: "Shortening of the sarcomere occurs during which phase of muscle activity?", o: ["A. Relaxation", "B. Contraction", "C. Fatigue", "D. Atrophy", "E. Hypertrophy"], a: "B" },
+{ n: 28, s: "Physiology", l: 1, q: "Which type of synaptic relationship is present at the neuromuscular junction?", o: ["A. Many-to-one ratio", "B. One-to-many ratio", "C. One-to-one ratio", "D. Facilitated-only basis", "E. Delayed decremental basis"], a: "C" },
+
+{ n: 29, s: "Microbiology", l: 1, q: "Which of the following is true regarding cellulitis?", o: ["A. It arises without any portal of entry.", "B. It often follows an injury.", "C. It is typically non-painful.", "D. It is caused primarily by viruses.", "E. It remains confined to the epidermis only."], a: "B" },
+{ n: 30, s: "Microbiology", l: 1, q: "Patients receiving long-term parenteral nutrition via lipid replacement catheters are at increased risk for:", o: ["A. Fungaemia", "B. Viral reactivation", "C. Parasitic infestation", "D. Prion disease", "E. Anaerobic gas gangrene"], a: "A" },
+{ n: 31, s: "Microbiology", l: 1, q: "Which of the following is TRUE regarding the morphology of the Ebola virus?", o: ["A. They look like brick-shaped particles under the microscope.", "B. They look like perfect spheres under the microscope.", "C. They look like threads and are bent under the microscope.", "D. They look like rigid rods under the microscope.", "E. They look like cube-shaped particles under the microscope."], a: "C" },
+{ n: 32, s: "Microbiology", l: 1, q: "A patient presents with hypopigmented and hyperpigmented scaly skin patches on the trunk. What is the most likely diagnosis? (Matching question)", o: ["A. Vitiligo", "B. Tinea corporis", "C. Psoriasis", "D. Seborrheic dermatitis", "E. Tinea versicolor"], a: "E" },
+
+
+{ n: 33, s: "Dermatology", l: 1, q: "Which of the following skin lesions is fluid-filled and measures 1–2 cm in diameter?", o: ["A. Macule", "B. Papule", "C. Nodule", "D. Bullae", "E. Pustule"], a: "D" },
+{ n: 34, s: "Dermatology", l: 1, q: "Which of the following is characterized by erythematous, greasy scales affecting sebaceous gland-rich areas? (Matching question)", o: ["A. Psoriasis vulgaris", "B. Seborrheic dermatitis", "C. Atopic dermatitis", "D. Impetigo", "E. Contact dermatitis"], a: "B" },
+
+{ n: 35, s: "Rheumatology", l: 1, q: "A patient presents with pain and stiffness involving the metacarpophalangeal and proximal interphalangeal joints, with symptoms worsening at night. What is the most likely diagnosis? (case question)", o: ["A. Osteoarthritis", "B. Fibromyalgia", "C. Gouty arthritis", "D. Septic arthritis", "E. Rheumatoid arthritis"], a: "E" },
+{ n: 36, s: "Rheumatology", l: 1, q: "A patient presents with an acute 5-day history of a swollen, painful, erythematous single leg joint accompanied by a high fever of 39°C. What is the provisional diagnosis?", o: ["A. Osteoarthritis", "B. Septic arthritis", "C. Chronic gout", "D. Pseudogout", "E. Rheumatoid nodules"], a: "B" },
+
+{ n: 37, s: "Orthopedics", l: 1, q: "A 2-year-old boy presents with physiological bowing of both legs. X-ray confirms no bone deformity, and his weight is at the 50th percentile. What is the most appropriate management?", o: ["A. High-dose Vitamin D therapy", "B. Surgical osteotomy", "C. Reassuring the parents", "D. Rigid corrective leg braces", "E. Total dietary calcium restriction"], a: "C" },
+{ n: 38, s: "Orthopedics", l: 1, q: "A 9-month-old infant is brought with suspected nutritional rickets. Which clinical finding is most likely to be present?", o: ["A. Early fontanelle closure", "B. Fibrous dysplasia ", "C. Osteosarcoma", "D. Syndactyly", "E. Craniotabes"], a: "E" },
+
+
+    ]
+};
+</script>
+<script src="tools.js?v=3"></script>
+</body>
+</html>
