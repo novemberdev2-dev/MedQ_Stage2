@@ -941,9 +941,12 @@ body.light-mode .settings-dropdown,
 html.light-mode-pre body .settings-dropdown,
 body.light-mode .filter-dropdown,
 html.light-mode-pre body .filter-dropdown {
-  background: rgba(255, 255, 255, 0.8);
-  border-color: rgba(0, 0, 0, 0.1);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.08);
+  /* frosted glass on a light page: clearly see-through, a soft sheen, a soft dark rim and a deeper shadow so it reads as glass */
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(242, 243, 247, 0.46));
+  -webkit-backdrop-filter: blur(30px) saturate(210%);
+  backdrop-filter: blur(30px) saturate(210%);
+  border-color: rgba(0, 0, 0, 0.14);
+  box-shadow: 0 22px 60px rgba(20, 24, 40, 0.28), 0 2px 10px rgba(20, 24, 40, 0.1);
 }
 
 /* contents fade in a touch after the box starts growing */
@@ -966,4 +969,55 @@ html.light-mode-pre body .filter-dropdown {
     transform: none;
     transition: opacity 0.15s ease;
   }
+}
+
+/* ===== no divider lines inside the three boxes ===== */
+.settings-dropdown-header,
+.filter-dropdown-header,
+body.light-mode .settings-dropdown-header,
+html.light-mode-pre body .settings-dropdown-header,
+body.light-mode .filter-dropdown-header,
+html.light-mode-pre body .filter-dropdown-header {
+  border-bottom: none !important;
+}
+.settings-item:not(:last-child),
+body.light-mode .settings-item:not(:last-child),
+html.light-mode-pre body .settings-item:not(:last-child) {
+  border-bottom: none !important;
+}
+
+
+/* ===== PROFILE (Edit Profile) POPUP: same iOS pop + glass as the other boxes =====
+   It springs out of the profile picture (top-left). The dim layer fades by its COLOUR, not its
+   opacity, so the box can still blur the page behind it. */
+#profile-modal-backdrop {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0);
+  transition: background-color 0.3s ease;
+}
+#profile-modal-backdrop.open { background: rgba(0, 0, 0, 0.45); }
+
+#profile-modal {
+  background: rgba(28, 28, 30, 0.78);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(180%);
+  border-color: rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transform: scale(0.45);
+  transform-origin: 36px -22px;          /* roughly where the profile picture sits, above the box */
+  will-change: transform, opacity;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.9, 0.6), opacity 0.16s ease-in 0.02s;
+}
+#profile-modal-backdrop.open #profile-modal {
+  opacity: 1;
+  transform: scale(1);
+  transition: transform 0.5s cubic-bezier(0.22, 1.32, 0.36, 1), opacity 0.18s ease-out;
+}
+#profile-modal > * { opacity: 0; transition: opacity 0.1s ease; }
+#profile-modal-backdrop.open #profile-modal > * { opacity: 1; transition: opacity 0.28s ease 0.06s; }
+
+@media (prefers-reduced-motion: reduce) {
+  #profile-modal, #profile-modal-backdrop.open #profile-modal { transform: none; transition: opacity 0.15s ease; }
 }
