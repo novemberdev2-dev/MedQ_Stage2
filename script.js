@@ -546,35 +546,18 @@ msd: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Embryology 👶', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: '#' },
-      { label: 'Practice', badge: '0 Qs', href: '#' }
-    ] },
-    { title: 'Radiology 🩻', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: '#' },
-      { label: 'Practice', badge: '0 Qs', href: '#' }
-    ] },
-    { title: 'Immunology 🛡️', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: '#' },
-      { label: 'Practice', badge: '0 Qs', href: '#' }
-    ] },
+    
     { title: 'Pharmacology 💊', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Histology 🫁', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: '#' },
-      { label: 'Practice', badge: '0 Qs', href: '#' }
-    ] },
+   
     { title: 'Biochemistry 🧪', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Bioethics ⚖️', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: '#' },
-      { label: 'Practice', badge: '0 Qs', href: '#' }
-    ] },
-    { title: 'Pathology 🔬', links: [
+
+  { title: 'Pathology 🔬', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
@@ -586,17 +569,39 @@ msd: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
-    { title: 'Dermatology 🧴', links: [
+   { title: 'Histology 🫁', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
+    ] },
+    { title: 'Bioethics ⚖️', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+     
+    ] },
+
+  { title: 'Embryology 👶', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+     
+    ] },
+    { title: 'Radiology 🩻', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+      
+    ] },
+    { title: 'Immunology 🛡️', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+     
+    ] },
+    
+    { title: 'Dermatology ✨', links: [
+      { label: 'Theory',   badge: '0 MCQs', href: '#' },
+     
     ] },
     { title: 'Rheumatology 🦴', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
-      { label: 'Practice', badge: '0 Qs', href: '#' }
+     
     ] },
     { title: 'Orthopedics 🦾', links: [
       { label: 'Theory',   badge: '0 MCQs', href: '#' },
-      { label: 'Practice', badge: '0 Qs', href: '#' }
+      
     ] }
   ]
 
