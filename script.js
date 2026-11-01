@@ -568,33 +568,32 @@ msd: [
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
    
-
-    { title: 'Biochemistry 🧪', links: [
-      { label: 'Theory',   badge: '15 MCQs', href: 'MSD/MSD_Biochemistry.html' },
-      { label: 'Practice', badge: '0 Qs', href: '#' }
-    ] },
-
-    { title: 'Histology 🫁', links: [
+  { title: 'Histology 🫁', links: [
       { label: 'Theory',   badge: '20 MCQs', href: 'MSD/MSD_Histology.html' },
       { label: 'Practice', badge: '0 Qs', href: '#' }
     ] },
 
+  
   { title: 'Radiology 🩻', links: [
       { label: 'Theory',   badge: '46 MCQs', href: 'MSD/MSD_Radiology.html' }
     ] },
-
+    { title: 'Biochemistry 🧪', links: [
+      { label: 'Theory',   badge: '15 MCQs', href: 'MSD/MSD_Biochemistry.html' },
+     
+    ] },
   
   { title: 'Genetics 🧬', links: [
       { label: 'Theory',   badge: '10 MCQs', href: 'MSD/MSD_Genetics.html' }
+    ] },
+   { title: 'Medical-Education 📗', links: [
+      { label: 'Theory',   badge: '8 MCQs', href: 'MSD/MSD_Medical-Education.html' }
     ] },
 
     { title: 'Dermatology ✨', links: [
       { label: 'Theory',   badge: '7 MCQs', href: 'MSD/MSD_Dermatology.html' }
     ] },
 
-   { title: 'Medical-Education 📗', links: [
-      { label: 'Theory',   badge: '6 MCQs', href: 'MSD/MSD_Medical-Education.html' }
-    ] },
+  
 
    { title: 'Embryology 👶', links: [
       { label: 'Theory',   badge: '6 MCQs', href: 'MSD/MSD_Embryology.html' }
