@@ -1209,9 +1209,10 @@ window.addEventListener('resize', function () {
         background: linear-gradient(180deg, rgba(70, 70, 76, 0.42), rgba(34, 34, 38, 0.34));
         -webkit-backdrop-filter: blur(34px) saturate(190%) brightness(1.05);
         backdrop-filter: blur(34px) saturate(190%) brightness(1.05);
-        border-color: rgba(255, 255, 255, 0.2);
+        border-width: 0.5px;
+        border-color: rgba(255, 255, 255, 0.16);
         border-radius: 16px;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 18px 50px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
         opacity: 0;
         transform: scale(0.45);
         transform-origin: 100% 0;
@@ -1230,8 +1231,9 @@ window.addEventListener('resize', function () {
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(242, 243, 247, 0.34));
         -webkit-backdrop-filter: blur(34px) saturate(220%);
         backdrop-filter: blur(34px) saturate(220%);
-        border-color: rgba(255, 255, 255, 0.55);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 22px 60px rgba(20, 24, 40, 0.28), 0 2px 10px rgba(20, 24, 40, 0.1);
+        border-width: 0.5px;
+        border-color: rgba(0, 0, 0, 0.14);
+        box-shadow: 0 22px 60px rgba(20, 24, 40, 0.28), 0 2px 10px rgba(20, 24, 40, 0.1);
     }
     /* the sticky header is a solid colour; while the menu is open let it be see-through so the glass has something to blur */
     .header2-sticky:has(.subject-dropdown.open) { background-color: transparent; }
