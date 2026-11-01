@@ -323,7 +323,7 @@ const ALL_SECTIONS = [
      ]},
      
       { title: '2023-2024 Year Exam',   links: [
-        { label: 'End-Block _ Practice', badge: '14 Qs', href: 'MSD/MSD_End_Block_Practice_2023-2024.html' },
+        { label: 'End-Block _ Practice', badge: '14 Qs', href: 'MSD_End_Block_Practice_2023-2024.html' },
         { label: 'Final', badge: '38 MCQs',  href: 'MSD/MSD_Final_2023-2024.html' },
 
      ]},
