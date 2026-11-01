@@ -862,3 +862,49 @@ html.light-mode-pre body #mode-btn.dropdown-open svg { stroke: var(--text-main);
   border: 1px dashed var(--border-color);
   border-radius: 12px;
 }
+
+
+/* ===== STICKY HEADER =====
+   The header stays pinned while the blocks scroll underneath it.
+   Its translucent card colour is layered over a solid page-colour layer
+   (both transition with the same timing as the page), so scrolling content
+   never shows through and the light/dark switch stays one smooth fade. */
+.main-header {
+  position: fixed; /* pinned to the screen: it never moves while scrolling */
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  width: auto;
+  z-index: 50;
+  background: transparent;
+  border-color: transparent; /* the visible border is drawn by ::after, above the layers */
+}
+
+/* solid layer: same colour + timing as the body, also covers the 15px strip above the header */
+.main-header::before {
+  content: '';
+  position: absolute;
+  inset: -15px -1px -1px -1px;
+  z-index: -2;
+  background-color: var(--bg-color);
+  border-radius: 0 0 16px 16px;
+  transition: background-color 0.3s ease;
+  pointer-events: none;
+}
+
+/* translucent card layer on top of it (the original header look) */
+.main-header::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  transition: background-color 0.35s ease, border-color 0.35s ease;
+  pointer-events: none;
+}
+
+/* the fixed header no longer takes space in the page, so reserve it here
+   (--header-h is measured by script.js; 65px is the fallback) */
+body { padding-top: calc(15px + var(--header-h, 65px) + 10px); }
