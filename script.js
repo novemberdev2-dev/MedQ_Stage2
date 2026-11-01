@@ -311,8 +311,8 @@ const ALL_SECTIONS = [
      
 
       { title: '2021-2022 Year Exam',   links: [
-        { label: 'Final _ 1st Term', badge: '38 MCQs', href: 'MSD_Final_2021-2022.html' },
-        { label: 'Final _ 2nd Term', badge: '36 MCQs', href: 'MSD_Final2_2021-2022.html' },
+        { label: 'Final _ 1st Term', badge: '38 MCQs', href: 'MSD/MSD_Final_2021-2022.html' },
+        { label: 'Final _ 2nd Term', badge: '36 MCQs', href: 'MSD/MSD_Final2_2021-2022.html' },
  ]},
       
           { title: '2022-2023 Year Exam',   links: [
