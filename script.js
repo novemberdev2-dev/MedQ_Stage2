@@ -585,16 +585,15 @@ msd: [
 
   
   { title: 'Genetics 🧬', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: 'MSD/MSD_Genetics.html' }
-    ] },
-
-  
-  { title: 'Medical-Education 📗', links: [
-      { label: 'Theory',   badge: '0 MCQs', href: 'MSD/MSD_Medical-Education.html' }
+      { label: 'Theory',   badge: '10 MCQs', href: 'MSD/MSD_Genetics.html' }
     ] },
 
     { title: 'Dermatology ✨', links: [
       { label: 'Theory',   badge: '7 MCQs', href: 'MSD/MSD_Dermatology.html' }
+    ] },
+
+   { title: 'Medical-Education 📗', links: [
+      { label: 'Theory',   badge: '6 MCQs', href: 'MSD/MSD_Medical-Education.html' }
     ] },
 
    { title: 'Embryology 👶', links: [
