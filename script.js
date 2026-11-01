@@ -317,7 +317,7 @@ const ALL_SECTIONS = [
       
           { title: '2022-2023 Year Exam',   links: [
         { label: 'End-Block _ Practice', badge: '5 Qs', href: 'MSD_End-Block_Practice_2022-2023.html' },
-        { label: 'Final or End-Block', badge: '31 MCQs', href: 'MSD/MSD_FinalorEnd-block_2022-2023.html' },
+        { label: 'Final or End-Block', badge: '31 MCQs', href: 'MSD/MSD_FinalorEnd-Block_2022-2023.html' },
 
       
      ]},
