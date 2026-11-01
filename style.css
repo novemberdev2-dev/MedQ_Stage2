@@ -32,6 +32,23 @@ html.light-mode-pre body {
 html.already-activated #activation-overlay { display: none !important; }
 html.already-activated body { overflow: auto; }
 
+/* ===== APP FEEL: no pull-to-refresh / rubber-band reload ===== */
+html, body {
+  overscroll-behavior-y: none;
+}
+
+/* ===== CARDS POP IN when the page opens ===== */
+@keyframes cardPop {
+  0%   { opacity: 0; transform: translateY(18px) scale(0.9); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.subject-card.card-pop {
+  animation: cardPop 0.55s cubic-bezier(0.22, 1.25, 0.36, 1) backwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .subject-card.card-pop { animation: none; }
+}
+
 html {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
