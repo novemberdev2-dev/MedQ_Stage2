@@ -357,12 +357,6 @@ function subjectLabel(name) {
                 <button class="search-toggle-btn" id="search-toggle-btn" onclick="toggleSearchBar()" title="Search">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.9536 14.9458L21 21M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                 </button>
-                <button class="theme-toggle" onclick="toggleTheme()">
-                    <svg id="theme-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 4V2M12 20V22M6.41421 6.41421L5 5M17.728 17.728L19.1422 19.1422M4 12H2M20 12H22M17.7285 6.41421L19.1427 5M6.4147 17.728L5.00049 19.1422M12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12C17 14.7614 14.7614 17 12 17Z" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
-                </button>
-
 ${subjectToggle}
             
                 </div>
@@ -1528,53 +1522,20 @@ function toggleAnswer(btn) {
     });
 }
 
-function toggleTheme() {
-    const SUN_ICON  = '<path d="M12 4V2M12 20V22M6.41421 6.41421L5 5M17.728 17.728L19.1422 19.1422M4 12H2M20 12H22M17.7285 6.41421L19.1427 5M6.4147 17.728L5.00049 19.1422M12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12C17 14.7614 14.7614 17 12 17Z" stroke-linecap="round" stroke-linejoin="round"></path>';
-    const MOON_ICON = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-    const isLight = document.body.getAttribute('data-theme') === 'light';
-    const newTheme = isLight ? '' : 'light';
-    const apply = () => {
-        document.body.setAttribute('data-theme', newTheme);
-        try { localStorage.setItem('theme', newTheme); } catch (e) {}
-        document.getElementById('theme-icon').innerHTML = isLight ? SUN_ICON : MOON_ICON;
-    };
-
-    // One shared style for the theme animation (added once)
-    if (!document.getElementById('theme-anim-style')) {
-        const st = document.createElement('style');
-        st.id = 'theme-anim-style';
-        st.textContent =
-            /* every element uses the SAME duration + easing, so header and body change together */
-            'html.theme-anim, html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after {' +
-            '  transition: background-color .4s ease, color .4s ease, border-color .4s ease, fill .4s ease, stroke .4s ease, box-shadow .4s ease, outline-color .4s ease !important; }' +
-            /* browsers with View Transitions: the whole page cross-fades as ONE picture, element transitions are switched off */
-            'html.theme-vt *, html.theme-vt *::before, html.theme-vt *::after { transition: none !important; }' +
-            '::view-transition-old(root), ::view-transition-new(root) { animation-duration: .4s; animation-timing-function: ease; mix-blend-mode: normal; }';
-        document.head.appendChild(st);
-    }
-
-    const root = document.documentElement;
-    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) { apply(); return; }
-
-    if (document.startViewTransition) {
-        root.classList.add('theme-vt');
-        const vt = document.startViewTransition(apply);
-        const done = () => root.classList.remove('theme-vt');
-        vt.finished.then(done, done);
-    } else {
-        root.classList.add('theme-anim');
-        apply();
-        clearTimeout(window.__themeAnimTimer);
-        window.__themeAnimTimer = setTimeout(() => root.classList.remove('theme-anim'), 500);
-    }
+/* ---------- THEME: follows the main page ----------
+   There is no theme button here anymore. The dark / light choice is made in the main page's Settings
+   (it is saved there as  medq_theme  = 'light' | 'dark'), and every quiz page just reads it. */
+function applyMainPageTheme() {
+    let saved = null;
+    try { saved = localStorage.getItem('medq_theme'); } catch (e) {}
+    if (saved === 'light') document.body.setAttribute('data-theme', 'light');
+    else document.body.removeAttribute('data-theme');
 }
+applyMainPageTheme();
+window.addEventListener('storage', function (e) { if (e.key === 'medq_theme' || e.key === null) applyMainPageTheme(); });   // changed in another tab
+window.addEventListener('pageshow', applyMainPageTheme);                                                                    // coming back with the Back button
 
 (function () {
-    if (localStorage.getItem('theme') === 'light') {
-        document.body.setAttribute('data-theme', 'light');
-        document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-    }
    const saved = localStorage.getItem('selectedSubject_' + location.pathname);
     if (saved && !SINGLE_SUBJECT && (saved === "All" || subjectList.some(x => x.name === saved))) {
         currentSubjectFilter = saved;
