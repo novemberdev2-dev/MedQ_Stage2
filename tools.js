@@ -52,21 +52,68 @@
         return { name: m ? m[1].trim() : str, emoji: m ? m[2].trim() : '' };
     }
     function subjectName(raw) { const s = splitSubject(raw); return s ? s.name : ''; }
-    function readConfig(file) {
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', encodeURI(file) + (file.indexOf('?') < 0 ? '?nocache=' + Date.now() : ''), false);   // synchronous on purpose: the page builds right after
-        try { xhr.send(null); }
-        catch (err) { err.missing = true; throw err; }                // file not found / cannot be fetched (also what a missing file looks like when opened from disk)
-        if (xhr.status && (xhr.status < 200 || xhr.status >= 300)) { const e = new Error('HTTP ' + xhr.status); e.missing = true; throw e; }
-        if (!xhr.responseText) { const e = new Error('empty response'); e.missing = true; throw e; }
-        const doc = new DOMParser().parseFromString(xhr.responseText, 'text/html');   // scripts are NOT executed here
+    /* ---------- FAST LOADING (cache) ----------
+       Reading the linked files used to hit the network every time (cache-busted, one after another).
+       On phones / tablets that made pages open late. Now the config of each linked file is kept in
+       localStorage: the page builds instantly from it, and the files are re-checked in the background
+       (so edits to a file show up on the next visit). Missing files are remembered too. */
+    const CFG_CACHE_PREFIX = 'medq_cfg_v1|';
+    const CFG_MISSING = '\u0000missing';
+    const refreshList = [];
+    function absUrl(file) {
+        try { return new URL(encodeURI(file), location.href).href.split('#')[0]; } catch (e) { return encodeURI(file); }
+    }
+    function cacheGet(url) { try { return localStorage.getItem(CFG_CACHE_PREFIX + url); } catch (e) { return null; } }
+    function cacheSet(url, val) { try { if (localStorage.getItem(CFG_CACHE_PREFIX + url) !== val) localStorage.setItem(CFG_CACHE_PREFIX + url, val); } catch (e) {} }
+    function extractConfigScript(html) {
+        const doc = new DOMParser().parseFromString(html, 'text/html');   // scripts are NOT executed here
         const script = Array.from(doc.querySelectorAll('script:not([src])')).find(sc => sc.textContent.indexOf('QUIZ_CONFIG') >= 0);
-        if (!script) throw new Error('no QUIZ_CONFIG found in the file');
+        return script ? script.textContent : null;
+    }
+    function runConfigScript(src) {
         const fakeWindow = {};
-        new Function('window', script.textContent)(fakeWindow);
+        new Function('window', src)(fakeWindow);
         if (!fakeWindow.QUIZ_CONFIG) throw new Error('QUIZ_CONFIG is empty');
         return fakeWindow.QUIZ_CONFIG;
     }
+    function readConfig(file) {
+        const url = absUrl(file);
+        if (refreshList.indexOf(url) < 0) refreshList.push(url);
+        const cached = cacheGet(url);
+        if (cached === CFG_MISSING) { const e = new Error('not found'); e.missing = true; throw e; }
+        if (cached) { try { return runConfigScript(cached); } catch (e) { /* bad cache entry: fall through and load it again */ } }
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url, false);                                  // synchronous on purpose: the page builds right after
+        try { xhr.setRequestHeader('Cache-Control', 'no-cache'); } catch (err) {}
+        try { xhr.send(null); }
+        catch (err) { err.missing = true; throw err; }                // file not found / cannot be fetched (also what a missing file looks like when opened from disk)
+        if (xhr.status && (xhr.status < 200 || xhr.status >= 300)) {
+            if (xhr.status === 404 || xhr.status === 410) cacheSet(url, CFG_MISSING);
+            const e = new Error('HTTP ' + xhr.status); e.missing = true; throw e;
+        }
+        if (!xhr.responseText) { const e = new Error('empty response'); e.missing = true; throw e; }
+        const src = extractConfigScript(xhr.responseText);
+        if (!src) throw new Error('no QUIZ_CONFIG found in the file');
+        const cfgObj = runConfigScript(src);
+        cacheSet(url, src);
+        return cfgObj;
+    }
+    function refreshCacheInBackground() {
+        if (!window.fetch || !refreshList.length) return;
+        let i = 0;
+        const next = () => {
+            if (i >= refreshList.length) return;
+            const url = refreshList[i++];
+            fetch(url, { cache: 'no-cache' })
+                .then(r => r.ok ? r.text().then(t => { const s = extractConfigScript(t); if (s) cacheSet(url, s); })
+                                : ((r.status === 404 || r.status === 410) ? cacheSet(url, CFG_MISSING) : null))
+                .catch(() => {})
+                .then(next);
+        };
+        next(); next();                                               // two at a time, low priority
+    }
+    function startRefresh() { setTimeout(refreshCacheInBackground, 1500); }
+    if (document.readyState === 'complete') startRefresh(); else window.addEventListener('load', startRefresh);
     function lectureMap(f, name) {
         const L = f.lectures || {};
         const keys = Object.keys(L);
