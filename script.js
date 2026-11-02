@@ -887,6 +887,60 @@ window.onload = function () {
   applyFilter(savedFilter, false);
 };
 
+// ===== WARM-UP: pre-load the data of the linked pages in the background =====
+// Quiz pages read the config of their sibling files (see tools.js). Doing that for the first time
+// on a phone / tablet makes the page open late, so it is done here quietly while the person is
+// still looking at the cards. Same cache key + format as tools.js ('medq_cfg_v1|' + absolute URL).
+(function warmLinkedPages() {
+  var PREFIX = 'medq_cfg_v1|';
+  var MISSING = '\u0000missing';
+  function run() {
+    try {
+      if (!window.fetch || !window.DOMParser) return;
+      var c = navigator.connection;
+      if (c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || ''))) return;   // don't spend data on slow / data-saver connections
+      var urls = [], seen = {};
+      ALL_SECTIONS.forEach(function (sec) {
+        (sec.cards || []).forEach(function (card) {
+          (card.links || []).forEach(function (l) {
+            if (!l.href || l.href === '#') return;
+            var abs;
+            try { abs = new URL(encodeURI(l.href), location.href).href.split('#')[0]; } catch (e) { return; }
+            if (seen[abs]) return;
+            seen[abs] = 1;
+            var have = null;
+            try { have = localStorage.getItem(PREFIX + abs); } catch (e) {}
+            if (have === null) urls.push(abs);
+          });
+        });
+      });
+      var i = 0;
+      function next() {
+        if (i >= urls.length) return;
+        var url = urls[i++];
+        fetch(url)
+          .then(function (r) {
+            if (r.status === 404 || r.status === 410) { try { localStorage.setItem(PREFIX + url, MISSING); } catch (e) {} return; }
+            if (!r.ok) return;
+            return r.text().then(function (t) {
+              var doc = new DOMParser().parseFromString(t, 'text/html');
+              var sc = Array.prototype.find.call(doc.querySelectorAll('script:not([src])'), function (x) { return x.textContent.indexOf('QUIZ_CONFIG') >= 0; });
+              if (sc) { try { localStorage.setItem(PREFIX + url, sc.textContent); } catch (e) {} }
+            });
+          })
+          .catch(function () {})
+          .then(next);
+      }
+      next(); next();
+    } catch (e) {}
+  }
+  function schedule() {
+    if (window.requestIdleCallback) requestIdleCallback(run, { timeout: 4000 });
+    else setTimeout(run, 2500);
+  }
+  if (document.readyState === 'complete') schedule(); else window.addEventListener('load', function () { setTimeout(schedule, 800); });
+})();
+
 // ===== FIXED HEADER: reserve its height in the page =====
 function updateHeaderHeight() {
   const header = document.querySelector('.main-header');
