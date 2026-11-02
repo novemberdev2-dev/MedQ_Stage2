@@ -474,6 +474,7 @@ html.light-mode-pre body .filter-mode-option.selected .filter-mode-check::after 
   text-decoration: none;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;   /* no double-tap-zoom wait: taps register immediately on iPad / phones */
 }
 .mcq-link:last-child { border-bottom: none; }
 .mcq-link:hover { color: var(--accent-bbb); font-weight: 500; }
