@@ -1,0 +1,937 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBS_Final_2024-2025</title>
+    <link rel="stylesheet" href="../tools.css?v=1">
+</head>
+<body>
+
+<script>
+/* ---- Settings for THIS page only. Everything else lives in tools.js / tools.css ----
+   This page OWNS the questions of this year (all subjects together).
+   To make another year page: copy this file, change  subtitle  and  year,  and replace the questions.
+   Subject names, emoji and lecture names are read from the subject files below (they are NOT written here). */
+window.QUIZ_CONFIG = {
+    title:    "IBS 🧪",
+    subtitle: "Final · 2024-2025",
+    note:     "",                       // optional note shown under the heading
+
+    // The year name. Subject pages show it in their year filter, so write it exactly the way you want it shown.
+    year: "Final _ 2024-2025",
+
+    // ONE subject only in this year? Remove the // before the next line and write the subject name.
+    // The filter icon then disappears, and  s  is not needed in the questions (the subjects list below is ignored).
+    // subject: "Anatomy 🦴",
+
+    // Subjects shown in the filter list (order = order in the list). Write the emoji after the name.
+    // A subject used by a question but NOT written here is still added automatically (without emoji).
+    subjects: [
+        
+      "Pathology 🔬",
+      "Biochemistry 🧪",
+      "Micro-Immunity 🦠",
+      "Pharmacology 💊",
+      "Medical Education 📗",
+ 
+    ],
+
+    // Subject files: OPTIONAL. Only read (if they exist) for a subject's emoji and lecture names. Missing files are ignored.
+    subjectFiles: [
+       "IBS_Biochemistry.html",
+  "IBS_Pathology.html",
+  "IBS_Micro-Immunity.html",
+  "IBS_Medical-Education.html",
+  "IBS_Pharmacology.html",
+    ],
+
+    // Each question:  n = number (unique per subject inside THIS file) · s = subject name · l = lecture number
+    // A question that belongs to two years: copy it into both year files.
+    questions: [
+
+    {
+    n: 1,
+    s: 'Pathology',
+    l: 30,
+    q: 'A patient had a case of aortic aneurysm rupture. What is the reason why atherosclerosis raises the susceptibility of aortic aneurysm?',
+    o: [
+      'A. Endothelial hyperplasia within the tunica intima.',
+      'B. Hypertrophy of the outer adventitial layer.',
+      'C. Acute calcification of the vasa vasorum.',
+      'D. Smooth muscle atrophy due to atherosclerosis.',
+      'E. Direct destruction by viral elements.'
+    ],
+    a: 'D'
+  },
+  {
+    n: 2,
+    s: 'Pathology',
+    l: 15,
+    q: 'Papillary thyroid cancer is because of:',
+    o: [
+      'A. Chemical carcinogens.',
+      'B. Chronic inflammation.',
+      'C. Ionizing radiation.',
+      'D. Bacterial infection.',
+      'E. Nutritional deficiencies.'
+    ],
+    a: 'C'
+  },
+  {
+    n: 3,
+    s: 'Pathology',
+    l: 15,
+    q: 'Cervical cancer is caused by:',
+    o: [
+      'A. EBV',
+      'B. HPV',
+      'C. HBV',
+      'D. HIV',
+      'E. HTLV-1'
+    ],
+    a: 'B'
+  },
+  {
+    n: 4,
+    s: 'Pathology',
+    l: 15,
+    q: 'Nasopharyngeal carcinoma is because of:',
+    o: [
+      'A. HPV',
+      'B. CMV',
+      'C. HSV',
+      'D. VZV',
+      'E. EBV'
+    ],
+    a: 'E'
+  },
+  {
+    n: 5,
+    s: 'Pathology',
+    l: 5,
+    q: 'A patient with hypertension and hyperlipidemia is found to have right renal artery stenosis. Which of the following adaptive changes is most likely to occur in the affected (right) kidney?',
+    o: [
+      'A. Hypertrophy',
+      'B. Hyperplasia',
+      'C. Metaplasia',
+      'D. Atrophy',
+      'E. Dysplasia'
+    ],
+    a: 'D'
+  },
+  {
+    n: 6,
+    s: 'Pathology',
+    l: 20,
+    q: 'Known as the guardian of the genome?',
+    o: [
+      'A. RB gene',
+      'B. APC gene',
+      'C. p53',
+      'D. BRCA1',
+      'E. MYC'
+    ],
+    a: 'C'
+  },
+  {
+    n: 7,
+    s: 'Pathology',
+    l: 6,
+    q: 'A patient with hyperparathyroidism due to a parathyroid adenoma presents with tissue calcifications. Which of the following types of calcification is most likely present?',
+    o: [
+      'A. Dystrophic calcification.',
+      'B. Metastatic calcification.',
+      'C. Caseous calcification.',
+      'D. Sclerotic calcification.',
+      'E. Apoptotic calcification.'
+    ],
+    a: 'B'
+  },
+  {
+    n: 8,
+    s: 'Pathology',
+    l: 20,
+    q: 'Breast cancer due to a p53 mutation: what is disrupted?',
+    o: [
+      'A. Apoptosis irregularities.',
+      'B. Excessive proliferation.',
+      'C. Gene repair impairment.',
+      'D. Cellular adhesion loss.',
+      'E. Angiogenesis inhibition.'
+    ],
+    a: 'A'
+  },
+  {
+    n: 9,
+    s: 'Pathology',
+    l: 30,
+    q: 'Patient with HIV presented with a red, raised lesion. Diagnosis?',
+    o: [
+      'A. Melanoma',
+      'B. Basal cell carcinoma',
+      'C. Squamous cell carcinoma',
+      'D. Hemangioma',
+      'E. Kaposi sarcoma'
+    ],
+    a: 'E'
+  },
+  {
+    n: 10,
+    s: 'Pathology',
+    l: 13,
+    q: 'A woman is diagnosed with ovarian cancer that has metastasized to the peritoneum. What is the most likely route of spread?',
+    o: [
+      'A. Hematogenous spread.',
+      'B. Lymphatic spread.',
+      'C. Intraepithelial migration.',
+      'D. Seeding within body cavities.',
+      'E. Iatrogenic implantation.'
+    ],
+    a: 'D'
+  },
+  
+
+  
+ 
+  {
+    n: 11,
+    s: 'Pathology',
+    l: 30,
+    q: 'Morphological characteristic of a peptic ulcer?',
+    o: [
+      'A. Epithelial metaplasia only',
+      'B. Transmural granulomatous swelling',
+      'C. Intact mucosal architecture',
+      'D. Diffuse neoplastic sheets',
+      'E. Loss of mucosal cells'
+    ],
+    a: 'E'
+  },
+  {
+    n: 12,
+    s: 'Pathology',
+    l: 2,
+    q: 'A patient presents with symptoms including fever and night sweats. Further investigation reveals a positive result on an acid-fast stain culture. Which characteristic morphological pattern of necrosis is most likely to be observed in affected tissues?',
+    o: [
+      'A. Coagulative necrosis',
+      'B. Liquefactive necrosis',
+      'C. Fat necrosis',
+      'D. Caseous necrosis',
+      'E. Fibrinoid necrosis'
+    ],
+    a: 'D'
+  },
+  {
+    n: 13,
+    s: 'Pathology',
+    l: 15,
+    q: 'A 42-year-old man is concerned about a darkly pigmented mole on the back of his hand. The lesion has enlarged and bled during the past month. On physical examination, there is a slightly raised, darkly pigmented, 1.2-cm lesion on the dorsum of the right hand. The lesion is completely excised. Which of the following factors presents the greatest risk for the development of this neoplasm?',
+    o: [
+      'A. Allergy to latex.',
+      'B. Asbestos exposure.',
+      'C. Ultraviolet radiation.',
+      'D. Smoking tobacco.',
+      'E. Chemotherapy.'
+    ],
+    a: 'C'
+  },
+  {
+    n: 14,
+    s: 'Pathology',
+    l: 16,
+    q: 'Which of the following tumor markers is elevated in the blood of patients with liver cancer?',
+    o: [
+      'A. Carcinoembryonic antigen.',
+      'B. Alpha-fetoprotein.',
+      'C. CA-125.',
+      'D. Prostate-specific antigen.',
+      'E. Human chorionic gonadotropin.'
+    ],
+    a: 'B'
+  },
+  
+  {
+    n: 15,
+    s: 'Pathology',
+    l: 7,
+    q: 'A raised lesion that ruptures to release yellowish pus containing necrotic debris is most likely associated with which type of exudate?',
+     o: [
+      'A. Abscess',
+      'B. Granulomatous with caseation',
+      'C. Serous transudate',
+      'D. Suppurative purulent',
+      'E. Fibrinous inflammation'
+    ],
+    a: 'D'
+  },
+  {
+    n: 16,
+    s: 'Pathology',
+    l: 11,
+    q: 'A woman stands for a long time and after a while her lower limb and feet get swollen. Her tests are normal and physical examination is normal. What is the most likely cause of the swelling?',
+    o: [
+      'A. Increased hydrostatic pressure.',
+      'B. Decreased hydrostatic pressure.',
+      'C. Decreased oncotic pressure.',
+      'D. Lymphatic obstruction.',
+      'E. Sodium retention.'
+    ],
+    a: 'A'
+  },
+
+
+ {
+    n: 17,
+    s: 'Biochemistry',
+    l: 2,
+    q: 'HDL activated by which enzyme?',
+    o: [
+      'A. Lipoprotein lipase',
+      'B. ACAT',
+      'C. Pancreatic lipase',
+      'D. LCAT',
+      'E. Hepatic lipase'
+    ],
+    a: 'D'
+  },
+
+
+  {
+    n: 18,
+    s: 'Biochemistry',
+    l: 3,
+    q: 'Which process causes increased glucose levels?',
+    o: [
+      'A. Glycolysis',
+      'B. Glycogenesis',
+      'C. Gluconeogenesis',
+      'D. Pentose phosphate pathway',
+      'E. Lipogenesis'
+    ],
+    a: 'C'
+  },
+  {
+    n: 19,
+    s: 'Biochemistry',
+    l: 4,
+    q: 'Lipase activity is dependent on which of the following ions?',
+    o: [
+      'A. Sodium',
+      'B. Calcium',
+      'C. Potassium',
+      'D. Magnesium',
+      'E. Zinc'
+    ],
+    a: 'B'
+  },
+  {
+    n: 20,
+    s: 'Biochemistry',
+    l: 4,
+    q: 'Fumarase, which converts fumarate to malate, is referred to as which enzyme class?',
+    o: [
+      'A. Lyases',
+      'B. Transferases',
+      'C. Isomerases',
+      'D. Ligases',
+      'E. Oxidoreductases'
+    ],
+    a: 'A'
+  },
+  {
+    n: 21,
+    s: 'Biochemistry',
+    l: 1,
+    q: 'All of the following are required for the biosynthesis of glutamate except:',
+    o: [
+      'A. Ammonia',
+      'B. NADH',
+      'C. α-ketoglutarate',
+      'D. Glutamate dehydrogenase',
+      'E. ATP'
+    ],
+    a: 'E'
+  },
+  
+  {
+    n: 22,
+    s: 'Biochemistry',
+    l: 2,
+    q: 'What is the first step of beta-oxidation?',
+    o: [
+      'A. Hydration',
+      'B. Thiolysis',
+      'C. Dehydrogenation',
+      'D. Condensation',
+      'E. Reduction'
+    ],
+    a: 'C'
+  },
+  {
+    n: 23,
+    s: 'Biochemistry',
+    l: 1,
+    q: 'The amino acid that detoxifies benzoic acid to form hippuric acid is:',
+    o: [
+      'A. Arginine',
+      'B. Glycine',
+      'C. Aspartic acid',
+      'D. Alanine',
+      'E. Asparagine'
+    ],
+    a: 'B'
+  },
+  {
+    n: 24,
+    s: 'Biochemistry',
+    l: 4,
+    q: 'Which of the following is WRONG about competitive inhibitors?',
+    o: [
+      'A. They bind to the active site.',
+      'B. Their effect can be overcome by increasing substrate concentration.',
+      'C. They increase the apparent Km value.',
+      'D. They do not alter Vmax.',
+      'E. They are irreversible.'
+    ],
+    a: 'E'
+  },
+  {
+    n: 25,
+    s: 'Biochemistry',
+    l: 3,
+    q: 'Which of the following is TRUE regarding TCA?',
+    o: [
+      'A. 1 NADH per turn',
+      'B. 2 NADH per turn',
+      'C. 0 NADH per turn',
+      'D. 3 NADH per turn',
+      'E. 4 NADH per turn'
+    ],
+    a: 'D'
+  },
+  {
+    n: 26,
+    s: 'Biochemistry',
+    l: 3,
+    q: 'What percentage of daily caloric intake typically comes from carbohydrates in a ketogenic diet?',
+    o: [
+      'A. 5-10%',
+      'B. 20-30%',
+      'C. 45-55%',
+      'D. 60-70%',
+      'E. 80-90%'
+    ],
+    a: 'A'
+  },
+  {
+    n: 27,
+    s: 'Biochemistry',
+    l: 4,
+    q: 'Which of the following is NOT a biomarker for the liver?',
+    o: [
+      'A. Alanine aminotransferase.',
+      'B. Aspartate aminotransferase.',
+      'C. Acid phosphatase.',
+      'D. Alkaline phosphatase.',
+      'E. Bilirubin.'
+    ],
+    a: 'C'
+  },
+  {
+    n: 28,
+    s: 'Biochemistry',
+    l: 3,
+    q: 'Galactosemia?',
+    o: [
+      'A. Is an Infectious disease.',
+      'B. Is a Hereditary disease.',
+      'C. Is an Autoimmune disease.',
+      'D. Is a Nutritional deficiency disease.',
+      'E. Is a Neoplastic disease.'
+    ],
+    a: 'B'
+  },
+  {
+    n: 29,
+    s: 'Biochemistry',
+    l: 8,
+    q: 'How does alcohol contribute to the development of fatty liver?',
+    o: [
+      'A. By depleting ATP stores needed for lipid synthesis.',
+      'B. By directly accelerating VLDL secretion from liver cells.',
+      'C. By blocking the absorption of dietary carbohydrates.',
+      'D. By destroying the structural proteins of adipocytes.',
+      'E. By generating an excess of NADH, which inhibits the oxidation of fatty acids (triglycerides).'
+    ],
+    a: 'E'
+  },
+
+   {
+    n: 30,
+    s: 'Pharmacology',
+    l: 10,
+    q: 'Which of the following antibiotics is the treatment of choice for infection caused by Treponema pallidum? (case question)',
+    o: [
+      'A. Oral amoxicillin.',
+      'B. Intravenous gentamicin.',
+      'C. Oral ciprofloxacin.',
+      'D. Topical erythromycin.',
+      'E. Benzathine penicillin.'
+    ],
+    a: 'E'
+  },
+  {
+    n: 31,
+    s: 'Pharmacology',
+    l: 2,
+    q: 'Which of the following is TRUE about weak basic drugs?',
+     o: [
+      'A. Excreted more in alkaline urine.',
+      'B. Excreted more in acidic urine.',
+      'C. Highly ionized in alkaline environments.',
+      'D. Absorbed faster from acidic gastric contents.',
+      'E. Do not undergo renal clearance.'
+    ],
+    a: 'B'
+  },
+  
+  {
+    n: 32,
+    s: 'Pharmacology',
+    l: 13,
+    q: 'Which drug works only on Gram-negative bacteria?',
+    o: [
+      'A. Aztreonam',
+      'B. Vancomycin',
+      'C. Linezolid',
+      'D. Clindamycin',
+      'E. Daptomycin'
+    ],
+    a: 'A'
+  },
+  {
+    n: 33,
+    s: 'Pharmacology',
+    l: 13,
+    q: 'A patient with renal disease: which cephalosporin drugs are the best?',
+    o: [
+      'A. Cefazolin',
+      'B. Cefepime',
+      'C. Ceftriaxone',
+      'D. Ceftazidime',
+      'E. Cefuroxime'
+    ],
+    a: 'C'
+  },
+  {
+    n: 34,
+    s: 'Pharmacology',
+    l: 7,
+    q: 'Someone ate an unknown plant that caused dry mouth and mydriasis. Which type of drug/toxin is most likely responsible for these effects?',
+    o: [
+      'A. Sympatholytic.',
+      'B. Anticholinergic.',
+      'C. Cholinergic.',
+      'D. Nicotinic agonist.',
+      'E. Histaminergic.'
+    ],
+    a: 'B'
+  },
+  {
+    n: 35,
+    s: 'Pharmacology',
+    l: 20,
+    q: 'Teratogenic drugs like thalidomide are a part of which type of adverse effect?',
+    o: [
+      'A. Augmented effects',
+      'B. Bizarre effects',
+      'C. Chronic effects',
+      'D. End-of-use effects',
+      'E. Delayed effects'
+    ],
+    a: 'E'
+  },
+  {
+    n: 36,
+    s: 'Pharmacology',
+    l: 20,
+    q: 'What is the receptor of vitamin D?',
+    o: [
+      'A. G-protein coupled receptor',
+      'B. Tyrosine kinase receptor',
+      'C. Ligand-gated ion channel',
+      'D. Nuclear receptor',
+      'E. Cytokine receptor'
+    ],
+    a: 'D'
+  },
+  {
+    n: 37,
+    s: 'Pharmacology',
+    l: 9,
+    q: 'Which of the following is a decarboxylase inhibitor used for Parkinson\'s disease?',
+    o: [
+      'A. Pramipexole',
+      'B. Selegiline',
+      'C. Carbidopa',
+      'D. Entacapone',
+      'E. Amantadine'
+    ],
+    a: 'C'
+  },
+  
+  {
+    n: 38,
+    s: 'Pharmacology',
+    l: 20,
+    q: 'Which drug has dual action, stimulating guanylate cyclase and synergizing with endogenous nitric oxide?',
+    o: [
+      'A. Riociguat',
+      'B. Sildenafil',
+      'C. Nitroglycerin',
+      'D. Hydralazine',
+      'E. Sodium nitroprusside'
+    ],
+    a: 'A'
+  },
+  {
+    n: 39,
+    s: 'Pharmacology',
+    l: 11,
+    q: 'Which of the following is used for nasal congestion (nasal decongestant)?',
+    o: [
+      'A. Cetirizine',
+      'B. Fluticasone',
+      'C. Ipratropium',
+      'D. Xylometazoline',
+      'E. Montelukast'
+    ],
+    a: 'D'
+  },
+  {
+    n: 40,
+    s: 'Pharmacology',
+    l: 12,
+    q: 'Which drug has a short duration of action and is used during surgery?',
+    o: [
+      'A. Propranolol',
+      'B. Metoprolol',
+      'C. Esmolol',
+      'D. Atenolol',
+      'E. Carvedilol'
+    ],
+    a: 'C'
+  },
+  
+  {
+    n: 41,
+    s: 'Pharmacology',
+    l: 10,
+    q: 'Which drug is used in empiric therapy?',
+    o: [
+      'A. Penicillin V',
+      'B. Isoniazid',
+      'C. Methotrexate',
+      'D. Cyclosporine',
+      'E. Meropenem'
+    ],
+    a: 'E'
+  },
+ 
+  {
+    n: 42,
+    s: 'Pharmacology',
+    l: 14,
+    q: 'Co-trimoxazole in G6PD deficiency patients can causes:',
+    o: [
+      'A. Aplastic anemia',
+      'B. Megaloblastic anemia',
+      'C. Hemolytic anemia',
+      'D. Iron deficiency anemia',
+      'E. Pernicious anemia'
+    ],
+    a: 'C'
+  },
+  {
+    n: 43,
+    s: 'Pharmacology',
+    l: 11,
+    q: 'Which drug is used for asthma?',
+    o: [
+      'A. Salbutamol',
+      'B. Propranolol',
+      'C. Codeine',
+      'D. Indomethacin',
+      'E. Digoxin'
+    ],
+    a: 'A'
+  },
+ 
+  {
+    n: 44,
+    s: 'Pharmacology',
+    l: 4,
+    q: 'Which drug is not an enzyme inducer?',
+    o: [
+      'A. Phenytoin',
+      'B. Carbamazepine',
+      'C. Rifampin',
+      'D. Phenobarbital',
+      'E. Cimetidine'
+    ],
+    a: 'E'
+  },
+  
+
+
+
+  {
+    "n": 45,
+    "s": "Micro-Immunity",
+    "l": 12,
+    "q": "Immunoglobulin G (IgG) crosses the placenta to the fetus in which condition?",
+    "o": [
+      "A. Systemic lupus erythematosus.",
+      'B. Sarcoidosis.',
+      'C. Hashimoto\'s thyroiditis.',
+      'D. Grave\'s disease.',
+      'E. Autoimmune anemia.'
+    ],
+    a: 'D'
+  },
+  {
+    n: 46,
+    s: 'Micro-Immunity',
+    l: 7,
+    q: 'Which factor is primarily involved in preventing the initiation of the alternative pathway of the complement system?',
+    o: [
+      'A. Factor B',
+      'B. Factor D',
+      'C. Factor H',
+      'D. C3b',
+      'E. Properdin'
+    ],
+    a: 'C'
+  },
+  {
+    n: 47,
+    s: 'Micro-Immunity',
+    l: 11,
+    q: 'Which cytokine is known for its anti-inflammatory effects?',
+    o: [
+      'A. IL-1',
+      'B. IL-10',
+      'C. TNF-alpha',
+      'D. IL-6',
+      'E. IL-12'
+    ],
+    a: 'B'
+  },
+  {
+    n: 48,
+    s: 'Micro-Immunity',
+    l: 18,
+    q: 'A patient diagnosed with Systemic Lupus Erythematosus (SLE) is found to have a significant deficiency in the complement component C3. Which of the following processes would be primarily impaired in this patient due to the C3 deficiency?',
+    o: [
+      'A. T-cell activation.',
+      'B. Antibody class switching.',
+      'C. Mast cell degranulation.',
+      'D. Interferon production.',
+      'E. Opsonization.'
+    ],
+    a: 'E'
+  },
+  {
+    n: 49,
+    s: 'Micro-Immunity',
+    l: 14,
+    q: 'Which of the following statements is WRONG regarding Interferon-gamma (IFN-gamma)?',
+    o: [
+      'A. It inhibits TH1 differentiation and activates TH2 proliferation.',
+      'B. It activates macrophages.',
+      'C. It enhances MHC expression.',
+      'D. It is secreted by NK cells.',
+      'E. It promotes class switching to certain IgG subclasses.'
+    ],
+    a: 'A'
+  },
+  {
+    n: 50,
+    s: 'Micro-Immunity',
+    l: 16,
+    q: 'Which of the following statements about progesterone is TRUE?',
+    o: [
+      'A. It acts as a pro-inflammatory agent.',
+      'B. It enhances T cell cytotoxic activity.',
+      'C. It stimulates complement system activation.',
+      'D. It is an immunosuppressive agent.',
+      'E. It upregulates MHC Class II expression.'
+    ],
+    a: 'D'
+  },
+  {
+    n: 51,
+    s: 'Micro-Immunity',
+    l: 2,
+    q: 'What is the specific name given to monocytes that migrate into the liver tissue and differentiate there?',
+    o: [
+      'A. Microglia.',
+      'B. Alveolar macrophages.',
+      'C. Kupffer cells.',
+      'D. Measangial cells.',
+      'E. Osteoclasts.'
+    ],
+    a: 'C'
+  },
+  {
+    n: 52,
+    s: 'Micro-Immunity',
+    l: 8,
+    q: 'Vaccination is considered a form of:',
+    o: [
+      'A. Natural passive acquired immunity.',
+      'B. Artificial active acquired immunity.',
+      'C. Natural active acquired immunity.',
+      'D. Artificial passive acquired immunity.',
+      'E. Innate non-specific immunity.'
+    ],
+    a: 'B'
+  },
+  {
+    n: 53,
+    s: 'Micro-Immunity',
+    l: 10,
+    q: 'The tests known as RIST and RAST are primarily used to quantify or measure:',
+     o: [
+      'A. IgM antibodies.',
+      'B. IgG antibodies.',
+      'C. IgA antibodies.',
+      'D. IgD antibodies.',
+      'E. IgE antibodies.'
+    ],
+    a: 'E'
+  },
+  {
+    n: 54,
+    s: 'Micro-Immunity',
+    l: 4,
+    q: 'Which class of antibody is found in external secretions?',
+    o: [
+      'A. IgD',
+      'B. IgE',
+      'C. IgM',
+      'D. IgA',
+      'E. IgG'
+    ],
+    a: 'D'
+  },
+  {
+    n: 55,
+    s: 'Micro-Immunity',
+    l: 12,
+    q: 'Functional deficiency of T cells (Tregs) and abnormal expression of the Foxp3 gene is associated with increased susceptibility to:',
+    o: [
+      'A. Rheumatoid arthritis.',
+      'B. Type 1 diabetes mellitus.',
+      'C. Myasthenia Gravis.',
+      'D. Systemic sclerosis.',
+      'E. Multiple sclerosis.'
+    ],
+    a: 'B'
+  },
+  {
+    n: 56,
+    s: 'Micro-Immunity',
+    l: 9,
+    q: 'Which of the following does not have MHC class I?',
+    o: [
+      'A. RBCs',
+      'B. Macrophages',
+      'C. T cells',
+      'D. Hepatocytes',
+      'E. Neutrophils'
+    ],
+    a: 'A'
+  },
+  {
+    n: 57,
+    s: 'Micro-Immunity',
+    l: 12,
+    q: 'Which of the following conditions is the marker ACCP most specific for?',
+    o: [
+      'A. Systemic lupus erythematosus.',
+      'B. Rheumatoid arthritis.',
+      'C. Osteoarthritis.',
+      'D. Ankylosing spondylitis.',
+      'E. Gouty arthritis.'
+    ],
+    a: 'B'
+  },
+  {
+    n: 58,
+    s: 'Micro-Immunity',
+    l: 3,
+    q: 'At the initiation of the immune response, bacterial surface antigens known as PAMPs bind to which specific type of host cell surface receptor?',
+    o: [
+      'A. T-cell receptor.',
+      'B. B-cell receptor.',
+      'C. Complement receptor 1.',
+      'D. Fc receptor.',
+      'E. Toll-like receptor.'
+    ],
+    a: 'E'
+  },
+  {
+    n: 59,
+    s: 'Micro-Immunity',
+    l: 18,
+    q: 'A patient has a defect in CD18 integrin. Which step of the inflammatory process will be impaired?',
+    o: [
+      'A. Rolling.',
+      'B. Diapedesis.',
+      'C. Chemotaxis.',
+      'D. Adhesion.',
+      'E. Phagocytosis.'
+    ],
+    a: 'D'
+  },
+  {
+    n: 60,
+    s: 'Micro-Immunity',
+    l: 12,
+    q: 'Postinfection glomerulonephritis, Based on its underlying mechanism and broad classification within immune disorders, which term best describes its nature?',
+    o: [
+      'A. Localized.',
+      'B. Organ-specific.',
+      'C. Systemic.',
+      'D. Transient.',
+      'E. Innate.'
+    ],
+    a: 'C'
+  },
+  {
+    n: 61,
+    s: 'Micro-Immunity',
+    l: 6,
+    q: 'Which part of complement system contribute as attracting neutrophils?',
+    o: [
+      'A. C3b',
+      'B. C5a',
+      'C. C4a',
+      'D. C2a',
+      'E. C9'
+    ],
+    a: 'B'
+  },
+
+
+
+
+    ]
+};
+</script>
+<script src="../tools.js?v=3"></script>
+</body>
+</html>

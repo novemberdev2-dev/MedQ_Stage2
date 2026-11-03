@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBS_Quiz_2026-2027</title>
+    <link rel="stylesheet" href="../tools.css?v=1">
+</head>
+<body>
+
+<script>
+/* ---- Settings for THIS page only. Everything else lives in tools.js / tools.css ----
+   This page OWNS the questions of this year (all subjects together).
+   To make another year page: copy this file, change  subtitle  and  year,  and replace the questions.
+   Subject names, emoji and lecture names are read from the subject files below (they are NOT written here). */
+window.QUIZ_CONFIG = {
+    title:    "IBS 🧪",
+    subtitle: "Quiz · 2026-2027",
+    note:     "",                       // optional note shown under the heading
+
+    // The year name. Subject pages show it in their year filter, so write it exactly the way you want it shown.
+    year: "Quiz _ 2026-2027",
+
+    // ONE subject only in this year? Remove the // before the next line and write the subject name.
+    // The filter icon then disappears, and  s  is not needed in the questions (the subjects list below is ignored).
+    // subject: "Anatomy 🦴",
+
+    // Subjects shown in the filter list (order = order in the list). Write the emoji after the name.
+    // A subject used by a question but NOT written here is still added automatically (without emoji).
+    subjects: [
+        
+      "Pathology 🔬",
+      "Biochemistry 🧪",
+      "Micro-Immunity 🦠",
+      "Pharmacology 💊",
+      "Medical Education 📗",
+ 
+    ],
+
+    // Subject files: OPTIONAL. Only read (if they exist) for a subject's emoji and lecture names. Missing files are ignored.
+    subjectFiles: [
+       "IBS_Biochemistry.html",
+  "IBS_Pathology.html",
+  "IBS_Micro-Immunity.html",
+  "IBS_Medical-Education.html",
+  "IBS_Pharmacology.html",
+    ],
+
+    // Each question:  n = number (unique per subject inside THIS file) · s = subject name · l = lecture number
+    // A question that belongs to two years: copy it into both year files.
+    questions: [
+
+ { n: 1, s: "Micro-Immunity", l: 3, q: "LPS binds with a protein present normally in the plasma called LPS-binding protein. This binding protein transfers LPS to a receptor on the surface of macrophages called:", o: ["A. CD3", "B. CD14", "C. CD16", "D. CD18", "E. CD15"], a: "B" },
+
+{ n: 2, s: "Micro-Immunity", l: 3, q: "TLR2 signals the presence of:", o: ["A. Gram-positive bacteria", "B. Gram-negative bacteria", "C. Parasites", "D. Viruses", "E. Fungi"], a: "A" },
+
+{ n: 3, s: "Micro-Immunity", l: 3, q: "Biological factor is one of the following:", o: ["A. Fatty acids of skin", "B. Lysosome", "C. C-reactive protein", "D. Spermine and zinc", "E. Low pH"], a: "C" },
+
+{ n: 4, s: "Micro-Immunity", l: 4, q: "FcαRI is a receptor for:", o: ["A. IgM", "B. IgG", "C. IgA", "D. IgD", "E. IgE"], a: "C" },
+
+{ n: 5, s: "Micro-Immunity", l: 4, q: "It is the lowest among all immunoglobulins:", o: ["A. IgM", "B. IgG", "C. IgA", "D. IgD", "E. IgE"], a: "E" },
+
+{ n: 6, s: "Micro-Immunity", l: 4, q: "The major immunoglobulin present in mucosal secretions is:", o: ["A. IgM", "B. IgG", "C. IgA", "D. IgD", "E. IgE"], a: "C" },
+
+{ n: 7, s: "Micro-Immunity", l: 4, q: "Which receptor on macrophages is involved in recognition of the Fc portion of IgG?", o: ["A. FcαRI", "B. FcεRI", "C. FcγRI", "D. CD3", "E. CD4"], a: "C" },
+
+{ n: 8, s: "Micro-Immunity", l: 3, q: "TLR4 primarily recognizes:", o: ["A. LPS", "B. Flagellin", "C. dsRNA", "D. CpG DNA", "E. Fungal β-glucan"], a: "A" },
+
+{ n: 9, s: "Micro-Immunity", l: 4, q: "Which immunoglobulin is mainly expressed on the surface of naive B cells together with IgM?", o: ["A. IgA", "B. IgD", "C. IgE", "D. IgG", "E. IgG4"], a: "B" },
+
+{ n: 10, s: "Micro-Immunity", l: 4, q: "Which immunoglobulin has the lowest concentration in serum?", o: ["A. IgG", "B. IgA", "C. IgM", "D. IgD", "E. IgE"], a: "E" },
+ 
+{ n: 11, s: "Micro-Immunity", l: 4, q: "Which immunoglobulin is mainly involved in immediate hypersensitivity reactions?", o: ["A. IgA", "B. IgG", "C. IgE", "D. IgD", "E. IgM"], a: "C" },
+
+{ n: 12, s: "Micro-Immunity", l: 3, q: "Type I interferons, particularly IFN-α, are important in defense against:", o: ["A. Viruses", "B. Helminths", "C. Extracellular bacteria", "D. Allergens", "E. Protozoa"], a: "A" },
+
+{ n: 13, s: "Micro-Immunity", l: 3, q: "LPS-binding protein (LBP) transfers LPS to:", o: ["A. CD3", "B. CD4", "C. CD14", "D. CD8", "E. CD28"], a: "C" },
+
+{ n: 14, s: "Micro-Immunity", l: 4, q: "Which immunoglobulin has the highest molecular weight?", o: ["A. IgA", "B. IgD", "C. IgE", "D. IgG", "E. IgM"], a: "E" },
+
+{ n: 15, s: "Micro-Immunity", l: 3, q: "Which of the following is a PAMP?", o: ["A. LPS", "B. IgG", "C. C3b", "D. MHC II", "E. CD4"], a: "A" },
+
+{ n: 16, s: "Micro-Immunity", l: 4, q: "Which immunoglobulin mainly behaves as an opsonin?", o: ["A. IgA", "B. IgG", "C. IgE", "D. IgD", "E. IgM"], a: "B" },
+
+{ n: 17, s: "Micro-Immunity", l: 3, q: "Type I interferons, particularly IFN-γ, are important in activating:", o: ["A. T cells", "B. B cells", "C. Mast cells", "D. Macrophages", "E. Endothelial cells"], a: "D" },
+
+
+{ n: 18, s: "Micro-Immunity", l: 4, q: "Which immunoglobulin behaves as a coreceptor?", o: ["A. IgA", "B. IgD", "C. IgE", "D. IgG", "E. IgM"], a: "B" },
+
+{ n: 19, s: "Micro-Immunity", l: 3, q: "Which of the following is a DAMP?", o: ["A. LPS", "B. IgG", "C. C3b", "D. MHC II", "E. Nucleic acid"], a: "E" },
+{ n: 20, s: "Micro-Immunity", l: 3, q: "Which cell is most strongly associated with defense against helminthic parasites?", o: ["A. Neutrophil", "B. Eosinophil", "C. Basophil", "D. Monocyte", "E. Platelet"], a: "B" },
+
+{ n: 21, s: "Micro-Immunity", l: 4, q: "Which receptor on macrophages is involved in recognition of the Fc portion of IgA?", o: ["A. FcαRI", "B. FcεRI", "C. FcγRI", "D. CD3", "E. CD4"], a: "A" },
+
+{ n: 22, s: "Micro-Immunity", l: 3, q: "Which cell is the most important professional scavenger cell for activation of naïve T cells?", o: ["A. Neutrophil", "B. Eosinophil", "C. Dendritic cell", "D. Erythrocyte", "E. Platelet"], a: "C" },
+
+{ n: 23, s: "Micro-Immunity", l: 3, q: "Natural killer (NK) cells are particularly important for killing:", o: ["A. Extracellular bacteria", "B. Helminths", "C. Tumor cells", "D. Erythrocytes", "E. Plasma cells"], a: "C" },
+
+{ n: 24, s: "Micro-Immunity", l: 3, q: "Which of the following is a component of innate immunity?", o: ["A. Memory B cells", "B. Antibody production", "C. Skin barrier", "D. Plasma cells", "E. T-cell receptor"], a: "C" },
+
+
+{ n: 25, s: "Micro-Immunity", l: 4, q: "Which immunoglobulin is mainly involved in eliminates helminth?", o: ["A. IgA", "B. IgG", "C. IgM", "D. IgE", "E. IgD"], a: "D" },
+{ n: 26, s: "Micro-Immunity", l: 3, q: "Which of the following is the primary function of Toll-like receptors (TLRs) in innate immunity?", o: ["A. Production of antibodies.", "B. Recognition of PAMPs.", "C. Generation of immunological memory.", "D. Rearrangement of T-cell receptors.", "E. Direct production of complement proteins."], a: "B" },
+{ n: 27, s: "Micro-Immunity", l: 3, q: "Which biological factor is most important for preventing bacterial colonization of the skin?", o: ["A. Antibodies", "B. Normal microbiota", "C. Complement C9", "D. T lymphocytes", "E. Erythrocytes"], a: "B" },
+{ n: 28, s: "Micro-Immunity", l: 3, q: "Which antimicrobial protein is found in tears, saliva, and breast milk?", o: ["A. Lysozyme", "B. Fibrinogen", "C. Hemoglobin", "D. Albumin", "E. Myosin"], a: "A" },
+{ n: 29, s: "Micro-Immunity", l: 3, q: "Which immunoglobulin isn't behaved as opsonin?", o: ["A. IgA", "B. IgG", "C. IgE", "D. IgD", "E. IgM"], a: "D" },
+{ n: 30, s: "Micro-Immunity", l: 3, q: "Interferon-gamma, are important in activate:", o: ["A. T cell", "B. B cells", "C. Mast cells", "D. Macrophage", "E. Endothelial cells"], a: "D" },
+{ n: 31, s: "Micro-Immunity", l: 3, q: "Which of the following isn`t a PAMP:", o: ["A. LPS", "B. Zymosan", "C. Fungi", "D. Peptidoglycan", "E. Nucleic acid"], a: "C" },
+{ n: 32, s: "Micro-Immunity", l: 12, q: "Which statements correctly describe self-tolerance?", o: ["A. It prevents harmful immune responses against self-antigens.", "B. It is established only after lymphocytes leave the thymus and bone marrow.", "C. It involves only central mechanisms.", "D. It means that autoreactive lymphocytes can never be produced.", "E. Failure of self-tolerance can not contribute to autoimmune disease."], a: "A" },
+{ n: 33, s: "Micro-Immunity", l: 12, q: "Which statement about central tolerance IS NOT TRUE?", o: ["A. T-cell central tolerance occurs mainly in the thymus.", "B. B-cell central tolerance occurs mainly in the bone marrow.", "C. Negative selection eliminates many strongly self-reactive T cells.", "D. Central tolerance completely eliminates every autoreactive lymphocyte.", "E. Receptor editing can occur during B-cell development."], a: "D" },
+{ n: 34, s: "Micro-Immunity", l: 12, q: "During T-cell development, which statement IS NOT TRUE?", o: ["A. Positive selection ensures that T cells can recognize self-MHC.", "B. Negative selection removes many strongly self-reactive T cells.", "C. All T cells that recognize self-MHC are deleted.", "D. Positive selection occurs before negative selection.", "E. Negative selection occurs primarily in the thymic medulla."], a: "C" },
+{ n: 35, s: "Micro-Immunity", l: 12, q: "A healthy person normally has lymphocytes that can potentially recognize many different antigens. However, the immune system usually does not attack the body's own tissues.What is this state called?", o: ["A. Immune deficiency", "B. Immune tolerance", "C. Hypersensitivity", "D. Immune surveillance", "E. Immune memory"], a: "B" },
+{ n: 36, s: "Micro-Immunity", l: 12, q: "Which type of tolerance is primarily involved in preventing potentially autoreactive lymphocyte from entering the peripheral immune system?", o: ["A. Oral tolerance", "B. Peripheral tolerance", "C. Central tolerance", "D. Maternal tolerance", "E. Acquired tolerance"], a: "C" },
+{ n: 37, s: "Micro-Immunity", l: 12, q: "A developing T cell in the thymus must first demonstrate that its T-cell receptor can recognize self-MHC molecules. Later, strongly self-reactive cells are eliminated. Which sequence correctly describes these two processes?", o: ["A. Negative selection followed by positive selection.", "B. Positive selection followed by negative selection.", "C. Anergy followed by positive selection.", "D. Treg activation followed by receptor editing.", "E. B-cell deletion followed by T-cell activation."], a: "B" },
+{ n: 38, s: "Micro-Immunity", l: 12, q: "A child develops several autoimmune diseases affecting endocrine organs. Genetic testing demonstrates a defect in the AIRE gene.Which mechanism is most directly impaired?", o: ["A. T-cell positive selection", "B. Complement activation", "C. Expression of tissue-specific antigens in the thymus", "D. Antibody class switching", "E. T-cell costimulation through CD28"], a: "C" },
+{ n: 39, s: "Micro-Immunity", l: 12, q: "A newly developing B cell produces a B-cell receptor that strongly recognizes a self-antigen. Which mechanism can allow the B cell to change the specificity of its receptor and potentially avoid autoreactivity?", o: ["A. Receptor editing", "B. Positive selection", "C. Class switching", "D. Complement activation", "E. Somatic hypermutation"], a: "A" },
+
+  { 
+    n: 40, 
+    s: "Micro-Immunity", 
+    l: 14,
+    q: "Which cytokine is known as a cachectin?", 
+    o: [""], 
+    a: "TNF-α"
+  },
+  { 
+    n: 41, 
+    s: "Micro-Immunity", 
+    l: 14,
+    q: "People with a defective receptor for _____ are susceptible for mycobacterial infection.", 
+    o: [""], 
+    a: "IFN-γ"
+  },
+  { 
+    n: 42, 
+    s: "Micro-Immunity", 
+    l: 14,
+    q: "Name one mechanism of allergen-specific immunotherapy.", 
+    o: [""], 
+    a: "Induction of allergen-specific regulatory T cells (Tregs) / Production of IgG4 blocking antibodies."
+  },
+
+
+  { n: 43, s: "Micro-Immunity", l: 14, q: "Which of the following cytokines is involved in chemoresistance?", o: ["A. TNF-alpha", "B. IL-6", "C. TGF-beta", "D. IL-10", "E. IL-2"], a: "B" },
+  { n: 44, s: "Micro-Immunity", l: 14, q: "Which of the following cytokines is antiviral and anti-tumor?", o: ["A. IL-4", "B. IL-12", "C. IFN-y", "D. IL-10", "E. TGF-beta"], a: "C" },
+
+  { 
+  n: 45, 
+  s: "Micro-Immunity", 
+  l: 14,
+  q: "Write one advantage and disadvantage of immunotherapy.", 
+  o: [""], 
+  a: "Advantage: Fewer side effects than traditional treatments. \n\n Disadvantage: Treatment costs are high."
+},
+
+{ 
+  n: 46, 
+  s: "Micro-Immunity", 
+  l: 14,
+  q: "Which cytokine is related to Chronic Granulomatous Disease (CGD)?", 
+  o: [""], 
+  a: "Interferon-gamma (IFN-γ)."
+},
+{ 
+  n: 47, 
+  s: "Micro-Immunity", 
+  l: 14,
+  q: "Which antibody is blocked to prevent its binding to mast cells and basophils?", 
+  o: [""], 
+  a: "IgE."
+},
+{ 
+  n: 48, 
+  s: "Micro-Immunity", 
+  l: 14,
+  q: "Define synergistic action of cytokines.", 
+  o: [""], 
+  a: "When two or more cytokines act together to produce a greater effect on a cell."
+},
+{ 
+  n: 49, 
+  s: "Micro-Immunity", 
+  l: 14,
+  q: "One cytokine produces different effects on different target cells. What is this property called?", 
+  o: [""], 
+  a: "Pleiotropy."
+},
+{ 
+  n: 50, 
+  s: "Micro-Immunity", 
+  l: 14,
+  q: "Give one example of an anti-inflammatory cytokine.", 
+  o: [""], 
+  a: "Interleukin-10 (IL-10)."
+},
+{ 
+  n: 51, 
+  s: "Micro-Immunity", 
+  l: 14,
+  q: "Write one mechanism of action of oncolytic viruses.", 
+  o: [""], 
+  a: "Selective replication within tumor cells leading to direct lysis (destruction) of the cancer cells, which then releases tumor-associated antigens to stimulate a systemic anti-tumor immune response."
+},
+
+{ n: 52, s: "Pharmacology", l: 10, q: "Which antibiotic can penetrate the cerebrospinal fluid (CSF) even without inflammation?", o: ["A. Cefazolin", "B. Meropenem", "C. Vancomycin", "D. Gentamicin", "E. Cefuroxime"], a: "B" },
+
+{ n: 53, s: "Pharmacology", l: 13, q: "Red man syndrome and anaphylactoid reactions are adverse effects of which drug?", o: ["A. Vancomycin", "B. Ceftriaxone", "C. Meropenem", "D. Azithromycin", "E. Amoxicillin"], a: "A" },
+
+{ n: 54, s: "Pharmacology", l: 13, q: "Which antibiotic is excreted through both bile and urine?", o: ["A. Gentamicin", "B. Penicillin G", "C. Vancomycin", "D. Cefazolin", "E. Ceftriaxone"], a: "E" },
+
+{ n: 55, s: "Pharmacology", l: 10, q: "Which drug is used for the chemoprophylaxis of rheumatic fever?", o: ["A. Amoxicillin", "B. Procaine penicillin G", "C. Benzathine penicillin G", "D. Ampicillin", "E. Piperacillin"], a: "C" },
+
+{ n: 56, s: "Pharmacology", l: 13, q: "Which antibiotic is commonly used to treat bacterial meningitis because it penetrates the CSF?", o: ["A. Cefazolin", "B. Gentamicin", "C. Ceftriaxone", "D. Dicloxacillin", "E. Penicillin V"], a: "C" },
+
+{ n: 57, s: "Pharmacology", l: 10, q: "Which of the following penicillins is active against Pseudomonas aeruginosa?", o: ["A. Penicillin V", "B. Oxacillin", "C. Piperacillin", "D. Dicloxacillin", "E. Benzathine penicillin G"], a: "C" },
+
+{ n: 58, s: "Pharmacology", l: 10, q: "Which extended-spectrum penicillin can be used to treat Salmonella infections?", o: ["A. Oxacillin", "B. Dicloxacillin", "C. Penicillin V", "D. Ampicillin", "E. Benzathine penicillin G"], a: "D" },
+
+{ n: 59, s: "Pharmacology", l: 10, q: "Which type of penicillin is commonly used against Pseudomonas aeruginosa?", o: ["A. Piperacillin", "B. Penicillin V", "C. Oxacillin", "D. Dicloxacillin", "E. Benzathine penicillin G"], a: "A" },
+
+{ n: 60, s: "Pharmacology", l: 10, q: "Which antibiotic exerts its action by disrupting the bacterial outer cell membrane?", o: ["A. Ceftriaxone", "B. Amoxicillin", "C. Azithromycin", "D. Colistin", "E. Ciprofloxacin"], a: "D" },
+
+{ n: 61, s: "Pharmacology", l: 10, q: "Which of the following antibiotics can be used to treat susceptible Salmonella infections?", o: ["A. Vancomycin", "B. Amoxicillin", "C. Clindamycin", "D. Metronidazole", "E. Teicoplanin"], a: "B" },
+
+{ n: 62, s: "Pharmacology", l: 13, q: "Which of the following antibiotics is associated with Clostridioides difficile colitis?", o: ["A. Nitrofurantoin", "B. Fosfomycin", "C. Trimethoprim", "D. Ceftriaxone", "E. Doxycycline"], a: "D" },
+{ n: 63, s: "Pharmacology", l: 14, q: "Why is moxifloxacin not indicated for the treatment of urinary tract infections?", o: [""], a: "Because moxifloxacin does not concentrate in urine." },
+{ n: 64, s: "Pharmacology", l: 14, q: "Explain why is sulfonamide contraindicated for children or during pregnancy?", o: [""], a: "Sulfonamides displace bilirubin from albumin, increasing free unconjugated bilirubin that can enter the newborn’s brain and cause kernicterus." },
+{ n: 65, s: "Pharmacology", l: 14, q: "Why Levofloxacin and moxifloxacin are sometimes referred to as respiratory fluoroquinolones?", o: [""], a: "Because they have excellent activity against Streptococcus pneumoniae, which is a common cause of community-acquired pneumonia (CAP)." },
+{ n: 66, s: "Pharmacology", l: 14, q: "Write down three of the most important (severe) side effects of fluoroquinolones.", o: [""], a: "1. Phototoxicity.\n2. Cartilage damage.\n3. Hypoglycemia." },
+
+
+    { 
+  n: 67, 
+  s: "Biochemistry", 
+  l: 3,
+  q: "How many ATPs are produced from converting pyruvate to acetyl-CoA?", 
+  o: [""], 
+  a: "3 ATPs"
+},
+
+{ 
+  n: 68, 
+  s: "Biochemistry", 
+  l: 3,
+  q: "Where does this process (converting pyruvate to acetyl-CoA) occur?", 
+  o: [""], 
+  a: "Mitochondria."
+},
+{ 
+  n: 69, 
+  s: "Biochemistry", 
+  l: 3,
+  q: "How many NADH molecules are produced in the Krebs cycle?", 
+  o: [""], 
+  a: "3 NADHs"
+},
+
+{ 
+  n: 70, 
+  s: "Biochemistry", 
+  l: 3,
+  q: "Write the first and end products of the Krebs cycle.", 
+  o: [""], 
+  a: "First: Citrate \n\nEnd: Oxaloacetate"
+},
+    
+{ 
+  n: 71, 
+  s: "Biochemistry", 
+  l: 3,
+  q: "How many NADH molecules are generated during the complete aerobic oxidation of pyruvate to oxaloacetate through Krebs Cycle (One Pyruvate)?", 
+  o: [""], 
+  a: "4 NADH Molecules."
+},
+    
+  { 
+    n: 72, 
+    s: "Biochemistry", 
+    l: 3,
+    q: "How many NADH molecules are produced during complete aerobic oxidation of one glucose molecule (starting from glucose to acetyl coenzyme A)?", 
+    o: [""], 
+    a: "4 NADH molecules"
+  },
+  { 
+    n: 73, 
+    s: "Biochemistry", 
+    l: 3,
+    q: "How many NADH molecules are produced from the complete aerobic oxidation of one glucose molecule (starting from pyruvate to the end of the Krebs cycle)?", 
+    o: [""], 
+    a: "8 NADH molecules"
+  },
+
+  { 
+  n:  74, 
+  s: "Pathology", 
+  l: 8,
+  q: "The two main components of granulation tissue are .......... and proliferating .......... .", 
+  o: [""], 
+  a: "Newly formed blood vessels and fibroblasts."
+},
+{ 
+  n: 75, 
+  s: "Pathology", 
+  l: 13,
+  q: "............. is the most reliable feature that distinguishes a malignant tumor from a benign tumor.", 
+  o: [""], 
+  a: "Metastasis. \n\n NOTE: invasiveness is the second most reliable answer, and metastasis is the most correct/reliable answer."
+},
+{ 
+  n: 76, 
+  s: "Pathology", 
+  l: 8,
+  q: "............ results from excessive proliferation of .......... that extends beyond the boundaries of the original wound during healing.", 
+  o: [""], 
+  a: "Keloid, collagen"
+},
+{ 
+  n: 77, 
+  s: "Pathology", 
+  l: 13,
+  q: "Lack of differentiation is called .........", 
+  o: [""], 
+  a: "Anaplasia"
+},
+{ 
+  n: 78, 
+  s: "Pathology", 
+  l: 8,
+  q: "........... results from excessive deposition of .......... during wound healing and usually remains within the boundaries of the original wound.", 
+  o: [""], 
+  a: "Hypertrophic scar, collagen"
+},
+{ 
+  n: 79, 
+  s: "Pathology", 
+  l: 13,
+  q: "When dysplastic changes are marked and involve the entire thickness of the epithelium, it is called ................. .", 
+  o: [""], 
+  a: "Carcinoma in situ"
+},
+{ 
+  n: 80, 
+  s: "Pathology", 
+  l: 8,
+  q: "............... formation is a type of........... healing, occurs when tissue regeneration is incomplete during wound healing.", 
+  o: [""], 
+  a: "Scar, Secondary intension"
+},
+{ 
+  n: 81, 
+  s: "Pathology", 
+  l: 13,
+  q: "The .............. of parenchymal cells refers to the extent to which they resemble their corresponding normal cells.", 
+  o: [""], 
+  a: "Differentiation"
+},
+
+
+  
+    ]
+};
+</script>
+<script src="../tools.js?v=3"></script>
+</body>
+</html>

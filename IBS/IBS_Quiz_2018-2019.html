@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBS_Quiz_2018-2019</title>
+    <link rel="stylesheet" href="../tools.css?v=1">
+</head>
+<body>
+
+<script>
+/* ---- Settings for THIS page only. Everything else lives in tools.js / tools.css ----
+   This page OWNS the questions of this year (all subjects together).
+   To make another year page: copy this file, change  subtitle  and  year,  and replace the questions.
+   Subject names, emoji and lecture names are read from the subject files below (they are NOT written here). */
+window.QUIZ_CONFIG = {
+    title:    "IBS 🧪",
+    subtitle: "Quiz · 2018-2019",
+    note:     "",                       // optional note shown under the heading
+
+    // The year name. Subject pages show it in their year filter, so write it exactly the way you want it shown.
+    year: "Quiz _ 2018-2019",
+
+    // ONE subject only in this year? Remove the // before the next line and write the subject name.
+    // The filter icon then disappears, and  s  is not needed in the questions (the subjects list below is ignored).
+    // subject: "Anatomy 🦴",
+subject: "Biochemistry 🧪" ,
+    // Subjects shown in the filter list (order = order in the list). Write the emoji after the name.
+    // A subject used by a question but NOT written here is still added automatically (without emoji).
+   
+
+    // Subject files: OPTIONAL. Only read (if they exist) for a subject's emoji and lecture names. Missing files are ignored.
+    subjectFiles: [
+    "IBS_Biochemistry.html",
+  "IBS_Pathology.html",
+  "IBS_Micro-Immunity.html",
+  "IBS_Medical-Education.html",
+  "IBS_Pharmacology.html",
+  
+
+    ],
+
+    // Each question:  n = number (unique per subject inside THIS file) · s = subject name · l = lecture number
+    // A question that belongs to two years: copy it into both year files.
+    questions: [
+
+   { "n": 1, "s": "Biochemistry", "l": 1, "q": "Ceruloplasmin in plasma transport:", "o": ["A. Cu", "B. Fe", "C. Mg", "D. Mn", "E. Zn"], "a": "A" },
+  { "n": 2, "s": "Biochemistry", "l": 1, "q": "All the following are required for biosynthesis of tyrosine except:", "o": ["A. Adenosine triphosphate (ATP)", "B. Oxygen", "C. Phenyl alanine", "D. Phenyl alanine monooxygease", "E. NADH"], "a": "A" },
+  { "n": 3, "s": "Biochemistry", "l": 1, "q": "Serotonin is a neurotransmitter synthesis from:", "o": ["A. Alanine", "B. Glycine", "C. Lysine", "D. Tryptophan", "E. Valine"], "a": "D" },
+  { "n": 4, "s": "Biochemistry", "l": 1, "q": "Citrullinemia is a genetic disease caused by deficiency:", "o": ["A. Arginase", "B. Arginine succinase", "C. Argininosuccinate synthetase", "D. Carbamoyl phoaphate synthetase", "E. Ornithine transcarbamoylase"], "a": "C" },
+  { "n": 5, "s": "Biochemistry", "l": 1, "q": "Increasing the level of serum acetaldyde due to deficient of acetaldehyde dehydrogenase in:", "o": ["A. Cell membrane", "B. Cytoplasm", "C. Lysosomes", "D. Mitochondria", "E. Peroxisomes"], "a": "D" },
+  { "n": 6, "s": "Biochemistry", "l": 1, "q": "Amino acids are linked together by:", "o": ["A. hydrogen bonds", "B. hydrophobic bonds", "C. glycosidic bonds", "D. peptide bonds", "E. vander vales bonds"], "a": "D" },
+  { "n": 7, "s": "Biochemistry", "l": 1, "q": "Positive nitrogen balance required in some conditions such as:", "o": ["A. advanced cancer", "B. illness", "C. pregnancy", "D. protein deficiency", "E. starvation"], "a": "C" },
+  { "n": 8, "s": "Biochemistry", "l": 1, "q": "One of the following is basic, essential amino acid:", "o": ["A. Leucine", "B. Lysine", "C. Methionine", "D. Tryptophan", "E. Valine"], "a": "B" },
+  { "n": 9, "s": "Biochemistry", "l": 1, "q": "All the following are required for biosynthesis of glutamate except:", "o": ["A. Adenosine triphosphate (ATP)", "B. Alpha ketoglutarate", "C. Ammonia", "D. Glutamate dehydrogenase", "E. NADH"], "a": "A" },
+  { "n": 10, "s": "Biochemistry", "l": 1, "q": "Enzymes are biocatalysts increase the rate of reaction by:", "o": ["A. Increasing concentration of substrates", "B. Increasing concentration of enzymes", "C. Increasing the level of reactant energy", "D. Increasing the level of product energy", "E. Decreasing the activation energy"], "a": "E" },
+  { "n": 11, "s": "Biochemistry", "l": 2, "q": "Acetyl-CoA for fatty acid synthesis is generated in the cytosol by:", "o": ["A. Acetyl-CoA synthase", "B. ATP-citrate lyase", "C. Carnitine-acyl transferase", "D. Thiolase", "E. Hexokinase"], "a": "B" },
+  { "n": 12, "s": "Biochemistry", "l": 2, "q": "The energy yield from complete oxidation of palmitoleic acid will be:", "o": ["A. 126 ATP", "B. 129 ATP", "C. 131 ATP", "D. 127 ATP", "E. 133 ATP"], "a": "D" },
+  { "n": 13, "s": "Biochemistry", "l": 2, "q": "A rare inherited disorder in which phytanic acid accumulates in tissues, Possibly due to defect or deficiency of the α-hydroxylase:", "o": ["A. Von -Gierke's disease", "B. Refsum's Disease", "C. Xanthomatosis", "D. Dysbetalipoproteinemia", "E. Abetalipoproteinemia"], "a": "B" },
+  { "n": 14, "s": "Biochemistry", "l": 2, "q": "One of the following is omega-3- fatty:", "o": ["A. Oleic acid", "B. Myristic acid", "C. Linolenic acid", "D. Linoleic acid", "E. Arachidonic acid"], "a": "C" },
+  { "n": 15, "s": "Biochemistry", "l": 2, "q": "The remove of two carbon units from a fatty acyl CoA involves four sequential reaction which of the following best describes the reaction sequence:", "o": ["A. Oxidation, dehydration, oxidation, cleavage", "B. Reduction, dehydration, reduction, cleavage", "C. Hydrogenation, dehydration, hydrogenation, cleavage", "D. Dehydrogenation, hydration, dehydrogenation, cleavage", "E. Oxidation, dehydration, oxidation, hydration"], "a": "D" },
+  { "n": 16, "s": "Biochemistry", "l": 2, "q": "Free fatty acids are transported in the blood:", "o": ["A. Combined with albumin", "B. Combined with fatty acid binding protein", "C. Combined with β-lipoprotein", "D. In unbound free salts", "E. Combined with hormones"], "a": "A" },
+  { "n": 17, "s": "Biochemistry", "l": 2, "q": "TGs present in plasma lipoproteins can be hydrolyzed by:", "o": ["A. Hormone-sensitive lipase", "B. Pancreatic lipase", "C. Heparin", "D. Lipoprotein lipase", "E. Phospholipase"], "a": "D" },
+  { "n": 18, "s": "Biochemistry", "l": 2, "q": "Which of the following steps in the activation of fatty acid is thought to be rate controlling and locus of metabolic regulation?", "o": ["A. 3-hydroxy 3-methylglutaryl-CoA to mevalonic acid", "B. Squaline to TGs", "C. Squaline to lanosterol", "D. Lanosterol to cholesterol", "E. Squaline to cholesterol"], "a": "A" },
+  { "n": 19, "s": "Biochemistry", "l": 2, "q": "Oxidation of phytanic acid can not take place with out prior oxidation, which of the following statements best explains the requirement for α-oxidation?", "o": ["A. The β carbon is blocked by a methyl group", "B. Cannot activated by CoA prior to β-oxidation", "C. The chain length of pytanic acid is too long for the mitochondrial β-oxidation", "D. Require CoA intermediate", "E. The α-carbon is blocked by a methyl group"], "a": "A" },
+  { "n": 20, "s": "Biochemistry", "l": 2, "q": "Lipotropic factors like:", "o": ["A. Betaine", "B. Alcohol", "C. Acitic acid", "D. Cholesterol", "E. TGs"], "a": "A" },
+
+
+]
+};
+</script>
+<script src="../tools.js?v=3"></script>
+</body>
+</html>

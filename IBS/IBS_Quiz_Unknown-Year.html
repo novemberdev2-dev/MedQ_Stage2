@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBS_Quiz_Unknown-Year</title>
+    <link rel="stylesheet" href="../tools.css?v=1">
+</head>
+<body>
+
+<script>
+/* ---- Settings for THIS page only. Everything else lives in tools.js / tools.css ----
+   This page OWNS the questions of this year (all subjects together).
+   To make another year page: copy this file, change  subtitle  and  year,  and replace the questions.
+   Subject names, emoji and lecture names are read from the subject files below (they are NOT written here). */
+window.QUIZ_CONFIG = {
+    title:    "IBS 🧪",
+    subtitle: "Quiz · Unknown Year",
+    note:     "",                       // optional note shown under the heading
+
+    // The year name. Subject pages show it in their year filter, so write it exactly the way you want it shown.
+    year: "Quiz _ Unknown Year",
+
+    // ONE subject only in this year? Remove the // before the next line and write the subject name.
+    // The filter icon then disappears, and  s  is not needed in the questions (the subjects list below is ignored).
+    subjects: [
+        
+      "Pathology 🔬",
+      "Biochemistry 🧪",
+      "Micro-Immunity 🦠",
+      "Pharmacology 💊",
+      "Medical Education 📗",
+ 
+    ],
+
+    // Subjects shown in the filter list (order = order in the list). Write the emoji after the name.
+    // A subject used by a question but NOT written here is still added automatically (without emoji).
+   
+
+    // Subject files: OPTIONAL. Only read (if they exist) for a subject's emoji and lecture names. Missing files are ignored.
+    subjectFiles: [
+       "IBS_Biochemistry.html",
+  "IBS_Pathology.html",
+  "IBS_Micro-Immunity.html",
+  "IBS_Medical-Education.html",
+  "IBS_Pharmacology.html",
+    ],
+
+    // Each question:  n = number (unique per subject inside THIS file) · s = subject name · l = lecture number
+    // A question that belongs to two years: copy it into both year files.
+    questions: [
+
+  {
+    "n": 1,
+    "s": "Pharmacology",
+    "l": 7,
+    "q": "Neostigmine is used in treatment of Myasthenia gravis acts by:",
+    "o": [
+      "A. Increasing the number of receptors for ACh.",
+      "B. Increasing synthesis of ACh.",
+      "C. Decreasing breakdown of ACh.",
+      "D. Increasing degradation of Ach."
+    ],
+    "a": "C"
+  },
+  {
+    "n": 2,
+    "s": "Pharmacology",
+    "l": 20,
+    "q": "A patient presented to the ER with signs and symptoms of organophosphate poisoning. Pralidoxime was one of the drugs that were given to treat the patient. What is the mechanism of action of this drug?",
+    "o": [
+      "A. Stimulation of ACh receptors",
+      "B. Inhibition of breakdown of ACh",
+      "C. Blockade of ACh receptors",
+      "D. Reactivation of AChE enzyme"
+    ],
+    "a": "D"
+  },
+  {
+    "n": 3,
+    "s": "Pharmacology",
+    "l": 7,
+    "q": "A 45-year-old patient presents with muscle weakness. Myasthenia gravis is suspected. Which of the following is used for its diagnosis?",
+    "o": [
+      "A. Edrophonium",
+      "B. Neostigmine",
+      "C. Galantamine",
+      "D. Methacholine",
+      "E. Donepezil"
+    ],
+    "a": "A"
+  },
+  {
+    "n": 4,
+    "s": "Pharmacology",
+    "l": 7,
+    "q": "In Alzheimer's disease, there is usually a deficiency of cholinergic neuronal function in the brain. Theoretically which one of these is useful in treating symptoms of the disease?",
+    "o": [
+      "A. Inhibiting cholinergic receptors in the brain.",
+      "B. Inhibiting release of Ach in the brain.",
+      "C. Inhibiting acetylcholinesterase enzyme in the brain.",
+      "D. Activating acetylcholinesterase enzyme in the brain."
+    ],
+    "a": "C"
+  },
+  {
+    "n": 5,
+    "s": "Pharmacology",
+    "l": 7,
+    "q": "A 70 years old male patient presented with dry mouth after receiving radiation to the neck for treatment of a cancerous mass. Which of the following drugs is the useful for treating this condition?",
+    "o": [
+      "A. Acetylcholine",
+      "B. Pilocarpine",
+      "C. Carbachol",
+      "D. Ecothiophate",
+      "E. Atropine",
+    ],
+    "a": "B"
+  },
+
+
+  { n: 6, s: "Pathology", l: 7, q: "Which of the following is not intravascular component involve in inflammation?", o: ["A. Polymorphs neutrophils", "B. Platelets", "C. Mast cells", "D. Eosinophils", "E. Monocytes"], a: "C" },
+
+  { n: 7, s: "Pathology", l: 4, q: "Which of following mechanism mostly contributes to the accumulation of fluid in patient with pleural effusion which shows mostly neutrophils but no lymphocytes by cytological examination?", o: ["A. Platelets adherence to damaged endothelium.", "B. Neutrophils release of lysosome.", "C. Lymphatic obstruction.", "D. Increased vascular permeability by endothelial contraction.", "Decreased hydrostatic pressure."], a: "D" },
+
+  { n: 8, s: "Pathology", l: 7, q: "Which of the following steps of leukocyte recruitment to extravascular space is correct order?", o: ["A. Margination, Rolling & attachment, chemotaxis & transmigration", "B. Margination, Rolling & attachment, Transmigration & Chemotaxis", "C. Margination, Transmigration & chemotaxis, Rolling & attachment", "D. Transmigration, Margination, Rolling, attachment & chemotaxis", "E. Margination, attachment, transmigration, rolling & chemotaxis"], a: "B" },
+
+  { n: 9, s: "Pathology", l: 18, q: "Diapedesis is:", o: ["A. Immigration of leukocytes to basement membrane.", "B. Transport of fluid & protein.", "C. Aggregation of platelets at site of bleeding.", "D. Immigration of leukocytes through vessel wall to site of inflammation.", "E. Autodigestion of cell."], a: "D" },
+
+  { n: 10, s: "Pathology", l: 18, q: "Abscess formation is one of morphological pattern & outcome of acute inflammatory process. Which of the following mediators released by inflammatory cells is most likely to produce such histological changes?", o: ["A. Formation of Nitric oxide by macrophages.", "B. Production of gamma interferon by lymphocytes.", "C. Generation of prostaglandin by endothelium.", "D. Release of lysosomal enzyme from neutrophils.", "E. Release of histamine by mast cells."], a: "D" },
+
+  { n: 11, s: "Pathology", l: 30, q: "Nitric Oxide is short lived free radical gas produced by many cell type, can cause all the following except?", o: ["A. Inhibit platelet aggregation", "B. Regulate blood flow in the brain", "C. Stimulate leukocyte recruitment", "D. Vasodilatation", "E. Cytotoxic for microbes"], a: "C" },
+
+  { n: 12, s: "Pathology", l: 30, q: "Which of the following mediators stimulate epitheloid cell & Langhans giant cell formation?", o: ["A. NO", "B. IL-1", "C. PG", "D. Gamma IFN", "E. C5a"], a: "D" },
+
+  { n: 13, s: "Pathology", l: 7, q: "Epithelioid histiocytes & multinucleated giant cells of granulomatous inflammation are derived from:", o: ["A. Lymphocytes", "B. Macrophages", "C. Plasma cells", "D. Fibroblast", "E. Epithelial cells"], a: "B" },
+
+  { n: 14, s: "Pathology", l: 30, q: "Fibroblast in healing process is derived from?", o: ["A. Epithelium", "B. Macrophages", "C. Endothelial cells", "D. Vascular fibroblast", "E. Local mesenchyme"], a: "E" },
+
+  { n: 15, s: "Pathology", l: 17, q: "The following type of tissue can undergo regeneration with restoration of normal tissue EXCEPT:", o: ["A. Gastric mucosa.", "B. Skin squamous epithelium.", "C. Endometrium.", "D. Cardiac muscle.", "E. Mucosa of esophagus."], a: "D" },
+
+  { n: 16, s: "Pathology", l: 30, q: "Which of following cells is most likely to be prominent in histological section taken from lesion after 48 hours in response to healing process of wound?", o: ["A. Plasma cells", "B. Eosinophils", "C. Langhans giant cell", "D. Lymphocytes", "E. Macrophages"], a: "E" },
+
+  { n: 17, s: "Pathology", l: 17, q: "All of the following components can be seen in granulation tissue EXCEPT:", o: ["A. Multinucleated giant cells.", "B. Endothelial cells.", "C. Fibroblast.", "D. Neutrophils.", "E. Lymphocytes."], a: "A" },
+
+  { n: 18, s: "Pathology", l: 17, q: "Why does granulation tissue look pink, moist and edematous?", o: ["A. Releasing of histamine.", "B. Releasing of NO.", "C. Releasing of bradykinine.", "D. Recruitment of inflammatory cells.", "E. Newly formed vessels are still immature and not stabilized."], a: "E" },
+
+  { n: 19, s: "Pathology", l: 8, q: "Which of following statement best describe the wound site at time one week after suture removal of clean surgical wound?", o: ["A. Neutrophils infiltration.", "B. Wound strength reach 80% of normal tissue.", "C. Granulation tissue is present.", "D. Collagen degradation.", "E. Abscess."], a: "C" },
+
+  { n: 20, s: "Pathology", l: 30, q: "Which of the following is true regarding TGF-B?", o: ["A. Increase vascular permeability", "B. Stimulate production of collagen by fibroblast", "C. Inhibit fibroblast chemotaxis", "D. Stimulate collagen degradation", "E. Chemotaxis for lymphocytes"], a: "B" },
+
+  { n: 21, s: "Pathology", l: 8, q: "The recovery of normal tensile strength of a tissue at site of wound is gained after?", o: ["A. One week.", "B. Two weeks.", "C. One month.", "D. Two months.", "E. Six months."], a: "E" },
+
+  { n: 22, s: "Pathology", l: 8, q: "Which of the following is most likely seen at first week of wound healing process?", o: ["A. Wound strength is about 80%.", "B. Wound healing is completed.", "C. Granulation tissue at its peak.", "D. Collagen synthesis at its peak.", "E. Wound contraction at its peak."], a: "C" },
+
+  
+    ]
+};
+</script>
+<script src="../tools.js?v=3"></script>
+</body>
+</html>

@@ -1,0 +1,763 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBS_Final_2021-2022</title>
+    <link rel="stylesheet" href="../tools.css?v=1">
+</head>
+<body>
+
+<script>
+/* ---- Settings for THIS page only. Everything else lives in tools.js / tools.css ----
+   This page OWNS the questions of this year (all subjects together).
+   To make another year page: copy this file, change  subtitle  and  year,  and replace the questions.
+   Subject names, emoji and lecture names are read from the subject files below (they are NOT written here). */
+window.QUIZ_CONFIG = {
+    title:    "IBS 🧪",
+    subtitle: "Final · 2021-2022",
+    note:     "",                       // optional note shown under the heading
+
+    // The year name. Subject pages show it in their year filter, so write it exactly the way you want it shown.
+    year: "Final _ 2021-2022",
+
+    // ONE subject only in this year? Remove the // before the next line and write the subject name.
+    // The filter icon then disappears, and  s  is not needed in the questions (the subjects list below is ignored).
+    // subject: "Anatomy 🦴",
+
+    // Subjects shown in the filter list (order = order in the list). Write the emoji after the name.
+    // A subject used by a question but NOT written here is still added automatically (without emoji).
+    subjects: [
+        
+      "Pathology 🔬",
+      "Biochemistry 🧪",
+      "Micro-Immunity 🦠",
+      "Pharmacology 💊",
+      "Medical Education 📗",
+ 
+    ],
+
+    // Subject files: OPTIONAL. Only read (if they exist) for a subject's emoji and lecture names. Missing files are ignored.
+    subjectFiles: [
+       "IBS_Biochemistry.html",
+  "IBS_Pathology.html",
+  "IBS_Micro-Immunity.html",
+  "IBS_Medical-Education.html",
+  "IBS_Pharmacology.html",
+    ],
+
+    // Each question:  n = number (unique per subject inside THIS file) · s = subject name · l = lecture number
+    // A question that belongs to two years: copy it into both year files.
+    questions: [
+
+ { 
+    n: 1, 
+    s: "Pharmacology", 
+    l: 20, 
+    q: "Which of the following does not bind to a nuclear receptor?", 
+    o: ["A. Thyroid hormone", "B. Cortisol", "C. Insulin", "D. Estrogen", "E. Retinoic acid"], 
+    a: "C" 
+  },
+  { 
+    n: 2, 
+    s: "Pharmacology", 
+    l: 20, 
+    q: "Methadone acts as a:", 
+    o: ["A. Full antagonist.", "B. Partial agonist.", "C. Inverse agonist.", "D. Full opioid agonist.", "E. Allosteric modulator."], 
+    a: "A", note: "Option D maybe the corrrect answer, ensure it."
+  },
+  { 
+    n: 3, 
+    s: "Pharmacology", 
+    l: 12, 
+    q: "β2 antagonists are contraindicated in:", 
+    o: ["A. Hypertension", "B. Angina pectoris", "C. Chronic heart failure", "D. Glaucoma", "E. Asthma"], 
+    a: "E" 
+  },
+  { 
+    n: 4, 
+    s: "Pharmacology", 
+    l: 7, 
+    q: "Which of the following is used for the treatment of Alzheimer's disease?", 
+    o: ["A. Donepezil", "B. Levodopa", "C. Diazepam", "D. Haloperidol", "E. Amantadine"], 
+    a: "A" 
+  },
+  { 
+    n: 5, 
+    s: "Pharmacology", 
+    l: 9, 
+    q: "Tyramine is:", 
+    o: ["A. Indicated in hypotension.", "B. Contraindicated in hypertension.", "C. Used as a local anesthetic.", "D. A beta-blocker agent.", "E. An inhibitor of acetylcholinesterase."], 
+    a: "B" 
+  },
+  { 
+    n: 6, 
+    s: "Pharmacology", 
+    l: 15, 
+    q: "Which of the following is a protein synthesis inhibitor?", 
+    o: ["A. Penicillin G", "B. Ciprofloxacin", "C. Vancomycin", "D. Amikacin", "E. Amphotericin B"], 
+    a: "D" 
+  },
+  { 
+    n: 7, 
+    s: "Pharmacology", 
+    l: 6, 
+    q: "A drug that causes Gray baby syndrome is:", 
+    o: ["A. Tetracycline", "B. Chloramphenicol", "C. Erythromycin", "D. Sulfamethoxazole", "E. Clindamycin"], 
+    a: "B" 
+  },
+  { 
+    n: 8, 
+    s: "Pharmacology", 
+    l: 7, 
+    q: "What is the antidote for atropine?", 
+    o: ["A. Physostigmine", "B. Pralidoxime", "C. Naloxone", "D. Flumazenil", "E. Protamine sulfate"], 
+    a: "A" 
+  },
+  { 
+    n: 9, 
+    s: "Pharmacology", 
+    l: 20, 
+    q: "Which phosphodiesterase type 5 (PDE-5) inhibitor is used for pulmonary hypertension?", 
+    o: ["A. Sildenafil", "B. Theophylline", "C. Milrinone", "D. Caffeine", "E. Cilostazol"], 
+    a: "A" 
+  },
+  { 
+    n: 10, 
+    s: "Pharmacology", 
+    l: 8, 
+    q: "Noradrenaline predominantly targets which receptors?", 
+    o: ["A. Muscarinic cholinergic receptors.", "B. Nicotinic cholinergic receptors.", "C. Postganglionic sympathetic receptors.", "D. Histaminergic H2 receptors.", "E. GABAergic central receptors."], 
+    a: "C" 
+  },
+  { 
+    n: 11, 
+    s: "Pharmacology", 
+    l: 15, 
+    q: "Which antimicrobial drug characteristically causes pseudomembranous colitis?", 
+    o: ["A. Metronidazole", "B. Vancomycin", "C. Gentamicin", "D. Linezolid", "E. Clindamycin"], 
+    a: "E" 
+  },
+  { 
+    n: 12, 
+    s: "Pharmacology", 
+    l: 18, 
+    q: "Which antifungal drug is used for the treatment of oropharyngeal candidiasis?", 
+    o: ["A. Nystatin", "B. Griseofulvin", "C. Terbinafine", "D. Acyclovir", "E. Flucytosine"], 
+    a: "A" 
+  },
+  { 
+    n: 13, 
+    s: "Pharmacology", 
+    l: 20, 
+    q: "Which arachidonic acid derivative is responsible for chemotaxis and activated neutrophils?", 
+    o: ["A. Prostaglandin E2", "B. Prostacyclin", "C. Thromboxane A2", "D. Leukotriene", "E. Lipoxin A4"], 
+    a: "D" 
+  },
+  { 
+    n: 14, 
+    s: "Pharmacology", 
+    l: 5, 
+    q: "Epinephrine behaves as a:", 
+    o: ["A. Chemical antagonist", "B. Competitive antagonist", "C. Non-competitive antagonist", "D. Physiological antagonist", "E. Metabolic antagonist"], 
+    a: "D" 
+  },
+  { 
+    n: 15, 
+    s: "Pharmacology", 
+    l: 9, 
+    q: "Which of the following is a COMT inhibitor?", 
+    o: ["A. Selegiline", "B. Carbidopa", "C. Tolcapone", "D. Amantadine", "E. Pramipexole"], 
+    a: "C" 
+  },
+  { 
+    n: 16, 
+    s: "Pharmacology", 
+    l: 20, 
+    q: "Which of the following is a Neprilysin inhibitor drug?", 
+    o: ["A. Losartan", "B. Enalapril", "C. Aliskiren", "D. Spironolactone", "E. Sacubitril"], 
+    a: "E" 
+  },
+  { 
+    n: 17, 
+    s: "Biochemistry", 
+    l: 4, 
+    q: "Which enzyme is used in management or diagnosis for Acute pancreatitis?", 
+    o: ["A. Amylase", "B. Pepsin", "C. Trypsin", "D. Lipoprotein lipase", "E. Creatine kinase"], 
+    a: "A" 
+  },
+  { 
+    n: 18, 
+    s: "Pharmacology", 
+    l: 20, 
+    q: "Which of the following is a PCSK9 inhibitor?", 
+    o: ["A. Atorvastatin", "B. Ezetimibe", "C. Alirocumab", "D. Gemfibrozil", "E. Cholestyramine"], 
+    a: "C" 
+  },
+  { 
+    n: 19, 
+    s: "Pharmacology", 
+    l: 7, 
+    q: "Atropine is contraindicated in patients with:", 
+    o: ["A. Urinary retention", "B. Glaucoma", "C. Sinus bradycardia", "D. Peptic ulcer disease", "E. Asthma"], 
+    a: "B" 
+  },
+  { 
+    n: 20, 
+    s: "Pharmacology", 
+    l: 17, 
+    q: "Which parameter directly works to increase renal excretion of a drug?", 
+    o: ["A. Plasma protein binding.", "B. Lipid solubility.", "C. Tubular reabsorption.", "D. Enterohepatic circulation.", "E. Renal perfusion."], 
+    a: "E" 
+  },
+  { 
+    n: 21, 
+    s: "Pharmacology", 
+    l: 20, 
+    q: "Which of the following drugs causes toxicity?", 
+    o: ["A. Erythromycin", "B. Gentamicin", "C. Tetracycline", "D. Penicillin", "E. Ciprofloxacin"], 
+    a: "D", note: "Option B maybe the correct answer, ensure it."
+  },
+  { 
+    n: 22, 
+    s: "Pharmacology", 
+    l: 20, 
+    q: "Which of the following represents a Class 1c antiarrhythmic?", 
+    o: ["A. Flecainide", "B. Lidocaine", "C. Procainamide", "D. Amiodarone", "E. Verapamil"], 
+    a: "A" 
+  },
+  { 
+    n: 23, 
+    s: "Pharmacology", 
+    l: 13, 
+    q: "A woman has high fever, right loin pain, her temperature was 38.7C, and creatinine was 3mg. The appropriate treatment is:", 
+    o: ["A. Gentamicin", "B. Vancomycin", "C. Ceftriaxone", "D. Tetracycline", "E. Linezolid"], 
+    a: "C" 
+  },
+  { 
+    n: 24, 
+    s: "Pharmacology", 
+    l: 10, 
+    q: "Which antibiotic is highly associated with nephrotoxicity?", 
+    o: ["A. Chloramphenicol", "B. Vancomycin", "C. Doxycycline", "D. Clindamycin", "E. Penicillin"], 
+    a: "E", note: "Option B maybe the correct answer, ensure it."
+  },
+  { 
+    n: 25, 
+    s: "Pharmacology", 
+    l: 10, 
+    q: "Which combination of beta-lactam and beta-lactamase inhibitor is wrong?", 
+    o: ["A. Amoxicillin + Clavulanic acid", "B. Ampicillin + Sulbactam", "C. Piperacillin + Tazobactam", "D. Ticarcillin + sulbactam", "E. Ceftazidime + Avibactam"], 
+    a: "D" 
+  },
+  { 
+    n: 26, 
+    s: "Pharmacology", 
+    l: 20, 
+    q: "Which drug is ideally given for an Osteoporosis + hypertensive patient?", 
+    o: ["A. Furosemide", "B. Spironolactone", "C. Thiazide", "D. Enalapril", "E. Hydralazine"], 
+    a: "C" 
+  },
+  { 
+    n: 27, 
+    s: "Pharmacology", 
+    l: 20, 
+    q: "Which class of hormones acts to increase blood glucose levels?", 
+    o: ["A. Insulins", "B. Glucocorticoids", "C. Somatostatins", "D. Gonadotropins", "E. Mineralocorticoids"], 
+    a: "B" 
+  },
+  { 
+    n: 28, 
+    s: "Pharmacology", 
+    l: 20, 
+    q: "A drug acts on SA node and increase its action:", 
+    o: ["A. Ivabradine", "B. Digoxin", "C. Propranolol", "D. Adenosine", "E. Diltiazem"], 
+    a: "A" 
+  },
+
+
+{ 
+    n: 29, 
+    s: "Pathology", 
+    l: 5, 
+    q: "There was a hand fracture and immobilization of hand for several months, this may be example of:", 
+    o: ["A. Hypertrophy", "B. Metaplasia", "C. Atrophy", "D. Hyperplasia", "E. Dysplasia"], 
+    a: "C" 
+  },
+  { 
+    n: 30, 
+    s: "Pathology", 
+    l: 30, 
+    q: "Bilateral non pitting edema is typical of:", 
+    o: ["A. Renal failure", "B. Liver cirrhosis", "C. Congestive heart failure", "D. Hypothyroidism", "E. Malnutrition"], 
+    a: "D" 
+  },
+  { 
+    n: 31, 
+    s: "Pathology", 
+    l: 30, 
+    q: "(Case) about a girl with Bilateral with peri-orbital edema:", 
+    o: ["A. Acute liver failure", "B. Nephrotic syndrome", "C. Deep vein thrombosis", "D. Lymphedema", "E. Cellulitis"], 
+    a: "B" 
+  },
+  { 
+    n: 32, 
+    s: "Pathology", 
+    l: 30, 
+    q: "Pitting bilateral edema is a feature of:", 
+    o: ["A. Congestive heart failure", "B. Elephantiasis", "C. Myxedema", "D. Chronic local inflammation", "E. Lymphatic surgical removal"], 
+    a: "A" 
+  },
+  { 
+    n: 33, 
+    s: "Pathology", 
+    l: 19, 
+    q: "Which of the following is classified as a malignant tumor?", 
+    o: ["A. Fibroma.", "B. Adenoma.", "C. Chondroma.", "D. Lipoma.", "E. Seminoma."], 
+    a: "E" 
+  },
+  { 
+    n: 34, 
+    s: "Pathology", 
+    l: 30, 
+   q: "A 50-year-old man is diagnosed with colon cancer. What is the most likely histological type?",
+o: ["A. Leiomyosarcoma.", "B. Leiomyoma.", "C. Rhabdomyoma.", "D. Adenocarcinoma.", "E. Fibrosarcoma."],
+a: "D"
+  },
+  { 
+    n: 35, 
+    s: "Pathology", 
+    l: 13, 
+    q: "Which of the following is the most common bone cancer in adolescence:", 
+    o: ["A. Chondrosarcoma.", "B. Osteosarcoma.", "C. Osteochondroma.", "D. Multiple myeloma.", "E. Osteoma."], 
+    a: "B" 
+  },
+  { 
+    n: 36, 
+    s: "Pathology", 
+    l: 30, 
+    q: "Which of the following is the most common cancer in old age:", 
+    o: ["A. Neuroblastoma", "B. Medulloblastoma", "C. Wilms tumor", "D. Multiple myeloma", "E. Retinoblastoma"], 
+    a: "D" 
+  },
+  { 
+    n: 37, 
+    s: "Pathology", 
+    l: 30, 
+    q: "Which of the following is the most common cancer in children:", 
+    o: ["A. Leiomyosarcoma", "B. Liposarcoma", "C. Rhabdomyosarcoma", "D. Fibrosarcoma", "E. Angiosarcoma"], 
+    a: "C" 
+  },
+  { 
+    n: 38, 
+    s: "Pathology", 
+    l: 16, 
+    q: "Colon cancer tumor marker is:", 
+    o: ["A. PSA", "B. CA-125", "C. AFP", "D. CEA", "E. hCG"], 
+    a: "D" 
+  },
+  { 
+    n: 39, 
+    s: "Pathology", 
+    l: 9, 
+    q: "Common origin of the Pulmonary thromboembolism is:", 
+    o: ["A. Deep Vein Thrombosis (DVT).", "B. Right atrial mural thrombus.", "C. Portal Vein Thrombosis (PVT).", "D. Varicose veins of upper limb.", "E. Jugular Vein Thrombus (JVT)."], 
+    a: "A" 
+  },
+  { 
+    n: 40, 
+    s: "Pathology", 
+    l: 13, 
+    q: "Malignant cancers are best characterized by:", 
+    o: ["A. Slow growth rate.", "B. Well-circumscribed fibrous capsule.", "C. Their cells infiltration.", "D. High degree of differentiation.", "E. Absence of mitotic figures."], 
+    a: "C" 
+  },
+  { 
+    n: 41, 
+    s: "Pathology", 
+    l: 15, 
+    q: "_________ is an RNA virus, known to cause cancer.", 
+    o: ["A. HPV", "B. EBV", "C. HBV", "D. HTLV", "E. KSHV"], 
+    a: "D" 
+  },
+  { 
+    n: 42, 
+    s: "Pathology", 
+    l: 30, 
+    q: "(Case) about Neutrophilia with thick yellow fluid in pleural cavity, what is the diagnose:", 
+    o: ["A. Serous effusion", "B. Chylothorax", "C. Transudate hydrothorax", "D. Empyema suppurative", "E. Hemothorax"], 
+    a: "D" 
+  },
+  { 
+    n: 43, 
+    s: "Pathology", 
+    l: 19, 
+    q: "Sarcomas:", 
+    o: ["A. Are originated from connective tissues.", "B. Are derived from epithelial cells.", "C. Are always benign lesions.", "D. Arise only in central nervous system.", "E. Do not metastasize via blood."], 
+    a: "A" 
+  },
+  { 
+    n: 44, 
+    s: "Pathology", 
+    l: 14, 
+    q: "Shock + Fever + fast pulse:", 
+    o: ["A. Hypovolemic shock", "B. Neurogenic shock", "C. Cardiogenic shock", "D. Anaphylactic shock", "E. Septic shock"], 
+    a: "E" 
+  },
+  { 
+    n: 45, 
+    s: "Pathology", 
+    l: 30, 
+    q: "A 9-year-old girl had rheumatic illness, but instead of improving, she died after a few days. Why did this happen?", 
+    o: ["A. Acute glomerulonephritis", "B. Rheumatic endocarditis", "C. Chorea complication", "D. Erythema marginatum systemic crisis", "E. Subcutaneous nodules infection"], 
+    a: "B" 
+  },
+  { 
+    n: 46, 
+    s: "Pathology", 
+    l: 30, 
+    q: "Malignant finding on CT scan evaluation:", 
+    o: ["A. Smooth distinct borders", "B. Homogeneous contrast enhancement", "C. Poorly differentiated", "D. Small uniform size", "E. Intact capsule presentation"], 
+    a: "C" 
+  },
+  { 
+    n: 47, 
+    s: "Pathology", 
+    l: 2, 
+    q: "A surgery of mesentery shows white chalky deposits, cells show:", 
+    o: ["A. Acute pancreatitis.", "B. Chronic cholecystitis.", "C. Peptic ulcer perforation.", "D. Appendicitis.", "E. Diverticulitis."], 
+    a: "A" 
+  },
+  { 
+    n: 48, 
+    s: "Pathology", 
+    l: 11, 
+   q: "A patient develops edema after breast surgery. What is the most likely cause?",
+o: ["A. Decreased oncotic pressure.", "B. Increased hydrostatic pressure.", "C. Sodium retention.", "D. Lymphatic obstruction.", "E. Histamine release during healing."],
+a: "D"
+  },
+  { 
+    n: 49, 
+    s: "Pathology", 
+    l: 30, 
+    q: "Malignancy in endocarditis associated with wasting diseases:", 
+    o: ["A. Libman-Sacks endocarditis", "B. Infective endocarditis", "C. Non-bacterial thrombotic endo-carditis", "D. Rheumatic valvulitis", "E. Syphilitic endocarditis"], 
+    a: "C" 
+  },
+  { 
+    n: 50, 
+    s: "Pathology", 
+    l: 30, 
+    q: "A 55-year-old woman suffers from pulmonary and lung obstruction, had dyspnea and difficulty, it indicates that the person has:", 
+    o: ["A. Aortic valve insufficiency", "B. Mitral stenosis", "C. Tricuspid valve prolapse", "D. Pulmonary valve stenosis", "E. Patent ductus arteriosus"], 
+    a: "D" 
+  },
+  { 
+    n: 51, 
+    s: "Pathology", 
+    l: 30, 
+   q: "A patient develops a lesion at the site of breast surgery. What is the most likely pathological finding?",
+o: ["A. Caseous necrosis", "B. Foreign body granuloma", "C. Liquefactive necrosis", "D. Fibrinous inflammation", "E. Purulent abscess formation"],
+a: "B"
+  },
+  { 
+    n: 52, 
+    s: "Pathology", 
+    l: 30, 
+    q: "Tetralogy of Fallot includes:", 
+    o: ["A. Left ventricular hypertrophy", "B. Atrial septal defect", "C. Coarctation of aorta", "D. Right ventricular hypertrophy", "E. Mitral valve stenosis"], 
+    a: "D" 
+  },
+  { 
+    n: 53, 
+    s: "Pathology", 
+    l: 4, 
+    q: "Redness during inflammation occurs due to:", 
+    o: ["A. Vasodilatation", "B. Vasoconstriction", "C. Leukocyte emigration", "D. Increased vascular permeability", "E. Platelet aggregation"], 
+    a: "A" 
+  },
+  { 
+    n: 54, 
+    s: "Pathology", 
+    l: 30, 
+   q: "A patient is diagnosed with right-sided heart failure. Which of the following is the most likely underlying cause?",
+o: ["A. Left-to-right shunt reduction", "B. Isolated mitral insufficiency", "C. Systemic arterial hypertension", "D. Coarctation of the abdominal aorta", "E. Pulmonary trunk disease"],
+a: "E"
+  },
+  { 
+    n: 55, 
+    s: "Pathology", 
+    l: 8, 
+    q: "Secondary intention healing is typically characterized by:", 
+    o: ["A. Minimal tissue loss.", "B. Absence of granulation tissue.", "C. Excessive scaring.", "D. Fast primary closure.", "E. Low wound contraction rates."], 
+    a: "C" 
+  },
+
+ { 
+    n: 56, 
+    s: "Pathology", 
+    l: 2, 
+  q: "An elderly man becomes unconscious and subsequently develops paralysis of one arm following a stroke. What is the most likely pathological change in the affected brain tissue after several months?",
+o: ["A. Coagulative necrosis", "B. Caseous necrosis", "C. Liquefactive necrosis", "D. Fat necrosis", "E. Fibrinoid necrosis"],
+a: "C"
+  },
+  { 
+    n: 57, 
+    s: "Pathology", 
+    l: 7, 
+    q: "Granuloma consist of:", 
+    o: ["A. Plasma cells", "B. Epithelioid cells", "C. Fibroblasts", "D. Neutrophils", "E. Mast cells"], 
+    a: "B" 
+  },
+
+  { 
+    n: 58, 
+    s: "Biochemistry", 
+    l: 2, 
+    q: "LCAT is an enzyme that is activated by which lipoprotein?", 
+    o: ["A. HDL", "B. LDL", "C. VLDL", "D. Chylomicrons", "E. IDL"], 
+    a: "A" 
+  },
+  { 
+    n: 59, 
+    s: "Biochemistry", 
+    l: 2, 
+    q: "Linolenic fatty acid is:", 
+    o: ["A. Omega 6", "B. Omega 9", "C. Omega 3", "D. Saturated fat", "E. Trans fat"], 
+    a: "C" 
+  },
+  { 
+    n: 60, 
+    s: "Biochemistry", 
+    l: 2, 
+    q: "How many ATP molecules are produced during the complete oxidation of palmitate?", 
+    o: ["A. 106 ATP", "B. 129 ATP", "C. 131 ATP", "D. 146 ATP", "E. 127 ATP"], 
+    a: "B" 
+  },
+  { 
+    n: 61, 
+    s: "Biochemistry", 
+    l: 2, 
+    q: "What type of compound is L-Carnitine?", 
+    o: ["A. Fatty acid.", "B. Amino acid.", "C. Lipid.", "D. Carbohydrate.", "E. Vitamin."], 
+    a: "B" 
+  },
+  { 
+    n: 62, 
+    s: "Biochemistry", 
+    l: 2, 
+    q: "What are the steps involved in one cycle of β Oxidation of fatty acids?", 
+    o: ["A. Hydration, Dehydrogenation, Cleavage, Dehydrogenation", "B. Dehydrogenation, Cleavage, Hydration, Dehydrogenation", "C. Condensation, Reduction, Dehydration, Reduction", "D. Dehydrogenation, hydration, Dehydrogenation, Cleavage", "E. Cleavage, Hydration, Dehydrogenation, Dehydrogenation"], 
+    a: "D" 
+  },
+  { 
+    n: 63, 
+    s: "Biochemistry", 
+    l: 2, 
+    q: "Which of the following is an example of a derived lipid?", 
+    o: ["A. Prostaglandins", "B. Triacylglycerol", "C. Phospholipid", "D. Cholesterol ester", "E. Sphingomyelin"], 
+    a: "A" 
+  },
+  { 
+    n: 64, 
+    s: "Biochemistry", 
+    l: 6, 
+    q: "Energy expenditure due to high temperature:", 
+    o: ["A. Shivering", "B. Vasoconstriction", "C. Decreased respiration", "D. Excess sweating", "E. Glycogenolysis"], 
+    a: "D" 
+  },
+  { 
+    n: 65, 
+    s: "Biochemistry", 
+    l: 2, 
+    q: "What is the calorie content of carbohydrates and fats, respectively?", 
+    o: ["A. 4 Cal / 4 Cal", "B. 4 Cal /9 Cal", "C. 9 Cal / 4 Cal", "D. 9 Cal / 9 Cal", "E. 4 Cal / 7 Cal"], 
+    a: "B" 
+  },
+  { 
+    n: 66, 
+    s: "Biochemistry", 
+    l: 5, 
+    q: "Which of the following is an antimitotic agent?", 
+    o: ["A. Asparaginase", "B. Alkylating agents", "C. Vinca alkaloid", "D. Antibiotics", "E. Cisplatin"], 
+    a: "C" 
+  },
+  { 
+    n: 67, 
+    s: "Biochemistry", 
+    l: 5, 
+    q: "Which of the following is an antimetabolite?", 
+    o: ["A. Vincristine", "B. Paclitaxel", "C. Doxorubicin", "D. Bleomycin", "E. Methotrexate"], 
+    a: "E" 
+  },
+  { 
+    n: 68, 
+    s: "Biochemistry", 
+    l: 2, 
+    q: "Lipofuscin (Wear and Tear Pigment) results from:", 
+    o: ["A. Protein glycation.", "B. Lipid peroxidation.", "C. Iron overload.", "D. Glycogen accumulation.", "E. Bilirubin stasis."], 
+    a: "B" 
+  },
+  { 
+    n: 69, 
+    s: "Biochemistry", 
+    l: 9, 
+    q: "Nitrogen atom donor for urea:", 
+    o: ["A. Ammonia and Aspartate.", "B. Glutamine and Glutamate.", "C. Alanine and Glycine.", "D. Ammonia and Glutamine.", "E. Aspartate and Arginine."], 
+    a: "A" 
+  },
+  { 
+    n: 70, 
+    s: "Biochemistry", 
+    l: 4, 
+    q: "Removes blood clot:", 
+    o: ["A. Lipoprotein lipase", "B. Pepsin", "C. Amylase", "D. Hexokinase", "E. Streptokinase"], 
+    a: "E" 
+  },
+  { 
+    n: 71, 
+    s: "Biochemistry", 
+    l: 1, 
+    q: "Enzyme used for transfer of amine:", 
+    o: ["A. NAD+ coenzyme.", "B. FAD coenzyme.", "C. PLP coenzyme.", "D. Coenzyme A.", "E. Biotin coenzyme."], 
+    a: "C" 
+  },
+  { 
+    n: 72, 
+    s: "Biochemistry", 
+    l: 4, 
+    q: "Pepsinogen is best described as:", 
+    o: ["A. Active enzyme", "B. Coenzyme", "C. Hormone", "D. Proenzyme", "E. Substrate"], 
+    a: "D" 
+  },
+  { 
+    n: 73, 
+    s: "Biochemistry", 
+    l: 2, 
+    q: "TGs present in plasma lipoproteins can be hydrolyzed by:", 
+    o: ["A. Hormone-sensitive lipase", "B. Pancreatic lipase", "C. lipoprotein lipase", "D. Gastric lipase", "E. Lingual lipase"], 
+    a: "C" 
+  },
+  { 
+    n: 74, 
+    s: "Biochemistry", 
+    l: 2, 
+    q: "Which of the following is correct? <br><br> 1. ω3 can be obtained from salmon fish. <br> 2. Trans fat is harmful to health.", 
+    o: ["A. Only 1 is correct", "B. Only 2 is correct", "C. Neither is correct", "D. Both are correct"], 
+    a: "D" 
+  },
+  { 
+    n: 75, 
+    s: "Biochemistry", 
+    l: 4, 
+    q: "Biomarkers:", 
+    o: ["A. Biological state", "B. Normal biologic state", "C. Pathological process", "D. For pharmacological responses to therapeutic intervention", "E. All of the above"], 
+    a: "E" 
+  },
+  { 
+    n: 76, 
+    s: "Biochemistry", 
+    l: 3, 
+    q: "Glycolysis is:", 
+    o: ["A. The breakdown of glycogen to glucose", "B. The formation of pyruvate or lactate with ATP from glucose", "C. The synthesis of glucose from amino acids", "D. The oxidation of acetyl-CoA in TCA", "E. The conversion of glucose to fatty acids"], 
+    a: "B" 
+  },
+
+{ 
+    n: 77, 
+    s: "Micro-Immunity", 
+    l: 25, 
+    q: "Ox-LDL is phagocytosed by:", 
+    o: ["A. T helper cells", "B. WBC", "C. B lymphocytes", "D. Macrophage", "E. NK cells"], 
+    a: "D" 
+  },
+  { 
+    n: 78, 
+    s: "Micro-Immunity", 
+    l: 8, 
+    q: "Adaptive immunity:", 
+    o: ["A. Identical antigen antibody.", "B. Lacks immunological memory.", "C. Non-specific action line.", "D. Mediated only by neutrophils.", "E. Responds within minutes."], 
+    a: "A" 
+  },
+  { 
+    n: 79, 
+    s: "Micro-Immunity", 
+    l: 10, 
+    q: "Re-exposure to specific Allergens leads to release of:", 
+    o: ["A. IgG", "B. IgM", "C. IgA", "D. IgD", "E. IgE"], 
+    a: "E" 
+  },
+  { 
+    n: 80, 
+    s: "Micro-Immunity", 
+    l: 5, 
+    q: "Can act as hapten:", 
+    o: ["A. High molecular weight proteins.", "B. Complex polysaccharides.", "C. Drugs and steroid hormones.", "D. Whole bacterial cells.", "E. Viral capsids."], 
+    a: "C" 
+  },
+  { 
+    n: 81, 
+    s: "Micro-Immunity", 
+    l: 3, 
+    q: "Which statement about innate immunity is NOT correct?", 
+    o: ["A. Present from birth.", "B. MHC restricted.", "C. Has no memory.", "D. Does not improve with re-exposure.", "E. Utilizes pattern recognition receptors (PRRs)."], 
+    a: "B" 
+  },
+  { 
+    n: 82, 
+    s: "Micro-Immunity", 
+    l: 25, 
+    q: " What is the third complement component that binds to the antigen–antibody complex in complement system?", 
+    o: ["A. C5b", "B. C1q", "C. C2a", "D. C4b", "E. Factor B"], 
+    a: "A" , note: "It is said that the question and answer don’t line up."
+  },
+  { 
+    n: 83, 
+    s: "Micro-Immunity", 
+    l: 14, 
+    q: "Which of the following is a vaccine-specific active antigen-presenting cell?", 
+    o: ["A. DC", "B. Red blood cell", "C. Platelet", "D. Basophil", "E. T cell clone"], 
+    a: "A" 
+  },
+  { 
+    n: 84, 
+    s: "Micro-Immunity", 
+    l: 4, 
+    q: "Which of the following is not correct about hinge region?", 
+    o: ["A. Gives flexibility to antibody", "B. Found in IgG molecules", "C. Is a part of light chain", "D. Rich in proline residues", "E. Located between CH1 and CH2 domains"], 
+    a: "C"
+  },
+  { 
+    n: 85, 
+    s: "Micro-Immunity", 
+    l: 25, 
+    q: "Cells that release Cytokines and act on themselves:", 
+    o: ["A. Paracrine", "B. Endocrine", "C. Autocrine", "D. Exocrine", "E. Neurocrine"], 
+    a: "C" 
+  },
+  { 
+    n: 86, 
+    s: "Micro-Immunity", 
+    l: 12, 
+    q: "Rheumatic fever is classified as an:", 
+    o: ["A. Autoimmune disease.", "B. Primary immunodeficiency.", "C. Immediate Type I hypersensitivity.", "D. Non-inflammatory disease.", "E. Inherited metabolic disorder."], 
+    a: "A" 
+  },
+  { 
+    n: 87, 
+    s: "Micro-Immunity", 
+    l: 7, 
+    q: "Properdin stabilizes which of the following complement components?",
+o: ["A. C1", "B. C2", "C. C3b", "D. C4", "E. C5"],
+a: "C"
+  },
+
+
+  
+    ]
+};
+</script>
+<script src="../tools.js?v=3"></script>
+</body>
+</html>
