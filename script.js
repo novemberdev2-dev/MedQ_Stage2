@@ -278,14 +278,14 @@ const ALL_SECTIONS = [
     
     ] },
      { title: '2025-2026 Year Exam',     links: [
-      { label: 'End-Block _ Theory', badge: '30 MCQs',  href: 'IBS_End-Block_2025-2026.html' },
-      { label: 'Final', badge: '66 MCQs',  href: 'IBS_Final_2025-2026.html' }
+      { label: 'End-Block _ Theory', badge: '30 MCQs',  href: 'IBS/IBS_End-Block_2025-2026.html' },
+      { label: 'Final', badge: '66 MCQs',  href: 'IBS/IBS_Final_2025-2026.html' }
     
     ] },
        { title: '2026-2027 Year Exam',     links: [
-      { label: 'End-Block _ Theory', badge: '20 MCQs',  href: 'IBS_End-Block_Theory_2026-2027.html' },
+      { label: 'End-Block _ Theory', badge: '20 MCQs',  href: 'IBS/IBS_End-Block_2026-2027.html' },
         { label: 'End-Block _ Practice', badge: '0 Qs',  href: '#' },
-      { label: 'Quiz _ Theory', badge: '81 MCQs',  href: 'IBS_Quiz_2026-2027.html' },
+      { label: 'Quiz _ Theory', badge: '81 MCQs',  href: 'IBS/IBS_Quiz_2026-2027.html' },
       { label: 'Quiz _ Practice', badge: '9 Qs',  href: 'IBS_Quiz_Practice_2026-2027.html' },
      
       
@@ -293,8 +293,8 @@ const ALL_SECTIONS = [
     ] },
 
      { title: 'Unknown Year Exam',     links: [
-      { label: 'Final or End-Block', badge: '36 MCQs',  href: 'IBS_FinalorEndblock_Unkown year.html' },
-      { label: 'Quiz', badge: '22 MCQs',  href: 'IBS_Quiz_Unkown year.html' },
+      { label: 'Final or End-Block', badge: '36 MCQs',  href: 'IBS/IBS_Final_or_End-Block_Unknown-Year.html' },
+      { label: 'Quiz', badge: '22 MCQs',  href: 'IBS/IBS_Quiz_Unknown-Year.html' },
      
        
     
