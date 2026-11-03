@@ -237,7 +237,7 @@ const ALL_SECTIONS = [
     key: 'ibs',
     cards: [
       { title: '2017-2018 Year Exam', links: [
-        { label: 'Past Paper or Quiz',   badge: '107 MCQs',    href: 'IBS/IBS_2017-2018.html' },
+        { label: 'Past Paper or Quiz',   badge: '107 MCQs',    href: 'IBS/IBS_PastpaperorQuiz_2017-2018.html' },
         
       ]},
       { title: '2018-2019 Year Exam', links: [
@@ -519,23 +519,23 @@ const ALL_SECTIONS = [
 const SUBJECT_CARDS_BY_SECTION = {
   ibs: [
     { title: 'Pharmacology 💊', links: [
-      { label: 'Theory',   badge: '179 MCQs', href: 'IBS_Pharmacology.html' },
+      { label: 'Theory',   badge: '180 MCQs', href: 'IBS/IBS_Pharmacology.html' },
       { label: 'Practice', badge: '8 Qs', href: 'IBS_Pharmacology_Practice.html' }
     ] },
     { title: 'Pathology 🔬', links: [
-      { label: 'Theory',   badge: '329 MCQs', href: 'IBS_Pathology.html' },
+      { label: 'Theory',   badge: '333 MCQs', href: 'IBS/IBS_Pathology.html' },
       { label: 'Practice', badge: '13 Qs', href: 'IBS_Pathology_Practice.html' }
     ] },
     { title: 'Biochemistry 🧪', links: [
-      { label: 'Theory',   badge: '303 MCQs', href: 'IBS_Biochemistry.html' },
+      { label: 'Theory',   badge: '303 MCQs', href: 'IBS/IBS_Biochemistry.html' },
       { label: 'Practice', badge: '24 Qs', href: 'IBS_Biochemistry_Practice.html' }
     ] },
     { title: 'Micro-Immunity 🦠', links: [
-      { label: 'Theory',   badge: '166 MCQs', href: 'IBS_Micro-Immunity.html' },
+      { label: 'Theory',   badge: '166 MCQs', href: 'IBS/IBS_Micro-Immunity.html' },
     
     ] },
     { title: 'Medical Education 📘', links: [
-      { label: 'Theory',   badge: '6 MCQs', href: 'IBS_Medical-Education.html' },
+      { label: 'Theory',   badge: '6 MCQs', href: 'IBS/IBS_Medical Education.html' },
      
     ] },
      
