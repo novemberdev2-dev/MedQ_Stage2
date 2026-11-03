@@ -237,43 +237,43 @@ const ALL_SECTIONS = [
     key: 'ibs',
     cards: [
       { title: '2017-2018 Year Exam', links: [
-        { label: 'Past Paper or Quiz',   badge: '107 MCQs',    href: 'IBS_2017-2018.html' },
+        { label: 'Past Paper or Quiz',   badge: '107 MCQs',    href: 'IBS/IBS_2017-2018.html' },
         
       ]},
       { title: '2018-2019 Year Exam', links: [
-        { label: 'End-Block',   badge: '8 MCQs',    href: 'IBS_End-Block_2018-2019.html' },
-        { label: 'Final',   badge: '150 MCQs',    href: 'IBS_Final_2018-2019.html' },
-        { label: 'Quiz', badge: '20 MCQs', href: 'IBS_Quiz_2018-2019.html' }
+        { label: 'End-Block',   badge: '8 MCQs',    href: 'IBS/IBS_End-Block_2018-2019.html' },
+        { label: 'Final',   badge: '150 MCQs',    href: 'IBS/IBS_Final_2018-2019.html' },
+        { label: 'Quiz', badge: '20 MCQs', href: 'IBS/IBS_Quiz_2018-2019.html' }
 
       ]},
       { title: '2020-2021 Year Exam', links: [
-        { label: 'Final',   badge: '64 MCQs',     href: 'IBS_Final_2020-2021.html' },
+        { label: 'Final',   badge: '64 MCQs',     href: 'IBS/IBS_Final_2020-2021.html' },
         
       ]},
       { title: '2021-2022 Year Exam',   links: [
-        { label: 'End-Block', badge: '30 MCQs', href: 'IBS_End-Module_2021-2022.html' },
-        { label: 'Final', badge: '87 MCQs', href: 'IBS_Final_2021-2022.html' }
+        { label: 'End-Block', badge: '30 MCQs', href: 'IBS/IBS_End-Block_2021-2022.html' },
+        { label: 'Final', badge: '87 MCQs', href: 'IBS/IBS_Final_2021-2022.html' }
 
      ]},
      
        { title: '2022-2023 Year Exam',     links: [
         { label: 'End-Block _ Practice', badge: '10 Qs',  href: 'IBS_End-Block_Practice_2022-2023.html' },
-        { label: 'Final', badge: '71 MCQs', href: 'IBS_Final_2022-2023.html' }
+        { label: 'Final', badge: '71 MCQs', href: 'IBS/IBS_Final_2022-2023.html' }
       
       ] },
 
 
       { title: '2023-2024 Year Exam',     links: [
-        { label: 'End-Block _ Theory', badge: '30 MCQs',  href: 'IBS_End-Block_Theory_2023-2024.html' },
+        { label: 'End-Block _ Theory', badge: '30 MCQs',  href: 'IBS/IBS_End-Block_2023-2024.html' },
         { label: 'End-Block _ Practice', badge: '10 Qs',  href: 'IBS_End-Block_Practice_2023-2024.html' },
-        { label: 'Final', badge: '88 MCQs',  href: 'IBS_Final_2023-2024.html' },
+        { label: 'Final', badge: '88 MCQs',  href: 'IBS/IBS_Final_2023-2024.html' },
  ] },
 
 
 { title: '2024-2025 Year Exam',     links: [
-      { label: 'End-Block _ Theory', badge: '32 MCQs',  href: 'IBS_End-Block_2024-2025.html' },
+      { label: 'End-Block _ Theory', badge: '32 MCQs',  href: 'IBS/IBS_End-Block_2024-2025.html' },
       { label: 'End-Block _ Practice', badge: '16 Qs',  href: 'IBS_End-Block_Practice_2024-2025.html' },
-      { label: 'Final', badge: '61 MCQs',  href: 'IBS_Final_2024-2025.html' }
+      { label: 'Final', badge: '61 MCQs',  href: 'IBS/IBS_Final_2024-2025.html' }
   
     
     ] },
