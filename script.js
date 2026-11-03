@@ -519,7 +519,7 @@ const ALL_SECTIONS = [
 const SUBJECT_CARDS_BY_SECTION = {
   ibs: [
     { title: 'Pharmacology 💊', links: [
-      { label: 'Theory',   badge: '180 MCQs', href: 'IBS/IBS_Pharmacology.html' },
+      { label: 'Theory',   badge: '182 MCQs', href: 'IBS/IBS_Pharmacology.html' },
       { label: 'Practice', badge: '8 Qs', href: 'IBS_Pharmacology_Practice.html' }
     ] },
     { title: 'Pathology 🔬', links: [
@@ -527,14 +527,14 @@ const SUBJECT_CARDS_BY_SECTION = {
       { label: 'Practice', badge: '13 Qs', href: 'IBS_Pathology_Practice.html' }
     ] },
     { title: 'Biochemistry 🧪', links: [
-      { label: 'Theory',   badge: '303 MCQs', href: 'IBS/IBS_Biochemistry.html' },
+      { label: 'Theory',   badge: '309 MCQs', href: 'IBS/IBS_Biochemistry.html' },
       { label: 'Practice', badge: '24 Qs', href: 'IBS_Biochemistry_Practice.html' }
     ] },
     { title: 'Micro-Immunity 🦠', links: [
-      { label: 'Theory',   badge: '166 MCQs', href: 'IBS/IBS_Micro-Immunity.html' },
+      { label: 'Theory',   badge: '172 MCQs', href: 'IBS/IBS_Micro-Immunity.html' },
     
     ] },
-    { title: 'Medical Education 📘', links: [
+    { title: 'Medical Education 📗', links: [
       { label: 'Theory',   badge: '6 MCQs', href: 'IBS/IBS_Medical Education.html' },
      
     ] },
