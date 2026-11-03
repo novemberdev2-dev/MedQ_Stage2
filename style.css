@@ -1119,3 +1119,128 @@ body.light-mode .subject-card::after,
 html.light-mode-pre body .subject-card::after { border-color: rgba(0, 0, 0, 0.1); }
 body.light-mode .subject-card:hover::after,
 html.light-mode-pre body .subject-card:hover::after { border-color: rgba(0, 0, 0, 0.2); }
+
+/* ===== FILTER BOXES: same design as the Subject list in the quiz pages (no pin icons) =====
+   Applies to the "Filter" box (.filter-dropdown) and the per-section filter box (.section-filter-box):
+   iOS glass, floating header without a divider, 10px rounded rows, blue selected row. */
+.filter-dropdown,
+.section-filter-box {
+  --fd-head: 44px;
+  box-sizing: border-box;
+  min-width: 260px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(70, 70, 76, 0.42), rgba(34, 34, 38, 0.34));
+  -webkit-backdrop-filter: blur(34px) saturate(190%) brightness(1.05);
+  backdrop-filter: blur(34px) saturate(190%) brightness(1.05);
+  border: 0.5px solid rgba(255, 255, 255, 0.16);
+  border-radius: 16px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: scale(0.45);
+  transform-origin: calc(100% - 21px) 0;
+  will-change: transform, opacity;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.9, 0.6), opacity 0.16s ease-in 0.02s;
+}
+.filter-dropdown.open,
+.section-filter-box.open {
+  opacity: 1;
+  transform: scale(1);
+  transition: transform 0.5s cubic-bezier(0.22, 1.32, 0.36, 1), opacity 0.18s ease-out;
+}
+body.light-mode .filter-dropdown,
+html.light-mode-pre body .filter-dropdown,
+body.light-mode .section-filter-box,
+html.light-mode-pre body .section-filter-box {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(242, 243, 247, 0.34));
+  -webkit-backdrop-filter: blur(34px) saturate(220%);
+  backdrop-filter: blur(34px) saturate(220%);
+  border: 0.5px solid rgba(0, 0, 0, 0.14);
+  box-shadow: 0 22px 60px rgba(20, 24, 40, 0.28), 0 2px 10px rgba(20, 24, 40, 0.1);
+}
+/* contents fade in a touch after the box starts growing */
+.filter-dropdown > *,
+.section-filter-box > * { opacity: 0; transition: opacity 0.1s ease; }
+.filter-dropdown.open > *,
+.section-filter-box.open > * { opacity: 1; transition: opacity 0.28s ease 0.06s; }
+
+/* header floats above the list: no divider line */
+.filter-dropdown-header,
+.section-filter-header,
+body.light-mode .filter-dropdown-header,
+html.light-mode-pre body .filter-dropdown-header,
+body.light-mode .section-filter-header,
+html.light-mode-pre body .section-filter-header {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+  box-sizing: border-box; height: var(--fd-head); padding: 0 10px 0 16px;
+  font-size: 0.70rem; color: #777;
+  border-bottom: none !important;
+  background: transparent;
+}
+body.light-mode .filter-dropdown-header,
+html.light-mode-pre body .filter-dropdown-header,
+body.light-mode .section-filter-header,
+html.light-mode-pre body .section-filter-header { color: #999; }
+
+.filter-options-list,
+.section-filter-list { padding: calc(var(--fd-head) + 4px) 6px 6px; gap: 2px; }
+
+/* rows */
+.filter-option-pill,
+.filter-mode-option {
+  gap: 11px; padding: 13px 16px;
+  font-size: 0.88rem; font-weight: 700;
+  border-radius: 10px;
+  color: #aaa;
+}
+body.light-mode .filter-option-pill,
+html.light-mode-pre body .filter-option-pill,
+body.light-mode .filter-mode-option,
+html.light-mode-pre body .filter-mode-option { color: #666; }
+
+.filter-option-pill:hover,
+.filter-mode-option:hover { background: rgba(255, 255, 255, 0.06); color: #e2e8f0; }
+body.light-mode .filter-option-pill:hover,
+html.light-mode-pre body .filter-option-pill:hover,
+body.light-mode .filter-mode-option:hover,
+html.light-mode-pre body .filter-mode-option:hover { background: rgba(0, 0, 0, 0.04); color: #111; }
+
+/* selected row = same colour as the block-name bar (.category-title): light grey in dark mode, soft black in light mode */
+.filter-option-pill.selected,
+.filter-option-pill.selected:hover,
+.filter-mode-option.selected,
+.filter-mode-option.selected:hover { background: #D5D5D5; color: #111; }
+body.light-mode .filter-option-pill.selected,
+html.light-mode-pre body .filter-option-pill.selected,
+body.light-mode .filter-option-pill.selected:hover,
+html.light-mode-pre body .filter-option-pill.selected:hover,
+body.light-mode .filter-mode-option.selected,
+html.light-mode-pre body .filter-mode-option.selected,
+body.light-mode .filter-mode-option.selected:hover,
+html.light-mode-pre body .filter-mode-option.selected:hover { background: rgba(26, 28, 30, 0.5); color: #fff; }
+
+/* no tick boxes: the blue row alone shows what is selected */
+.filter-pill-check,
+.filter-mode-check { display: none !important; }
+
+/* bottom parts line up with the new 6px list padding */
+.filter-actions { padding: 6px 6px 6px; margin-top: 18px; gap: 8px; }   /* <-- margin-top = space between the block names and the Save / Cancel buttons; gap = space between the two buttons */
+.filter-btn-cancel, .filter-btn-save { border-radius: 10px; }
+/* Save = same colour as the selected rows / block-name bar, Cancel = transparent background */
+.filter-btn-save { background: #D5D5D5; color: #111; }
+.filter-btn-save:hover { background: #e6e6e6; color: #111; }
+body.light-mode .filter-btn-save,
+html.light-mode-pre body .filter-btn-save { background: rgba(26, 28, 30, 0.5); color: #fff; }
+body.light-mode .filter-btn-save:hover,
+html.light-mode-pre body .filter-btn-save:hover { background: rgba(26, 28, 30, 0.65); color: #fff; }
+.filter-btn-cancel,
+body.light-mode .filter-btn-cancel,
+html.light-mode-pre body .filter-btn-cancel { background: transparent; }
+.filter-btn-cancel:hover { background: rgba(255, 255, 255, 0.08); }
+body.light-mode .filter-btn-cancel:hover,
+html.light-mode-pre body .filter-btn-cancel:hover { background: rgba(0, 0, 0, 0.06); }
+.section-filter-note { margin: 0 6px 6px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .filter-dropdown, .section-filter-box,
+  .filter-dropdown.open, .section-filter-box.open { transform: none; transition: opacity 0.15s ease; }
+}
