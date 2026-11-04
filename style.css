@@ -1,4 +1,5 @@
 :root {
+  --header-radius: 16px;   /* <-- header corner roundness (px) */
   --bg-color: #161616; 
   --card-bg: rgba(26, 28, 30, 0.7); 
   --header-bg: #f5f5f5;
@@ -139,7 +140,7 @@ body.locked .mcq-link { pointer-events: none; opacity: 0.5; }
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   padding: 6px 8px;
-  border-radius: 16px;
+  border-radius: var(--header-radius, 16px);
   margin-bottom: 10px;
   transition: background-color 0.35s ease, border-color 0.35s ease;
 }
@@ -905,7 +906,7 @@ html.light-mode-pre body #mode-btn.dropdown-open svg { stroke: var(--text-main);
   inset: -100px -1px -1px -1px; /* reaches well above the screen edge so nothing shows at the very top */
   z-index: -2;
   background-color: var(--bg-color);
-  border-radius: 0 0 16px 16px;
+  border-radius: 0 0 var(--header-radius, 16px) var(--header-radius, 16px);
   transition: background-color 0.3s ease;
   pointer-events: none;
 }
@@ -918,7 +919,7 @@ html.light-mode-pre body #mode-btn.dropdown-open svg { stroke: var(--text-main);
   z-index: -1;
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
-  border-radius: 16px;
+  border-radius: var(--header-radius, 16px);
   transition: background-color 0.35s ease, border-color 0.35s ease;
   pointer-events: none;
 }
@@ -1127,7 +1128,7 @@ html.light-mode-pre body .subject-card:hover::after { border-color: rgba(0, 0, 0
 .section-filter-box {
   --fd-head: 44px;
   box-sizing: border-box;
-  min-width: 260px;
+  min-width: 200px;   /* <-- width of the Filter / Filter blocks boxes (was 260px) */
   overflow: hidden;
   background: linear-gradient(180deg, rgba(70, 70, 76, 0.42), rgba(34, 34, 38, 0.34));
   -webkit-backdrop-filter: blur(34px) saturate(190%) brightness(1.05);
@@ -1243,4 +1244,21 @@ html.light-mode-pre body .filter-btn-cancel:hover { background: rgba(0, 0, 0, 0.
 @media (prefers-reduced-motion: reduce) {
   .filter-dropdown, .section-filter-box,
   .filter-dropdown.open, .section-filter-box.open { transform: none; transition: opacity 0.15s ease; }
+}
+
+/* ===== SETTINGS BOX: same glass as the Filter boxes (keeps its own width) ===== */
+.settings-dropdown {
+  background: linear-gradient(180deg, rgba(70, 70, 76, 0.42), rgba(34, 34, 38, 0.34));
+  -webkit-backdrop-filter: blur(34px) saturate(190%) brightness(1.05);
+  backdrop-filter: blur(34px) saturate(190%) brightness(1.05);
+  border: 0.5px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+body.light-mode .settings-dropdown,
+html.light-mode-pre body .settings-dropdown {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(242, 243, 247, 0.34));
+  -webkit-backdrop-filter: blur(34px) saturate(220%);
+  backdrop-filter: blur(34px) saturate(220%);
+  border: 0.5px solid rgba(0, 0, 0, 0.14);
+  box-shadow: 0 22px 60px rgba(20, 24, 40, 0.28), 0 2px 10px rgba(20, 24, 40, 0.1);
 }
