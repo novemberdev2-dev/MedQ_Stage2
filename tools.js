@@ -168,7 +168,7 @@
             const key = idx + '|' + Number(q.n);
             if (seen.has(key)) errors.push('Number ' + q.n + ' is used twice for ' + subs[idx].name + ' in this year file.');
             seen.add(key);
-            mine.push({ idx, item: Object.assign({}, q, { s: subs[idx].name, srcN: q.n, n: offsetFor(subs[idx].name) + Number(q.n) }) });
+            mine.push({ idx, item: Object.assign({}, q, { s: subs[idx].name, srcN: q.n, n: offsetFor(subs[idx].name) + Number(q.n), practical: !!(q.practical || cfg.practical) }) });
         });
         const count = subs.map(() => 0);
         mine.forEach(m => count[m.idx]++);
@@ -220,7 +220,7 @@
             seen.add(Number(q.n));
             const key = base + Number(q.n);
             keys.push(key);
-            questions.push(Object.assign({}, q, { s: wantedName, srcN: q.n, n: key }));
+            questions.push(Object.assign({}, q, { s: wantedName, srcN: q.n, n: key, practical: !!(q.practical || f.practical) }));
         });
         if (keys.length) years.push({ year: label, number: keys });   // numbers are listed, so the year filter works unchanged
     });
@@ -999,7 +999,8 @@ function updateSectionHeading() {
     const labelHtml = `<span class="label-full">${label}</span><span class="label-short">${shortLabel}</span>`;
     const isSubjectLabel = currentLecture === "All";
     const titleClass = "section-heading-title" + (isSubjectLabel ? " subject-title" : "");
-    const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
+    const hasPractical = visibleBlocks.some(b => b.classList.contains('p-block'));
+    const badgeText = hasPractical ? (count === 1 ? "1 Q" : `${count} Qs`) : (count === 1 ? "1 MCQ" : `${count} MCQs`);
     const filters = getLectureFilters();
     const hasLectures = filters.some(f => f.val !== "All");
     if (!hasLectures) lectureDropdownOpen = false;
@@ -1033,6 +1034,8 @@ function updateSectionHeading() {
         heading.innerHTML = headingRowHtml;
         container.insertBefore(heading, container.firstChild);
     }
+
+    heading.classList.toggle('practical-only', count > 0 && visibleBlocks.every(b => b.classList.contains('p-block')));   // practical cards have their own border: no line under the heading
 
     if (showLectureDropdownOpen) scrollLectureDropdownToSelected();
 
@@ -1088,6 +1091,166 @@ function syncNote(btn) {
     note.style.display = block.querySelector('.eye-btn[data-revealed="true"]') ? 'block' : 'none';
 }
 
+/* =====================================================================
+   PRACTICAL QUESTIONS  (images, plain Q&A, MCQ, and case + A / B branch questions)
+   ---------------------------------------------------------------------
+   They live in a year file exactly like theory questions (same  n, s, l  rules), and the
+   file says  practical: true  (or the question has  img  or  parts ). Header, subject / year
+   filter, lecture list, search, pin, pen and eraser are the SAME as for theory questions;
+   only the card is different (question on the left, image on the right).
+
+       { n: 1, s: "Pathology", l: 3,                         // l is optional
+         img: "Stage2_Images/x.png",                        // optional: one path, or ["a.png", "b.png"] (labelled A, B)
+         imgNote: "...",  imgStyle: "max-width:70%",         // optional
+         case: "Both drugs cause mydriasis:",               // optional line next to the number
+         note: "...",                                       // optional, shown after the answer is revealed
+         parts: [ { q: "What is it?", a: "Microtome." },    // branch question (A, B, C ...)
+                  { q: "Pick one", o: ["x", "y"], a: "B" } ] }   // a part can also be an MCQ
+
+       { n: 7, s: "Biochemistry", q: "Which ...?", o: ["x", "y", "z"], a: "C" }   // MCQ (a = letter, "Answer: C", or the option text)
+       { n: 6, s: "Biochemistry", q: "What is DM?", a: "It is ..." }               // plain question and answer
+   ===================================================================== */
+function isPracticalItem(item) { return !!(item && (item.practical || item.parts || item.img)); }
+function plainText(h) { return String(h == null ? '' : h).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim(); }
+
+function practicalOptionsHtml(opts) {
+    // options may be written  "A. text"  or just  "text"  (letters are then added)
+    const lettered = opts.every((o, i) => new RegExp('^' + String.fromCharCode(65 + i) + '\\s*[.)]\\s').test(String(o).trim()));
+    return '<ul class="opts p-opts">' + opts.map((o, i) => {
+        const t = lettered ? String(o).trim() : String.fromCharCode(65 + i) + '. ' + o;
+        return `<li data-original="${escapeAttr(t)}">${t}</li>`;
+    }).join('') + '</ul>';
+}
+
+function practicalItemHtml(part, label, single, headHtml) {
+    const qHtml = part.q != null ? part.q : (part.question != null ? part.question : '');
+    const optsArr = Array.isArray(part.o) && part.o.length ? part.o : (Array.isArray(part.options) && part.options.length ? part.options : null);
+    const ans = part.a != null ? part.a : (part.answer != null ? part.answer : '');
+    const isMCQ = !!optsArr;
+    const eye = `<button class="eye-btn" data-label="Answer" data-answer="${escapeAttr(ans)}" data-mcq="${isMCQ}" data-revealed="false" onclick="toggleAnswer(this)" title="Show answer">${EYE_HIDE_SVG}</button>`;
+    const box = `<div class="answer-text p-answer${single && !isMCQ ? ' p-answer--single' : ''}" onclick="toggleAnswer(this)" title="Click to hide"></div>`;
+    const lead = headHtml || (label ? `<span class="p-label"><strong>${label}</strong></span>` : '');
+    const copyPin = `
+                <div class="copy-wrap"><button class="icon-btn copy-btn" onclick="copyPractical(this)" title="Copy question">${COPY_SVG}</button></div>
+                <button class="icon-btn pin-btn" data-pinned="${isPinned(part.__n)}" onclick="togglePin(${part.__n})" title="${isPinned(part.__n) ? 'Unpin question' : 'Pin question'}">${isPinned(part.__n) ? UNPIN_SVG : PIN_SVG}</button>`;
+    return `
+        <div class="p-item${single ? ' p-item--single' : ''}${headHtml ? ' p-item--inline' : ''}">
+            ${lead}<span class="p-q" data-original="${escapeAttr(qHtml)}">${qHtml}</span>
+            ${isMCQ ? practicalOptionsHtml(optsArr) : ''}
+            ${single ? `${box}<div class="p-ans-row">${eye}<div class="p-extra-icons">${copyPin}</div></div>` : `<div class="p-ans-row">${eye}${box}</div>`}
+        </div>`;
+}
+
+function practicalImageHtml(item) {
+    if (!item.img) return '';
+    const imgs = Array.isArray(item.img)
+        ? `<div class="p-img-stack">${item.img.map((src, i) => `<div class="p-img-wrap"><span class="p-img-tag">${String.fromCharCode(65 + i)}</span><img src="${escapeAttr(src)}" alt="Exam image ${String.fromCharCode(65 + i)}"></div>`).join('')}</div>`
+        : `<img src="${escapeAttr(item.img)}" alt="Exam image"${item.imgStyle ? ` style="${escapeAttr(item.imgStyle)}"` : ''}>`;
+    return `<div class="p-image"><div class="p-image-inner">${imgs}${item.imgNote ? `<div class="p-img-note">${item.imgNote}</div>` : ''}</div></div>`;
+}
+
+function renderPracticalBlock(div, item) {
+    const parts = Array.isArray(item.parts) && item.parts.length ? item.parts : null;
+    const single = !parts;
+    const caseTxt = item.case ? String(item.case) : '';
+    const headHtml = `${qLabel(item)}.${caseTxt ? ' ' + caseTxt : ''}`;
+    const inlineHead = single && !caseTxt;                  // "6. What is DM?" on one line
+    const headEl = `<${inlineHead ? 'span' : 'div'} class="q-text p-head${inlineHead ? ' p-head--inline' : ''}" data-original="${escapeAttr(headHtml)}">${headHtml}</${inlineHead ? 'span' : 'div'}>`;
+    const repeat = item.repeat ? `<div class="p-repeat">${item.repeat}</div>` : '';
+
+    const itemsHtml = single
+        ? practicalItemHtml({ q: item.q, o: item.o, a: item.a, __n: item.n }, '', true, inlineHead ? headEl : '')
+        : parts.map((p, i) => practicalItemHtml(Object.assign({}, p, { __n: item.n }), String.fromCharCode(65 + i) + '.', false, '')).join('');
+    const cardActions = single ? '' : `
+            <div class="p-card-actions">
+                <div class="copy-wrap"><button class="icon-btn copy-btn" onclick="copyPractical(this)" title="Copy question">${COPY_SVG}</button></div>
+                <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button>
+            </div>`;
+
+    const words = [caseTxt].concat(single
+        ? [item.q].concat(item.o || [])
+        : parts.map(p => [p.q != null ? p.q : p.question].concat(p.o || p.options || []).join(' ')));
+    div.classList.add('p-block');
+    div.dataset.searchText = plainText(words.join(' ')).toLowerCase();
+    div.style.display = matchesFilters(item) ? 'block' : 'none';
+    div.innerHTML = `
+        <div class="p-card">
+            <div class="p-question">
+                ${repeat}${inlineHead ? '' : headEl}${itemsHtml}
+                ${noteHtml(item.note)}${cardActions}
+            </div>
+            ${practicalImageHtml(item)}
+        </div>`;
+}
+
+function practicalLetter(answerText) {
+    const s = String(answerText).trim().replace(/^(the\s+)?(correct\s+)?answer(\s+is)?\s*[:\-]?\s*/i, '').replace(/^ans\s*[:\-]?\s*/i, '').trim();
+    const m = s.match(/^\(?([A-Za-z])\)?[.)]?$/);
+    return m ? m[1].toUpperCase() : null;
+}
+function practicalNorm(str) {
+    return plainText(str).replace(/^[A-Za-z]\s*[.)]\s*/, '').toLowerCase().replace(/[\s.]+$/, '');
+}
+function markPracticalOption(item, answerText) {
+    const lis = Array.from(item.querySelectorAll('.opts li'));
+    let matched = false;
+    const letter = practicalLetter(answerText);
+    if (letter) {
+        lis.forEach(li => {
+            const m = (li.dataset.original || li.textContent).trim().match(/^([A-Za-z])\s*[.)]/);
+            if (m && m[1].toUpperCase() === letter) { li.classList.add('correct-option'); matched = true; }
+        });
+    }
+    if (!matched) {                                          // answer written as the option's text
+        const target = practicalNorm(answerText);
+        lis.forEach(li => {
+            const o = practicalNorm(li.dataset.original || li.textContent);
+            if (o && target && (o === target || target.includes(o) || o.includes(target))) { li.classList.add('correct-option'); matched = true; }
+        });
+    }
+    return matched;
+}
+
+function togglePracticalAnswer(el) {
+    const item = el.closest('.p-item');
+    if (!item) return;
+    const btn = item.querySelector('.eye-btn');
+    const textEl = item.querySelector('.answer-text');
+    if (!btn || !textEl) return;
+    const single = item.classList.contains('p-item--single');
+    const show = btn.dataset.revealed !== 'true';
+    btn.dataset.revealed = show ? 'true' : 'false';
+    item.querySelectorAll('.opts li.correct-option').forEach(li => li.classList.remove('correct-option'));
+    if (show) {
+        const matched = btn.dataset.mcq === 'true' && markPracticalOption(item, btn.dataset.answer);
+        if (matched) { textEl.textContent = ''; textEl.style.display = 'none'; }
+        else { textEl.textContent = btn.dataset.answer; textEl.style.display = 'inline-block'; }
+        if (single) { btn.innerHTML = EYE_SHOW_SVG; btn.title = 'Hide answer'; }
+        else btn.style.display = 'none';                     // branch part: the answer box takes the place of the eye
+    } else {
+        textEl.textContent = ''; textEl.style.display = 'none';
+        btn.innerHTML = EYE_HIDE_SVG; btn.title = 'Show answer';
+        btn.style.display = '';
+    }
+    syncNote(btn);
+}
+
+function copyPractical(btn) {
+    const block = btn.closest('.q-block');
+    if (!block) return;
+    const lines = [];
+    const head = block.querySelector('.q-text');
+    if (head && !head.classList.contains('p-head--inline')) lines.push(head.textContent.trim());
+    block.querySelectorAll('.p-item').forEach(it => {
+        const lead = it.querySelector('.p-label, .p-head--inline');
+        const q = it.querySelector('.p-q');
+        const t = ((lead ? lead.textContent.trim() + ' ' : '') + (q ? q.textContent.trim() : '')).trim();
+        if (t) lines.push(t);
+        it.querySelectorAll('.opts li').forEach(li => lines.push((li.dataset.original || li.textContent).trim()));
+    });
+    copyTextToClipboard(lines.join('\n'), btn);
+}
+
 function renderQuiz() {
     container.innerHTML = '';
     activeDrawState = null;
@@ -1097,6 +1260,12 @@ function renderQuiz() {
         div.dataset.qn = item.n;
         div.dataset.subject = item.s;
         div.dataset.lecture = item.l ?? "";
+
+        if (isPracticalItem(item)) {              // practical question: image / Q&A / branch A-B (see PRACTICAL QUESTIONS above)
+            renderPracticalBlock(div, item);
+            container.appendChild(div);
+            return;
+        }
 
         const isCaseQuestion = Array.isArray(item.cases) && item.cases.length > 0;
 
@@ -1449,8 +1618,10 @@ function resetBlock(block) {
     block.querySelectorAll('.case-text').forEach(ct => {
         ct.innerHTML = ct.dataset.original;
     });
+    block.querySelectorAll('.p-q').forEach(pq => { pq.innerHTML = pq.dataset.original; });
     block.querySelectorAll('.eye-btn').forEach(btn => {
         btn.dataset.revealed = "false";
+        btn.style.display = '';
         btn.classList.remove('case-answer-revealed');
         btn.innerHTML = EYE_HIDE_SVG;
         btn.title = 'Show answer';
@@ -1463,12 +1634,23 @@ function resetBlock(block) {
 }
 
 function highlight(block, term) {
-    const regex = new RegExp(`(${term})`, 'gi');
-    block.querySelector('.q-text').innerHTML = block.querySelector('.q-text').innerHTML.replace(regex, '<mark>$1</mark>');
-    block.querySelectorAll('.case-text').forEach(ct => ct.innerHTML = ct.innerHTML.replace(regex, '<mark>$1</mark>'));
-    block.querySelectorAll('li').forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+    const safe = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(${safe})`, 'gi');
+    // only the text is marked, never the tags inside it (practical questions can contain <strong>, <sub> ...)
+    const mark = el => {
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+        const nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+        nodes.forEach(n => {
+            if (!regex.test(n.nodeValue)) { regex.lastIndex = 0; return; }
+            regex.lastIndex = 0;
+            const span = document.createElement('span');
+            span.innerHTML = n.nodeValue.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(regex, '<mark>$1</mark>');
+            n.replaceWith(...span.childNodes);
+        });
+    };
+    block.querySelectorAll('.q-text, .case-text, .p-q, li').forEach(mark);
 }
-
 function escapeAttr(str) {
     return String(str)
         .replace(/&/g, '&amp;')
@@ -1478,6 +1660,7 @@ function escapeAttr(str) {
 }
 
 function toggleAnswer(btn) {
+    if (btn.closest && btn.closest('.p-item')) { togglePracticalAnswer(btn); return; }   // practical card
     const isRevealed = btn.dataset.revealed !== "true";
     btn.dataset.revealed = isRevealed ? "true" : "false";
     syncNote(btn);
