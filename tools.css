@@ -1236,3 +1236,113 @@
             line-height: 1.55;
             white-space: pre-wrap;
         }
+
+
+/* =====================================================================
+   PRACTICAL QUESTIONS  (cards with image / Q&A / branch A-B)
+   Header, filter lists, search, pin and pen come from the rules above;
+   this block only gives the practical card its own look.
+   ===================================================================== */
+.q-block.p-block {
+    --p-card-bg: #1a1c1e;
+    --p-card-border: #26292b;
+    --p-ans-bg: #202326;
+    --p-ans-text: #f0cf6a;
+    margin-bottom: 30px;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+[data-theme="light"] .q-block.p-block {
+    --p-card-bg: #ffffff;
+    --p-card-border: #cccccc;
+    --p-ans-bg: #eef6e4;
+    --p-ans-text: #2e7d32;
+}
+
+.p-card {
+    display: flex;
+    flex-direction: row;
+    background: var(--p-card-bg);
+    border: 1px solid var(--p-card-border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.p-question { flex: 1.2; padding: 25px; min-width: 0; }
+.p-image {
+    flex: 1;
+    min-width: 0;
+    padding: 15px;
+    background-color: var(--p-card-bg);
+    text-align: center;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+.p-image-inner { width: 100%; }
+.p-image img { max-width: 100%; height: auto; border-radius: 6px; }
+.p-img-stack { display: flex; flex-direction: column; width: 100%; gap: 10px; }
+.p-img-wrap { position: relative; }
+.p-img-wrap img { width: 100%; display: block; }
+.p-img-tag {
+    position: absolute; top: 8px; left: 10px; z-index: 1;
+    font-weight: bold; font-size: 1.1rem; color: #fff;
+    background: rgba(0,0,0,0.5); padding: 2px 8px; border-radius: 4px;
+}
+.p-img-note { color: #e53935; font-size: 0.85rem; font-weight: 700; margin-top: 8px; }
+
+.p-repeat {
+    display: inline-block; font-size: 0.72rem; font-weight: 700;
+    color: #e53935; border: 1px solid #e53935; border-radius: 4px;
+    padding: 2px 5px; margin-bottom: 20px;
+}
+.p-block .q-text.p-head {
+    font-size: 1.17rem; font-weight: 700; line-height: 1.4; margin: 0 0 20px;
+}
+.p-block .q-text.p-head--inline { display: inline; margin: 0 0.35em 0 0; font-size: 1rem; }
+
+.p-item { position: relative; margin-bottom: 10px; padding-bottom: 10px; }
+.p-item--single { margin-bottom: 0; padding-bottom: 0; }
+.p-label { margin-right: 0.35em; }
+.p-q { display: block; font-size: 1rem; font-weight: 400; line-height: 1.5; }
+.p-item--inline .p-q, .p-item .p-label + .p-q { display: inline; }
+
+.p-block .opts {
+    list-style: none; margin: 0 0 0 20px; padding: 0;
+    line-height: 1.8; font-size: 1rem; color: var(--text-main);
+}
+.p-item--inline .opts, .p-item .p-label ~ .opts { margin-top: 6px; }
+.p-block .opts li { display: block; }
+.p-block .opts li.correct-option {
+    display: inline-block; background-color: var(--p-ans-bg); color: var(--p-ans-text);
+    font-weight: 650; border-radius: 5px; padding: 1px 8px; margin: 2px -8px;
+}
+
+.p-ans-row {
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    margin-top: 25px; position: relative; z-index: 10;
+}
+.p-extra-icons { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.p-card-actions {
+    display: flex; align-items: center; gap: 6px;
+    margin-top: 22px; padding-top: 15px;
+    border-top: 1px solid var(--p-card-border);
+    position: relative; z-index: 10;
+}
+.p-block .answer-text {
+    display: none; width: auto; max-width: 100%; box-sizing: border-box;
+    background-color: var(--p-ans-bg); color: var(--p-ans-text);
+    font-weight: 700; font-size: 0.9rem; padding: 9px 12px; border-radius: 5px;
+    white-space: pre-line; text-align: left; cursor: pointer;
+}
+.p-block .answer-text.p-answer--single { margin-top: 15px; }
+.p-block .eye-btn[data-revealed="true"],
+.p-block .pin-btn[data-pinned="true"],
+.p-block .copy-btn.copied { color: var(--p-ans-text); }
+
+@media (max-width: 700px) {
+    .p-card { flex-direction: column-reverse; }
+}
+
+/* heading of a page that shows only practical questions: no line under it */
+.section-heading.practical-only { border-bottom: none; padding-bottom: 0; }
