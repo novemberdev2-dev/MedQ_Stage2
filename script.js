@@ -257,7 +257,7 @@ const ALL_SECTIONS = [
      ]},
      
        { title: '2022-2023 Year Exam',     links: [
-        { label: 'End-Block _ Practice', badge: '10 Qs',  href: 'IBS/IBS_End-Block_Practice_2022-2023.html' },
+        { label: 'End-Block _ Practice', badge: '10 Qs',  href: 'IBS_End-Block_Practice_2022-2023.html' },
         { label: 'Final', badge: '71 MCQs', href: 'IBS/IBS_Final_2022-2023.html' }
       
       ] },
@@ -272,7 +272,7 @@ const ALL_SECTIONS = [
 
 { title: '2024-2025 Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '32 MCQs',  href: 'IBS/IBS_End-Block_2024-2025.html' },
-      { label: 'End-Block _ Practice', badge: '16 Qs',  href: 'IBS/IBS_End-Block_Practice_2024-2025.html' },
+      { label: 'End-Block _ Practice', badge: '16 Qs',  href: 'IBS_End-Block_Practice_2024-2025.html' },
       { label: 'Final', badge: '61 MCQs',  href: 'IBS/IBS_Final_2024-2025.html' }
   
     
@@ -286,7 +286,7 @@ const ALL_SECTIONS = [
       { label: 'End-Block _ Theory', badge: '20 MCQs',  href: 'IBS/IBS_End-Block_2026-2027.html' },
         { label: 'End-Block _ Practice', badge: '0 Qs',  href: '#' },
       { label: 'Quiz _ Theory', badge: '81 MCQs',  href: 'IBS/IBS_Quiz_2026-2027.html' },
-      { label: 'Quiz _ Practice', badge: '9 Qs',  href: 'IBS/IBS_Quiz_Practice_2026-2027.html' },
+      { label: 'Quiz _ Practice', badge: '9 Qs',  href: 'IBS_Quiz_Practice_2026-2027.html' },
      
       
     
@@ -520,7 +520,7 @@ const SUBJECT_CARDS_BY_SECTION = {
   ibs: [
     { title: 'Pharmacology 💊', links: [
       { label: 'Theory',   badge: '182 MCQs', href: 'IBS/IBS_Pharmacology.html' },
-      { label: 'Practice', badge: '8 Qs', href: 'IBS/IBS_Pharmacology_Practice.html' }
+      { label: 'Practice', badge: '8 Qs', href: 'IBS_Pharmacology_Practice.html' }
     ] },
     { title: 'Pathology 🔬', links: [
       { label: 'Theory',   badge: '333 MCQs', href: 'IBS/IBS_Pathology.html' },
