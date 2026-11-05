@@ -1341,7 +1341,7 @@
    The eye used to carry a 20px top margin that the answer box did not have, so the box
    jumped up. Move that 20px onto the row instead, so both start at exactly the same
    top edge, and make the box as tall as the 34px eye button for a single line. */
-.p-item:not(.p-item--single) .p-ans-row { margin-top: 45px; align-items: flex-start; }
+.p-item:not(.p-item--single) .p-ans-row { margin-top: 18px; align-items: flex-start; }
 .p-item:not(.p-item--single) .p-ans-row .eye-btn { margin-top: 0; }
 .p-item:not(.p-item--single) .p-ans-row .answer-text { margin-top: 0; padding-top: 8px; padding-bottom: 8px; min-height: 34px; }
 .p-block .eye-btn[data-revealed="true"],
