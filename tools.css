@@ -1044,11 +1044,20 @@
         /* Width follows the longest item (never narrower than 210px, never wider than the screen).
            The exact left offset is set by positionSubjectDropdown() in tools.js. */
         .header2 .subject-dropdown { right: auto; left: 50%; margin-left: -125px; width: max-content; min-width: 260px; max-width: calc(100vw - 16px); box-sizing: border-box; }
-        .subject-dropdown-items { overflow-x: hidden; }
-        /* Names never wrap: tools.js (sizeSubjectDropdown) makes the list exactly as wide as its
-           longest name, and only a name wider than the screen is cut with "…" */
-        .subject-dropdown-item { white-space: nowrap; }
-        .subject-dropdown-item .subject-item-text { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .subject-dropdown-items { overflow-x: hidden; scrollbar-gutter: stable; }
+        .subject-dropdown-item { white-space: pre-line; }
+        /* Long names: the list is exactly as wide as its longest row (already sized while closed),
+           and only wraps if that row is wider than the screen. */
+        .subject-item-text { overflow-wrap: anywhere; }
+        .subject-dropdown-item { width: max-content; min-width: 100%; max-width: 100%; box-sizing: border-box; }
+
+        /* The list is always laid out (it's only faded out when closed). A wide list used to push the
+           page / header wider even while closed, so hide it from layout overflow when closed and
+           stop the header from growing sideways. */
+        .subject-dropdown:not(.open) { visibility: hidden; transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0.22s; }
+        .subject-dropdown.open { visibility: visible; transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s; }
+        .header2-sticky { overflow-x: clip; }
+        .header2, .header2 .header-actions, .subject-toggle-wrapper { min-width: 0; }
 
         /* Subject list styled exactly like the lecture list */
         .subject-dropdown-header { font-size: 0.70rem; color: #777; border-bottom-color: rgba(255,255,255,0.13); }
@@ -1342,7 +1351,7 @@
 
 /* Single questions: the icon row was 25px row margin + 20px icon margin (45px) below the answer box.
    Keep it close: 15px in total, same whether or not the answer is showing. */
-.p-item--single .p-ans-row { margin-top: 15px; }
+.p-item--single .p-ans-row { margin-top: 20px; }
 .p-item--single .p-ans-row .eye-btn,
 .p-item--single .p-ans-row .icon-btn { margin-top: 0; }
 
