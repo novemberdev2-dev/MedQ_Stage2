@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBS_Quiz_Practice_2026-2027</title>
+    <link rel="stylesheet" href="../tools.css?v=2">
+</head>
+<body>
+
+<script>
+/* ---- Settings for THIS page only. Everything else lives in tools.js / tools.css ----
+   PRACTICAL year page: it owns the practical questions of this year (all subjects together).
+   Subject pages (e.g. IBS_Pharmacology.html) list this file in their  yearFiles  and show these
+   questions together with the theory questions, with the same filters.
+
+   Question shapes (n = number, s = subject, l = lecture number: optional here):
+     branch (case + A / B)  { n, s, case: "...", parts: [ { q, a }, { q, a } ], img: "..." }
+     image MCQ              { n, s, q, o: ["...", "..."], a: "C", img: "..." }
+     plain question/answer  { n, s, q, a }
+   "img" can also be a list ["a.png", "b.png"] (shown as A and B). Optional: imgNote, imgStyle, note, repeat.
+   An MCQ answer can be a letter ("C"), "Answer: C", or the text of the option. */
+window.QUIZ_CONFIG = {
+    title:    "IBS 🧪",
+    subtitle: "Quiz ·  Practice · 2026-2027",
+    note:     "",
+
+    year: "Quiz ·  Practice · 2026-2027",   // name shown in the subject pages' year filter
+    practical: true,                           // every question in this file is a practical question
+
+    subject:  "Biochemistry 🧪",
+
+    subjectFiles: [
+      "IBS_Biochemistry_Practice.html",
+      "IBS_Pathology_Practice.html",
+      "IBS_Pharmacology_Practice.html",
+    ],
+
+    questions: [
+  
+      {
+    n: 1, s: "Biochemistry", l: "3",
+    q: "Differentiate between primary and secondary hyperlipidemia, and give two causes of each.",
+    a: "Primary hyperlipidemia is caused by genetic mutations. Examples include lipoprotein lipase (LPL) deficiency and LDL receptor deficiency.\n\nSecondary hyperlipidemia is caused by acquired conditions. Examples include obesity and Diabetes Mellitus (DM)."
+  },
+  {
+    n: 2, s: "Biochemistry", l: "4",
+    q: "Define hypoproteinemia and mention three common causes.",
+    a: "Hypoproteinemia is a decrease in total protein concentration due to low albumin, low globulins, or both.\n\nThree common causes are:\n1. Advanced chronic liver disease.\n2. Severe protein-energy malnutrition.\n3. Excessive protein loss, such as in nephrotic syndrome."
+  },
+  {
+    n: 3, s: "Biochemistry", l: "3",
+    q: "What is the difference between triglycerides and cholesterol in terms of structure and function?",
+    a: "Triglycerides:\nStructure: One glycerol molecule + three fatty acids.\nFunction: The body’s primary long-term energy storage.\n\nCholesterol:\nStructure: A sterol that circulates in blood plasma primarily as cholesteryl esters.\nFunction: A structural component of cell membranes that modulates membrane fluidity. It is also a precursor for steroid hormones, bile acids, and vitamins."
+  },
+  {
+    n: 4, s: "Biochemistry", l: "4",
+    q: "Define total serum protein and explain the difference between serum and plasma proteins.",
+    a: "Total serum protein is the combined concentration of proteins in serum.\n\nSerum is plasma after clotting and therefore lacks fibrinogen and most clotting factors.\n\nPlasma contains fibrinogen and other clotting factors."
+  },
+  {
+    n: 5, s: "Biochemistry", l: "3",
+    q: "Which enzymes are involved in the enzymatic determination of total cholesterol?",
+    a: "1. Cholesterol esterase (CE).\n2. Cholesterol oxidase (CO).\n3. Peroxidase (POD)."
+  },
+  {
+    n: 6, s: "Biochemistry", l: "4",
+    q: "Explain the importance of albumin in maintaining colloid oncotic pressure and transporting substances in the blood.",
+    a: "Albumin is the major plasma protein and contributes substantially to maintaining colloid oncotic pressure and intravascular fluid balance.\n\nIt also transports many poorly water-soluble substances, including unconjugated bilirubin, free fatty acids, calcium, several hormones, and many drugs."
+  },
+  {
+    n: 7, s: "Biochemistry", l: "3",
+    q: "Define lipids and mention their major biological functions.",
+    a: "Lipids are a heterogeneous class of hydrophobic organic molecules that are insoluble in water.\n\nMajor biological functions:\n1. Long-term energy storage.\n2. Formation of cell membranes through phospholipids and cholesterol esters.\n3. Providing essential fuels and structural building blocks for metabolic pathways."
+  },
+  {
+    n: 8, s: "Biochemistry", l: "3",
+    q: "Define lipoproteins and list the five major classes of lipoproteins.",
+    a: "Lipoproteins are particles that transport hydrophobic lipids through the bloodstream. They have a hydrophobic core surrounded by a hydrophilic shell of phospholipids, cholesterol, and proteins.\n\nThe five major classes are:\n1. Chylomicrons.\n2. Very-low-density lipoproteins (VLDL).\n3. Intermediate-density lipoproteins (IDL).\n4. Low-density lipoproteins (LDL).\n5. High-density lipoproteins (HDL)."
+  },
+  {
+    n: 9, s: "Biochemistry", l: "4",
+    q: "What are the normal reference ranges of serum total protein and albumin?",
+    a: "Serum total protein: 6.3–7.9 g/dL.\n\nAlbumin: 3.5–5.0 g/dL."
+  },
+
+
+]
+};
+</script>
+<script src="../tools.js?v=4"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBS_End-Block_Practice_2023-2024</title>
+    <link rel="stylesheet" href="../tools.css?v=2">
+</head>
+<body>
+
+<script>
+/* ---- Settings for THIS page only. Everything else lives in tools.js / tools.css ----
+   PRACTICAL year page: it owns the practical questions of this year (all subjects together).
+   Subject pages (e.g. IBS_Pharmacology.html) list this file in their  yearFiles  and show these
+   questions together with the theory questions, with the same filters.
+
+   Question shapes (n = number, s = subject, l = lecture number: optional here):
+     branch (case + A / B)  { n, s, case: "...", parts: [ { q, a }, { q, a } ], img: "..." }
+     image MCQ              { n, s, q, o: ["...", "..."], a: "C", img: "..." }
+     plain question/answer  { n, s, q, a }
+   "img" can also be a list ["a.png", "b.png"] (shown as A and B). Optional: imgNote, imgStyle, note, repeat.
+   An MCQ answer can be a letter ("C"), "Answer: C", or the text of the option. */
+window.QUIZ_CONFIG = {
+    title:    "IBS 🧪",
+    subtitle: "End-Block ·  Practice · 2023-2024",
+    note:     "",
+
+    year: "End-Block ·  Practice · 2023-2024",   // name shown in the subject pages' year filter
+    practical: true,                           // every question in this file is a practical question
+
+    subjects: [
+      "Pathology 🔬",
+      "Biochemistry 🧪",
+     "Pharmacology 💊",
+
+    ],
+
+    subjectFiles: [
+      "IBS_Biochemistry_Practice.html",
+      "IBS_Pathology_Practice.html",
+      "IBS_Pharmacology_Practice.html",
+    ],
+
+    questions: [
+   {
+    n: 1, s: "Biochemistry", l: "3",
+    q: "All of the following cause hypercholesterolemia EXCEPT:",
+    o: ["Hyperthyroidism", "Diabetes mellitus", "Excessive alcohol intake", "Obstructive jaundice", "Nephrotic syndrome"],
+    a: "Answer: A"
+  },
+  {
+    n: 2, s: "Biochemistry", l: "4",
+    q: "All of these are functions of proteins EXCEPT:",
+    o: ["Transporting agent", "Osmotic pressure and water balance", "Digestion and elimination", "Catalytic action", "Buffering action"],
+    a: "Answer: C"
+  },
+  {
+    n: 3, s: "Biochemistry", l: "5",
+    q: "Write two disorders that result of prolonged hyperuricemia:",
+    a: "1. Renal stones.\n\n 2. Gouty arthritis."
+  },
+  {
+    n: 4, s: "Biochemistry", l: "6",
+    q: "Write two symptoms of hypocalcemia:",
+    a: "1. Muscle cramps.\n\n2. Tingling in the fingers and toes."
+  },
+  {
+    n: 5, s: "Pathology", l: "1",
+    parts: [
+        { q: "What is the pathology? ", a: "Testicular atrophy." },
+        { q: "What is one condition that causes it?", a: "Reduce blood flow (ischemia)." }
+    ],
+    img: "../Stage2_Images/IBS_EB_2023-2024/IBS_EB_2023-2024_005.jpg"
+  },
+  {
+    n: 6, s: "Pathology", l: "4",
+    parts: [
+        { q: "What is the pathology? ", a: "Red hemorrhagic infarction of intestine." },
+        { q: "What is one condition that causes it?", a: " Formation of thromboembolism." }
+    ],
+    img: "../Stage2_Images/IBS_EB_2023-2024/IBS_EB_2023-2024_006.jpg"
+  },
+  {
+    n: 7, s: "Pathology", l: "1",
+    parts: [
+        { q: "What is the type of healing process?", a: "Primary intention." },
+        { q: "Write the stages of healing process:", a: "hemostasis, inflammation, proliferation, maturation." }
+    ],
+    img: "../Stage2_Images/IBS_EB_2023-2024/IBS_EB_2023-2024_007.png"
+  },
+  {
+    n: 8, s: "Pathology", l: "1",
+    parts: [
+        { q: "What is the name of the process?", a: "Fine Needle Aspiration (FNA)." },
+        { q: "Write one recommendation for this process?", a: "Not sure what is the answer." }
+    ],
+    img: "../Stage2_Images/IBS_EB_2023-2024/IBS_EB_2023-2024_008.jpg"
+  },
+  {
+    n: 9, s: "Pharmacology", l: "1",
+    parts: [
+        { q: "What is the name of this dosage form?", a: "Suppository." },
+        { q: "What is the route of administration?", a: "Rectal or vaginal." },
+        { q: "What is the advantage in hemorrhoidal disease?", a: "Achieving a localized effect." }
+    ],
+    img: "../Stage2_Images/IBS_EB_2023-2024/IBS_EB_2023-2024_009&10.webp"
+  },
+  {
+    n: 10, s: "Pharmacology", l: "3",
+    q: "Prescription:",
+    a: "I don’t remember (there was no answer in past papers PDFs.)",
+    img: "../Stage2_Images/IBS_EB_2023-2024/IBS_EB_2023-2024_009&10.webp"
+  },
+]
+};
+</script>
+<script src="../tools.js?v=4"></script>
+</body>
+</html>
