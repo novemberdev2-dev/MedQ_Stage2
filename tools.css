@@ -1336,6 +1336,14 @@
     white-space: pre-line; text-align: left; cursor: pointer;
 }
 .p-block .answer-text.p-answer--single { margin-top: 15px; }
+
+/* Branch questions (A / B): the eye button turns into the answer box in the same spot.
+   The eye used to carry a 20px top margin that the answer box did not have, so the box
+   jumped up. Move that 20px onto the row instead, so both start at exactly the same
+   top edge, and make the box as tall as the 34px eye button for a single line. */
+.p-item:not(.p-item--single) .p-ans-row { margin-top: 45px; align-items: flex-start; }
+.p-item:not(.p-item--single) .p-ans-row .eye-btn { margin-top: 0; }
+.p-item:not(.p-item--single) .p-ans-row .answer-text { margin-top: 0; padding-top: 8px; padding-bottom: 8px; min-height: 34px; }
 .p-block .eye-btn[data-revealed="true"],
 .p-block .pin-btn[data-pinned="true"],
 .p-block .copy-btn.copied { color: var(--p-ans-text); }
