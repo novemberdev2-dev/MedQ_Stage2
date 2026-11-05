@@ -555,7 +555,7 @@ msd: [
 
     { title: 'Microbiology 🦠', links: [
       { label: 'Theory',   badge: '63 MCQs', href: 'MSD/MSD_Microbiology.html' },
-      { label: 'Practice', badge: '7 Qs', href: 'MSD/MSD_Microbiology_Practice.html' }
+      { label: 'Practice', badge: '15 Qs', href: 'MSD/MSD_Microbiology_Practice.html' }
     ] },
   
     { title: 'Anatomy 🦴', links: [
@@ -565,12 +565,12 @@ msd: [
 
     { title: 'Physiology ⚡', links: [
       { label: 'Theory',   badge: '24 MCQs', href: 'MSD/MSD_Physiology.html' },
-      { label: 'Practice', badge: '0 Qs', href: 'MSD/MSD_Physiology_Practice.html' }
+      { label: 'Practice', badge: '2 Qs', href: 'MSD/MSD_Physiology_Practice.html' }
     ] },
    
   { title: 'Histology 🫁', links: [
       { label: 'Theory',   badge: '20 MCQs', href: 'MSD/MSD_Histology.html' },
-      { label: 'Practice', badge: '0 Qs', href: 'MSD/MSD_Histology_Practice.html' }
+      { label: 'Practice', badge: '1 Q', href: 'MSD/MSD_Histology_Practice.html' }
     ] },
 
   
