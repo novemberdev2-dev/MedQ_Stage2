@@ -1335,7 +1335,13 @@
     font-weight: 700; font-size: 0.9rem; padding: 9px 12px; border-radius: 5px;
     white-space: pre-line; text-align: left; cursor: pointer;
 }
-.p-block .answer-text.p-answer--single { margin-top: 15px; }
+.p-block .answer-text.p-answer--single { margin-top: 15px; width: fit-content; }
+
+/* Single questions: the icon row was 25px row margin + 20px icon margin (45px) below the answer box.
+   Keep it close: 15px in total, same whether or not the answer is showing. */
+.p-item--single .p-ans-row { margin-top: 20px; }
+.p-item--single .p-ans-row .eye-btn,
+.p-item--single .p-ans-row .icon-btn { margin-top: 0; }
 
 /* Branch questions (A / B): the eye button turns into the answer box in the same spot.
    The eye used to carry a 20px top margin that the answer box did not have, so the box
