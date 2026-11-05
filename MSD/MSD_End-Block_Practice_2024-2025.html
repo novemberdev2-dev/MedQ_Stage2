@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSD_End-Block_Practice_2024-2025</title>
+    <link rel="stylesheet" href="../tools.css?v=2">
+</head>
+<body>
+
+<script>
+/* ---- Settings for THIS page only. Everything else lives in tools.js / tools.css ----
+   PRACTICAL year page: it owns the practical questions of this year (all subjects together).
+   Subject pages (e.g. IBS_Pharmacology.html) list this file in their  yearFiles  and show these
+   questions together with the theory questions, with the same filters.
+
+   Question shapes (n = number, s = subject, l = lecture number: optional here):
+     branch (case + A / B)  { n, s, case: "...", parts: [ { q, a }, { q, a } ], img: "..." }
+     image MCQ              { n, s, q, o: ["...", "..."], a: "C", img: "..." }
+     plain question/answer  { n, s, q, a }
+   "img" can also be a list ["a.png", "b.png"] (shown as A and B). Optional: imgNote, imgStyle, note, repeat.
+   An MCQ answer can be a letter ("C"), "Answer: C", or the text of the option. */
+window.QUIZ_CONFIG = {
+    title:    "MSD 🦴",
+    subtitle: "End-Block ·  Practice · 2024-2025",
+    note:     "",
+
+    year: "End-Block ·  Practice · 2024-2025",   // name shown in the subject pages' year filter
+    practical: true,                           // every question in this file is a practical question
+
+    subjects: [
+
+    "Anatomy 🦴",
+    "Microbiology 🦠",
+    "Histology 🫁",
+    "Pharmacology 💊",
+    "Pathology 🔬",
+    "Physiology ⚡",
+],
+    
+ 
+
+    subjectFiles: [
+     "MSD_Anatomy_Practice.html",
+      "MSD_Microbiology_Practice.html",
+      "MSD_Pharmacology_Practice.html",
+      "MSD_Histology_Practice.html",
+      "MSD_Physiology_Practice.html",
+      "MSD_Pathology_Practice.html",
+    ],
+
+    questions: [
+     {
+    n: 1, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Identify the muscle.", a: "Extensor digitorum." },
+        { q: "Which nerve innervates this muscle?", a: "Radial nerve." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2024-2025/MSD_EB_2024-2025_001.jpg"
+  },
+  {
+    n: 2, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Identify this part of the bone.", a: "Neck of fibula." },
+        { q: "Which nerve is attached to it?", a: "Common peroneal nerve." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2024-2025/MSD_EB_2024-2025_002.jpg"
+  },
+  {
+    n: 3, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Identify the A.", a: "Vertebral body." },
+        { q: "Identify the B?", a: "Spinous process." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2024-2025/MSD_EB_2024-2025_003.jpg"
+  },
+  {
+    n: 4, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Write the muscle name.", a: "Trapezius." },
+        { q: "Write the muscle name.", a: "Deltoid." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2024-2025/MSD_EB_2024-2025_004.jpg"
+  },
+  {
+    n: 5, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Identify this part of the bone.", a: "Radial tuberosity." },
+        { q: "What structures attach to it?", a: "Tendon of the biceps brachii." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2024-2025/MSD_EB_2024-2025_005.jpg"
+  },
+  {
+    n: 6, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Identify the tagged structure.", a: "Intervertebral foramen." },
+        { q: "Name structures pass through it.", a: "Nerve roots/branches." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2024-2025/MSD_EB_2024-2025_006.jpg"
+  },
+  {
+    n: 7, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Name the tendon.", a: "Peroneus longus muscle." },
+        { q: "What is the insertion of the muscle?", a: "Inserted into medial cuniform bone and base of the first metataral bone." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2024-2025/MSD_EB_2024-2025_007.jpg"
+  },
+  {
+    n: 8, s: "Microbiology", l: "20",
+    case: "A case:",
+    parts: [
+        { q: "What is the causative agent of the infection?", a: "Streptococcus pyogenes." },
+        { q: "What are its characteristics?", a: "Gram positive, Cocci (spherical), Arranged in pairs or chains." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2024-2025/MSD_EB_2024-2025_008.jpg"
+  },
+  {
+    n: 9, s: "Microbiology", l: "20",
+    case: " Gram stain from muscle tissue aspirate of a patient with gas gangrene.",
+    parts: [
+        { q: "What is the causative agent of the infection?", a: "Clostridium perfringens." },
+        { q: "What are its characteristics?", a: "• Large gram-positive, spore-forming rods (spores rare in tissue), nonmotile. \n\n • Anaerobic: \"stormy fermentation\" in milk media.\n\n • Double zone of hemolysis." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2024-2025/MSD_EB_2024-2025_009.jpg"
+  },
+  {
+    n: 10, s: "Microbiology", l: "20",
+    case: " A patient with Tinea Cruris:",
+    parts: [
+        { q: "What is the causative agent of the infection?", a: "Trichophyton rubrum." },
+        { q: "Which direct test is used to identify it?", a: "KOH MOUNT." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2024-2025/MSD_EB_2024-2025_010.jpg"
+  },
+  {
+    n: 11, s: "Physiology", l: "20",
+    parts: [
+        { q: "What is the test?", a: "Electromyography." },
+        { q: "What is the structural basis?", a: "Motor unit." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2024-2025/MSD_EB_2024-2025_011.jpg"
+  },
+  {
+    n: 12, s: "Pathology", l: "20",
+    parts: [
+        { q: "What is the diagnosis?", a: "Osteosarcoma of the upper end of the tibia." },
+        { q: "What is the grossly appearance of this tumor?", a: "The tan-white tumor fills most of the medullary cavity of the metaphysis and proximal diaphysis, infiltrated through the cortex, lifted periosteum, and formed soft-tissue masses on both sides of the bone." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2024-2025/MSD_EB_2024-2025_012.jpg"
+  },
+  {
+    n: 13, s: "Pathology", l: "20",
+    parts: [
+        { q: "What is the diagnosis?", a: "Lipomas." },
+        { q: "What is the grossly appearance of this tumor?", a: "Well-circumscribed, lobulated mass with a soft, yellow, greasy appearance." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2024-2025/MSD_EB_2024-2025_013.jpg"
+  },
+  {
+    n: 14, s: "Pharmacology", l: "20",
+    q: "A patient is prescribed celecoxib and enalapril. Identify the potential drug interaction and its clinical consequences.",
+    a: "Drug interaction between Celecoxib and enalapril: Antihypertensive effects antagonized, hyperkalemia may occur with ACE inhibitors or potassium sparing diuretics."
+  },
+
+
+    ]
+};
+</script>
+<script src="../tools.js?v=4"></script>
+</body>
+</html>

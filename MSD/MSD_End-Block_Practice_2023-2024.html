@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSD_End-Block_Practice_2023-2024</title>
+    <link rel="stylesheet" href="../tools.css?v=2">
+</head>
+<body>
+
+<script>
+/* ---- Settings for THIS page only. Everything else lives in tools.js / tools.css ----
+   PRACTICAL year page: it owns the practical questions of this year (all subjects together).
+   Subject pages (e.g. IBS_Pharmacology.html) list this file in their  yearFiles  and show these
+   questions together with the theory questions, with the same filters.
+
+   Question shapes (n = number, s = subject, l = lecture number: optional here):
+     branch (case + A / B)  { n, s, case: "...", parts: [ { q, a }, { q, a } ], img: "..." }
+     image MCQ              { n, s, q, o: ["...", "..."], a: "C", img: "..." }
+     plain question/answer  { n, s, q, a }
+   "img" can also be a list ["a.png", "b.png"] (shown as A and B). Optional: imgNote, imgStyle, note, repeat.
+   An MCQ answer can be a letter ("C"), "Answer: C", or the text of the option. */
+window.QUIZ_CONFIG = {
+    title:    "MSD 🦴",
+    subtitle: "End-Block ·  Practice · 2023-2024",
+    note:     "",
+
+    year: "End-Block ·  Practice · 2023-2024",   // name shown in the subject pages' year filter
+    practical: true,                           // every question in this file is a practical question
+
+    subjects: [
+
+    "Anatomy 🦴",
+    "Microbiology 🦠",
+    "Histology 🫁",
+    "Pharmacology 💊",
+],
+    
+    
+   
+
+    subjectFiles: [
+      "MSD_Anatomy_Practice.html",
+      "MSD_Microbiology_Practice.html",
+      "MSD_Pharmacology_Practice.html",
+      "MSD_Histology_Practice.html",
+      "MSD_Physiology_Practice.html",
+      "MSD_Pathology_Practice.html",
+    ],
+
+    questions: [
+    {
+    n: 1, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Identify the pointed muscle.", a: " Splenius capitis muscle." },
+        { q: "Identify the pointed muscle.", a: " Posterior serratus inferior muscle." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2023-2024/MSD_EB_2023-2024_001.jpg"
+  },
+  {
+    n: 2, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Identify the pointed area.", a: "Acetabular labrum." },
+        { q: " Identify the pointed area.", a: "Ligament of head of femur." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2023-2024/MSD_EB_2023-2024_002.jpg"
+  },
+  {
+    n: 3, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Identify the pointed area.", a: "Short tendon of biceps brachii muscle." },
+        { q: "Identify the pointed area.", a: "Coracobrachialis muscle." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2023-2024/MSD_EB_2023-2024_003.jpg"
+  },
+  {
+    n: 4, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Which muscle is attached to the red area?", a: "Subscapularis muscle." },
+        { q: "Which muscle is attached to the blue line?", a: "Serratus anterior muscle." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2023-2024/MSD_EB_2023-2024_004.jpg"
+  },
+  {
+    n: 5, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Identify the pointed muscle.", a: "Tensor fascia lata." },
+        { q: "Identify the pointed muscle.", a: "Illiotibial tract." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2023-2024/MSD_EB_2023-2024_005.jpg"
+  },
+  {
+    n: 6, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Identify the pointed muscle.", a: "Piriformis muscle." },
+        { q: "Identify the pointed fascia.", a: "Obturator fascia." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2023-2024/MSD_EB_2023-2024_006.png"
+  },
+  {
+    n: 7, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Identify the pointed ligament.", a: "Sacrospinous ligament." },
+        { q: "Identify the pointed ligament.", a: "Sacrotuberous ligament." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2023-2024/MSD_EB_2023-2024_007.jpg"
+  },
+  {
+    n: 8, s: "Microbiology", l: "20",
+    case: "Gram stain shows the demonstrated result, and catalase test shows that it is catalase positive bacteria, which of the following options is the correct species of bacteria?",
+    q: "",
+    o: ["Klebsiella pneumoniae", "Staphylococcus aureus", "Acinetobacter baumannii", "Streptococcus pyogenes", "Streptococcus epidermidis"],
+    a: "Answer: B",
+    img: "../Stage2_Images/MSD_EB_2023-2024/MSD_EB_2023-2024_008.png"
+  },
+  {
+    n: 9, s: "Microbiology", l: "20",
+    case: "A case presented with patchy discoloration with multiple hyperpigmented lesions.",
+    parts: [
+        { q: "What is the name of the fungus?", a: "Malassezia furfur." },
+        { q: "Which type of media is used for this type of fungi?", a: "Sabouraud's dextrose agar or Dixon agar." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_004.png"
+  },
+  {
+    n: 10, s: "Microbiology", l: "20",
+    case: "The gram stain findings shows large gram positive rods.",
+    parts: [
+        { q: "What is the name of the microorganism?", a: "Clostridium perfringes." },
+        { q: "What is the type of the hemolysis that is produced on blood agar?", a: "Double zone hemolysis." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_005.jpg"
+  },
+  {
+    n: 11, s: "Microbiology", l: "20",
+    parts: [
+        { q: "Describe the microscopic findings.", a: "Bony tissue with malignant criteria such as polymorphic cells, hyperchromatic nuclei, and atypical mitosis, with bone trabecullae." },
+        { q: "What is the diagnosis?", a: "Osteosarcoma." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2023-2024/MSD_EB_2023-2024_011.jpg"
+  },
+  {
+    n: 12, s: "Microbiology", l: "20",
+    parts: [
+        { q: "What is the name of the test?", a: "Electromyography test." },
+        { q: "It is used for 1. …………………………. and 2. …………………………..", a: "The answer is not mentioned." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2023-2024/MSD_EB_2023-2024_012.jpg"
+  },
+  {
+    n: 13, s: "Histology", l: "20",
+    q: "<strong>The microscopic findings shows several histiocytes and… <br>The case presented with fever and other symptoms, what is the diagnosis?</strong>",
+    a: "Osteomyelitis.",
+    img: "../Stage2_Images/MSD_EB_2023-2024/MSD_EB_2023-2024_013.jpg"
+  },
+  {
+    n: 14, s: "Pharmacology", l: "20",
+    case: "The drug prescription is :<br>Rx<br>Ibuprofen ____ mg<br>Gentamicin ____ mg",
+    q: "<strong>Write the drug interaction and what’s the management.</strong>",
+    a: "Ibuprofen will decrease renal clearance of gentamicin, monitor antibiotic blood concentration and use other types of antibiotics."
+  },
+
+    ]
+};
+</script>
+<script src="../tools.js?v=4"></script>
+</body>
+</html>

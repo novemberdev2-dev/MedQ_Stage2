@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSD_End-Block_Practice_2025-2026</title>
+    <link rel="stylesheet" href="../tools.css?v=2">
+</head>
+<body>
+
+<script>
+/* ---- Settings for THIS page only. Everything else lives in tools.js / tools.css ----
+   PRACTICAL year page: it owns the practical questions of this year (all subjects together).
+   Subject pages (e.g. IBS_Pharmacology.html) list this file in their  yearFiles  and show these
+   questions together with the theory questions, with the same filters.
+
+   Question shapes (n = number, s = subject, l = lecture number: optional here):
+     branch (case + A / B)  { n, s, case: "...", parts: [ { q, a }, { q, a } ], img: "..." }
+     image MCQ              { n, s, q, o: ["...", "..."], a: "C", img: "..." }
+     plain question/answer  { n, s, q, a }
+   "img" can also be a list ["a.png", "b.png"] (shown as A and B). Optional: imgNote, imgStyle, note, repeat.
+   An MCQ answer can be a letter ("C"), "Answer: C", or the text of the option. */
+window.QUIZ_CONFIG = {
+    title:    "MSD 🦴",
+    subtitle: "End-Block ·  Practice · 2025-2026",
+    note:     "",
+
+    year: "End-Block ·  Practice · 2025-2026",   // name shown in the subject pages' year filter
+    practical: true,                           // every question in this file is a practical question
+
+    subjects: [
+
+    "Anatomy 🦴",
+    "Microbiology 🦠",
+    "Histology 🫁",
+    "Pharmacology 💊",
+    "Pathology 🔬",
+    "Physiology ⚡",
+],
+    
+ 
+
+    subjectFiles: [
+      "MSD_Anatomy_Practice.html",
+      "MSD_Microbiology_Practice.html",
+      "MSD_Pharmacology_Practice.html",
+      "MSD_Histology_Practice.html",
+      "MSD_Physiology_Practice.html",
+      "MSD_Pathology_Practice.html",
+    ],
+
+    questions: [
+   
+
+      {
+    n: 1, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Name the pointed part?", a: "Head of radius." },
+        { q: "It articulates with:", a: "1. Radial notch of the ulna. \n\n 2. Capitulum of the humerus." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2025-2026/MSD_EB_2025-2026_001.jpg"
+  },
+  {
+    n: 2, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Name the pointed part?", a: "Tibial tuberosity." },
+        { q: "Is the attatchment for?", a: "Patellar ligament." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2025-2026/MSD_EB_2025-2026_002.jpg"
+  },
+  {
+    n: 3, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Name the pointed muscle?", a: "Latissimus dorsi." },
+        { q: "Nerve supply of the muscle?", a: "Thoracodorsal nerve." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2025-2026/MSD_EB_2025-2026_003.jpg"
+  },
+  {
+    n: 4, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Name the pointed muscle?", a: "Tensor facia lata." },
+        { q: "Nerve supply of the muscle?", a: "Superior gluteal nerve." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2025-2026/MSD_EB_2025-2026_004.jpg"
+  },
+  {
+    n: 5, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Name the pointed muscle?", a: "Gluteus minimis." },
+        { q: "Nerve supply of the muscle?", a: "Superior gluteal nerve." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2025-2026/MSD_EB_2025-2026_005.jpg"
+  },
+  {
+    n: 6, s: "Physiology", l: "20",
+    parts: [
+        { q: "Name these electrodes (A and B).", a: "A. Surface electrode (skin electrode).\n\nB. Needle electrode." },
+        { q: "Which nerve is compressed in the carpal tunnel syndrome?", a: "Median nerve." }
+    ],
+    img: [
+        "../Stage2_Images/MSD_EB_2025-2026/MSD_EB_2025-2026_006_A.jpg",
+        "../Stage2_Images/MSD_EB_2024-2025/MSD_EB_2024-2025_011.jpg"
+    ]
+  },
+  {
+    n: 7, s: "Pathology", l: "20",
+    case: "This is a femoral head:",
+    parts: [
+        { q: "Explain what do you see grossly?", a: "Discontinuous articular cartilage, bone exposure, and growth of osteophytes." },
+        { q: "What could be the underlying cause?", a: "Osteoarthritis caused by mechanical pressure and aging factors." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2025-2026/MSD_EB_2025-2026_007.jpg"
+  },
+  {
+    n: 8, s: "Pharmacology", l: "20",
+    case: "Prescription analysis / Drug Hx:",
+    parts: [
+        { q: "What is the interaction between the drugs in the prescription?", a: "The interaction is between meloxicam and lisinopril." },
+        { q: "What are the effects of this interaction?", a: "Meloxicam antagonizes antihypertensive effect of captopril, also cause hyperkalemia." }
+    ]
+  },
+  {
+    n: 9, s: "Microbiology", l: "20",
+    case: "A micro question about Clostridium perfringens:",
+    parts: [
+        { q: "What is the most important toxin it produces?", a: "Alpha toxin." },
+        { q: "What is the pattern of hemolysis on blood agar?", a: "Double zone of hemolysis." }
+    ]
+  },
+  {
+    n: 10, s: "Microbiology", l: "20",
+    q: "An infection occurs due to a bacteria that is a gram-positive, catalase-positive, coagulase-positive coccus in grape-like clusters that ferments mannitol on mannitol salt agar, turning it yellow. <br> <br> What is the bacteria?",
+    a: "Staphylococcus aureus."
+  },
+
+
+    ]
+};
+</script>
+<script src="../tools.js?v=4"></script>
+</body>
+</html>
