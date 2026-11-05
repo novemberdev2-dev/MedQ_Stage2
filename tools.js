@@ -1224,7 +1224,7 @@ function togglePracticalAnswer(el) {
     if (show) {
         const matched = btn.dataset.mcq === 'true' && markPracticalOption(item, btn.dataset.answer);
         if (matched) { textEl.textContent = ''; textEl.style.display = 'none'; }
-        else { textEl.textContent = btn.dataset.answer; textEl.style.display = 'inline-block'; }
+        else { textEl.textContent = btn.dataset.answer; textEl.style.display = single ? 'block' : 'inline-block'; }   // single question: own line under the question
         if (single) { btn.innerHTML = EYE_SHOW_SVG; btn.title = 'Hide answer'; }
         else btn.style.display = 'none';                     // branch part: the answer box takes the place of the eye
     } else {
