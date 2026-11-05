@@ -1048,7 +1048,8 @@
         .subject-dropdown-item { white-space: pre-line; }
         /* Long names: the list is exactly as wide as its longest row (already sized while closed),
            and only wraps if that row is wider than the screen. */
-        .subject-item-text { overflow-wrap: anywhere; }
+        /* Space between the name and the pin icon (padding counts toward the list's auto width) */
+        .subject-item-text { overflow-wrap: anywhere; padding-right: 22px; }
         .subject-dropdown-item { width: max-content; min-width: 100%; max-width: 100%; box-sizing: border-box; }
 
         /* The list is always laid out (it's only faded out when closed). A wide list used to push the
