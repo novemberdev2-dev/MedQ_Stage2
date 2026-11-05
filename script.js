@@ -316,14 +316,14 @@ const ALL_SECTIONS = [
  ]},
       
           { title: '2022-2023 Year Exam',   links: [
-        { label: 'End-Block _ Practice', badge: '5 Qs', href: 'MSD_End-Block_Practice_2022-2023.html' },
+        { label: 'End-Block _ Practice', badge: '5 Qs', href: 'MSD/MSD_End-Block_Practice_2022-2023.html' },
         { label: 'Final or End-Block', badge: '31 MCQs', href: 'MSD/MSD_FinalorEnd-Block_2022-2023.html' },
 
       
      ]},
      
       { title: '2023-2024 Year Exam',   links: [
-        { label: 'End-Block _ Practice', badge: '14 Qs', href: 'MSD_End_Block_Practice_2023-2024.html' },
+        { label: 'End-Block _ Practice', badge: '14 Qs', href: 'MSD/MSD_End_Block_Practice_2023-2024.html' },
         { label: 'Final', badge: '38 MCQs',  href: 'MSD/MSD_Final_2023-2024.html' },
 
      ]},
@@ -332,7 +332,7 @@ const ALL_SECTIONS = [
 
  { title: '2024-2025 Year Exam',     links: [
         { label: 'End-Block _ Theory', badge: '35 MCQs',  href: 'MSD/MSD_End-Block_2024-2025.html' },
-        { label: 'End-Block _ Practice', badge: '14 Qs',  href: 'MSD_End-Block_Practice_2024-2025.html' },
+        { label: 'End-Block _ Practice', badge: '14 Qs',  href: 'MSD/MSD_End-Block_Practice_2024-2025.html' },
         { label: 'Final', badge: '37 MCQs',  href: 'MSD/MSD_Final_2024-2025.html' },
 
 
@@ -341,7 +341,7 @@ const ALL_SECTIONS = [
 
      { title: '2025-2026 Year Exam',     links: [
       { label: 'End-Block _ Theory', badge: '28 MCQs',  href: 'MSD/MSD_End-Block_2025-2026.html' },
-      { label: 'End-Block _ Practice', badge: '10 Qs',  href: 'MSD_End-Block_Practice_2025-2026.html' },
+      { label: 'End-Block _ Practice', badge: '10 Qs',  href: 'MSD/MSD_End-Block_Practice_2025-2026.html' },
       { label: 'Final', badge: '38 MCQs',  href: 'MSD/MSD_Final_2025-2026.html' }
       
     
@@ -545,32 +545,32 @@ msd: [
 
   { title: 'Pathology 🔬', links: [
       { label: 'Theory',   badge: '67 MCQs', href: 'MSD/MSD_Pathology.html' },
-      { label: 'Practice', badge: '0 Qs', href: '#' }
+      { label: 'Practice', badge: '3 Qs', href: 'MSD/MSD_Pathology_Practice.html' }
     ] },
   
    { title: 'Pharmacology 💊', links: [
       { label: 'Theory',   badge: '63 MCQs', href: 'MSD/MSD_Pharmacology.html' },
-      { label: 'Practice', badge: '0 Qs', href: '#' }
+      { label: 'Practice', badge: '3 Qs', href: 'MSD/MSD_Pharmacology_Practice.html' }
     ] },
 
     { title: 'Microbiology 🦠', links: [
       { label: 'Theory',   badge: '63 MCQs', href: 'MSD/MSD_Microbiology.html' },
-      { label: 'Practice', badge: '0 Qs', href: '#' }
+      { label: 'Practice', badge: '7 Qs', href: 'MSD/MSD_Microbiology_Practice.html' }
     ] },
   
     { title: 'Anatomy 🦴', links: [
       { label: 'Theory',   badge: '37 MCQs', href: 'MSD/MSD_Anatomy.html' },
-      { label: 'Practice', badge: '0 Qs', href: '#' }
+      { label: 'Practice', badge: '19 Qs', href: 'MSD/MSD_Anatomy_Practice.html' }
     ] },
 
     { title: 'Physiology ⚡', links: [
       { label: 'Theory',   badge: '24 MCQs', href: 'MSD/MSD_Physiology.html' },
-      { label: 'Practice', badge: '0 Qs', href: '#' }
+      { label: 'Practice', badge: '0 Qs', href: 'MSD/MSD_Physiology_Practice.html' }
     ] },
    
   { title: 'Histology 🫁', links: [
       { label: 'Theory',   badge: '20 MCQs', href: 'MSD/MSD_Histology.html' },
-      { label: 'Practice', badge: '0 Qs', href: '#' }
+      { label: 'Practice', badge: '0 Qs', href: 'MSD/MSD_Histology_Practice.html' }
     ] },
 
   
