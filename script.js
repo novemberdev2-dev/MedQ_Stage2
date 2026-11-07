@@ -523,15 +523,15 @@ const SUBJECT_CARDS_BY_SECTION = {
       { label: 'Practice', badge: '11 Qs', href: 'IBS/IBS_Pharmacology_Practice.html' }
     ] },
     { title: 'Pathology 🔬', links: [
-      { label: 'Theory',   badge: '333 MCQs', href: 'IBS/IBS_Pathology.html' },
+      { label: 'Theory',   badge: '335 MCQs', href: 'IBS/IBS_Pathology.html' },
       { label: 'Practice', badge: '17 Qs', href: 'IBS/IBS_Pathology_Practice.html' }
     ] },
     { title: 'Biochemistry 🧪', links: [
-      { label: 'Theory',   badge: '309 MCQs', href: 'IBS/IBS_Biochemistry.html' },
+      { label: 'Theory',   badge: '311 MCQs', href: 'IBS/IBS_Biochemistry.html' },
       { label: 'Practice', badge: '27 Qs', href: 'IBS/IBS_Biochemistry_Practice.html' }
     ] },
     { title: 'Micro-Immunity 🦠', links: [
-      { label: 'Theory',   badge: '172 MCQs', href: 'IBS/IBS_Micro-Immunity.html' },
+      { label: 'Theory',   badge: '175 MCQs', href: 'IBS/IBS_Micro-Immunity.html' },
     
     ] },
     { title: 'Medical Education 📗', links: [
