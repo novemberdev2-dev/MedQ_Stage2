@@ -283,7 +283,7 @@ const ALL_SECTIONS = [
     
     ] },
        { title: '2026-2027 Year Exam',     links: [
-      { label: 'End-Block _ Theory', badge: '20 MCQs',  href: 'IBS/IBS_End-Block_2026-2027.html' },
+      { label: 'End-Block _ Theory', badge: '28 MCQs & Qs',  href: 'IBS/IBS_End-Block_2026-2027.html' },
         { label: 'End-Block _ Practice', badge: '10 Qs',  href: 'IBS/IBS_End-Block_Practice_2026-2027.html' },
       { label: 'Quiz _ Theory', badge: '81 MCQs',  href: 'IBS/IBS_Quiz_2026-2027.html' },
       { label: 'Quiz _ Practice', badge: '9 Qs',  href: 'IBS/IBS_Quiz_Practice_2026-2027.html' },
