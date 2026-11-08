@@ -549,12 +549,12 @@ msd: [
     ] },
   
    { title: 'Pharmacology 💊', links: [
-      { label: 'Theory',   badge: '63 MCQs', href: 'MSD/MSD_Pharmacology.html' },
+      { label: 'Theory',   badge: '65 MCQs', href: 'MSD/MSD_Pharmacology.html' },
       { label: 'Practice', badge: '3 Qs', href: 'MSD/MSD_Pharmacology_Practice.html' }
     ] },
 
     { title: 'Microbiology 🦠', links: [
-      { label: 'Theory',   badge: '63 MCQs', href: 'MSD/MSD_Microbiology.html' },
+      { label: 'Theory',   badge: '65 MCQs', href: 'MSD/MSD_Microbiology.html' },
       { label: 'Practice', badge: '15 Qs', href: 'MSD/MSD_Microbiology_Practice.html' }
     ] },
   
@@ -590,7 +590,7 @@ msd: [
     ] },
 
     { title: 'Dermatology ✨', links: [
-      { label: 'Theory',   badge: '7 MCQs', href: 'MSD/MSD_Dermatology.html' }
+      { label: 'Theory',   badge: '8 MCQs', href: 'MSD/MSD_Dermatology.html' }
     ] },
 
   
@@ -604,7 +604,11 @@ msd: [
     ] },
   
     { title: 'Bioethics ⚖️', links: [
-      { label: 'Theory',   badge: '4 MCQs', href: 'MSD/MSD_Bioethics.html' }
+      { label: 'Theory',   badge: '5 MCQs', href: 'MSD/MSD_Bioethics.html' }
+    ] },
+
+  { title: 'Medicine 📘', links: [
+      { label: 'Theory',   badge: '5 MCQs', href: 'MSD/MSD_Medicine.html' }
     ] },
 
      { title: 'Rheumatology 🦴', links: [
