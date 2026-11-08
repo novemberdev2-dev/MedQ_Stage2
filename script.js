@@ -585,15 +585,20 @@ msd: [
   { title: 'Genetics 🧬', links: [
       { label: 'Theory',   badge: '10 MCQs', href: 'MSD/MSD_Genetics.html' }
     ] },
-   { title: 'Medical-Education 📗', links: [
-      { label: 'Theory',   badge: '8 MCQs', href: 'MSD/MSD_Medical-Education.html' }
-    ] },
+
 
     { title: 'Dermatology ✨', links: [
       { label: 'Theory',   badge: '8 MCQs', href: 'MSD/MSD_Dermatology.html' }
     ] },
 
+     { title: 'Medical-Education 📗', links: [
+      { label: 'Theory',   badge: '8 MCQs', href: 'MSD/MSD_Medical-Education.html' }
+    ] },
+
   
+  { title: 'Medicine 📘', links: [
+      { label: 'Theory',   badge: '8 MCQs', href: 'MSD/MSD_Medicine.html' }
+    ] },
 
    { title: 'Embryology 👶', links: [
       { label: 'Theory',   badge: '6 MCQs', href: 'MSD/MSD_Embryology.html' }
@@ -605,10 +610,6 @@ msd: [
   
     { title: 'Bioethics ⚖️', links: [
       { label: 'Theory',   badge: '5 MCQs', href: 'MSD/MSD_Bioethics.html' }
-    ] },
-
-  { title: 'Medicine 📘', links: [
-      { label: 'Theory',   badge: '5 MCQs', href: 'MSD/MSD_Medicine.html' }
     ] },
 
      { title: 'Rheumatology 🦴', links: [
