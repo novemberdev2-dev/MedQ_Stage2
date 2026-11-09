@@ -625,7 +625,7 @@
         }
 
         mark { background-color: #f0cf6a; color: #000; }
-        .opts li.correct-option { color: var(--correct-color); font-weight: 650; background-color: var( --opts-bg); display: inline-block; padding: 0 7px 0 1px; border-radius: 4px;}
+        .opts li.correct-option { color: var(--correct-color); }
         
         .section-heading {
             display: flex;
@@ -1325,11 +1325,7 @@
     line-height: 1.8; font-size: 1rem; color: var(--text-main);
 }
 .p-item--inline .opts, .p-item .p-label ~ .opts { margin-top: 6px; }
-.p-block .opts li { display: block; }
-.p-block .opts li.correct-option {
-    display: inline-block; background-color: var(--p-ans-bg); color: var(--p-ans-text);
-    font-weight: 650; border-radius: 5px; padding: 1px 8px; margin: 2px -8px;
-}
+.p-block .opts li.correct-option { color: var(--p-ans-text); }
 
 .p-ans-row {
     display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
@@ -1373,3 +1369,66 @@
 
 /* heading of a page that shows only practical questions: no line under it */
 .section-heading.practical-only { border-bottom: none; padding-bottom: 0; }
+
+/* =====================================================================
+   SMOOTH, NO-SHIFT ANSWER REVEAL
+   - Every option is ALWAYS a block with the same padding, so marking one as
+     correct changes only colours (never size or line height).
+   - "Bold" is faked with a thin text stroke, which adds no width, so lines
+     never re-wrap and the buttons below never move.
+   - Colours fade in; boxes that appear (essay answers, notes) fade/slide in.
+   ===================================================================== */
+.opts li {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0 7px 0 1px;
+    border-radius: 4px;
+    background-color: transparent;
+    -webkit-text-stroke: 0.5px transparent;
+    transition: background-color 0.25s ease, color 0.25s ease, -webkit-text-stroke-color 0.25s ease;
+}
+.opts li.correct-option {
+    display: block;
+    font-weight: inherit;
+    background-color: var(--opts-bg);
+    -webkit-text-stroke-color: currentColor;
+}
+
+/* practical cards keep their own roomier padding, also in the normal state */
+.p-block .opts li {
+    padding: 1px 8px;
+    margin: 2px -8px;
+    border-radius: 5px;
+}
+.p-block .opts li.correct-option {
+    display: block;
+    font-weight: inherit;
+    background-color: var(--p-ans-bg);
+    margin: 2px -8px;
+}
+
+/* things that appear when the answer is revealed */
+@keyframes answerFadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.answer-text,
+.q-note,
+.case-eye-row .eye-btn.case-answer-revealed {
+    animation: answerFadeIn 0.28s ease both;
+}
+@media (prefers-reduced-motion: reduce) {
+    .opts li, .answer-text, .q-note, .case-eye-row .eye-btn.case-answer-revealed {
+        transition: none; animation: none;
+    }
+}
+
+/* Eye button: the closed-eye icon (20px) and open-eye icon (22px) are different sizes.
+   Give the button one fixed size so switching icons never moves the icons next to it. */
+.eye-btn {
+    box-sizing: border-box;
+    min-width: 34px;
+    min-height: 34px;
+}
