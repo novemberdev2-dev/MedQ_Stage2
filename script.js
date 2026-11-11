@@ -564,12 +564,12 @@ msd: [
     ] },
 
     { title: 'Physiology ⚡', links: [
-      { label: 'Theory',   badge: '24 MCQs', href: 'MSD/MSD_Physiology.html' },
+      { label: 'Theory',   badge: '19 MCQs', href: 'MSD/MSD_Physiology.html' },
       { label: 'Practice', badge: '2 Qs', href: 'MSD/MSD_Physiology_Practice.html' }
     ] },
    
   { title: 'Histology 🫁', links: [
-      { label: 'Theory',   badge: '20 MCQs', href: 'MSD/MSD_Histology.html' },
+      { label: 'Theory',   badge: '25 MCQs', href: 'MSD/MSD_Histology.html' },
       { label: 'Practice', badge: '1 Q', href: 'MSD/MSD_Histology_Practice.html' }
     ] },
 
