@@ -252,7 +252,7 @@ const ALL_SECTIONS = [
       ]},
       { title: '2021-2022 Year Exam',   links: [
         { label: 'End-Block', badge: '30 MCQs', href: 'IBS/IBS_End-Block_2021-2022.html' },
-        { label: 'Final', badge: '87 MCQs', href: 'IBS/IBS_Final_2021-2022.html' }
+        { label: 'Final', badge: '88 MCQs', href: 'IBS/IBS_Final_2021-2022.html' }
 
      ]},
      
@@ -312,7 +312,7 @@ const ALL_SECTIONS = [
 
       { title: '2021-2022 Year Exam',   links: [
         { label: 'Final _ 1st Term', badge: '38 MCQs', href: 'MSD/MSD_Final_2021-2022.html' },
-        { label: 'Final _ 2nd Term', badge: '36 MCQs', href: 'MSD/MSD_Final2_2021-2022.html' },
+        { label: 'Final _ 2nd Term', badge: '35 MCQs', href: 'MSD/MSD_Final2_2021-2022.html' },
  ]},
       
           { title: '2022-2023 Year Exam',   links: [
@@ -523,7 +523,7 @@ const SUBJECT_CARDS_BY_SECTION = {
       { label: 'Practice', badge: '11 Qs', href: 'IBS/IBS_Pharmacology_Practice.html' }
     ] },
     { title: 'Pathology 🔬', links: [
-      { label: 'Theory',   badge: '335 MCQs', href: 'IBS/IBS_Pathology.html' },
+      { label: 'Theory',   badge: '336 MCQs', href: 'IBS/IBS_Pathology.html' },
       { label: 'Practice', badge: '17 Qs', href: 'IBS/IBS_Pathology_Practice.html' }
     ] },
     { title: 'Biochemistry 🧪', links: [
@@ -564,7 +564,7 @@ msd: [
     ] },
 
     { title: 'Physiology ⚡', links: [
-      { label: 'Theory',   badge: '19 MCQs', href: 'MSD/MSD_Physiology.html' },
+      { label: 'Theory',   badge: '18 MCQs', href: 'MSD/MSD_Physiology.html' },
       { label: 'Practice', badge: '2 Qs', href: 'MSD/MSD_Physiology_Practice.html' }
     ] },
    
