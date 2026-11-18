@@ -890,6 +890,20 @@ function itemBadgesHtml(isP, isD) {
 function itemMenuBtnHtml(kind, val) {
     return `<button type="button" class="item-menu-btn" data-kind="${kind}" data-val="${String(val).replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" onclick="openItemMenu(this, event)" title="Options" aria-label="Options">${DOTS_SVG}</button>`;
 }
+/* A tap on the three-dot menu (or its dots) is never an "outside click": the lists stay open */
+let itemMenuTouchAt = 0;
+function isItemMenuTap(e) {
+    const t = e.target;
+    if (t && t.closest && t.closest('.item-menu, .item-menu-btn')) return true;
+    return Date.now() - itemMenuTouchAt < 600;
+}
+['pointerdown', 'mousedown', 'touchstart', 'click'].forEach(ev => {
+    document.addEventListener(ev, function (e) {
+        const t = e.target;
+        if (t && t.closest && t.closest('.item-menu, .item-menu-btn')) itemMenuTouchAt = Date.now();
+    }, true);
+});
+
 function closeItemMenu() {
     const m = document.getElementById('item-menu');
     if (m) {
@@ -941,7 +955,7 @@ document.addEventListener('click', function (e) {
     if (!e.target.closest || !e.target.closest('#item-menu')) closeItemMenu();
 });
 window.addEventListener('resize', closeItemMenu);
-document.addEventListener('scroll', closeItemMenu, true);
+document.addEventListener('scroll', function (e) { if (document.getElementById('item-menu') && !(e.target.closest && e.target.closest('.item-menu'))) closeItemMenu(); }, true);
 
 
 function toggleLecturePin(val, ev) {
@@ -1034,6 +1048,7 @@ function selectLecture(val, ev) {
 }
 
 document.addEventListener('click', function(e) {
+    if (!e.target.isConnected || isItemMenuTap(e)) return;   // pin / done re-draws the list: not an outside click
     const wrapper = document.getElementById('lecture-select-wrapper');
     if (wrapper && !wrapper.contains(e.target)) {
         closeLectureDropdown();
@@ -1635,7 +1650,7 @@ function selectSubjectFilter(subject, el) {
 
 document.addEventListener('click', function(e) {
     // the list re-renders itself on select/pin, so the clicked row may already be detached: that is not an outside click
-    if (!e.target.isConnected) return;
+    if (!e.target.isConnected || isItemMenuTap(e)) return;
     const wrapper = document.querySelector('.subject-toggle-wrapper');
     if (wrapper && !wrapper.contains(e.target)) {
         document.getElementById('subject-dropdown').classList.remove('open');
