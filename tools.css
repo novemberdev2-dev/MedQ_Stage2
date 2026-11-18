@@ -446,8 +446,8 @@
             border: 1px solid rgba(255,255,255,0.13);
             border-radius: 14px;
             overflow: hidden;
-            width: 290px;
-            max-width: 80vw;
+            width: 350px;
+            max-width: 92vw;
             z-index: 20;
             opacity: 0;
             pointer-events: none;
@@ -1432,3 +1432,65 @@
     min-width: 34px;
     min-height: 34px;
 }
+
+
+/* ===== Three-dot menu, pin / done badges (subject, year and lecture lists) ===== */
+.item-menu-btn {
+    flex-shrink: 0; align-self: center;
+    width: 26px; height: 30px; margin: -4px 2px -4px -8px; padding: 0;
+    border: none; border-radius: 8px; background: transparent;
+    color: #999; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: background-color 0.15s ease, color 0.15s ease;
+}
+.item-menu-btn svg { width: 18px; height: 18px; display: block; pointer-events: none; }
+.item-menu-btn:hover, .item-menu-btn.menu-open { background-color: rgba(255,255,255,0.1); color: #f1f5f9; }
+[data-theme="light"] .item-menu-btn { color: #555; }
+[data-theme="light"] .item-menu-btn:hover, [data-theme="light"] .item-menu-btn.menu-open { background-color: rgba(0,0,0,0.07); color: #111; }
+.lecture-dropdown-item.selected .item-menu-btn,
+.subject-dropdown-item.selected .item-menu-btn,
+[data-theme="light"] .lecture-dropdown-item.selected .item-menu-btn,
+[data-theme="light"] .subject-dropdown-item.selected .item-menu-btn { color: #fff; }
+.lecture-dropdown-item.selected .item-menu-btn:hover,
+.subject-dropdown-item.selected .item-menu-btn:hover,
+.lecture-dropdown-item.selected .item-menu-btn.menu-open,
+.subject-dropdown-item.selected .item-menu-btn.menu-open { background-color: rgba(255,255,255,0.22); }
+.no-menu { padding-left: 16px; }
+
+.item-badges {
+    margin-left: auto; align-self: center; flex-shrink: 0;
+    display: flex; align-items: center; gap: 5px;
+    padding: 4px 8px; border-radius: 999px;
+    background: rgba(255,255,255,0.1); color: #f0cf6a;
+    }
+[data-theme="light"] .item-badges { background: rgba(0,0,0,0.08); color: #2e7d32; }
+.item-badge { display: flex; width: 16px; height: 16px; }
+.item-badge svg { width: 16px; height: 16px; display: block; }
+.lecture-dropdown-item.selected .item-badges,
+.subject-dropdown-item.selected .item-badges,
+[data-theme="light"] .lecture-dropdown-item.selected .item-badges,
+[data-theme="light"] .subject-dropdown-item.selected .item-badges { background: rgba(30, 80, 150, 0.22); color: #fff; }
+
+.item-menu {
+    position: fixed; z-index: 100000;
+    display: flex; flex-direction: column; gap: 2px;
+    padding: 5px; min-width: 150px; box-sizing: border-box;
+    border-radius: 12px; background: #2d2f33; color: #f1f5f9;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    opacity: 0; transform: scale(0.45); will-change: transform, opacity;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.9, 0.6), opacity 0.16s ease-in 0.02s;   /* closing: quick, no bounce */
+}
+.item-menu.open {
+    opacity: 1; transform: scale(1);
+    transition: transform 0.5s cubic-bezier(0.22, 1.32, 0.36, 1), opacity 0.18s ease-out;     /* opening: spring with a small overshoot */
+}
+@media (prefers-reduced-motion: reduce) { .item-menu, .item-menu.open { transition: opacity 0.15s ease; transform: none; } }
+[data-theme="light"] .item-menu { background: #d9d9d9; color: #111; box-shadow: 0 10px 30px rgba(0,0,0,0.22); }
+.item-menu-opt {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 10px; border: none; border-radius: 8px;
+    background: transparent; color: inherit; font: inherit;
+    font-size: 0.9rem; font-weight: 500; text-align: left; white-space: nowrap; cursor: pointer;
+}
+.item-menu-opt:hover { background: rgba(255,255,255,0.1); }
+[data-theme="light"] .item-menu-opt:hover { background: rgba(0,0,0,0.08); }
+.item-menu-opt svg { width: 18px; height: 18px; flex-shrink: 0; display: block; }
