@@ -871,6 +871,79 @@ function getLectureFilters() {
 
 function lectureKey(val) { return currentSubjectFilter + '|' + val; }
 
+/* ===== Three-dot item menu (Pin / Mark as done) for the subject, year and lecture lists ===== */
+const DOTS_SVG = `<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="5" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="12" cy="19" r="2"></circle></svg>`;
+const DONE_SVG = `<svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.65263 14.0304C6.29251 13.6703 6.29251 13.0864 6.65263 12.7263C7.01276 12.3662 7.59663 12.3662 7.95676 12.7263L11.6602 16.4297L19.438 8.65183C19.7981 8.29171 20.382 8.29171 20.7421 8.65183C21.1023 9.01195 21.1023 9.59583 20.7421 9.95596L12.3667 18.3314C11.9762 18.7219 11.343 18.7219 10.9525 18.3314L6.65263 14.0304Z" fill="currentColor"></path><path clip-rule="evenodd" d="M14 1C6.8203 1 1 6.8203 1 14C1 21.1797 6.8203 27 14 27C21.1797 27 27 21.1797 27 14C27 6.8203 21.1797 1 14 1ZM3 14C3 7.92487 7.92487 3 14 3C20.0751 3 25 7.92487 25 14C25 20.0751 20.0751 25 14 25C7.92487 25 3 20.0751 3 14Z" fill="currentColor" fill-rule="evenodd"></path></svg>`;
+const UNDONE_SVG = `<svg fill="currentColor" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path d="M100,15a85,85,0,1,0,85,85A84.93,84.93,0,0,0,100,15Zm0,150a65,65,0,1,1,65-65A64.87,64.87,0,0,1,100,165Z"></path><path d="M128.5,74a9.67,9.67,0,0,0-14,0L100,88.5l-14-14a9.9,9.9,0,0,0-14,14l14,14-14,14a9.9,9.9,0,0,0,14,14l14-14,14,14a9.9,9.9,0,0,0,14-14l-14-14,14-14A10.77,10.77,0,0,0,128.5,74Z"></path></svg>`;
+
+const DONE_LECTURES_KEY = 'doneLectures_' + location.pathname;
+let doneLectures = new Set();
+try { doneLectures = new Set(JSON.parse(localStorage.getItem(DONE_LECTURES_KEY) || '[]')); } catch (e) {}
+const DONE_SUBJECTS_KEY = 'doneSubjects_' + (YEAR_MODE ? 'y_' : 's_') + location.pathname;
+let doneSubjects = new Set();
+try { doneSubjects = new Set(JSON.parse(localStorage.getItem(DONE_SUBJECTS_KEY) || '[]')); } catch (e) {}
+
+function itemBadgesHtml(isP, isD) {
+    if (!isP && !isD) return '';
+    return `<span class="item-badges">${isD ? `<span class="item-badge item-badge-done">${DONE_SVG}</span>` : ''}${isP ? `<span class="item-badge item-badge-pin">${PIN_SVG}</span>` : ''}</span>`;
+}
+function itemMenuBtnHtml(kind, val) {
+    return `<button type="button" class="item-menu-btn" data-kind="${kind}" data-val="${String(val).replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" onclick="openItemMenu(this, event)" title="Options" aria-label="Options">${DOTS_SVG}</button>`;
+}
+function closeItemMenu() {
+    const m = document.getElementById('item-menu');
+    if (m) {
+        m.id = '';                                   // so a new menu can open right away
+        m.classList.remove('open');                  // quick shrink-out, then remove
+        setTimeout(() => m.remove(), 180);
+    }
+    document.querySelectorAll('.item-menu-btn.menu-open').forEach(b => b.classList.remove('menu-open'));
+}
+function openItemMenu(btn, ev) {
+    if (ev) { ev.stopPropagation(); ev.preventDefault(); }
+    const had = btn.classList.contains('menu-open');
+    closeItemMenu();
+    if (had) return;
+    const kind = btn.dataset.kind, val = btn.dataset.val;
+    const isP = kind === 'lecture' ? pinnedLectures.has(lectureKey(Number(val))) : pinnedSubjects.has(val);
+    const isD = kind === 'lecture' ? doneLectures.has(lectureKey(Number(val))) : doneSubjects.has(val);
+    const menu = document.createElement('div');
+    menu.id = 'item-menu';
+    menu.className = 'item-menu';
+    menu.innerHTML =
+        `<button type="button" class="item-menu-opt" data-act="pin">${isP ? UNPIN_SVG : PIN_SVG}<span>${isP ? 'Unpin' : 'Pin'}</span></button>` +
+        `<button type="button" class="item-menu-opt" data-act="done">${isD ? UNDONE_SVG : DONE_SVG}<span>${isD ? 'Undone' : 'Mark as done'}</span></button>`;
+    menu.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const opt = e.target.closest('.item-menu-opt');
+        if (!opt) return;
+        closeItemMenu();
+        if (opt.dataset.act === 'pin') { kind === 'lecture' ? toggleLecturePin(Number(val)) : toggleSubjectPin(val); }
+        else { kind === 'lecture' ? toggleLectureDone(Number(val)) : toggleSubjectDone(val); }
+    });
+    document.body.appendChild(menu);
+    btn.classList.add('menu-open');
+    const r = btn.getBoundingClientRect();
+    const mw = menu.offsetWidth, mh = menu.offsetHeight;
+    const vw = document.documentElement.clientWidth, vh = window.innerHeight;
+    let left = Math.min(Math.max(8, r.left - 6), vw - mw - 8);
+    let top = r.bottom + 2;
+    if (top + mh > vh - 8) top = Math.max(8, r.top - mh - 2);
+    menu.style.left = left + 'px';
+    menu.style.top = top + 'px';
+    // pop-up grows out of the three dots (same spring as the lecture list)
+    const flipped = top < r.top;
+    menu.style.transformOrigin = (r.left + r.width / 2 - left) + 'px ' + (flipped ? 'calc(100% + 10px)' : '-10px');
+    void menu.offsetWidth;
+    menu.classList.add('open');
+}
+document.addEventListener('click', function (e) {
+    if (!e.target.closest || !e.target.closest('#item-menu')) closeItemMenu();
+});
+window.addEventListener('resize', closeItemMenu);
+document.addEventListener('scroll', closeItemMenu, true);
+
+
 function toggleLecturePin(val, ev) {
     if (ev) { ev.stopPropagation(); ev.preventDefault(); }
     const k = lectureKey(val);
@@ -884,6 +957,15 @@ function toggleLecturePin(val, ev) {
     }
 }
 
+function toggleLectureDone(val, ev) {
+    if (ev) { ev.stopPropagation(); ev.preventDefault(); }
+    const k = lectureKey(val);
+    if (doneLectures.has(k)) doneLectures.delete(k); else doneLectures.add(k);
+    try { localStorage.setItem(DONE_LECTURES_KEY, JSON.stringify([...doneLectures])); } catch (e) {}
+    const wrap = document.querySelector('#lecture-dropdown .lecture-dropdown-items');
+    if (wrap) { const saved = wrap.scrollTop; wrap.innerHTML = renderLectureDropdownItems(); wrap.scrollTop = saved; }
+}
+
 function renderLectureDropdownItems() {
     const filters = getLectureFilters();
     const all = filters.filter(f => f.val === "All");
@@ -892,11 +974,10 @@ function renderLectureDropdownItems() {
     const rest = lecs.filter(f => !pinnedLectures.has(lectureKey(f.val)));
     return [...all, ...pinned, ...rest].map(f => {
         const sel = String(f.val) === String(currentLecture) ? " selected" : "";
-        const pinBtn = f.val === "All" ? '' : (() => {
-            const isP = pinnedLectures.has(lectureKey(f.val));
-            return `<button type="button" class="lecture-pin-btn" data-pinned="${isP}" onclick="toggleLecturePin('${f.val}', event)" title="${isP ? 'Unpin lecture' : 'Pin lecture'}" aria-label="${isP ? 'Unpin lecture' : 'Pin lecture'}">${isP ? UNPIN_SVG : PIN_SVG}</button>`;
-        })();
-        return `<div class="lecture-dropdown-item${sel}" onclick="selectLecture('${f.val}', event)"><span class="lecture-item-text">${f.label}</span>${pinBtn}</div>`;
+        const isAll = f.val === "All";
+        const menuBtn = isAll ? '' : itemMenuBtnHtml('lecture', f.val);
+        const badges = isAll ? '' : itemBadgesHtml(pinnedLectures.has(lectureKey(f.val)), doneLectures.has(lectureKey(f.val)));
+        return `<div class="lecture-dropdown-item${sel}${isAll ? ' no-menu' : ''}" onclick="selectLecture('${f.val}', event)">${menuBtn}<span class="lecture-item-text">${f.label}</span>${badges}</div>`;
     }).join('');
 }
 
@@ -931,6 +1012,7 @@ function toggleLectureDropdown() {
 }
 
 function closeLectureDropdown() {
+    closeItemMenu();
     const dd = document.getElementById('lecture-dropdown');
     const btn = document.getElementById('lecture-select-btn');
     if (dd) dd.classList.remove('open');
@@ -1512,12 +1594,10 @@ function renderSubjectDropdownItems() {
     const rest = entries.filter(e => !pinnedSubjects.has(e.val));
     return [{ val: 'All', label: 'All' }, ...pinned, ...rest].map(e => {
         const sel = e.val === selectedVal ? ' selected' : '';
-        let pinBtn = '';
-        if (e.val !== 'All') {
-            const isP = pinnedSubjects.has(e.val);
-            pinBtn = `<button type="button" class="lecture-pin-btn" data-pinned="${isP}" onclick="toggleSubjectPin(this.closest('.subject-dropdown-item').dataset.subject, event)" title="${isP ? 'Unpin' : 'Pin'}" aria-label="${isP ? 'Unpin' : 'Pin'}">${isP ? UNPIN_SVG : PIN_SVG}</button>`;
-        }
-        return `<div class="subject-dropdown-item${sel}" data-subject="${escHtmlSub(e.val)}" onclick="selectSubjectFilter(this.dataset.subject, this)"><span class="subject-item-text">${escHtmlSub(e.label)}</span>${pinBtn}</div>`;
+        const isAll = e.val === 'All';
+        const menuBtn = isAll ? '' : itemMenuBtnHtml('subject', e.val);
+        const badges = isAll ? '' : itemBadgesHtml(pinnedSubjects.has(e.val), doneSubjects.has(e.val));
+        return `<div class="subject-dropdown-item${sel}${isAll ? ' no-menu' : ''}" data-subject="${escHtmlSub(e.val)}" onclick="selectSubjectFilter(this.dataset.subject, this)">${menuBtn}<span class="subject-item-text">${escHtmlSub(e.label)}</span>${badges}</div>`;
     }).join('');
 }
 
@@ -1527,6 +1607,13 @@ function refreshSubjectDropdown() {
     const saved = wrap.scrollTop;
     wrap.innerHTML = renderSubjectDropdownItems();
     wrap.scrollTop = saved;
+}
+
+function toggleSubjectDone(val, ev) {
+    if (ev) { ev.stopPropagation(); ev.preventDefault(); }
+    if (doneSubjects.has(val)) doneSubjects.delete(val); else doneSubjects.add(val);
+    try { localStorage.setItem(DONE_SUBJECTS_KEY, JSON.stringify([...doneSubjects])); } catch (e) {}
+    refreshSubjectDropdown();
 }
 
 function toggleSubjectPin(val, ev) {
