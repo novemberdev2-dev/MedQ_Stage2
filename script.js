@@ -316,7 +316,7 @@ const ALL_SECTIONS = [
  ]},
       
           { title: '2022-2023 Year Exam',   links: [
-        { label: 'End-Block _ Practice', badge: '5 Qs', href: 'MSD/MSD_End-Block_Practice_2022-2023.html' },
+        { label: 'End-Block _ Practice', badge: '18 Qs', href: 'MSD/MSD_End-Block_Practice_2022-2023.html' },
         { label: 'End-Block', badge: '17 MCQs', href: 'MSD/MSD_End-Block_2022-2023.html' },
         { label: 'Final', badge: '31 MCQs', href: 'MSD/MSD_Final_2022-2023.html' },
 
@@ -546,7 +546,7 @@ msd: [
 
   { title: 'Pathology 🔬', links: [
       { label: 'Theory',   badge: '67 MCQs', href: 'MSD/MSD_Pathology.html' },
-      { label: 'Practice', badge: '3 Qs', href: 'MSD/MSD_Pathology_Practice.html' }
+      { label: 'Practice', badge: '5 Qs', href: 'MSD/MSD_Pathology_Practice.html' }
     ] },
   
    { title: 'Pharmacology 💊', links: [
@@ -561,17 +561,22 @@ msd: [
   
     { title: 'Anatomy 🦴', links: [
       { label: 'Theory',   badge: '38 MCQs', href: 'MSD/MSD_Anatomy.html' },
-      { label: 'Practice', badge: '19 Qs', href: 'MSD/MSD_Anatomy_Practice.html' }
+      { label: 'Practice', badge: '27 Qs', href: 'MSD/MSD_Anatomy_Practice.html' }
     ] },
 
     { title: 'Physiology ⚡', links: [
       { label: 'Theory',   badge: '20 MCQs', href: 'MSD/MSD_Physiology.html' },
-      { label: 'Practice', badge: '3 Qs', href: 'MSD/MSD_Physiology_Practice.html' }
+      { label: 'Practice', badge: '4 Qs', href: 'MSD/MSD_Physiology_Practice.html' }
     ] },
    
   { title: 'Histology 🫁', links: [
       { label: 'Theory',   badge: '26 MCQs', href: 'MSD/MSD_Histology.html' },
       { label: 'Practice', badge: '1 Q', href: 'MSD/MSD_Histology_Practice.html' }
+    ] },
+
+   { title: 'Dermatology ✨', links: [
+      { label: 'Theory',   badge: '9 MCQs', href: 'MSD/MSD_Dermatology.html' },
+       { label: 'Practice', badge: '1 Q', href: 'MSD/MSD_Dermatology_Practice.html' }
     ] },
 
   
@@ -588,9 +593,7 @@ msd: [
     ] },
 
 
-    { title: 'Dermatology ✨', links: [
-      { label: 'Theory',   badge: '9 MCQs', href: 'MSD/MSD_Dermatology.html' }
-    ] },
+   
 
      { title: 'Medical-Education 📗', links: [
       { label: 'Theory',   badge: '8 MCQs', href: 'MSD/MSD_Medical-Education.html' }
