@@ -28,62 +28,210 @@ window.QUIZ_CONFIG = {
     year: "End-Block ·  Practice · 2022-2023",   // name shown in the subject pages' year filter
     practical: true,                           // every question in this file is a practical question
 
-    subject: "Microbiology 🦠",
-     
+    subjects: [
 
+    "Anatomy 🦴",
+    "Microbiology 🦠",
+    "Pathology 🔬",
+    "Physiology⚡",
+    "Radiology 🩻",
+    "Dermatology ✨",
     
+],
+    
+    
+   
 
     subjectFiles: [
+      "MSD_Anatomy_Practice.html",
       "MSD_Microbiology_Practice.html",
-      
+      "MSD_Pharmacology_Practice.html",
+      "MSD_Histology_Practice.html",
+      "MSD_Physiology_Practice.html",
+      "MSD_Pathology_Practice.html",
     ],
 
     questions: [
-  {
-    n: 1, s: "Microbiology", l: "20",
-    case: " A 55 year old man comes to his physician with a tender, swollen, and erythematous left knee. He has limited range of motion in his leg. The synovial fluid from his knee was sent to microbiology laboratory for gram stain and cultures. The Gram stain of the cell from the colonies resembled that shown.",
+    {
+    n: 1, s: "Anatomy", l: "20",
+    parts: [
+        { q: "What is the bone called?", a: "Axis." },
+        { q: "Name the pointed area.", a: "Odontoid process (dens)." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_001.jpg"
+},
+{
+    n: 2, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Name the muscle A.", a: "Diaphragm." },
+        { q: "Name the muscle B.", a: "Psoas major." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_002.jpg"
+},
+{
+    n: 3, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Name the muscle A.", a: "Digastric muscle." },
+        { q: "Name the muscle B.", a: "Sternohyoid muscle." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_003.jpg"
+},
+{
+    n: 4, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Name muscle A.", a: "Tendon of the long head of the biceps." },
+        { q: "Name muscle B.", a: "Coracobrachialis." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_004.jpg"
+},
+{
+    n: 5, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Name structure A.", a: "Third lumbar vertebra (L3)." },
+        { q: "Name structure B.", a: "Sacrum (anterior sacral foramina)." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_005.jpg"
+},
+{
+    n: 6, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Name structure A.", a: "Acetabular labrum." },
+        { q: "Name structure B.", a: "Ligament of the head of femur." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_006.jpg"
+},
+{
+    n: 7, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Which muscle is attached to the red area?", a: "Subscapularis." },
+        { q: "Which muscle is attached to the blue area?", a: "Serratus anterior." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_007.jpg"
+},
+{
+    n: 8, s: "Anatomy", l: "20",
+    parts: [
+        { q: "Name structure A.", a: "Tensor fasciae latae." },
+        { q: "Name structure B.", a: "Iliotibial tract." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_008.jpg"
+},
+
+
+
+
+
+
+
+
+
+
+ {
+    n: 9, s: "Microbiology", l: "20",
+    case: " A 55-year-old man comes to his physician with a tender, swollen, and erythematous left knee. He has limited range of motion in his leg. The synovial fluid from his knee was sent to microbiology laboratory for gram stain and cultures. The Gram stain of the cell from the colonies resembled that shown.",
     parts: [
         { q: "What is the likely causative agent?", a: "Staphylococcus species." },
         { q: "What is the differential medium?", a: "Mannitol salt agar." },
         { q: "What is the cell morphology of the bacterium shown?", a: "Gram positive, cocci and grape-like clusters." }
     ],
-    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_001.png"
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_009.png"
   },
   {
-    n: 2, s: "Microbiology", l: "20",
+    n: 10, s: "Microbiology", l: "20",
     case: "A bad wound infection that developed to a swelling with crepitus and palpitations: ",
     parts: [
         { q: "What is the causative agent?", a: "Clostridium perfringens." },
         { q: "What is the differential agent?", a: "Nagler reaction." }
     ],
-    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_002.jpg"
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_010.jpg"
   },
   {
-    n: 3, s: "Microbiology", l: "1",
+    n: 11, s: "Microbiology", l: "1",
     q: "Gram stain shows the demonstrated result, and catalase test shows that it is catalase positive bacteria, which of the following options is the correct species of bacteria?",
     o: ["Klebsiella pneumoniae.", "Staphylococcus aureus.", "Acinetobacter baumannii.", "Streptococcus pyogenes.", "Streptococcus epidermidis."],
     a: "Answer: B",
-    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_003.png"
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_011.png"
   },
   {
-    n: 4, s: "Microbiology", l: "20",
+    n: 12, s: "Microbiology", l: "20",
     case: " A case presented with patchy discoloration with multiple hyperpigmented lesions:",
     parts: [
         { q: "What is the name of the fungus?", a: "Malassezia furfur." },
         { q: "Which type of media is used for this type of fungi?", a: "Sabouraud’s dextrose agar or Dixon agar." }
     ],
-    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_004.png"
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_012.png"
   },
   {
-    n: 5, s: "Microbiology", l: "20",
+    n: 13, s: "Microbiology", l: "20",
     case: "The gram stain findings show large gram positive rods:",
     parts: [
         { q: "What is the name of the microorganism?", a: "Clostridium perfringens." },
         { q: "What is the type of the hemolysis that is produced on blood agar?", a: "Double zone hemolysis." }
     ],
-    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_005.jpg"
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_013.jpg"
   },
-  
+
+{
+    n: 14, s: "Pathology", l: "20",
+
+    parts: [
+        { q: "Describe the gross pathology.", a: "Overgrowth of cartilage and bone that happens at the end of the bone near the growth plate and its covered by cartilage cap." },
+        { q: "What is the diagnosis?", a: "Osteochondroma." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_014.jpg"
+  },
+
+  {
+    n: 15, s: "Pathology", l: "20",
+    parts: [
+        { q: "Describe the microscopic pathology.", a: "A benign overgrowth of bone on the facial bones." },
+        { q: "What is the disease?", a: "Osteoma." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_015.jpg"
+  },
+
+
+
+
+
+
+
+
+
+
+
+  {
+    n: 16, s: "Physiology", l: "20",
+    parts: [
+        { q: "What is the device?", a: "Electromyograph." },
+        { q: "What is the physiological factors affecting the recording?", a: "1. Age of the patient.\n 2. Muscle examined. \n 3. Temperature." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_016.jpg"
+  },
+
+   {
+    n: 17, s: "Radiology", l: "20",
+    case: "Describe the following radiological images.",
+    parts: [
+        { q: "What is image A shown?", a: " CT scan: Axial view of the pelvis with bone window." },
+        { q: "What is image B shown?", a: "CT scan: axial view of the pelvis with soft tissue window." }
+    ],
+
+img: [
+        "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_017_A.png",
+        "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_017_B.png"
+    ]
+
+  },
+
+{
+    n: 17, s: "Dermatology", l: "20",
+    parts: [
+        { q: "Describe the lesion.", a: "Red swollen plaques of various size and involve a dermatome on erythmatous base." },
+        { q: "What is the causative agent?", a: "Shingles: Herpes Zoster." }
+    ],
+    img: "../Stage2_Images/MSD_EB_2022-2023/MSD_EB_2022-2023_018.jpg"
+  },
  
 
     ]
