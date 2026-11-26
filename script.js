@@ -349,7 +349,7 @@ const ALL_SECTIONS = [
     ] },
 
      { title: 'Unknown Year Exam',     links: [
-      { label: 'Final', badge: '104 MCQs',  href: 'MSD/MSD_Final_Unknown-Year.html' },
+      { label: 'Final', badge: '107 MCQs',  href: 'MSD/MSD_Final_Unknown-Year.html' },
     
     ] },
     ]
@@ -550,8 +550,8 @@ msd: [
     ] },
 
   { title: 'Pathology 🔬', links: [
-      { label: 'Theory',   badge: '67 MCQs', href: 'MSD/MSD_Pathology.html' },
-      { label: 'Practice', badge: '5 Qs', href: 'MSD/MSD_Pathology_Practice.html' }
+      { label: 'Theory',   badge: '70 MCQs', href: 'MSD/MSD_Pathology.html' },
+      { label: 'Practice', badge: '8 Qs', href: 'MSD/MSD_Pathology_Practice.html' }
     ] },
 
     
