@@ -471,7 +471,7 @@ html.light-mode-pre body .filter-mode-option.selected .filter-mode-check::after 
   justify-content: space-between;
   align-items: center;
   padding: 12px 0;
-  border-bottom: 1px solid var(--border-theory-practical);
+  
   text-decoration: none;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
