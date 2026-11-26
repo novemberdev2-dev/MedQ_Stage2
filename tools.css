@@ -1241,7 +1241,6 @@
         .q-note {
             margin: 4px 0 14px;
             padding: 9px 12px;
-            border-left: 3px solid #729fcf;
             border-radius: 6px;
             background-color: var(--input-bg);
             color: var(--text-opts);
