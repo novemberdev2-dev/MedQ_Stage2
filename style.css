@@ -1360,3 +1360,25 @@ body.light-mode .subject-card,
 html.light-mode-pre body .subject-card { background: rgba(255, 255, 255, 0.65); }
 body.light-mode .subject-card:hover,
 html.light-mode-pre body .subject-card:hover { background: rgba(255, 255, 255, 0.78); }
+
+/* ===== box titles (FILTER / FILTER BLOCKS / SETTINGS): same clear colour in all three boxes ===== */
+.settings-dropdown-header,
+.filter-dropdown-header { color: #b4b4bb; }
+body.light-mode .settings-dropdown-header,
+html.light-mode-pre body .settings-dropdown-header,
+body.light-mode .filter-dropdown-header,
+html.light-mode-pre body .filter-dropdown-header { color: #5f6368; }
+
+/* close (X) icons in the same boxes */
+.settings-dropdown .settings-close-btn svg,
+.filter-dropdown .settings-close-btn svg { stroke: #b4b4bb; }
+body.light-mode .settings-dropdown .settings-close-btn svg,
+html.light-mode-pre body .settings-dropdown .settings-close-btn svg,
+body.light-mode .filter-dropdown .settings-close-btn svg,
+html.light-mode-pre body .filter-dropdown .settings-close-btn svg { stroke: #5f6368; }
+.settings-dropdown .settings-close-btn:hover svg,
+.filter-dropdown .settings-close-btn:hover svg { stroke: #fff; }
+body.light-mode .settings-dropdown .settings-close-btn:hover svg,
+html.light-mode-pre body .settings-dropdown .settings-close-btn:hover svg,
+body.light-mode .filter-dropdown .settings-close-btn:hover svg,
+html.light-mode-pre body .filter-dropdown .settings-close-btn:hover svg { stroke: #111; }
