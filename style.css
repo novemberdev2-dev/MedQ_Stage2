@@ -1302,3 +1302,61 @@ html.light-mode-pre body .sk {
 @media (prefers-reduced-motion: reduce) {
   .sk { animation: none; }
 }
+
+/* ===== "FILTER BLOCKS" LIST: 3 names per row, right edge aligned with the filter button ===== */
+#filter-dropdown {
+  right: 0;                                  /* same alignment as the Filter box: its right edge sits under the button */
+  width: max-content;
+  min-width: 0;
+  max-width: calc(100vw - 140px);            /* never runs off the left edge of the screen */
+}
+#filter-dropdown .filter-options-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);   /* 3 block names per row */
+  gap: 6px;
+}
+#filter-dropdown .filter-option-pill {
+  white-space: nowrap;
+  padding: 11px 16px;
+}
+#filter-dropdown .filter-actions { justify-content: flex-end; }
+#filter-dropdown .filter-btn-cancel,
+#filter-dropdown .filter-btn-save { flex: 0 0 auto; min-width: 90px; }
+
+@media (max-width: 480px) {
+  #filter-dropdown .filter-option-pill { padding: 11px 8px; gap: 4px; font-size: 0.8rem; justify-content: center; }
+  #filter-dropdown .filter-btn-cancel,
+  #filter-dropdown .filter-btn-save { min-width: 0; flex: 1; }
+}
+
+/* ===== soft rounded border around each block name in the Filter blocks list ===== */
+#filter-dropdown .filter-option-pill {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+#filter-dropdown .filter-option-pill:hover { border-color: rgba(255, 255, 255, 0.28); }
+#filter-dropdown .filter-option-pill.selected,
+#filter-dropdown .filter-option-pill.selected:hover { border-color: transparent; }
+body.light-mode #filter-dropdown .filter-option-pill,
+html.light-mode-pre body #filter-dropdown .filter-option-pill { border-color: rgba(0, 0, 0, 0.14); }
+body.light-mode #filter-dropdown .filter-option-pill:hover,
+html.light-mode-pre body #filter-dropdown .filter-option-pill:hover { border-color: rgba(0, 0, 0, 0.26); }
+body.light-mode #filter-dropdown .filter-option-pill.selected,
+html.light-mode-pre body #filter-dropdown .filter-option-pill.selected { border-color: transparent; }
+
+/* ===== cards: no inner light / glow (flat glass, same hairline border) ===== */
+.subject-card,
+.subject-card:hover,
+body.light-mode .subject-card,
+html.light-mode-pre body .subject-card,
+body.light-mode .subject-card:hover,
+html.light-mode-pre body .subject-card:hover {
+  box-shadow: none;
+}
+.subject-card { background: rgba(255, 255, 255, 0.035); }
+.subject-card:hover { background: rgba(255, 255, 255, 0.055); }
+body.light-mode .subject-card,
+html.light-mode-pre body .subject-card { background: rgba(255, 255, 255, 0.65); }
+body.light-mode .subject-card:hover,
+html.light-mode-pre body .subject-card:hover { background: rgba(255, 255, 255, 0.78); }
