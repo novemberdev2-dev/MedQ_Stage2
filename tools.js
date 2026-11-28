@@ -150,7 +150,7 @@
             try {
                 const f = readConfig(file);
                 const hit = add(f.subject);
-                if (hit) hit.lectures = lectureMap(f, hit.name);
+                if (hit) { hit.lectures = lectureMap(f, hit.name); if (!hit.fileCfg) hit.fileCfg = f; }
             } catch (e) { console.info('[linked pages] subject file not loaded, skipped: ' + file); }
         });
         (cfg.questions || []).forEach(q => add(single && single.name ? single : q.s));   // 3) any other subject used by a question
@@ -168,7 +168,7 @@
             const key = idx + '|' + Number(q.n);
             if (seen.has(key)) errors.push('Number ' + q.n + ' is used twice for ' + subs[idx].name + ' in this year file.');
             seen.add(key);
-            mine.push({ idx, item: Object.assign({}, q, { s: subs[idx].name, srcN: q.n, n: offsetFor(subs[idx].name) + Number(q.n), practical: !!(q.practical || cfg.practical) }) });
+            mine.push({ idx, item: Object.assign({}, q, { s: subs[idx].name, srcN: q.n, n: offsetFor(subs[idx].name) + Number(q.n), practical: !!(q.practical || cfg.practical), __yearLabel: String(cfg.year || '').trim(), __yearNum: Number(q.n) }) });
         });
         const count = subs.map(() => 0);
         mine.forEach(m => count[m.idx]++);
@@ -189,6 +189,36 @@
         cfg.questions = questions;
         cfg.subjects  = subjects;
         cfg.lectures  = lecturesOut;
+        /* Number of a question on its SUBJECT page (Q21 (S)). Worked out only when the details popup is opened,
+           by counting the subject file's year files in the same order the subject page uses. */
+        window.__quizSubjectNumber = function (item) {
+            try {
+                const sub = subs.find(x => norm(x.name) === norm(item.s));
+                if (!sub || !sub.fileCfg) return null;
+                const ownLabel = norm(cfg.year);
+                const doneF = new Set(), doneY = new Set();
+                let count = 0;
+                for (const src of (sub.fileCfg.yearFiles || [])) {
+                    const file = fileOf(src);
+                    if (!file || doneF.has(file)) continue;
+                    doneF.add(file);
+                    let yf;
+                    try { yf = readConfig(file); } catch (e) { continue; }
+                    const label = String(yf.year || '').trim();
+                    if (!label || doneY.has(norm(label))) continue;
+                    doneY.add(norm(label));
+                    const isOwn = norm(label) === ownLabel;
+                    for (const q of (yf.questions || [])) {
+                        if (norm(subjectName(q.s)) !== norm(sub.name)) continue;
+                        if (!isFinite(Number(q.n))) continue;
+                        count++;
+                        if (isOwn && Number(q.n) === Number(item.__yearNum)) return count;
+                    }
+                    if (isOwn) return null;
+                }
+            } catch (e) {}
+            return null;
+        };
         return;
     }
 
@@ -220,11 +250,11 @@
             seen.add(Number(q.n));
             const key = base + Number(q.n);
             keys.push(key);
-            questions.push(Object.assign({}, q, { s: wantedName, srcN: q.n, n: key, practical: !!(q.practical || f.practical) }));
+            questions.push(Object.assign({}, q, { s: wantedName, srcN: q.n, n: key, practical: !!(q.practical || f.practical), __yearLabel: label, __yearNum: Number(q.n) }));
         });
         if (keys.length) years.push({ year: label, number: keys });   // numbers are listed, so the year filter works unchanged
     });
-    questions.forEach((q, i) => { q.num = i + 1; });                  // subject page: numbered 1, 2, 3 ... to the end (year pages keep the written numbers)
+    questions.forEach((q, i) => { q.num = i + 1; q.__subjNum = i + 1; });                  // subject page: numbered 1, 2, 3 ... to the end (year pages keep the written numbers)
     cfg.years = years;
     cfg.questions = questions;
 })();
@@ -911,7 +941,7 @@ function closeItemMenu() {
         m.classList.remove('open');                  // quick shrink-out, then remove
         setTimeout(() => m.remove(), 180);
     }
-    document.querySelectorAll('.item-menu-btn.menu-open').forEach(b => b.classList.remove('menu-open'));
+    document.querySelectorAll('.item-menu-btn.menu-open, .details-btn.menu-open').forEach(b => b.classList.remove('menu-open'));
 }
 function openItemMenu(btn, ev) {
     if (ev) { ev.stopPropagation(); ev.preventDefault(); }
@@ -957,6 +987,60 @@ document.addEventListener('click', function (e) {
 window.addEventListener('resize', closeItemMenu);
 document.addEventListener('scroll', function (e) { if (document.getElementById('item-menu') && !(e.target.closest && e.target.closest('.item-menu'))) closeItemMenu(); }, true);
 
+
+/* ===== Three-dot DETAILS popup under every question (Block / Subject / Lecture / Year / Number) ===== */
+function detailsBtnHtml(n) {
+    return `<button type="button" class="icon-btn details-btn" data-qn="${n}" onclick="openQDetails(this, event)" title="Details" aria-label="Question details">${DOTS_SVG}</button>`;
+}
+function qdEsc(t) { return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function questionDetailRows(item) {
+    const rows = [];
+    const block = String(QUIZ.block || QUIZ.title || '').replace(/[^\x20-\x7E]+/g, '').trim();
+    if (block) rows.push(['Block', block]);
+    rows.push(['Subject', item.s]);
+    const lecName = (lectures[item.s] || {})[item.l];
+    const lec = lecName ? lecName : (item.l != null && item.l !== '' ? 'Lecture ' + item.l : '');
+    if (lec) rows.push(['Lecture', lec]);
+    const yLabel = item.__yearLabel || String(QUIZ.year || '').trim();
+    if (yLabel) rows.push(['Year', yLabel]);
+    if (item.__yearNum != null) {
+        let sN = item.__subjNum;
+        if (sN == null && typeof window.__quizSubjectNumber === 'function') sN = window.__quizSubjectNumber(item);
+        rows.push(['Q.Number by year', 'Q' + item.__yearNum]);
+        if (sN != null) rows.push(['Q.Number by subject', 'Q' + sN]);
+    } else {
+        rows.push(['Q.Number', 'Q' + qLabel(item)]);
+    }
+    return rows;
+}
+function openQDetails(btn, ev) {
+    if (ev) { ev.stopPropagation(); ev.preventDefault(); }
+    const had = btn.classList.contains('menu-open');
+    closeItemMenu();
+    if (had) return;
+    const item = allQuestions.find(q => String(q.n) === String(btn.dataset.qn));
+    if (!item) return;
+    const menu = document.createElement('div');
+    menu.id = 'item-menu';
+    menu.className = 'item-menu q-details';
+    menu.innerHTML = '<div class="qd-title">Details</div>' + questionDetailRows(item).map(r =>
+        `<div class="qd-row"><span class="qd-k">${qdEsc(r[0])}:</span> <span class="qd-v">${qdEsc(r[1])}</span></div>`).join('');
+    menu.addEventListener('click', function (e) { e.stopPropagation(); });
+    document.body.appendChild(menu);
+    btn.classList.add('menu-open');
+    const r = btn.getBoundingClientRect();
+    const mw = menu.offsetWidth, mh = menu.offsetHeight;
+    const vw = document.documentElement.clientWidth, vh = window.innerHeight;
+    let left = Math.min(Math.max(8, r.left - 6), vw - mw - 8);
+    let top = r.top - mh - 2;
+    if (top < 8) top = Math.min(r.bottom + 2, Math.max(8, vh - mh - 8));
+    menu.style.left = left + 'px';
+    menu.style.top = top + 'px';
+    const flipped = top < r.top;
+    menu.style.transformOrigin = (r.left + r.width / 2 - left) + 'px ' + (flipped ? 'calc(100% + 10px)' : '-10px');
+    void menu.offsetWidth;
+    menu.classList.add('open');
+}
 
 function toggleLecturePin(val, ev) {
     if (ev) { ev.stopPropagation(); ev.preventDefault(); }
@@ -1169,7 +1253,7 @@ function renderCaseActionsHtml(mainN) {
             <div class="copy-wrap">
                 <button class="icon-btn copy-btn" onclick="copyCase(this)" title="Copy question">${COPY_SVG}</button>
             </div>
-            <button class="icon-btn pin-btn" data-pinned="${isPinned(mainN)}" onclick="togglePin(${mainN})" title="${isPinned(mainN) ? 'Unpin question' : 'Pin question'}">${isPinned(mainN) ? UNPIN_SVG : PIN_SVG}</button>
+            <button class="icon-btn pin-btn" data-pinned="${isPinned(mainN)}" onclick="togglePin(${mainN})" title="${isPinned(mainN) ? 'Unpin question' : 'Pin question'}">${isPinned(mainN) ? UNPIN_SVG : PIN_SVG}</button>${detailsBtnHtml(mainN)}
         </div>`;
 }
 
@@ -1229,7 +1313,7 @@ function practicalItemHtml(part, label, single, headHtml) {
     const lead = headHtml || (label ? `<span class="p-label"><strong>${label}</strong></span>` : '');
     const copyPin = `
                 <div class="copy-wrap"><button class="icon-btn copy-btn" onclick="copyPractical(this)" title="Copy question">${COPY_SVG}</button></div>
-                <button class="icon-btn pin-btn" data-pinned="${isPinned(part.__n)}" onclick="togglePin(${part.__n})" title="${isPinned(part.__n) ? 'Unpin question' : 'Pin question'}">${isPinned(part.__n) ? UNPIN_SVG : PIN_SVG}</button>`;
+                <button class="icon-btn pin-btn" data-pinned="${isPinned(part.__n)}" onclick="togglePin(${part.__n})" title="${isPinned(part.__n) ? 'Unpin question' : 'Pin question'}">${isPinned(part.__n) ? UNPIN_SVG : PIN_SVG}</button>${detailsBtnHtml(part.__n)}`;
     return `
         <div class="p-item${single ? ' p-item--single' : ''}${headHtml ? ' p-item--inline' : ''}">
             ${lead}<span class="p-q" data-original="${escapeAttr(qHtml)}">${qHtml}</span>
@@ -1261,7 +1345,7 @@ function renderPracticalBlock(div, item) {
     const cardActions = single ? '' : `
             <div class="p-card-actions">
                 <div class="copy-wrap"><button class="icon-btn copy-btn" onclick="copyPractical(this)" title="Copy question">${COPY_SVG}</button></div>
-                <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button>
+                <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button>${detailsBtnHtml(item.n)}
             </div>`;
 
     const words = [caseTxt].concat(single
@@ -1401,14 +1485,14 @@ function renderQuiz() {
                     <div class="copy-wrap">
                         <button class="icon-btn copy-btn" onclick="copyQuestion(this)" title="Copy question">${COPY_SVG}</button>
                     </div>
-                    <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button>
+                    <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button>${detailsBtnHtml(item.n)}
                         </div>`
             : `
                 <button class="eye-btn" data-label="Answer" data-answer="${escapeAttr(isEssay ? item.a : '')}" data-essay="${isEssay}" data-correct="${escapeAttr(item.a)}" data-revealed="false" onclick="toggleAnswer(this)" title="Show answer">${EYE_HIDE_SVG}</button>
                 <div class="copy-wrap">
                     <button class="icon-btn copy-btn" onclick="copyQuestion(this)" title="Copy question">${COPY_SVG}</button>
                 </div>
-                <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button>`;
+                <button class="icon-btn pin-btn" data-pinned="${isPinned(item.n)}" onclick="togglePin(${item.n})" title="${isPinned(item.n) ? 'Unpin question' : 'Pin question'}">${isPinned(item.n) ? UNPIN_SVG : PIN_SVG}</button>${detailsBtnHtml(item.n)}`;
 
         div.innerHTML = `
             <div class="q-text" data-original="${qLabel(item)}. ${item.q}">${qLabel(item)}. ${item.q}</div>
